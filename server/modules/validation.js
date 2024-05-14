@@ -35,12 +35,18 @@ function validateOrdersInput(order, isIdRequired = false) {
         if (!(field in order)) return false;
     }
 
-    if (!(order.date instanceof Date && !isNaN(order.date))) return false;
+    const date = new Date(order.date);
+
+    if (!(date instanceof Date && !isNaN(date))) return false;
+
+    if (date.getFullYear() < 1000 || date.getFullYear() > 9999) return false;
+
     if (typeof order.status !== "string" || order.status.trim() === "") return false;
     if (typeof order.remarks !== "string" || order.remarks.trim() === "") return false;
 
     return true;
 }
+
 
 function validateProductInput(product, isIdRequired = false) {
     if (!product || typeof product !== "object") return false;
