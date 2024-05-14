@@ -3,6 +3,7 @@ const app = express.Router();
 const UsersRoutes = require('./usersRoutes');
 const OrdersRoutes = require('./ordersRoute');
 const ProductsRoutes = require('./productsRoute');
+const EventsRoutes = require('./eventRoutes');
 const LoginRoute = require('./LoginRoute');
 const LoginController = require('../controllers/LoginController');
 
@@ -24,7 +25,7 @@ app.use('/login', LoginRoute);
 app.use('/users', UsersRoutes);
 app.use('/products', ProductsRoutes);
 app.use('/orders', OrdersRoutes);
-// app.use('/comments', CommentsRoutes);
+ app.use('/events',EventsRoutes );
 // app.use('/passwords', PasswordsRoutes);
 
 

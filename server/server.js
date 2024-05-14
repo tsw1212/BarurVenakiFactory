@@ -5,7 +5,7 @@ const router = express.Router();
 const cors = require('cors');
 const db_init = require('./DB_access/initDB')
 require('dotenv').config();
-// db_init.createDB();
+ // db_init.createDB();
 // db_init.createUsersTable();
 // db_init.createOrdersTable();
 // db_init.createEventsTable();
