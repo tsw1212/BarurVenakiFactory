@@ -4,11 +4,15 @@ const EventsController = require("../controllers/eventControllers");
 const validation = require('../modules/validation');
 
 app.get('/', async (req, res) => {
-    try {
-        let events = await EventsController.getAllEvents();
-        res.status(200).json(events);
-    } catch (error) {
-        res.status(500).json({ error: "server internal error" });
+    if (req.securityLevel !== "manager")
+        res.status(401).json({ error: "unauthorized" });
+    else {
+        try {
+            let events = await EventsController.getAllEvents();
+            res.status(200).json(events);
+        } catch (error) {
+            res.status(500).json({ error: "server internal error" });
+        }
     }
 });
 

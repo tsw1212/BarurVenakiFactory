@@ -1,34 +1,23 @@
 const crypto = require('crypto');
-const DB_actions = require('../DB_access/usersDB_handler');
+const DB_actionsUser = require('../DB_access/usersDB_handler');
+const DB_actionsManager = require('../DB_access/managerDB_handler');
 
-const tokens = [];
-
+const tokenActions = require('../modules/token')
 const authenticateUser = async (body) => {
-    let user = await DB_actions.getUserByEmail(body.email);
+    let user = await DB_actionsUser.getUserByEmail(body.email);
     if (user.password == body.password) {
-        return createToken();
+        if (DB_actionsManager.getManagerById(user.id) !== undefined)
+            return tokenActions.createToken("manager");
+        else
+            return tokenActions.createToken("user");
     }
     else {
         return false;
     }
 }
 
-const createToken = () => {
-    const randomString = crypto.randomBytes(32).toString('hex');
-    const timestamp = Math.floor(Date.now() / 1000);
-    const tokenData = `${randomString}.${timestamp}`;
-    const token = crypto.createHash('sha256').update(tokenData).digest('hex');
-    tokens.push(token);
-    return token;
-}
-
-const validateToken = (recievedToken) => {
-    return tokens.find(t => t == recievedToken) ? true : false;
-}
-
 module.exports = {
     authenticateUser,
-    createToken,
-    validateToken
+
 };
 

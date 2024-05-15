@@ -5,22 +5,25 @@ const OrdersRoutes = require('./ordersRoute');
 const ProductsRoutes = require('./productsRoute');
 const EventsRoutes = require('./eventRoutes');
 const LoginRoute = require('./LoginRoute');
-const LoginController = require('../controllers/LoginController');
-
+const tokenActions = require('../modules/token');
+const signupRoute=require('../routes/singUpRoute')
 app.use('/login', LoginRoute);
+app.use('/signup',signupRoute );
 
-
-// app.use((req, res, next) => {
-//     try {
-//         if(LoginController.validateToken(req.get('Authentication-Token')))
-//             next();
-//         else {
-//             res.status(404).json({'error': 'invalid token'});
-//         }
-//     } catch {
-//         res.status(500).json({'error': 'internal server error'});
-//     }
-// })
+app.use((req, res, next) => {
+    try {
+        if(tokenActions.validateToken(req.get('Authentication-Token')))
+            {
+            req.securityLevel=tokenActions.statusToken(req.get('Authentication-Token'));
+            next();
+            }
+        else {
+            res.status(404).json({'error': 'invalid token'});
+        }
+    } catch {
+        res.status(500).json({'error': 'internal server error'});
+    }
+})
 
 app.use('/users', UsersRoutes);
 app.use('/products', ProductsRoutes);
