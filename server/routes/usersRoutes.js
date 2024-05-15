@@ -5,13 +5,17 @@ const validation = require('../modules/validation');
 
 
 app.get('/', async (req, res) => {
-    try {
-        let users = await UsersController.getAllUsers();
-        res.status(200).json(users);
-        res.end();
-    } catch (error) {
-        res.status(500).json({ error: "server internal error" });
-        res.end();
+    if (req.securityLevel !== "manager")
+        res.status(401).json({ error: "unauthorized" });
+    else {
+        try {
+            let users = await UsersController.getAllUsers();
+            res.status(200).json(users);
+            res.end();
+        } catch (error) {
+            res.status(500).json({ error: "server internal error" });
+            res.end();
+        }
     }
 });
 
