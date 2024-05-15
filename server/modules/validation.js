@@ -99,7 +99,8 @@ function validateEventsInput(event, isIdRequired = false) {
 
     if (typeof event.orderId !== "number" || event.orderId <= 0) return false;
     if (typeof event.text !== "string" || event.text.trim() === "") return false;
-    if (!(event.date instanceof Date && !isNaN(event.date))) return false;
+    const date = new Date(event.date);
+    if (!(date instanceof Date && !isNaN(date))) return false;
 
     return true;
 }
