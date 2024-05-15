@@ -31,6 +31,9 @@ app.get('/:id', async (req, res) => {
 });
 
 app.post('/', async (req, res) => {
+    if (req.securityLevel !== "manager")
+        res.status(401).json({ error: "unauthorized" });
+    else {
     try {
         const event = req.body;
         if (!validation.validateEventsInput(event)) {
@@ -42,9 +45,13 @@ app.post('/', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: "server internal error" });
     }
+}
 });
 
 app.put('/:id', async (req, res) => {
+    if (req.securityLevel !== "manager")
+        res.status(401).json({ error: "unauthorized" });
+    else {
     try {
         const { id } = req.params;
         let updatedEventsData = req.body;
@@ -59,9 +66,13 @@ app.put('/:id', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: "server internal error" });
     }
+}
 });
 
 app.delete('/:id', async (req, res) => {
+    if (req.securityLevel !== "manager")
+        res.status(401).json({ error: "unauthorized" });
+    else {
     try {
         const { id } = req.params;
         if (await EventsController.getEventById(id) === null) {
@@ -73,6 +84,7 @@ app.delete('/:id', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: "server internal error" });
     }
+}
 });
 
 module.exports = app;
