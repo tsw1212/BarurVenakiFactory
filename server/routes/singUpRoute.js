@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
     }
     const token = await tokenActions.createToken("user");   
         const newUser = await UsersController.createUser(user);
-        res.setHeader('Authentication-Token', token);
+        res.setHeader('XAuthentication-Token', token);
         res.setHeader("Access-Control-Expose-Headers", "*");
         res.status(200).json(newUser);
         res.end();

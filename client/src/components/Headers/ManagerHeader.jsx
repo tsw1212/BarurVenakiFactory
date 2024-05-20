@@ -1,6 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../modules/FontAwesome';
+import { NavLink } from 'react-router-dom';
 function ManagerHeader({logOut}) {
   return (
    

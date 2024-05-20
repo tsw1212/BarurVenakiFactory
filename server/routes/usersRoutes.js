@@ -2,6 +2,7 @@ const express = require("express");
 const app = express.Router();
 const UsersController = require("../controllers/usersController");
 const validation = require('../modules/validation');
+const bcrypt = require('bcrypt');
 
 
 app.get('/', async (req, res) => {
@@ -65,7 +66,11 @@ app.post('/', async (req, res) => {
             res.end();
         }
         else {
-            const newUser = await UsersController.createUser(user);
+            const hashedPassword = await bcrypt.hash(user.password, 10);
+            const newUser = await UsersController.createUser({
+                ...user,
+                password: hashedPassword
+            });
             res.status(200).json(newUser);
             res.end();
         }
