@@ -18,7 +18,6 @@ function HomeNavBar({ status, setStatus }) {
     return (
 
         <div>
-
             {status == 'manager' ? < ManagerHeader logOut={logOut}/> : status == "user" ? <UserHeader logOut={logOut}/> : <GuestHeader logOut={logOut}/>}
             <main>
                 <Outlet />
