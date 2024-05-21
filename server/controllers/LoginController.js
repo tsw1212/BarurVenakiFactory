@@ -9,7 +9,9 @@ const bcrypt = require('bcrypt');
 const authenticateUser = async (body) => {
     let passwordData = await DB_actionsPasswords.getPasswordByEmail(body.email);
     if (passwordData && await bcrypt.compare(body.password, passwordData.password)) {
-        if (DB_actionsManager.getManagerById(user.id) !== undefined)
+        const user = await DB_actionsUser.getUserByEmail(passwordData.email);
+        const isManager=await DB_actionsManager.getManagerById(user.id)
+        if (isManager!==undefined) 
             return tokenActions.createToken("manager");
         else
             return tokenActions.createToken("user");
@@ -21,7 +23,7 @@ const authenticateUser = async (body) => {
 const forgotPassword = async (email) => {
     const newPassword = crypto.randomBytes(8).toString('hex');
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-    DB_actionsPasswords.updatePassword({email:email, password:hashedPassword});
+    DB_actionsPasswords.updatePassword({ email: email, password: hashedPassword });
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {

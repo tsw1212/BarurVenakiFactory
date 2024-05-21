@@ -1,20 +1,22 @@
 const express = require('express');
 const app = express.Router();
-const UsersRoutes = require('./usersRoutes');
-const OrdersRoutes = require('./ordersRoute');
-const ProductsRoutes = require('./productsRoute');
-const EventsRoutes = require('./eventRoutes');
-const LoginRoute = require('./LoginRoute');
+const usersRoutes = require('./usersRoutes');
+const ordersRoutes = require('./ordersRoute');
+const passwordsRoutes = require('./passwordsRoutes');
+const productsRoutes = require('./productsRoute');
+const eventsRoutes = require('./eventRoutes');
+const loginRoute = require('./LoginRoute');
 const tokenActions = require('../modules/token');
 const signupRoute=require('../routes/singUpRoute')
-app.use('/login', LoginRoute);
+app.use('/login', loginRoute);
 app.use('/signup',signupRoute );
+app.use('/passwords', passwordsRoutes);
 
 app.use((req, res, next) => {
     try {
-        if(tokenActions.validateToken(req.get('Authentication-Token')))
+        if(tokenActions.validateToken(req.get('XAuthentication-Token')))
             {
-            req.securityLevel=tokenActions.statusToken(req.get('Authentication-Token'));
+            req.securityLevel=tokenActions.statusToken(req.get('XAuthentication-Token'));
             next();
             }
         else {
@@ -25,11 +27,10 @@ app.use((req, res, next) => {
     }
 })
 
-app.use('/users', UsersRoutes);
-app.use('/products', ProductsRoutes);
-app.use('/orders', OrdersRoutes);
- app.use('/events',EventsRoutes );
-// app.use('/passwords', PasswordsRoutes);
+app.use('/users', usersRoutes ); 
+app.use('/products', productsRoutes); 
+app.use('/orders', ordersRoutes );
+ app.use('/events',eventsRoutes );
 
 
 

@@ -1,14 +1,15 @@
 import React from 'react'
 import '../css/Login.css';
 import { useState } from 'react';
-import { NavLink,useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-function Login({ setToken,setStatus }) {
-    const navigate=useNavigate();
+function Login({ setToken, setStatus }) {
+    const navigate = useNavigate();
     const [isForgot, setIsForgot] = useState(false);
     const [input, setInput] = useState({ email: '', password: '' });
     const [sendPasswordEmail, setSendPasswordEmail] = useState('');
-
+    const [resetPasswordForm, setResetPasswordForm] = useState(false);
+    const [resetPassword, setResetPassword] = useState({ password: '', newPassword: '',repeatNewPassword:'' });
 
 
     async function login(ev) {
@@ -38,11 +39,11 @@ function Login({ setToken,setStatus }) {
             }
         }
         catch {
-            alert("An error occurred. Please try again ")
+            alert("ישנה תקלה בבקשה נסה שוב")
         }
     }
 
-    async function handleResetPassword(ev) {
+    async function handleForgotPassword(ev) {
         ev.preventDefault();
         try {
             const response = await fetch("http://localhost:3000/login/forgot-password", {
@@ -50,16 +51,45 @@ function Login({ setToken,setStatus }) {
                 headers: {
                     "Content-type": "application/json",
                 },
-                body: JSON.stringify( {email:sendPasswordEmail}),
+                body: JSON.stringify({ email: sendPasswordEmail }),
             });
             if (!response.ok) {
                 throw response.statusText;
             }
+            setResetPasswordForm(true);
+            setIsForgot(false);
+
         }
         catch {
-            alert("An error occurred. Please try again ")
+            alert("ישנה תקלה בבקשה נסה שוב")
         }
 
+    }
+
+    async function handleResetPassword(ev) {
+        ev.preventDefault();
+        if(resetPassword.newPassword!==resetPassword.repeatNewPassword){
+            alert("הסיסמאות אינן תואמות");
+            return;
+        }
+        const { repeatNewPassword, ...passwordData } = resetPassword;
+        try {
+            const response = await fetch(`http://localhost:3000/passwords/${sendPasswordEmail}`, {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify({...passwordData,email:sendPasswordEmail}),
+            });
+            if (!response.ok) {
+                throw response.statusText;
+            }
+            alert("הסיסמא עודכנה בהצלחה");
+            setResetPasswordForm(false);
+        }
+        catch {
+            alert("ישנה תקלה בבקשה נסה שוב")
+        }
     }
 
     return (
@@ -74,11 +104,19 @@ function Login({ setToken,setStatus }) {
                     <NavLink to={'/signup'} className='goToSignup'> צור חשבון</NavLink>
                 </form>
 
-                {isForgot && <form className='reset-form' onSubmit={handleResetPassword}>
+                {isForgot && !resetPasswordForm && <form className='reset-form' onSubmit={handleForgotPassword}>
                     <p>נא הזן אימייל לאיפוס</p>
-                    <input type="email" name="email" placeholder='אימייל' value={sendPasswordEmail} onChange={(e) =>setSendPasswordEmail(e.target.value)}/>
+                    <input type="email" name="email" placeholder='אימייל' value={sendPasswordEmail} onChange={(e) => setSendPasswordEmail(e.target.value)} />
                     <input type="submit" value="אפס סיסמא" />
                 </form>}
+                {resetPasswordForm && <form className='reset-form' onSubmit={handleResetPassword}>
+                    <p>סיסמת אימות נשלחה למייל שלך </p>
+                    <input type="password" name="auth_password" placeholder='סיסמת אימות' value={resetPassword.password} onChange={(e) => setResetPassword({ ...resetPassword, password: e.target.value })} />
+                    <input type="password" name="new_password" placeholder='סיסמא חדשה' value={resetPassword.newPassword} onChange={(e) => setResetPassword({ ...resetPassword, newPassword: e.target.value })} />
+                    <input type="password" name="repeat_password" placeholder='חזור על הסיסמא' value={resetPassword.repeatNewPassword} onChange={(e) => setResetPassword({ ...resetPassword, repeatNewPassword: e.target.value })} />
+                    <input type="submit" value="שנה סיסמא" />
+                </form>}
+
             </div>
         </div>
     )

@@ -118,6 +118,21 @@ function validateLoginInput(body) {
     return true;
   
   }
+  function validatePasswordInput(passwordData) {
+
+    if (!passwordData || typeof passwordData !== "object") return false;
+    const requiredFields = ["email", "password","newPassword"];
+    requiredFields.forEach((field) => {
+      if (!(field in passwordData)) return false;
+    });
+  
+    if (typeof passwordData.password !== "string" || passwordData.password.trim() === "") return false;
+    if (typeof passwordData.newPassword !== "string" || passwordData.newPassword.trim() === "") return false;
+
+  
+    return true;
+  
+  }
 
 module.exports = {
     validateUserInput,
@@ -125,5 +140,6 @@ module.exports = {
     validateProductInput,
     validateProductOrderInput,
     validateEventsInput,
-    validateLoginInput
+    validateLoginInput,
+    validatePasswordInput
 };
