@@ -6,7 +6,7 @@ async function insertIntoUsers() {
     const sql = 'INSERT INTO Users (name, email, city, street, houseNumber, username, phone1, phone2) VALUES ?';
     const values = [
         ['tzivi', 'tzivish2141@gmail.com', 'New York', '5th Avenue', '101', 'johndoe', '1234567890', '0987654321'],
-        // ['Jane Smith', 'jane.smith@example.com', 'Los Angeles', 'Sunset Blvd', '202', 'janesmith', '2345678901', '']
+        ['Jane Smith', 'jane.smith@example.com', 'Los Angeles', 'Sunset Blvd', '202', 'janesmith', '2345678901', '']
     ];
     connection.query(sql, [values], (err, result) => {
         if (err) throw err;
@@ -33,8 +33,8 @@ async function insertIntoEvents() {
     const connection = connect();
     const sql = 'INSERT INTO Events (orderId, text, date) VALUES ?';
     const values = [
-        [1, 'Order received', new Date()],
-        [2, 'Order shipped', new Date()]
+        [3, 'Order received', new Date()],
+        [3, 'Order shipped', new Date()]
     ];
     connection.query(sql, [values], (err, result) => {
         if (err) throw err;
@@ -61,8 +61,8 @@ async function insertIntoProductOrder() {
     const connection = connect();
     const sql = 'INSERT INTO ProductOrder (orderId, productId, amount) VALUES ?';
     const values = [
-        [1, 1, 2],
-        [2, 2, 3]
+        [3, 1, 2],
+        [4, 2, 3]
     ];
     connection.query(sql, [values], (err, result) => {
         if (err) throw err;
@@ -92,7 +92,7 @@ async function insertIntoPasswords() {
     // Sample data
     const passwords = [
         { email: 'tzivish2141@gmail.com', password: '123' },
-        // { email: 'jane.smith@example.com', password: 'password456' }
+     { email: 'jane.smith@example.com', password: 'password456' }
     ];
 
     // Hash passwords
@@ -110,13 +110,13 @@ async function insertIntoPasswords() {
 
 function insert(params) {
  
-     insertIntoUsers();
-    // insertIntoOrders();
-    // insertIntoEvents();
-    // insertIntoProducts();
-    // insertIntoProductOrder();
+    //  insertIntoUsers();
+    //insertIntoOrders();
+    //  insertIntoEvents();
+    //insertIntoProducts();
+    //insertIntoProductOrder();
     // insertIntoManagers();
-     insertIntoPasswords()
+    //  insertIntoPasswords()
 };
 
 module.exports ={

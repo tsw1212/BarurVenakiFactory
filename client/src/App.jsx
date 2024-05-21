@@ -11,7 +11,7 @@ import Confirmation from './pages/userPages/Confirmation'
 import Product from './components/product/Product'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-
+import Orders from './pages/userPages/Orders'
 function App() {
   const [token, setToken] = useState('')
   const [status, setStatus] = useState('guest')
@@ -28,7 +28,7 @@ function App() {
               <Route path='products/:name' element={<Product status={status} token={token} />} />
               <Route path='allOrders' element={<AllOrders token={token} />} />
               <Route path='userDetails' element={<UserDetails token={token} />} />
-              <Route path='orders' element={<Home token={token} />} />
+              <Route path='orders' element={<Orders token={token} />} />
               <Route path='shopping_cart'>
                 <Route index element={<ShoppingCart />} />
                 <Route path='confirmation' element={<Confirmation />} />

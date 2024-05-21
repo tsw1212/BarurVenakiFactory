@@ -1,7 +1,10 @@
-async function getListProductShort(params) {
+export async  function getListProductShort(token) {
     try {
         const response = await fetch(`http://localhost:3000/products/shortList`, {
             method: "Get",
+            headers: {
+                "XAuthentication-Token":token,
+            },
         });
         if (!response.ok) {
             return {ok: false ,value:null ,err:""};
@@ -16,4 +19,3 @@ async function getListProductShort(params) {
     }
 }
 
-export default {getListProductShort}

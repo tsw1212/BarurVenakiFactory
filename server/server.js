@@ -6,7 +6,7 @@ const cors = require('cors');
 const db_init = require('./DB_access/initDB');
 const insertData=require('./DB_access/insertDB')
 require('dotenv').config();
-//insertData.insert();
+insertData.insert();
 // db_init.createDB();
 // db_init.createUsersTable();
 // db_init.createOrdersTable();
