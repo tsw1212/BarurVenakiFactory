@@ -21,7 +21,7 @@ function App() {
         <Routes>
           <Route path='/'>
             <Route index element={<Navigate to='/home' replace />} />
-            <Route path='home' element={<HomeNavBar token={token} status={status}/>} >
+            <Route path='home' element={<HomeNavBar token={token} status={status} setStatus={setStatus}/>} >
               <Route index element={<Home token={token} />} />
               <Route path='users' element={<Users token={token} />} />
               <Route path='allOrders' element={<AllOrders token={token} />} />

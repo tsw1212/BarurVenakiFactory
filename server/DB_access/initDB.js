@@ -28,11 +28,10 @@ const createUsersTable = () => {
     CREATE TABLE IF NOT EXISTS Users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL unique,
         city VARCHAR(255) NOT NULL,
         street VARCHAR(255) NOT NULL,
         houseNumber VARCHAR(255) NOT NULL,
-        password VARCHAR(255) NOT NULL,
         username VARCHAR(255) NOT NULL,
         phone1 VARCHAR(20) NOT NULL,
         phone2 VARCHAR(20)
@@ -142,6 +141,23 @@ const createManagersTable = () => {
       connection.end();
     });
   };
+
+  const createPasswordsTable = () => {
+    const connection = connect();
+    const createPasswordsTableQuery = `
+      CREATE TABLE IF NOT EXISTS Passwords (
+          email VARCHAR(255)  PRIMARY KEY,
+          password VARCHAR(255) NOT NULL,
+          FOREIGN KEY (email) REFERENCES Users(email) ON DELETE CASCADE
+      )
+    `;
+  
+    connection.query(createPasswordsTableQuery, (err, result) => {
+      if (err) throw err;
+      console.log("passwords table has been created successfully");
+      connection.end();
+    });
+  };
   
 
 
@@ -153,5 +169,6 @@ module.exports = {
     createProductOrderTable,
     createEventsTable,
     createManagersTable,
-    createOrdersTable
+    createOrdersTable,
+    createPasswordsTable
 };

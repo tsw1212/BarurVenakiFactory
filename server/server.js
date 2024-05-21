@@ -3,20 +3,23 @@ const app = express();
 const router = express.Router();
  const allRoutes = require('./routes/AllRoutes');
 const cors = require('cors');
-const db_init = require('./DB_access/initDB')
+const db_init = require('./DB_access/initDB');
+const insertData=require('./DB_access/insertDB')
 require('dotenv').config();
- // db_init.createDB();
+//insertData.insert();
+// db_init.createDB();
 // db_init.createUsersTable();
 // db_init.createOrdersTable();
 // db_init.createEventsTable();
 // db_init.createProductsTable();
 // db_init.createProductOrderTable();
 // db_init.createManagersTable();
-// Middleware
+// db_init.createPasswordsTable();
+
 app.use (cors ({
     origin: 'http://localhost:5173', 
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization', "XAuthentication-Token", "Access-Control-Expose-Headers"],
+    allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization', "XAuthentication-Token", "Access-Control-Expose-Headers","XSecurity-Level"],
     credentials: true}))
 
 app.use(express.json());
