@@ -1,5 +1,5 @@
 
-.login_container {
+.signup_container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,7 +10,7 @@
     height: auto;
   }
   
-  .login_form {
+  .signup_form {
     direction: rtl;
     width: 100%;
     display: flex;
@@ -45,46 +45,17 @@
     background-color: #027b75;
   }
   
-  .forgotPassButton {
-    margin-top: 10px;
-    color: #025a56;
-    cursor: pointer;
-  }
-  .goToSignup:hover{
-    color: #025a56;
-
-  }
-  .reset-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    border-top: 1px solid #ccc;
-    margin-bottom: 0;
-
-  }
-  
-  .reset-form p {
-    margin-bottom: 2vw;
-    margin-top: 4vw;
-  }
-  
-  .reset-form input[type="email"] {
-    background-color: #e3e6fa;
-    width: 100%;
-    padding: 3%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    margin-bottom: 3%;
-  }
-  .goToSignup{
+  .goToLogin{
     color: black;
   }
+
+  .goToLogin:hover{
+    color: #025a56;
+
+  }
   
-  @media (max-width: 768px){
-    .login_container{
+  @media (max-width: 760px){
+    .signup_container{
       width: 60vw;
       margin-left: 4vw;
       margin-top: 10vw;

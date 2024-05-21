@@ -33,7 +33,7 @@ function App() {
               <Route path='orders' element={<Home token={token} />} />
             </Route>
             <Route path='login' element={<Login setToken={setToken} setStatus={setStatus}/>} />
-            <Route path='signup' element={<Signup setToken={setToken} />} />
+            <Route path='signup' element={<Signup setToken={setToken} setStatus={setStatus}/>} />
           </Route>
         </Routes>
       </BrowserRouter >
