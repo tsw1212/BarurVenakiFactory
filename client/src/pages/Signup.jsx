@@ -1,9 +1,61 @@
-import React from 'react'
+import { name } from 'nodeman/lib/mustache'
+import React, { useState } from 'react'
+import { NavLink,useNavigate } from 'react-router-dom';
+import '../css/signup.css';
 
-function Signup() {
+function Signup({setToken,setStatus}) {
+  const navigate=useNavigate();
+  const [newUser, setNewUser] = useState({ name: '', email: '', city: '', street: '', houseNumber: '', username: '', phone1: '', phone2: '', password: '' });
+
+  async function signup(ev) {
+    ev.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/signup", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+      if (!response.ok) {
+        throw response.statusText;
+      }
+      const data = await response.json();
+      const token = response.headers.get('XAuthentication-Token');
+      const status = response.headers.get('XSecurity-Level');
+      if (data) {
+        localStorage.setItem("currentUser", JSON.stringify(data));
+        setToken(token);
+        await setStatus(status);
+        navigate(`/`);
+      }
+      else {
+        alert("אחד מנתונים שהכנסתה שגוי. נסה שוב")
+      }
+    }
+    catch {
+      alert("ישנה תקלה בבקשה נסה שוב")
+    }
+  }
   return (
-    <div>
-      
+    <div className='body'>
+      <div className='signup_container'>
+        < form onSubmit={signup} className='signup_form'>
+          <h3>הזן פרטי משתמש</h3>
+          <input type="text" name='name' placeholder='שם' value={newUser.name} onChange={(e) => setNewUser({ ...newUser, name: e.target.value })} required />
+          <input type="text" name='username' placeholder='שם משתמש' value={newUser.username} onChange={(e) => setNewUser({ ...newUser, username: e.target.value })} required />
+          <input type="password" name='password' placeholder='סיסמא' value={newUser.password} onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} required />
+          <input type="email" name='email' placeholder='אמייל' value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} required  />
+          <input type="text" name='city' placeholder='עיר' value={newUser.city} onChange={(e) => setNewUser({ ...newUser, city: e.target.value })} required />
+          <input type="text" name='street' placeholder='רחוב' value={newUser.street} onChange={(e) => setNewUser({ ...newUser, street: e.target.value })} required />
+          <input type="number" name='houseNumber' placeholder='מספר בית' value={newUser.houseNumber} onChange={(e) => setNewUser({ ...newUser, houseNumber: e.target.value })} required />
+          <input type="text" name='phone1' placeholder='מספר טלפון' value={newUser.phone1} onChange={(e) => setNewUser({ ...newUser, phone1: e.target.value })} required />
+          <input type="text" name='phone2' placeholder='טלפון נוסף' value={newUser.phone2} onChange={(e) => setNewUser({ ...newUser, phone2: e.target.value })} />
+
+          <input type="submit" value="צור חשבון" />
+          <NavLink to={'/login'} className='goToLogin'> היכנס לחשבון קיים</NavLink>
+        </form>
+      </div>
     </div>
   )
 }
