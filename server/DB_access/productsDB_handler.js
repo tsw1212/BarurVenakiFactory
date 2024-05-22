@@ -63,7 +63,34 @@ async function getAllProducts() {
         });
     });
 }
-
+async function getAllShortListProducts() {
+    return new Promise((resolve, reject) => {
+        const connection = Connect();
+        const sql = `
+            SELECT name, 
+                   imgUrl, 
+                   MIN(price) AS minPrice, 
+                   MAX(price) AS maxPrice 
+            FROM Products 
+            GROUP BY name, imgUrl
+        `;
+        connection.query(sql, (err, result) => {
+            connection.end();
+            if (err) {
+                reject(err);
+            } else {
+                // Format the result into the desired structure
+                const groupedProducts = result.map(row => ({
+                    name: row.name,
+                    picture: row.imgUrl,
+                    minPrice: row.minPrice,
+                    maxPrice: row.maxPrice
+                }));
+                resolve(groupedProducts);
+            }
+        });
+    });
+}
 async function getProductById(id) {
     return new Promise((resolve, reject) => {
         const connection = Connect();
@@ -84,5 +111,6 @@ module.exports = {
    getAllProducts,
    getProductById,
    deleteProduct,
+   getAllShortListProducts,
    updateProduct
 };

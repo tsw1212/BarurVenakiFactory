@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,19 +14,21 @@ export default function ProductShort({ productData, status }) {
     <NavLink to={`products/${productData.name}`}>
       <Card sx={{ maxWidth: 345 }} >
         <CardActionArea>
-          <CardMedia
+          {/* <CardMedia
             component="img"
             height="140"
             image={productData.image}
             alt={productData.name}
-          />
+          /> */}
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {productData.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              טווח מחירים
-              {productData.minPrice}-{productData.maxPrice}₪
+              {productData.minPrice == productData.maxPrice ?
+                <h5>מחיר {productData.minPrice}</h5> :
+                <p>טווח מחירים {productData.minPrice}-{productData.maxPrice}₪</p>
+              }
             </Typography>
           </CardContent>
         </CardActionArea>

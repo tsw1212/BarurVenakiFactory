@@ -8,6 +8,9 @@ const ProductsController = {
     getAllProducts: async () => {
         return await DB_actions.getAllProducts();
     },
+    getAllShortListProducts: async () => {
+        return await DB_actions.getAllShortListProducts();
+    },
 
     getProductById: async (id) => {
         return await DB_actions.getProductById(id);

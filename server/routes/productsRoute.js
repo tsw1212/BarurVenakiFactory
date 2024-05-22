@@ -11,6 +11,14 @@ app.get('/', async (req, res) => {
         res.status(500).json({ error: "server internal error" });
     }
 });
+app.get('/shortList', async (req, res) => {
+    try {
+        let products = await ProductsController.getAllShortListProducts();
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({ error: "server internal error" });
+    }
+});
 
 app.get('/:id', async (req, res) => {
     try {

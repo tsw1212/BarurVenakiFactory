@@ -33,8 +33,8 @@ async function insertIntoEvents() {
     const connection = connect();
     const sql = 'INSERT INTO Events (orderId, text, date) VALUES ?';
     const values = [
-        [3, 'Order received', new Date()],
-        [3, 'Order shipped', new Date()]
+        [1, 'Order received', new Date()],
+        [2, 'Order shipped', new Date()]
     ];
     connection.query(sql, [values], (err, result) => {
         if (err) throw err;
@@ -45,10 +45,10 @@ async function insertIntoEvents() {
 
 async function insertIntoProducts() {
     const connection = connect();
-    const sql = 'INSERT INTO Products (name, weight, package, imgUrl, inventory) VALUES ?';
+    const sql = 'INSERT INTO Products (name, weight, package, imgUrl, inventory, price) VALUES ?';
     const values = [
-        ['Product 1', 1.00, 'Box', 'http://example.com/img1.jpg', 100],
-        ['Product 2', 2.00, 'Bag', 'http://example.com/img2.jpg', 200]
+        ['Product 1', 1.00, 'Box', 'http://example.com/img1.jpg', 100,10.2],
+        ['Product 2', 2.00, 'Bag', 'http://example.com/img2.jpg', 200, 12.5]
     ];
     connection.query(sql, [values], (err, result) => {
         if (err) throw err;
@@ -61,8 +61,8 @@ async function insertIntoProductOrder() {
     const connection = connect();
     const sql = 'INSERT INTO ProductOrder (orderId, productId, amount) VALUES ?';
     const values = [
-        [3, 1, 2],
-        [4, 2, 3]
+        [1, 1, 2],
+        [1, 2, 3]
     ];
     connection.query(sql, [values], (err, result) => {
         if (err) throw err;
@@ -110,13 +110,13 @@ async function insertIntoPasswords() {
 
 function insert(params) {
  
-    //  insertIntoUsers();
-    //insertIntoOrders();
-    //  insertIntoEvents();
-    //insertIntoProducts();
-    //insertIntoProductOrder();
-    // insertIntoManagers();
-    //  insertIntoPasswords()
+//      insertIntoUsers();
+//     insertIntoOrders();
+// insertIntoEvents();
+//    // insertIntoProducts();
+//     insertIntoProductOrder();
+//     insertIntoManagers();
+//      insertIntoPasswords()
 };
 
 module.exports ={

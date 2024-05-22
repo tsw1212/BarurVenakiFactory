@@ -12,20 +12,20 @@ app.use('/login', loginRoute);
 app.use('/signup',signupRoute );
 app.use('/passwords', passwordsRoutes);
 
-app.use((req, res, next) => {
-    try {
-        if(tokenActions.validateToken(req.get('XAuthentication-Token')))
-            {
-            req.securityLevel=tokenActions.statusToken(req.get('XAuthentication-Token'));
-            next();
-            }
-        else {
-            res.status(404).json({'error': 'invalid token'});
-        }
-    } catch {
-        res.status(500).json({'error': 'internal server error'});
-    }
-})
+// app.use((req, res, next) => {
+//     try {
+//         if(tokenActions.validateToken(req.get('XAuthentication-Token')))
+//             {
+//             req.securityLevel=tokenActions.statusToken(req.get('XAuthentication-Token'));
+//             next();
+//             }
+//         else {
+//             res.status(404).json({'error': 'invalid token'});
+//         }
+//     } catch {
+//         res.status(500).json({'error': 'internal server error'});
+//     }
+// })
 
 app.use('/users', usersRoutes ); 
 app.use('/products', productsRoutes); 

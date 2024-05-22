@@ -94,6 +94,7 @@ const createProductsTable = () => {
           weight DECIMAL(10,2) NOT NULL,
           package VARCHAR(255),
           imgUrl VARCHAR(255),
+          price DECIMAL(10,2) NOT NULL,
           inventory INT
       )
     `;
