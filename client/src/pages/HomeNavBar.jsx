@@ -6,9 +6,10 @@ import GuestHeader from '../components/Headers/GuestHeader'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 
-function HomeNavBar({ status, setStatus }) {
+function HomeNavBar({ status, setStatus,setToken }) {
     const navigate = useNavigate();
     function logOut() {
+        setToken('');
         setStatus("guest");
         localStorage.removeItem('currentUser');
         navigate('/home')

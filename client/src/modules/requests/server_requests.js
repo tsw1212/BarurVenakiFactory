@@ -23,11 +23,13 @@ const request = async (url, method, body = null, token) => {
       }
   
       return {
+        ok: true,
         statusCode: response.status,
         body: responseBody,
       };
     } catch (error) {
       return {
+        ok: false,
         statusCode: error.response ? error.response.status : 500,
         body: { message: error.message },
       };

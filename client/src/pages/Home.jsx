@@ -3,18 +3,21 @@ import { useState ,useEffect} from 'react';
 import '../css/home.css';
 import ProductShort from '../components/product/ProductShort'
 import WorngRequest from '../pages/WorngRequest';
-import { getListProductShort } from '../requests/productsRequests'
+import {getRequest} from '../modules/requests/server_requests'
 let products;
 function Home({ status ,token}) {
   const [showProducts, setShowProducts] = useState([]);
   const [wrongRequest, setWrongRequest] = useState(false);
   useEffect(() => {
     async function fatchData() {
-      let dataRequest = await getListProductShort(token);
+      if(token=="")
+        {
+          
+        }
+      let dataRequest = await getRequest(`http://localhost:3000/products/shortList`,token);
       if (dataRequest.ok) {
-        products = dataRequest.value;
+        products = dataRequest.body;
         setShowProducts(products);
-
       }
       else {
         setWrongRequest(true);
