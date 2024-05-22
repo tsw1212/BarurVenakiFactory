@@ -95,14 +95,14 @@ function Login({ setToken, setStatus }) {
     return (
         <div className='body'>
             <div className='login_container'>
-                < form onSubmit={login} className='login_form'>
+            {!resetPasswordForm&&< form onSubmit={login} className='login_form'>
                     <h3>הזן שם משתמש וסיסמא</h3>
                     <input type="email" name='email' placeholder='אימייל' className='input' value={input.email} onChange={(e) => setInput({ ...input, email: e.target.value })}  />
                     <input type="password" name='password' placeholder='סיסמא' className='input'  value={input.password} onChange={(e) => setInput({ ...input, password: e.target.value })} />
                     <input type="submit" value="היכנס" />
                     <p className='forgotPassButton' onClick={() => setIsForgot(true)}>שכחתי סיסמא</p>
                     <NavLink to={'/signup'} className='goToSignup'> צור חשבון</NavLink>
-                </form>
+                </form>}
 
                 {isForgot && !resetPasswordForm && <form className='reset-form' onSubmit={handleForgotPassword}>
                     <p>נא הזן אימייל לאיפוס</p>
