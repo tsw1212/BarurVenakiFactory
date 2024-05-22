@@ -1,4 +1,5 @@
 const DB_actions = require('../DB_access/productsDB_handler');
+const converts = require('../modules/converts');
 
 const ProductsController = {
     createProduct: async (product) => {
@@ -6,14 +7,29 @@ const ProductsController = {
     },
 
     getAllProducts: async () => {
-        return await DB_actions.getAllProducts();
+        const products= await DB_actions.getAllProducts();
+        const updatedProducts = products.map(async (product) => {
+            const { imageUrl, ...productWithoutImg } = product;
+            const img = await converts.convertUrlToImageFile(imageUrl);
+            return { ...productWithoutImg, img:img };
+        });
+        return updatedProducts;
     },
     getAllShortListProducts: async () => {
-        return await DB_actions.getAllShortListProducts();
+        const products= await DB_actions.getAllShortListProducts();
+        const updatedProducts = products.map(async (product) => {
+            const { imageUrl, ...productWithoutImg } = product;
+            const img = await converts.convertUrlToImageFile(imageUrl);
+            return { ...productWithoutImg, img:img };
+        });
+        return updatedProducts;
     },
 
     getProductById: async (id) => {
-        return await DB_actions.getProductById(id);
+        const product = await DB_actions.getProductById(id);
+        const {imageUrl,productWithoutImg}=product;
+        const img=converts.convertUrlToImageFile(imageUrl);
+        return {...productWithoutImg,img:img};
     },
 
     updateProduct: async (updatedProductData) => {

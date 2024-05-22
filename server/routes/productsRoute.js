@@ -27,7 +27,7 @@ app.get('/:id', async (req, res) => {
         if (!product) {
             res.status(404).json({ error: "product not found" });
         } else {
-            res.status(200).json(product);
+            res.status(200).json(product);      
         }
     } catch (error) {
         res.status(500).json({ error: "server internal error" });

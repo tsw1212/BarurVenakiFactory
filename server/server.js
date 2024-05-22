@@ -9,12 +9,12 @@ require('dotenv').config();
 insertData.insert();
 // db_init.createDB();
 // db_init.createUsersTable();
-// db_init.createOrdersTable();
-// db_init.createEventsTable();
- //db_init.createProductsTable();
+//  db_init.createOrdersTable();
+//  db_init.createEventsTable();
+//  db_init.createProductsTable();
 // db_init.createProductOrderTable();
 // db_init.createManagersTable();
-//db_init.createPasswordsTable();
+// db_init.createPasswordsTable();
 
 app.use (cors ({
     origin: 'http://localhost:5173', 
