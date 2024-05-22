@@ -34,8 +34,8 @@ function App() {
                 <Route path='confirmation' element={<Confirmation />} />
               </Route>
             </Route>
-            <Route path='login' element={<Login setToken={setToken} setStatus={setStatus}/>} />
-            <Route path='signup' element={<Signup setToken={setToken} setStatus={setStatus}/>} />
+            <Route path='login' element={<Login token={token} setToken={setToken} setStatus={setStatus}/>} />
+            <Route path='signup' element={<Signup token={token} setToken={setToken} setStatus={setStatus}/>} />
           </Route>
         </Routes>
       </BrowserRouter >

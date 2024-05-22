@@ -23,17 +23,19 @@ const request = async (url, method, body = null, token = null) => {
     if (!response.ok) {
       throw new Error(responseBody.message || response.statusText);
     }
-
+   const token= response.headers.get('XAuthentication-Token');
     return {
       ok: true,
       statusCode: response.status,
       body: responseBody,
+      token:token
     };
   } catch (error) {
     return {
       ok: false,
       statusCode: error.response ? error.response.status : 500,
       body: { message: error.message },
+      token:""
     };
   }
 };
