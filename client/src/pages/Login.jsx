@@ -2,6 +2,7 @@ import React from 'react'
 import '../css/Login.css';
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { postRequest, putRequest } from '../modules/requests/server_requests.js';
 
 function Login({ setToken, setStatus }) {
     const navigate = useNavigate();
@@ -9,96 +10,60 @@ function Login({ setToken, setStatus }) {
     const [input, setInput] = useState({ email: '', password: '' });
     const [sendPasswordEmail, setSendPasswordEmail] = useState('');
     const [resetPasswordForm, setResetPasswordForm] = useState(false);
-    const [resetPassword, setResetPassword] = useState({ password: '', newPassword: '',repeatNewPassword:'' });
+    const [resetPassword, setResetPassword] = useState({ password: '', newPassword: '', repeatNewPassword: '' });
 
 
     async function login(ev) {
         ev.preventDefault();
-        try {
-            const response = await fetch("http://localhost:3000/login", {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify(input),
-            });
-            if (!response.ok) {
-                throw response.statusText;
-            }
-            const data = await response.json();
-            const token = response.headers.get('XAuthentication-Token');
-            const status = response.headers.get('XSecurity-Level');
-            if (data.length != 0) {
-                localStorage.setItem("currentUser", JSON.stringify(data));
-                setToken(token);
-                await setStatus(status);
-                navigate(`/`);
-            }
-            else {
-                alert("One of the data entered is incorrect. Please try again.")
-            }
-        }
-        catch {
+        const dataRequest = postRequest("http://localhost:3000/login", JSON.stringify(input), token)
+        if (!dataRequest.ok) {
             alert("ישנה תקלה בבקשה נסה שוב")
+        }
+        if (dataRequest != 0) {
+            localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
+            setToken(dataRequest.token);
+            await setStatus(dataRequest.status);
+            navigate(`/`);
+        }
+        else {
+            alert("One of the data entered is incorrect. Please try again.")
         }
     }
 
     async function handleForgotPassword(ev) {
         ev.preventDefault();
-        try {
-            const response = await fetch("http://localhost:3000/login/forgot-password", {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify({ email: sendPasswordEmail }),
-            });
-            if (!response.ok) {
-                throw response.statusText;
-            }
-            setResetPasswordForm(true);
-            setIsForgot(false);
-
-        }
-        catch {
+        const dataRequest = postRequest("http://localhost:3000/login/forgot-password", JSON.stringify({ email: sendPasswordEmail }), token);
+        if (!dataRequest.ok) {
             alert("ישנה תקלה בבקשה נסה שוב")
-        }
 
+        }
+        setResetPasswordForm(true);
+        setIsForgot(false);
     }
 
     async function handleResetPassword(ev) {
         ev.preventDefault();
-        if(resetPassword.newPassword!==resetPassword.repeatNewPassword){
+        if (resetPassword.newPassword !== resetPassword.repeatNewPassword) {
             alert("הסיסמאות אינן תואמות");
             return;
         }
         const { repeatNewPassword, ...passwordData } = resetPassword;
-        try {
-            const response = await fetch(`http://localhost:3000/passwords/${sendPasswordEmail}`, {
-                method: "PUT",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify({...passwordData,email:sendPasswordEmail}),
-            });
-            if (!response.ok) {
-                throw response.statusText;
-            }
-            alert("הסיסמא עודכנה בהצלחה");
-            setResetPasswordForm(false);
-        }
-        catch {
+        const dataRequest = putRequest(`http://localhost:3000/passwords/${sendPasswordEmail}`, JSON.stringify({ ...passwordData, email: sendPasswordEmail }), token);
+        if (!dataRequest.ok) {
             alert("ישנה תקלה בבקשה נסה שוב")
+
         }
+        alert("הסיסמא עודכנה בהצלחה");
+        setResetPasswordForm(false);
     }
 
     return (
         <div className='body'>
             <div className='login_container'>
-            {!resetPasswordForm&&< form onSubmit={login} className='login_form'>
+                {!resetPasswordForm && < form onSubmit={login} className='login_form'>
                     <h3>הזן שם משתמש וסיסמא</h3>
-                    <input type="email" name='email' placeholder='אימייל' className='input' value={input.email} onChange={(e) => setInput({ ...input, email: e.target.value })}  />
-                    <input type="password" name='password' placeholder='סיסמא' className='input'  value={input.password} onChange={(e) => setInput({ ...input, password: e.target.value })} />
+                    <input type="email" name='email' placeholder='אימייל' className='input' value={input.email} onChange={(e) => setInput({ ...input, email: e.target.value })} />
+                    <input type="password" name='password' placeholder='סיסמא' className='input' value={input.password} onChange={(e) => setInput({ ...input, password: e.target.value })} />
                     <input type="submit" value="היכנס" />
                     <p className='forgotPassButton' onClick={() => setIsForgot(true)}>שכחתי סיסמא</p>
                     <NavLink to={'/signup'} className='goToSignup'> צור חשבון</NavLink>

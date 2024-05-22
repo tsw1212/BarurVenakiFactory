@@ -1,42 +1,31 @@
 import { name } from 'nodeman/lib/mustache'
 import React, { useState } from 'react'
-import { NavLink,useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import '../css/signup.css';
+import { postRequest } from '../modules/requests/server_requests.js';
 
-function Signup({setToken,setStatus}) {
-  const navigate=useNavigate();
+function Signup({ setToken, setStatus }) {
+  const navigate = useNavigate();
   const [newUser, setNewUser] = useState({ name: '', email: '', city: '', street: '', houseNumber: '', username: '', phone1: '', phone2: '', password: '' });
 
   async function signup(ev) {
     ev.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3000/signup", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      });
-      if (!response.ok) {
-        throw response.statusText;
-      }
-      const data = await response.json();
-      const token = response.headers.get('XAuthentication-Token');
-      const status = response.headers.get('XSecurity-Level');
-      if (data) {
-        localStorage.setItem("currentUser", JSON.stringify(data));
-        setToken(token);
-        await setStatus(status);
-        navigate(`/`);
-      }
-      else {
-        alert("אחד מנתונים שהכנסתה שגוי. נסה שוב")
-      }
-    }
-    catch {
+    const dataRequest = postRequest("http://localhost:3000/signup", JSON.stringify(newUser), token);
+    if (!dataRequest.ok) {
       alert("ישנה תקלה בבקשה נסה שוב")
     }
+    if (dataRequest.body) {
+      localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
+      setToken(dataRequest.token);
+      await setStatus(dataRequest.status);
+      navigate(`/`);
+    }
+    else {
+      alert("אחד מנתונים שהכנסתה שגוי. נסה שוב")
+    }
   }
+
+
   return (
     <div className='body'>
       <div className='signup_container'>
@@ -45,7 +34,7 @@ function Signup({setToken,setStatus}) {
           <input type="text" name='name' placeholder='שם' value={newUser.name} onChange={(e) => setNewUser({ ...newUser, name: e.target.value })} required />
           <input type="text" name='username' placeholder='שם משתמש' value={newUser.username} onChange={(e) => setNewUser({ ...newUser, username: e.target.value })} required />
           <input type="password" name='password' placeholder='סיסמא' value={newUser.password} onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} required />
-          <input type="email" name='email' placeholder='אמייל' value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} required  />
+          <input type="email" name='email' placeholder='אמייל' value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} required />
           <input type="text" name='city' placeholder='עיר' value={newUser.city} onChange={(e) => setNewUser({ ...newUser, city: e.target.value })} required />
           <input type="text" name='street' placeholder='רחוב' value={newUser.street} onChange={(e) => setNewUser({ ...newUser, street: e.target.value })} required />
           <input type="number" name='houseNumber' placeholder='מספר בית' value={newUser.houseNumber} onChange={(e) => setNewUser({ ...newUser, houseNumber: e.target.value })} required />
