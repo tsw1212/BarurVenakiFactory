@@ -17,6 +17,8 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/:id', async (req, res) => {
+    if (req.securityLevel !== "manager")
+        res.status(401).json({ error: "unauthorized" });
     try {
         const { id } = req.params;
         let event = await EventsController.getEventById(id);

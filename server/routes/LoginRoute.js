@@ -3,7 +3,6 @@ const router = express.Router();
 const tokenActions = require("../modules/token");
 const validation = require("../modules/validation");
 const UsersController = require("../controllers/usersController");
-
 const loginController = require('../controllers/LoginController');
 
 

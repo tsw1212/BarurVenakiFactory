@@ -6,7 +6,6 @@ const passwordsController = require("../controllers/passwordsController");
 const validation = require('../modules/validation');
 
 app.put('/:id', async (req, res) => {
-    
     try {
         let updatedPasswordData = req.body;
         if (!validation.validatePasswordInput(updatedPasswordData, true)) {

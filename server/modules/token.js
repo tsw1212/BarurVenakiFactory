@@ -1,7 +1,8 @@
 const crypto = require('crypto');
 
 const usersTokens = [];
-const managersTokens=[]
+const managersTokens=[];
+const guest_token='jbhu478gdb9fvbvu96g';
 const createToken = (status) => {
     const randomString = crypto.randomBytes(32).toString('hex');
     const timestamp = Math.floor(Date.now() / 1000);
@@ -20,17 +21,21 @@ const createToken = (status) => {
 }
 
 const validateToken = (recievedToken) => {
-    return managersTokens.find(t => t == recievedToken)||usersTokens.find(t=>t==recievedToken) ? true : false;
+    return managersTokens.find(t => t == recievedToken)||usersTokens.find(t=>t==recievedToken)||recievedToken==guest_token ? true : false;
 }
 const statusToken=(recievedToken)=>{
     if( managersTokens.find(t => t == recievedToken))
-        return "manager"
+        return "manager";
     else if(usersTokens.find(t=>t==recievedToken))
-        return "user"
+        return "user";
+    else if(recievedToken==guest_token){
+        return "guest";
+    }
     
 }
 module.exports = {
     createToken,
     validateToken,
-    statusToken
+    statusToken,
+    guest_token
 };

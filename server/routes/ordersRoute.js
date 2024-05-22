@@ -7,16 +7,18 @@ app.get('/', async (req, res) => {
     if (req.securityLevel !== "manager")
         res.status(401).json({ error: "unauthorized" });
     else {
-    try {
-        let orders = await OrdersController.getAllOrders();
-        res.status(200).json(orders);
-    } catch (error) {
-        res.status(500).json({ error: "server internal error" });
+        try {
+            let orders = await OrdersController.getAllOrders();
+            res.status(200).json(orders);
+        } catch (error) {
+            res.status(500).json({ error: "server internal error" });
+        }
     }
-}
 });
 
 app.get('/:id', async (req, res) => {
+    if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        res.status(401).json({ error: "unauthorized" });
     try {
         const { id } = req.params;
         let order = await OrdersController.getOrderById(id);
@@ -31,6 +33,8 @@ app.get('/:id', async (req, res) => {
 });
 
 app.post('/', async (req, res) => {
+    if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        res.status(401).json({ error: "unauthorized" });
     try {
         const order = req.body;
         if (!validation.validateOrdersInput(order)) {
@@ -45,7 +49,8 @@ app.post('/', async (req, res) => {
 });
 
 app.put('/:id', async (req, res) => {
-    
+    if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        res.status(401).json({ error: "unauthorized" });
     try {
         const { id } = req.params;
         let updatedOrderData = req.body;
@@ -63,7 +68,8 @@ app.put('/:id', async (req, res) => {
 });
 
 app.delete('/:id', async (req, res) => {
-    
+    if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        res.status(401).json({ error: "unauthorized" });
     try {
         const { id } = req.params;
         if (await OrdersController.getOrderById(id) === null) {
