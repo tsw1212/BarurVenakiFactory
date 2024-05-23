@@ -79,7 +79,7 @@ async function getAllShortListProducts() {
             if (err) {
                 reject(err);
             } else {
-                // Format the result into the desired structure
+                // Format the result into the desired 
                 const groupedProducts = result.map(row => ({
                     name: row.name,
                     imgUrl: row.imgUrl,
