@@ -39,8 +39,7 @@ router.post('/forgot-password', async (req, res) => {
   }
   try{
     loginController.forgotPassword(email);
-    res.send('New password has been sent to your email');
-
+    res.status(200).json('New password has been sent to your email');
   }
   catch(err) {
      res.status(500).send(err.toString());

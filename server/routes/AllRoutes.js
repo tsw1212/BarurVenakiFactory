@@ -7,8 +7,10 @@ const productsRoutes = require('./productsRoute');
 const eventsRoutes = require('./eventRoutes');
 const loginRoute = require('./LoginRoute');
 const tokenActions = require('../modules/token');
-const signupRoute=require('../routes/singUpRoute')
-app.use('/guest_token', loginRoute);
+const signupRoute=require('../routes/singUpRoute');
+const guest_tokenRoute=require('../routes/gueust_token');
+
+app.use('/guest_token', guest_tokenRoute);
 
 app.use((req, res, next) => {
     try {

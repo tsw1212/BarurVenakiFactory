@@ -30,6 +30,7 @@ app.get('/:id', async (req, res) => {
             res.status(200).json(product);      
         }
     } catch (error) {
+        console.log(error.message);
         res.status(500).json({ error: "server internal error" });
     }
 });
@@ -53,9 +54,9 @@ app.post('/', async (req, res) => {
 });
 
 app.put('/:id', async (req, res) => {
-    if (req.securityLevel !== "manager")
-        res.status(401).json({ error: "unauthorized" });
-    else {
+    // if (req.securityLevel !== "manager")
+    //     res.status(401).json({ error: "unauthorized" });
+    // else {
         try {
             const { id } = req.params;
             let updatedProductData = req.body;
@@ -70,7 +71,7 @@ app.put('/:id', async (req, res) => {
         } catch (error) {
             res.status(500).json({ error: "server internal error" });
         }
-    }
+    // }
 });
 
 app.delete('/:id', async (req, res) => {

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { postRequest, putRequest } from '../modules/requests/server_requests.js';
 
-function Login({ setToken, setStatus }) {
+function Login({ setToken, setStatus, token }) {
     const navigate = useNavigate();
     const [isForgot, setIsForgot] = useState(false);
     const [input, setInput] = useState({ email: '', password: '' });
@@ -15,13 +15,13 @@ function Login({ setToken, setStatus }) {
 
     async function login(ev) {
         ev.preventDefault();
-        const dataRequest = postRequest("http://localhost:3000/login", JSON.stringify(input), token)
+        const dataRequest = await postRequest("http://localhost:3000/login", input, token)
         if (!dataRequest.ok) {
             alert("ישנה תקלה בבקשה נסה שוב")
         }
         if (dataRequest != 0) {
             localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
-            setToken(dataRequest.token);
+            await setToken(dataRequest.token);
             await setStatus(dataRequest.status);
             navigate(`/`);
         }
@@ -32,13 +32,15 @@ function Login({ setToken, setStatus }) {
 
     async function handleForgotPassword(ev) {
         ev.preventDefault();
-        const dataRequest = postRequest("http://localhost:3000/login/forgot-password", JSON.stringify({ email: sendPasswordEmail }), token);
+        const dataRequest = await postRequest("http://localhost:3000/login/forgot-password", { email: sendPasswordEmail }, token);
         if (!dataRequest.ok) {
             alert("ישנה תקלה בבקשה נסה שוב")
 
         }
-        setResetPasswordForm(true);
-        setIsForgot(false);
+        else {
+            setResetPasswordForm(true);
+            setIsForgot(false);
+        }
     }
 
     async function handleResetPassword(ev) {
@@ -48,13 +50,26 @@ function Login({ setToken, setStatus }) {
             return;
         }
         const { repeatNewPassword, ...passwordData } = resetPassword;
-        const dataRequest = putRequest(`http://localhost:3000/passwords/${sendPasswordEmail}`, JSON.stringify({ ...passwordData, email: sendPasswordEmail }), token);
+        const dataRequest = await putRequest(`http://localhost:3000/passwords/${sendPasswordEmail}`, { ...passwordData, email: sendPasswordEmail }, token);
         if (!dataRequest.ok) {
             alert("ישנה תקלה בבקשה נסה שוב")
-
         }
-        alert("הסיסמא עודכנה בהצלחה");
-        setResetPasswordForm(false);
+        else {
+            const dataRequest = await postRequest("http://localhost:3000/login", {email:sendPasswordEmail,password:resetPassword.newPassword}, token)
+            if (!dataRequest.ok) {
+                alert("ישנה תקלה בבקשה נסה שוב")
+            }
+            if (dataRequest != 0) {
+                localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
+                await setToken(dataRequest.token);
+                await setStatus(dataRequest.status);
+                navigate(`/`);
+            }
+            else {
+                alert("One of the data entered is incorrect. Please try again.")
+            }
+        }
+
     }
 
     return (

@@ -27,9 +27,9 @@ const ProductsController = {
 
     getProductById: async (id) => {
         const product = await DB_actions.getProductById(id);
-        const {imageUrl,productWithoutImg}=product;
-        const img=converts.convertUrlToImageFile(imageUrl);
-        return {...productWithoutImg,img:img};
+        const { imgUrl, ...productWithoutImg } = product;
+        const img = await converts.convertUrlToImageFile(imgUrl);
+        return { ...productWithoutImg, img: img };
     },
 
     updateProduct: async (updatedProductData) => {

@@ -2,7 +2,6 @@ const express = require("express");
 const app = express.Router();
 const usersController = require("../controllers/usersController");
 const passwordsController = require("../controllers/passwordsController");
-
 const validation = require('../modules/validation');
 
 app.put('/:id', async (req, res) => {

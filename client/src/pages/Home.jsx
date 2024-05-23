@@ -17,14 +17,14 @@ function Home({ status, token, setToken }) {
           await setToken(dataRequest.token);
         }
       }
-      let dataRequest = await getRequest(`http://localhost:3000/products/shortList`, token);
-      if (dataRequest.ok) {
-        products = dataRequest.body;
-        setShowProducts(products);
-      }
-      else {
-        setWrongRequest(true);
-      }
+      // let dataRequest = await getRequest(`http://localhost:3000/products/shortList`, token);
+      // if (dataRequest.ok) {
+      //   products = dataRequest.body;
+      //   setShowProducts(products);
+      // }
+      // else {
+      //   setWrongRequest(true);
+      // }
     }
     fatchData();
   }, [wrongRequest]);

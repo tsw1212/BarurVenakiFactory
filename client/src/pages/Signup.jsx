@@ -4,13 +4,13 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import '../css/signup.css';
 import { postRequest } from '../modules/requests/server_requests.js';
 
-function Signup({ setToken, setStatus }) {
+function Signup({ setToken, setStatus,token }) {
   const navigate = useNavigate();
   const [newUser, setNewUser] = useState({ name: '', email: '', city: '', street: '', houseNumber: '', username: '', phone1: '', phone2: '', password: '' });
 
   async function signup(ev) {
     ev.preventDefault();
-    const dataRequest = postRequest("http://localhost:3000/signup", JSON.stringify(newUser), token);
+    const dataRequest =await postRequest("http://localhost:3000/signup", newUser, token);
     if (!dataRequest.ok) {
       alert("ישנה תקלה בבקשה נסה שוב")
     }

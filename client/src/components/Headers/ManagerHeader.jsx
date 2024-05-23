@@ -9,8 +9,8 @@ function ManagerHeader({logOut}) {
         <header>
             <nav className='nav'>
                 <NavLink to="usersDetails"><FontAwesomeIcon icon="fas fa-user-alt" /></NavLink>
-                <NavLink to="allOrders">orders</NavLink>
-                <NavLink to="allUsers">users</NavLink>
+                <NavLink to="allOrders">הזמנות</NavLink>
+                <NavLink to="allUsers">משתמשים</NavLink>
                 <NavLink to="." onClick={()=>logOut()}><FontAwesomeIcon icon="fas fa-sign-out-alt" /></NavLink >
                 <NavLink to="."> <img src='../../../images/logo.png' alt='logo' />
                 </NavLink>

@@ -9,7 +9,7 @@ function UserHeader({logOut}) {
             <nav className='nav'>
                 <NavLink to="usersDetails"><FontAwesomeIcon icon="fas fa-user-alt" /></NavLink>
                 <NavLink to="shopping_cart"><FontAwesomeIcon icon="fas fa-shopping-cart" /></NavLink>
-                <NavLink to="orders">orders</NavLink>
+                <NavLink to="orders">הזמנות קודמות</NavLink>
                 <NavLink to="." onClick={()=>logOut()}><FontAwesomeIcon icon="fas fa-sign-out-alt" /></NavLink >
                 <NavLink to="."> <img src='../../../images/logo.png' alt='logo' />
                 </NavLink>
