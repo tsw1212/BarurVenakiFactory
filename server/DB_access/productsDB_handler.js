@@ -82,7 +82,7 @@ async function getAllShortListProducts() {
                 // Format the result into the desired structure
                 const groupedProducts = result.map(row => ({
                     name: row.name,
-                    picture: row.imgUrl,
+                    imgUrl: row.imgUrl,
                     minPrice: row.minPrice,
                     maxPrice: row.maxPrice
                 }));

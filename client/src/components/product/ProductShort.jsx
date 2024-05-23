@@ -14,12 +14,12 @@ export default function ProductShort({ productData, status }) {
     <NavLink to={`products/${productData.name}`}>
       <Card sx={{ maxWidth: 345 }} >
         <CardActionArea>
-          {/* <CardMedia
+          <CardMedia
             component="img"
             height="140"
-            image={productData.image}
+            image={`data:'image/png';base64,${productData.img}`}
             alt={productData.name}
-          /> */}
+          />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {productData.name}

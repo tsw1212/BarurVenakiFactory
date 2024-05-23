@@ -17,9 +17,9 @@ function Login({ setToken, setStatus, token }) {
         ev.preventDefault();
         const dataRequest = await postRequest("http://localhost:3000/login", input, token)
         if (!dataRequest.ok) {
-            alert("ישנה תקלה בבקשה נסה שוב")
+            alert("ישנם נתונים שגויים. נסה שוב")
         }
-        if (dataRequest != 0) {
+        else if (dataRequest.body != 0) {
             localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
             await setToken(dataRequest.token);
             await setStatus(dataRequest.status);
@@ -34,7 +34,7 @@ function Login({ setToken, setStatus, token }) {
         ev.preventDefault();
         const dataRequest = await postRequest("http://localhost:3000/login/forgot-password", { email: sendPasswordEmail }, token);
         if (!dataRequest.ok) {
-            alert("ישנה תקלה בבקשה נסה שוב")
+            alert("ישנם נתונים שגויים נסה שוב")
 
         }
         else {
@@ -55,18 +55,18 @@ function Login({ setToken, setStatus, token }) {
             alert("ישנה תקלה בבקשה נסה שוב")
         }
         else {
-            const dataRequest = await postRequest("http://localhost:3000/login", {email:sendPasswordEmail,password:resetPassword.newPassword}, token)
+            const dataRequest = await postRequest("http://localhost:3000/login", { email: sendPasswordEmail, password: resetPassword.newPassword }, token)
             if (!dataRequest.ok) {
                 alert("ישנה תקלה בבקשה נסה שוב")
             }
-            if (dataRequest != 0) {
+            else if (dataRequest.body != 0) {
                 localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
                 await setToken(dataRequest.token);
                 await setStatus(dataRequest.status);
                 navigate(`/`);
             }
             else {
-                alert("One of the data entered is incorrect. Please try again.")
+                alert("ישנם נתונים שגויים נסה שוב")
             }
         }
 
