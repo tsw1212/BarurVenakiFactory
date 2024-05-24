@@ -13,29 +13,30 @@ function Home({ status, token, setToken }) {
     async function fatchData() {
       let updateToken;
       if (token == "") {
-         updateToken = localStorage.getItem("token");
+        updateToken = localStorage.getItem("token");
         if (!updateToken) {
           let dataRequest = await getRequest(`http://localhost:3000/guest_token`);
           if (dataRequest.ok) {
-            await setToken(dataRequest.token);
             localStorage.setItem('token', dataRequest.token);
+            await setToken(dataRequest.token);
           }
         }
-      }
         else {
-         await setToken(updateToken);
-        }
-        let dataRequest = await getRequest(`http://localhost:3000/products/shortList`, token);
-        if (dataRequest.ok) {
-          products = dataRequest.body;
-          setShowProducts(products);
-        }
-        else {
-          setWrongRequest(true);
+          await setToken(updateToken);
         }
       }
       
-    
+      let dataRequest = await getRequest(`http://localhost:3000/products/shortList`, token);
+      if (dataRequest.ok) {
+        products = dataRequest.body;
+        setShowProducts(products);
+      }
+      else {
+        setWrongRequest(true);
+      }
+    }
+
+
     fatchData();
   }, [wrongRequest]);
   return (
