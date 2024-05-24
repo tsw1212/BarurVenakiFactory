@@ -14,7 +14,7 @@ import Signup from './pages/Signup'
 import Orders from './pages/userPages/Orders'
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token') ||"")
-  const [status, setStatus] = useState('guest')
+  const [status, setStatus] = useState(localStorage.getItem('status')||"guest")
 
   return (
     <>

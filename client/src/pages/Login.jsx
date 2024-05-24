@@ -22,6 +22,7 @@ function Login({ setToken, setStatus, token }) {
         else if (dataRequest.body != 0) {
             localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
             localStorage.setItem("token",(dataRequest.token));
+            localStorage.setItem("status",(dataRequest.status));
             await setToken(dataRequest.token);
             await setStatus(dataRequest.status);
             navigate(`/`);
@@ -63,6 +64,7 @@ function Login({ setToken, setStatus, token }) {
             else if (dataRequest.body != 0) {
                 localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
                 localStorage.setItem("token",(dataRequest.token));
+                localStorage.setItem("status",(dataRequest.status));
                 await setToken(dataRequest.token);
                 await setStatus(dataRequest.status);
                 navigate(`/`);
