@@ -73,7 +73,7 @@ function Login({ setToken, setStatus, token }) {
     }
 
     return (
-        <div className='body'>
+        <div className='myDiv'>
             <div className='login_container'>
                 {!resetPasswordForm && < form onSubmit={login} className='login_form'>
                     <h3>הזן שם משתמש וסיסמא</h3>

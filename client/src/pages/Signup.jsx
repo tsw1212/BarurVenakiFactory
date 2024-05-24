@@ -27,7 +27,7 @@ function Signup({ setToken, setStatus,token }) {
 
 
   return (
-    <div className='body'>
+    <div className='myDiv'>
       <div className='signup_container'>
         < form onSubmit={signup} className='signup_form'>
           <h3>הזן פרטי משתמש</h3>

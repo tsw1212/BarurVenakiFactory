@@ -16,6 +16,7 @@ app.get('/shortList', async (req, res) => {
         let products = await ProductsController.getAllShortListProducts();
         res.status(200).json(products);
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: "server internal error" });
     }
 });

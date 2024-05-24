@@ -36,6 +36,8 @@ function Home({ status, token, setToken }) {
           return <ProductShort className="productShort" productData={productData} key={productData.id} status={status} />;
         })}
       </div>
+
+
   )
 }
 
