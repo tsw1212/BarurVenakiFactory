@@ -11,21 +11,31 @@ function Home({ status, token, setToken }) {
   useEffect(() => {
 
     async function fatchData() {
+      let updateToken;
       if (token == "") {
-        let dataRequest = await getRequest(`http://localhost:3000/guest_token`);
-        if (dataRequest.ok) {
-          await setToken(dataRequest.token);
+         updateToken = localStorage.getItem("token");
+        if (!updateToken) {
+          let dataRequest = await getRequest(`http://localhost:3000/guest_token`);
+          if (dataRequest.ok) {
+            await setToken(dataRequest.token);
+            localStorage.setItem('token', dataRequest.token);
+          }
         }
       }
-      let dataRequest = await getRequest(`http://localhost:3000/products/shortList`, token);
-      if (dataRequest.ok) {
-        products = dataRequest.body;
-        setShowProducts(products);
+        else {
+         await setToken(updateToken);
+        }
+        let dataRequest = await getRequest(`http://localhost:3000/products/shortList`, token);
+        if (dataRequest.ok) {
+          products = dataRequest.body;
+          setShowProducts(products);
+        }
+        else {
+          setWrongRequest(true);
+        }
       }
-      else {
-        setWrongRequest(true);
-      }
-    }
+      
+    
     fatchData();
   }, [wrongRequest]);
   return (
