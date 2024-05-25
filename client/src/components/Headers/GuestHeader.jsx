@@ -4,9 +4,11 @@ import { NavLink } from 'react-router-dom'
 function GuestHeader() {
     return (
         <div className='nav'>
-            <img src='../../../images/logo.png' alt='logo' />
-            <NavLink to="/login">כניסה</NavLink>
-            <NavLink to="/signup">הרשמה</NavLink>
+            <div className='leftSide'>
+                <NavLink className='navLink' to="/login">כניסה</NavLink>
+                <NavLink className='navLink' to="/signup">הרשמה</NavLink>
+            </div>
+            <NavLink  to="."><img   src='../../../images/logo.png' alt='logo' /></NavLink>
         </div>
     )
 }

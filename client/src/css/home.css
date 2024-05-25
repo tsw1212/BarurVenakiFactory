@@ -5,6 +5,13 @@
   gap: 20px;
   padding: 20px;
 }
-  .productShort{
-    box-sizing: "border-box" ;
-  }  
+
+.productShort {
+  box-sizing: "border-box";
+}
+
+.wrongRequest {
+  font-size: 20px;
+  color: #2d5a02;
+  margin-top: 10px;
+}

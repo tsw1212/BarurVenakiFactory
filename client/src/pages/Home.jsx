@@ -41,7 +41,7 @@ function Home({ status, token, setToken }) {
   }, [wrongRequest]);
   return (
 
-    wrongRequest ? <WorngRequest setWrongRequest={setWrongRequest} /> :
+    wrongRequest ? <WorngRequest className='wrongRequest' setWrongRequest={setWrongRequest} /> :
       <div className="allProducts">
         {showProducts.length > 0 && showProducts.map((productData) => {
           return <ProductShort className="productShort" productData={productData} key={productData.id} status={status} />;

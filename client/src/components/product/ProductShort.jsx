@@ -8,6 +8,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '../../css/productShort.css'
 
 export default function ProductShort({ productData, status }) {
   return (
@@ -36,7 +37,7 @@ export default function ProductShort({ productData, status }) {
           <Tooltip describeChild title={status == "manager" ? "ערוך" : "הוסף לסל הקניות"}>
             <NavLink to={`products/${productData.name}`}><Button size="small" color="primary">
               {status == "manager" ?
-                <FontAwesomeIcon icon="fa-regular fa-pen" /> :
+                <FontAwesomeIcon icon="fas fa-pencil-alt" /> :
                 <FontAwesomeIcon icon="fas fa-shopping-cart" />
               }
             </Button>

@@ -29,23 +29,26 @@ function Signup({ setToken, setStatus, token }) {
 
 
   return (
-    <div className='myDiv'>
-      <div className='signup_container'>
-        < form onSubmit={signup} className='signup_form'>
-          <h3>הזן פרטי משתמש</h3>
-          <input type="text" name='name' placeholder='*שם' value={newUser.name} onChange={(e) => setNewUser({ ...newUser, name: e.target.value })} required />
-          <input type="text" name='username' placeholder='*שם עסק' value={newUser.username} onChange={(e) => setNewUser({ ...newUser, username: e.target.value })} required />
-          <input type="password" name='password' placeholder='*סיסמא' value={newUser.password} onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} required />
-          <input type="email" name='email' placeholder='*אמייל' value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} required />
-          <input type="text" name='city' placeholder='*עיר' value={newUser.city} onChange={(e) => setNewUser({ ...newUser, city: e.target.value })} required />
-          <input type="text" name='street' placeholder='*רחוב' value={newUser.street} onChange={(e) => setNewUser({ ...newUser, street: e.target.value })} required />
-          <input type="number" name='houseNumber' placeholder='*מספר בית' value={newUser.houseNumber} onChange={(e) => setNewUser({ ...newUser, houseNumber: e.target.value })} required />
-          <input type="tel" name='phone1' placeholder='*מספר טלפון' value={newUser.phone1} onChange={(e) => setNewUser({ ...newUser, phone1: e.target.value })} style={{ direction: 'rtl' }} required />
-          <input type="tel" name='phone2' placeholder='טלפון נוסף' value={newUser.phone2} onChange={(e) => setNewUser({ ...newUser, phone2: e.target.value })} style={{ direction: 'rtl' }} />
+    <div>
+      <NavLink to="/home"> <img src='../../../images/logo.png' alt='logo' /></NavLink>
+      <div className='myDiv'>
+        <div className='signup_container'>
+          < form onSubmit={signup} className='signup_form'>
+            <h3>הזן פרטי משתמש</h3>
+            <input type="text" name='name' placeholder='*שם' value={newUser.name} onChange={(e) => setNewUser({ ...newUser, name: e.target.value })} required />
+            <input type="text" name='username' placeholder='*שם עסק' value={newUser.username} onChange={(e) => setNewUser({ ...newUser, username: e.target.value })} required />
+            <input type="password" name='password' placeholder='*סיסמא' value={newUser.password} onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} required />
+            <input type="email" name='email' placeholder='*אמייל' value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} required />
+            <input type="text" name='city' placeholder='*עיר' value={newUser.city} onChange={(e) => setNewUser({ ...newUser, city: e.target.value })} required />
+            <input type="text" name='street' placeholder='*רחוב' value={newUser.street} onChange={(e) => setNewUser({ ...newUser, street: e.target.value })} required />
+            <input type="number" name='houseNumber' placeholder='*מספר בית' value={newUser.houseNumber} onChange={(e) => setNewUser({ ...newUser, houseNumber: e.target.value })} required />
+            <input type="tel" name='phone1' placeholder='*מספר טלפון' value={newUser.phone1} onChange={(e) => setNewUser({ ...newUser, phone1: e.target.value })} style={{ direction: 'rtl' }} required />
+            <input type="tel" name='phone2' placeholder='טלפון נוסף' value={newUser.phone2} onChange={(e) => setNewUser({ ...newUser, phone2: e.target.value })} style={{ direction: 'rtl' }} />
 
-          <input type="submit" value="צור חשבון" />
-          <NavLink to={'/login'} className='goToLogin'> היכנס לחשבון קיים</NavLink>
-        </form>
+            <input type="submit" value="צור חשבון" />
+            <NavLink to={'/login'} className='goToLogin'> היכנס לחשבון קיים</NavLink>
+          </form>
+        </div>
       </div>
     </div>
   )
