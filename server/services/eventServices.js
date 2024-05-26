@@ -1,6 +1,6 @@
 const DB_actions = require('../DB_access/eventsDB_handler');
 
-const EventsController = {
+const EventsServices = {
     createEvent: async (event) => {
         return await DB_actions.createEvent(event);
     },
@@ -22,4 +22,4 @@ const EventsController = {
     },
 };
 
-module.exports = EventsController;
+module.exports = EventsServices;

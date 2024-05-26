@@ -1,7 +1,7 @@
 const DB_actions = require('../DB_access/productsDB_handler');
 const converts = require('../modules/converts');
 
-const ProductsController = {
+const ProductsServices = {
     createProduct: async (product) => {
         return await DB_actions.createProduct(product);
     },
@@ -41,4 +41,4 @@ const ProductsController = {
     },
 };
 
-module.exports = ProductsController;
+module.exports = ProductsServices;

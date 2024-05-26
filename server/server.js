@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
- const allRoutes = require('./routes/AllRoutes');
+ const allRoutes = require('./api/routes/AllRoutes');
 const cors = require('cors');
 const db_init = require('./DB_access/initDB');
 const insertData=require('./DB_access/insertDB')

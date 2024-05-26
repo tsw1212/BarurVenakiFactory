@@ -3,7 +3,7 @@ const passwordsDB_handler = require('../DB_access/passwordsDB_handler');
 const bcrypt = require('bcrypt');
 
 
-const UsersController = {
+const UsersServices = {
 
     createUser: async (user) => {
         const hashedPassword = await bcrypt.hash(user.password, 10);
@@ -39,5 +39,5 @@ const UsersController = {
 
 };
 
-module.exports = UsersController;
+module.exports = UsersServices;
 

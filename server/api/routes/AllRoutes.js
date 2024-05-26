@@ -6,9 +6,9 @@ const passwordsRoutes = require('./passwordsRoutes');
 const productsRoutes = require('./productsRoute');
 const eventsRoutes = require('./eventRoutes');
 const loginRoute = require('./LoginRoute');
-const tokenActions = require('../modules/token');
-const signupRoute=require('../routes/singUpRoute');
-const guest_tokenRoute=require('../routes/gueust_token');
+const tokenActions = require('../../modules/token');
+const signupRoute=require('./singUpRoute');
+const guest_tokenRoute=require('./gueust_token');
 
 app.use('/guest_token', guest_tokenRoute);
 

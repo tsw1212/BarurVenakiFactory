@@ -1,6 +1,6 @@
 const DB_actions = require('../DB_access/ordersDB_handler');
 
-const OrdersController = {
+const OrdersServices= {
     createOrder: async (order) => {
         return await DB_actions.createOrder(order);
     },
@@ -22,4 +22,4 @@ const OrdersController = {
     },
 };
 
-module.exports = OrdersController;
+module.exports = OrdersServices;
