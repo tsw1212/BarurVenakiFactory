@@ -8,8 +8,8 @@ let products;
 function Home({ status, token, setToken }) {
   const [showProducts, setShowProducts] = useState([]);
   const [wrongRequest, setWrongRequest] = useState(false);
+  
   useEffect(() => {
-
     async function fatchData() {
       let updateToken;
       if (token == "") {
