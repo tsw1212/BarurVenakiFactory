@@ -78,7 +78,7 @@ function Login({ setToken, setStatus, token }) {
 
     return (
         <div>
-            <NavLink to="/home"> <img src='../../../images/logo.png' alt='logo' /></NavLink>
+            <NavLink to="/home"> <img className='logoImg' src='../../../images/logo.png' alt='logo' /></NavLink>
                 <div className='LoginDiv'>
                     <div className='login_container'>
                         {!resetPasswordForm && < form onSubmit={login} className='login_form'>

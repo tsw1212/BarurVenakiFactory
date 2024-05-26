@@ -32,7 +32,7 @@
     display: flex;
     gap: 50px;
 }
-img {
+.logoImg {
     width: 150px;
     height: 150px;
     border: 1px solid #ccc;
@@ -40,7 +40,7 @@ img {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin-right: 20px;
 }
-img:hover{
+.logoImg:hover{
     box-shadow: rgba(176, 222, 70, 0.35) 5px 10px 20px;
     width: 160px;
     height: 160px;

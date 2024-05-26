@@ -30,7 +30,7 @@ function Signup({ setToken, setStatus, token }) {
 
   return (
     <div>
-      <NavLink to="/home"> <img src='../../../images/logo.png' alt='logo' /></NavLink>
+      <NavLink to="/home"> <img className='logoImg' src='../../../images/logo.png' alt='logo' /></NavLink>
       <div className='myDiv'>
         <div className='signup_container'>
           < form onSubmit={signup} className='signup_form'>

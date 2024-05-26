@@ -8,7 +8,7 @@ function GuestHeader() {
                 <NavLink className='navLink' to="/login">כניסה</NavLink>
                 <NavLink className='navLink' to="/signup">הרשמה</NavLink>
             </div>
-            <NavLink  to="."><img   src='../../../images/logo.png' alt='logo' /></NavLink>
+            <NavLink  to="."><img  className='logoImg'  src='../../../images/logo.png' alt='logo' /></NavLink>
         </div>
     )
 }
