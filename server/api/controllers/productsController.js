@@ -20,10 +20,10 @@ const productsController = {
             res.status(500).json({ error: "server internal error" });
         }
     },
-    getProductById:async (req, res) => {
+    getProductByName:async (req, res) => {
         try {
-            const { id } = req.params;
-            let product = await ProductsServices.getProductById(id);
+            const { name } = req.params;
+            let product = await ProductsServices.getProductByName(name);
             if (!product) {
                 res.status(404).json({ error: "product not found" });
             } else {
@@ -35,9 +35,9 @@ const productsController = {
         }
     },
     createProduct: async (req, res) => {
-        if (req.securityLevel !== "manager")
-            res.status(401).json({ error: "unauthorized" });
-        else {
+        // if (req.securityLevel !== "manager")
+        //     res.status(401).json({ error: "unauthorized" });
+        // else {
             try {
                 const product = req.body;
                 if (!validation.validateProductInput(product)) {
@@ -49,7 +49,7 @@ const productsController = {
             } catch (error) {
                 res.status(500).json({ error: "server internal error" });
             }
-        }
+        // }
     },
     updateProduct: async (req, res) => {
         // if (req.securityLevel !== "manager")

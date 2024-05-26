@@ -7,7 +7,7 @@ app.get('/', productsController.getAllProducts);
 
 app.get('/shortList', productsController.getProductsShortList);
 
-app.get('/:id', productsController.getProductById);
+app.get('/:name', productsController.getProductByName);
 
 app.post('/', productsController.createProduct);
 

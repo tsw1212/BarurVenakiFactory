@@ -91,6 +91,20 @@ async function getAllShortListProducts() {
         });
     });
 }
+async function getProductByName(name) {
+    return new Promise((resolve, reject) => {
+        const connection = Connect();
+        const sql = `SELECT * FROM Products WHERE name = ?`;
+        connection.query(sql, [name], (err, result) => {
+            connection.end();
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
 async function getProductById(id) {
     return new Promise((resolve, reject) => {
         const connection = Connect();
@@ -107,9 +121,10 @@ async function getProductById(id) {
 }
 
 module.exports = {
+    getProductById,
    createProduct,
    getAllProducts,
-   getProductById,
+   getProductByName,
    deleteProduct,
    getAllShortListProducts,
    updateProduct

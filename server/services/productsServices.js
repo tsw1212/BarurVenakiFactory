@@ -25,11 +25,14 @@ const ProductsServices = {
         return updatedProducts;
     },
 
-    getProductById: async (id) => {
-        const product = await DB_actions.getProductById(id);
-        const { imgUrl, ...productWithoutImg } = product;
-        const img = await converts.convertUrlToImageFile(imgUrl);
-        return { ...productWithoutImg, img: img };
+    getProductByName: async (name) => {
+        const products = await DB_actions.getProductByName(name);
+        const updatedProducts =await Promise.all(products.map(async (product) => {
+            const { imgUrl, ...productWithoutImg } = product;
+            const img = await converts.convertUrlToImageFile(product.imgUrl);
+            return { ...productWithoutImg, img: img };
+        }));
+        return updatedProducts;
     },
 
     updateProduct: async (updatedProductData) => {

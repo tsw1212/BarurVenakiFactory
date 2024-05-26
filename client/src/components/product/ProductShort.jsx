@@ -11,6 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/productShort.css'
 
 export default function ProductShort({ productData, status }) {
+  console.log(productData);
+  
   return (
     <NavLink to={`products/${productData.name}`}>
       <Card sx={{ maxWidth: 345 }} >
