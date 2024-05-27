@@ -53,13 +53,13 @@
     color: #2d5a02;
 
   }
-  img{
+  .logoImg{
     width: 100px;
     height: 100px;
     position: absolute;
     right: 40px;
   }
-  img:hover{
+  .logoImg:hover{
     width: 110px;
     height: 110px;
   }

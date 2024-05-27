@@ -30,16 +30,16 @@ function Home({ status, token, setToken }) {
           await setToken(updateToken);
         }
       }
-
-      let dataRequest = await getRequest(`http://localhost:3000/products/shortList`, token);
-      if (dataRequest.ok) {
-        products = dataRequest.body;
-        await setShowProducts(products);
-      }
-      else {
-        await setWorngRequest(true);
-      }
-    }
+      
+    //   let dataRequest = await getRequest(`http://localhost:3000/products/shortList`, token);
+    //   if (dataRequest.ok) {
+    //     products = dataRequest.body;
+    //    await  setShowProducts(products);
+    //   }
+    //   else {
+    //     await setWorngRequest(true);
+    //   }
+     }
 
 
     fatchData();
