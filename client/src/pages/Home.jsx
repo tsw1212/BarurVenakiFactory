@@ -8,7 +8,6 @@ function Home({ status, token, setToken }) {
 
   useEffect(() => {
     async function fatchData() {
-      let products;
       let updateToken;
       if (token == "") {
         updateToken = localStorage.getItem("token");
