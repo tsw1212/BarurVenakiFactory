@@ -26,6 +26,10 @@
     display: flex;
     gap: 10px;
   }
+  .managerIcons{
+    display: flex;
+    gap: 20px;
+  }
   
   .thumbnail {
     width: 50px;

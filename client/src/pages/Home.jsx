@@ -3,14 +3,19 @@ import { useState, useEffect } from 'react';
 import '../css/home.css';
 import ProductShort from '../components/product/ProductShort'
 import WorngRequest from '../pages/WorngRequest';
-import { getRequest } from '../modules/requests/server_requests'
-let products;
+import { getRequest } from '../modules/requests/server_requests';
+import AddProduct from '../components/product/AddProduct';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 function Home({ status, token, setToken }) {
   const [showProducts, setShowProducts] = useState([]);
   const [worngRequest, setWorngRequest] = useState(false);
-  
+  const [addProductOn, setAddProductOn] = useState(false);
+
+
   useEffect(() => {
     async function fatchData() {
+      let products;
       let updateToken;
       if (token == "") {
         updateToken = localStorage.getItem("token");
@@ -25,11 +30,11 @@ function Home({ status, token, setToken }) {
           await setToken(updateToken);
         }
       }
-      
+
       let dataRequest = await getRequest(`http://localhost:3000/products/shortList`, token);
       if (dataRequest.ok) {
         products = dataRequest.body;
-       await  setShowProducts(products);
+        await setShowProducts(products);
       }
       else {
         await setWorngRequest(true);
@@ -40,13 +45,18 @@ function Home({ status, token, setToken }) {
     fatchData();
   }, [worngRequest]);
   return (
+    <div className='homeContainer'>
+      {worngRequest ? <WorngRequest className='wrongRequest' setWorngRequest={setWorngRequest} /> :
+        <div className="allProducts">
+          {showProducts.length > 0 && showProducts.map((productData) => {
+            return <ProductShort  token={token} showProducts={showProducts} setShowProducts={setShowProducts} className="productShort" productData={productData} key={productData.id} status={status} />;
+          })}
+        </div>}
+        {addProductOn&&<AddProduct setAddProductOn={setAddProductOn}  setShowProducts={setAddProductOn} token={token}/>}
+        {status=="manager"&&<FontAwesomeIcon icon="fas fa-plus-square"  onClick={()=>setAddProductOn(true)} />}
+        
+    </div>
 
-    worngRequest ? <WorngRequest className='wrongRequest' setWorngRequest={setWorngRequest} /> :
-      <div className="allProducts">
-        {showProducts.length > 0 && showProducts.map((productData) => {
-          return <ProductShort className="productShort" productData={productData} key={productData.id} status={status} />;
-        })}
-      </div>
 
 
   )
