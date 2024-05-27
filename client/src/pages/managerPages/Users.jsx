@@ -1,11 +1,16 @@
-import React from 'react'
+import React from 'react';
+import UsersTable from '../../components/users/UsersTable';
+import UserManagerForm from '../../components/users/UserManagerForm';
 
-function Users() {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+const Users = ({token}) => {
+    return (
+        <div>
+            <h1>משתמשים</h1>
+            <UsersTable token={token}/>
+            <h2>קבע משתמש כמנהל</h2>
+            <UserManagerForm token={token} />
+        </div>
+    );
+};
 
-export default Users
+export default Users;
