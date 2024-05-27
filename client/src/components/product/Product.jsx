@@ -40,13 +40,14 @@ import { useParams } from 'react-router-dom';
 import WorngRequest from '../../pages/WorngRequest';
 import { getRequest } from '../../modules/requests/server_requests';
 import '../../css/product.css';
+import Slider from '../product/Slider';
 let prices={min:0, max:10};
 const Product = ({ token, addToCart }) => {
   const [products, setProducts] = useState([]);
   const { nameProduct } = useParams();
   const [wrongRequest, setWrongRequest] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
-  const [currentImage, setCurrentImage] = useState('');
+  // const [currentImage, setCurrentImage] = useState('');
   const [selectedType, setSelectedType] = useState('בחר סוג אריזה');
   const [quantity, setQuantity] = useState(1);
 
@@ -56,9 +57,8 @@ const Product = ({ token, addToCart }) => {
       if (dataRequest.ok) {
         console.log(dataRequest.body);
         setProducts(dataRequest.body);
-        setCurrentProduct();
-        setCurrentImage(dataRequest.body[0].img);
-        setSelectedType();
+        // setCurrentProduct();
+        // setSelectedType();
          prices=getMinMaxPrices(products);
       } else {
         setWrongRequest(true);
@@ -67,15 +67,12 @@ const Product = ({ token, addToCart }) => {
     fetchData();
   }, [nameProduct, token]);
 
-  const handleImageChange = (image) => {
-    setCurrentImage(image);
-  };
+  
 
   const handleTypeChange = (event) => {
     const selectedProduct = products.find(product => product.package === event.target.value);
     setCurrentProduct(selectedProduct);
     setSelectedType(event.target.value);
-    setCurrentImage(selectedProduct.img);
   };
 
   const handleQuantityChange = (event) => {
@@ -94,31 +91,18 @@ const Product = ({ token, addToCart }) => {
     return <WorngRequest className='wrongRequest' setWrongRequest={setWrongRequest} />;
   }
 
-
-
   return (
     <div className="product">
-      {/* <div className="product-images">
-        <img  src={`data:'image/png';base64,${currentImage}`} alt={currentProduct.name} className="main-image" />
-        <div className="thumbnail-images">
-          {products!==0 && products.map((product, index) => (
-            <img
-              key={index}
-              src={`data:image/png;base64,${product.img}`}
-              alt={`Thumbnail ${index}`}
-              onClick={() => handleImageChange(image)}
-              className={`thumbnail ${currentImage === product.img ? 'active' : ''}`}
-            />
-          ))}
-        </div>
-      </div> */}
+       <div className="product-images">
+       { products.length!==0&& <Slider sliders={products} />}
+      </div> 
       <div className="product-details">
         <h3>{products.length!==0&& products[0].name}</h3>
        <p className="product-price">{currentProduct!=null?currentProduct.price:`${prices.min}-${prices.max}`}₪</p>
         <div className="product-options">
           <div className="product-type">
-            <label htmlFor="type">Type:</label>
-            <select id="type" value={selectedType} onChange={handleTypeChange}>
+            <label htmlFor="type">סוג:</label>
+            <select id="type"  value={selectedType} onChange={handleTypeChange}>
               {products.map((product, index) => (
                 <option key={index} value={product.package}>
                   {product.package}
@@ -127,7 +111,7 @@ const Product = ({ token, addToCart }) => {
             </select>
           </div>
           <div className="product-quantity">
-            <label htmlFor="quantity">Quantity:</label>
+            <label htmlFor="quantity">כמות:</label>
             <input
               type="number"
               id="quantity"
@@ -138,8 +122,9 @@ const Product = ({ token, addToCart }) => {
           </div>
         </div>
         <button className="add-to-cart" onClick={handleAddToCart}>
-          Add to Cart
+         הוסף לעגלה
         </button>
+       
       </div>
     </div>
   );
