@@ -101,7 +101,7 @@ const Product = ({ token, addToCart }) => {
        <p className="product-price">{currentProduct!=null?currentProduct.price:`${prices.min}-${prices.max}`}₪</p>
         <div className="product-options">
           <div className="product-type">
-            <label htmlFor="type">סוג:</label>
+            <label htmlFor="type">סוג</label>
             <select id="type"  value={selectedType} onChange={handleTypeChange}>
               {products.map((product, index) => (
                 <option key={index} value={product.package}>
@@ -111,7 +111,7 @@ const Product = ({ token, addToCart }) => {
             </select>
           </div>
           <div className="product-quantity">
-            <label htmlFor="quantity">כמות:</label>
+            <label htmlFor="quantity">כמות</label>
             <input
               type="number"
               id="quantity"
