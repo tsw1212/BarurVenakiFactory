@@ -31,8 +31,9 @@ export default function ProductShort({ productData, status, showProducts, setSho
   return (
     <>
       <div>
-        <NavLink to={`${productData.name}`}>
+       
         <Card sx={{ maxWidth: 345 }} >
+        <NavLink to={`${productData.name}`}>
           <CardActionArea>
             <CardMedia
               component="img"
@@ -52,6 +53,7 @@ export default function ProductShort({ productData, status, showProducts, setSho
               </Typography>
             </CardContent>
           </CardActionArea>
+          </NavLink>
           <CardActions>
             <Tooltip describeChild title={status == "manager" ? "ערוך" : "הוסף לסל הקניות"}>
               {/* <NavLink to={`products/${productData.name}`}><Button size="small" color="primary"> */}
@@ -73,7 +75,7 @@ export default function ProductShort({ productData, status, showProducts, setSho
             </Tooltip>
           </CardActions>
         </Card>
-        </NavLink>
+     
       </div>
       {deleteOn && <DeleteProduct setDeleteOn={setDeleteOn} showProducts={showProducts} setShowProducts={setShowProducts} token={token} productsName={productData.name} />}
    
