@@ -12,9 +12,9 @@ import '../../css/productShort.css'
 
 export default function ProductShort({ productData, status }) {
   console.log(productData);
-  
+
   return (
-    <NavLink to={`products/${productData.name}`}>
+    <NavLink to={`${productData.name}`}>
       <Card sx={{ maxWidth: 345 }} >
         <CardActionArea>
           <CardMedia
@@ -37,7 +37,7 @@ export default function ProductShort({ productData, status }) {
         </CardActionArea>
         <CardActions>
           <Tooltip describeChild title={status == "manager" ? "ערוך" : "הוסף לסל הקניות"}>
-            <NavLink to={`products/${productData.name}`}><Button size="small" color="primary">
+            <NavLink to={`${productData.name}`}><Button size="small" color="primary">
               {status == "manager" ?
                 <FontAwesomeIcon icon="fas fa-pencil-alt" /> :
                 <FontAwesomeIcon icon="fas fa-shopping-cart" />

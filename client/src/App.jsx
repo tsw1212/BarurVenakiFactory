@@ -22,7 +22,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Navigate to='/home' replace />} />
-        <Route path='home' element={<HomeNavBar setToken={setToken}  setStatus={setStatus}/>}>
+        <Route path='home' element={<HomeNavBar setToken={setToken} status={status}  setStatus={setStatus}/>}>
           <Route index element={<Home setToken={setToken} token={token}  />} />
           <Route path='users' element={<Users token={token} />} />
           <Route path='products'>
