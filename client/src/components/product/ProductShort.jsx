@@ -31,7 +31,7 @@ export default function ProductShort({ productData, status, showProducts, setSho
   return (
     <>
       <div>
-        <NavLink to={`products/${productData.name}`} className='productDataButton'>פרטי מוצר </NavLink>
+        <NavLink to={`${productData.name}`}>
         <Card sx={{ maxWidth: 345 }} >
           <CardActionArea>
             <CardMedia
@@ -73,9 +73,10 @@ export default function ProductShort({ productData, status, showProducts, setSho
             </Tooltip>
           </CardActions>
         </Card>
+        </NavLink>
       </div>
       {deleteOn && <DeleteProduct setDeleteOn={setDeleteOn} showProducts={showProducts} setShowProducts={setShowProducts} token={token} productsName={productData.name} />}
-
+   
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import '../css/home.css';
+import '../css/products.css';
 import ProductShort from '../components/product/ProductShort'
 import WorngRequest from '../pages/WorngRequest';
 import { getRequest } from '../modules/requests/server_requests'
