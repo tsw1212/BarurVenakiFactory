@@ -78,30 +78,30 @@ const UserDetails = ({ token }) => {
       {isEditing ? (
         <div className='editForm_container'>
           <div className='editForm_form'>
-            <label>שם: <input type="text" name="name" value={user.name} onChange={handleChange} /></label><br />
-            <label>אמייל: <input type="email" name="email" value={user.email} onChange={handleChange} /></label><br />
-            <label>עיר: <input type="text" name="city" value={user.city} onChange={handleChange} /></label><br />
-            <label>רחוב: <input type="text" name="street" value={user.street} onChange={handleChange} /></label><br />
-            <label>מספר בית: <input type="text" name="houseNumber" value={user.houseNumber} onChange={handleChange} /></label><br />
-            <label>שם העסק: <input type="text" name="username" value={user.username} onChange={handleChange} /></label><br />
-            <label>מספר טלפון 1: <input type="text" name="phone1" value={user.phone1} onChange={handleChange} /></label><br />
-            <label>מספר טלפון 2: <input type="text" name="phone2" value={user.phone2} onChange={handleChange} /></label><br />
-            <button onClick={handleSave}>שמירה</button>
-            <button onClick={() => setIsEditing(false)}>ביטול</button>
+            <label>שם: <input className='editInput' type="text" name="name" value={user.name} onChange={handleChange} /></label><br />
+            <label>אמייל: <input className='editInput' type="email" name="email" value={user.email} onChange={handleChange} /></label><br />
+            <label>עיר: <input className='editInput' type="text" name="city" value={user.city} onChange={handleChange} /></label><br />
+            <label>רחוב: <input className='editInput' type="text" name="street" value={user.street} onChange={handleChange} /></label><br />
+            <label>מספר בית: <input className='editInput' type="text" name="houseNumber" value={user.houseNumber} onChange={handleChange} /></label><br />
+            <label>שם העסק: <input className='editInput' type="text" name="username" value={user.username} onChange={handleChange} /></label><br />
+            <label>מספר טלפון 1: <input className='editInput' type="text" name="phone1" value={user.phone1} onChange={handleChange} /></label><br />
+            <label>מספר טלפון 2: <input className='editInput' type="text" name="phone2" value={user.phone2} onChange={handleChange} /></label><br />
+            <button className='editButton' onClick={handleSave}>שמירה</button>
+            <button className='editButton' onClick={() => setIsEditing(false)}>ביטול</button>
           </div>
         </div>
       ) : (
-        <div>
+        <div className='user_information'>
           <h2>פרטי משתמש</h2>
-          <p><strong>שם:<FontAwesomeIcon icon="fas fa-user" /></strong> {user.name}</p>
-          <p><strong>אמייל:<FontAwesomeIcon icon="fas fa-envelope" /></strong> {user.email}</p>
-          <p><strong>עיר:<FontAwesomeIcon icon="fas fa-city" /></strong> {user.city}</p>
-          <p><strong>רחוב:<FontAwesomeIcon icon="fas fa-road" /></strong> {user.street}</p>
-          <p><strong>מספר בית:<FontAwesomeIcon icon="fas fa-house-user" /></strong> {user.houseNumber}</p>
-          <p><strong>שם העסק:<FontAwesomeIcon icon="fas fa-user-tie" /></strong> {user.username}</p>
-          <p><strong>מספר טלפון 1:<FontAwesomeIcon icon="fas fa-phone" /></strong> {user.phone1}</p>
-          <p><strong>מספר טלפון 2:<FontAwesomeIcon icon="fas fa-phone" /></strong> {user.phone2}</p>
-          <button onClick={() => setIsEditing(true)}>עריכה</button>
+          <p><strong>שם: <FontAwesomeIcon icon="fas fa-user" /></strong> {user.name}</p>
+          <p><strong>אמייל: <FontAwesomeIcon icon="fas fa-envelope" /></strong> {user.email}</p>
+          <p><strong>עיר: <FontAwesomeIcon icon="fas fa-city" /></strong> {user.city}</p>
+          <p><strong>רחוב: <FontAwesomeIcon icon="fas fa-road" /></strong> {user.street}</p>
+          <p><strong>מספר בית: <FontAwesomeIcon icon="fas fa-house-user" /></strong> {user.houseNumber}</p>
+          <p><strong>שם העסק: <FontAwesomeIcon icon="fas fa-user-tie" /></strong> {user.username}</p>
+          <p><strong>מספר טלפון 1: <FontAwesomeIcon icon="fas fa-phone" /></strong> {user.phone1}</p>
+          <p><strong>מספר טלפון 2: <FontAwesomeIcon icon="fas fa-phone" /></strong> {user.phone2}</p>
+          <button className='editButton' onClick={() => setIsEditing(true)}>עריכה</button>
         </div>
       )}
       <div className='changePassword'>
@@ -109,7 +109,7 @@ const UserDetails = ({ token }) => {
         <label>סיסמא נוכחית: <input className='passwordInput' type="password" name="password" value={passwords.password} onChange={handlePasswordChange} /></label><br />
         <label>סיסמא חדשה: <input className='passwordInput' type="password" name="newPassword" value={passwords.newPassword} onChange={handlePasswordChange} /></label><br />
         <label>חזור על הסיסמא החדשה: <input className='passwordInput' type="password" name="confirmNewPassword" value={passwords.confirmNewPassword} onChange={handlePasswordChange} /></label><br />
-        <button onClick={handleSavePassword}>Change Password</button>
+        <button onClick={handleSavePassword}>שמור סיסמא</button>
       </div>
     </div>
   );

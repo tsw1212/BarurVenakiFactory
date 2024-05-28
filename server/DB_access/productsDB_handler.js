@@ -80,16 +80,43 @@ async function getNextProductId() {
         });
     });
 }
+// SELECT name, 
+//                    imgUrl, 
+//                    MIN(price) AS minPrice, 
+//                    MAX(price) AS maxPrice 
+//             FROM Products 
+//             GROUP BY name, imgUrl
 async function getAllShortListProducts() {
     return new Promise((resolve, reject) => {
         const connection = Connect();
         const sql = `
-            SELECT name, 
-                   imgUrl, 
-                   MIN(price) AS minPrice, 
-                   MAX(price) AS maxPrice 
-            FROM Products 
-            GROUP BY name, imgUrl
+        SELECT 
+            p.name, 
+            p.imgUrl, 
+            prices.minPrice, 
+            prices.maxPrice
+        FROM 
+            (SELECT 
+                name, 
+                imgUrl 
+            FROM 
+                (SELECT 
+                    name, 
+                    imgUrl, 
+                    ROW_NUMBER() OVER (PARTITION BY name ORDER BY id) AS row_num
+                FROM Products
+             ) AS subquery
+            WHERE row_num = 1
+            ) AS p
+        JOIN 
+            (SELECT 
+             name, 
+             MIN(price) AS minPrice, 
+             MAX(price) AS maxPrice
+        FROM Products
+        GROUP BY name
+        ) AS prices
+    ON p.name = prices.name;      
         `;
         connection.query(sql, (err, result) => {
             connection.end();
@@ -136,11 +163,11 @@ async function getProductById(id) {
         });
     });
 }
-async function getProductByNameAndPackage(name,package) {
+async function getProductByNameAndPackage(name, package) {
     return new Promise((resolve, reject) => {
         const connection = Connect();
         const sql = `SELECT * FROM Products WHERE name = ? AND package = ? `;
-        connection.query(sql, [name,package], (err, result) => {
+        connection.query(sql, [name, package], (err, result) => {
             connection.end();
             if (err) {
                 reject(err);
@@ -153,12 +180,12 @@ async function getProductByNameAndPackage(name,package) {
 
 module.exports = {
     getProductById,
-   createProduct,
-   getAllProducts,
-   getProductByName,
-   deleteProduct,
-   getAllShortListProducts,
-   updateProduct,
-   getProductByNameAndPackage,
-   getNextProductId
+    createProduct,
+    getAllProducts,
+    getProductByName,
+    deleteProduct,
+    getAllShortListProducts,
+    updateProduct,
+    getProductByNameAndPackage,
+    getNextProductId
 };
