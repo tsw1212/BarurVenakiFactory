@@ -14,7 +14,6 @@ let products;
 function Products({ token, status }) {
   const [showProducts, setShowProducts] = useState([]);
   const [worngRequest, setWorngRequest] = useState(false);
-  const [addProduct, setAddProduct] = useState(false);
 
 
   useEffect(() => {
@@ -41,12 +40,6 @@ function Products({ token, status }) {
           })}
 
         </div>
-        <Tooltip onClick={() => setAddProduct(true)} describeChild title='הוסף מוצר'>
-          <FontAwesomeIcon icon="fas fa-plus-square" />
-        </Tooltip>
-        {addProduct &&
-          <AddProduct setAddProduct={setAddProduct} />
-        }
       </div>
 
 

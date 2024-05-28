@@ -12,10 +12,19 @@ import '../../css/productShort.css'
 import { getRequest } from '../../modules/requests/server_requests';
 import { useState } from 'react';
 import DeleteProduct from './DeleteProduct';
+import EditProduct from './EditProduct';
 
-export default function ProductShort({ productData, showProducts, setShowProducts, token }) {
+export default function FullProduct({ productData, status, products, setProducts, token }) {
+  const [editOn, setEditOn] = useState(false);
 
-  console.log(productData);
+  function handleEdit(event) {
+    event.stopPropagation()
+
+  }
+
+  async function handleDelete(event) {
+    event.stopPropagation()
+  }
 
   return (
     <>
@@ -35,25 +44,28 @@ export default function ProductShort({ productData, showProducts, setShowProduct
                   {productData.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {productData.minPrice == productData.maxPrice ?
-                    <h5>מחיר {productData.minPrice}</h5> :
-                    <p>טווח מחירים {productData.minPrice}-{productData.maxPrice}₪</p>
-                  }
+                  <h4>מחיר: {productData.price}</h4>
+                  <h4>כמות במלאי: {productData.inventory}</h4>
+                  <h4>משקל: {productData.weight}</h4>
+                  <h4>סוג אריזה: {productData.package}</h4>
                 </Typography>
               </CardContent>
             </CardActionArea>
           </NavLink>
-          <CardActions>
-            <NavLink to={`${productData.name}`}>
-              <Tooltip describeChild title='מידע נוסף'>
-                <FontAwesomeIcon icon="fas fa-shopping-cart" />
-              </Tooltip>
-            </NavLink>
-
+          <CardActions>          
+              <div>
+                <Tooltip describeChild title='מחק'>
+                  <FontAwesomeIcon icon="fas fa-trash" onClick={(e) => handleDelete(e)} />
+                </Tooltip>
+                <Tooltip describeChild title='ערוך'>
+                  <FontAwesomeIcon icon="fas fa-pencil-alt" onClick={(e) => handleEdit(e)} />
+                </Tooltip>
+              </div>
           </CardActions>
         </Card>
 
       </div>
+      {editOn && <EditProduct setEditOn={setEditOn} products={products} setProducts={setProducts} token={token} productData={productData}/>}
 
     </>
   );
