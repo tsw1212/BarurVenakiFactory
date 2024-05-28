@@ -1,7 +1,7 @@
 function validateUserInput(user, isIdRequired = false) {
     if (!user || typeof user !== "object") return false;
 
-    const requiredFields = ["name", "email", "city", "street", "houseNumber", "password", "username", "phone1"];
+    const requiredFields = ["name", "email", "city", "street", "houseNumber", "username", "phone1"];
     if (isIdRequired) {
         requiredFields.push("id");
     }
@@ -15,7 +15,6 @@ function validateUserInput(user, isIdRequired = false) {
     if (typeof user.city !== "string" || user.city.trim() === "") return false;
     if (typeof user.street !== "string" || user.street.trim() === "") return false;
     if (typeof user.houseNumber !== "string" || user.houseNumber.trim() === "") return false;
-    if (typeof user.password !== "string" || user.password.trim() === "") return false;
     if (typeof user.username !== "string" || user.username.trim() === "") return false;
     if (typeof user.phone1 !== "string" || user.phone1.trim() === "") return false;
     if (user.phone2 && !/^\d+$/.test(user.phone2)) return false;
@@ -51,7 +50,7 @@ function validateOrdersInput(order, isIdRequired = false) {
 function validateProductInput(product, isIdRequired = false) {
     if (!product || typeof product !== "object") return false;
 
-    const requiredFields = ["name", "weight", "package", "imgUrl", "inventory"];
+    const requiredFields = ["name", "weight", "package",  "inventory",'price'];
     if (isIdRequired) {
         requiredFields.push("id");
     }
@@ -61,10 +60,9 @@ function validateProductInput(product, isIdRequired = false) {
     }
 
     if (typeof product.name !== "string" || product.name.trim() === "") return false;
-    if (typeof product.weight !== "number" || product.weight <= 0) return false;
     if (typeof product.package !== "string" || product.package.trim() === "") return false;
-    if (typeof product.imgUrl !== "string" || product.imgUrl.trim() === "") return false;
-    if (typeof product.inventory !== "number" || product.inventory < 0) return false;
+    
+
 
     return true;
 }

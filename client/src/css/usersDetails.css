@@ -1,0 +1,78 @@
+.usersbody {
+    direction: rtl;
+    display: grid;
+    grid-template-columns: 1fr 0.3fr;
+    gap: 10px;
+    margin-top: 100px;
+
+}
+.editForm_container {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 2rem 3rem;
+    width: 30vw;
+    margin-left: 25vw;
+    height: auto;
+}
+
+.editForm_form {
+    direction: rtl;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1%;
+
+}
+
+input {
+    background-color: #efe8e8;
+    width: 100%;
+    padding: 3%;
+    margin: 1vw;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+input[type="submit"] {
+    width: auto;
+    padding: 10px;
+    margin-top: 1vw;
+    border: none;
+    border-radius: 5px;
+    background-color: #dbcb50;
+    color: #fff;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #dbcb50;
+}
+.changePassword{
+    direction: rtl;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding :10px;
+}
+.passwordInput{
+    width: 80%;
+}
+@media (max-width: 768px){
+    .usersbody{
+      display:block;
+      margin-left: 4vw;
+      margin-top: 10vw;
+    }
+    .changePassword{
+        margin-top: 40px;
+        margin-right: 10%;
+    }
+  }
+  

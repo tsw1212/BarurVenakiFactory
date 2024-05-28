@@ -1,14 +1,11 @@
-const request = async (url, method, body = null, token = null, content_type = null) => {
-  let headers;
-  if (content_type) {
-     headers = {
-      "Content-Type": content_type,
-    };
-  }
-  else {
-     headers = {
-      "Content-Type": "application/json",
-    };
+const request = async (url, method, body = null, token = null) => {
+
+  let headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (url == 'http://localhost:3000/products' && method == "POST") {
+    headers = {};
   }
 
   if (token) {
@@ -21,8 +18,17 @@ const request = async (url, method, body = null, token = null, content_type = nu
   };
 
   if (body) {
-    config.body = JSON.stringify(body);
+    if (url == 'http://localhost:3000/products' && method == "POST") {
+      config.body = body;
+    }
+    else {
+      config.body = JSON.stringify(body);
+
+    }
   }
+
+
+
 
   try {
     const response = await fetch(url, config);

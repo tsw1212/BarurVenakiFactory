@@ -18,8 +18,9 @@ const usersController = {
         // }
     },
     getUserById: async (req, res) => {
-        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
-            res.status(401).json({ error: "unauthorized" });
+        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        //     res.status(401).json({ error: "unauthorized" });
+        // else{
         try {
             const { id } = req.params;
             let user = await UsersServices.getUserById(id);
@@ -35,6 +36,7 @@ const usersController = {
             res.status(500).json({ error: "server internal error" });
             res.end();
         }
+    // }
     },
     getUsersOrders: async (req, res) => {
         if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
@@ -76,8 +78,8 @@ const usersController = {
         }
     },
     updateUser: async (req, res) => {
-        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
-            res.status(401).json({ error: "unauthorized" });
+        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        //     res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
             let updatedUserData = req.body;

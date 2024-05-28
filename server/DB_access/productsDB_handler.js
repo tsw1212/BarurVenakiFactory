@@ -63,6 +63,23 @@ async function getAllProducts() {
         });
     });
 }
+async function getNextProductId() {
+    return new Promise((resolve, reject) => {
+        const connection = Connect();
+        const sql = 'SELECT MAX(id) + 1 AS next_id FROM Products';
+        connection.query(sql, (err, result) => {
+            connection.end();
+            if (err) {
+                reject(err);
+            } else {
+                // If the table is empty or the MAX(id) returns NULL,
+                // start with ID 1
+                const nextId = result[0].next_id || 1;
+                resolve(nextId);
+            }
+        });
+    });
+}
 async function getAllShortListProducts() {
     return new Promise((resolve, reject) => {
         const connection = Connect();
@@ -119,6 +136,20 @@ async function getProductById(id) {
         });
     });
 }
+async function getProductByNameAndPackage(name,package) {
+    return new Promise((resolve, reject) => {
+        const connection = Connect();
+        const sql = `SELECT * FROM Products WHERE name = ? AND package = ? `;
+        connection.query(sql, [name,package], (err, result) => {
+            connection.end();
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
 
 module.exports = {
     getProductById,
@@ -127,5 +158,7 @@ module.exports = {
    getProductByName,
    deleteProduct,
    getAllShortListProducts,
-   updateProduct
+   updateProduct,
+   getProductByNameAndPackage,
+   getNextProductId
 };
