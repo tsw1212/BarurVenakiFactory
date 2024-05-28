@@ -18,7 +18,7 @@ const UsersServices = {
     },
 
     getUserById: async (id) => {
-        return await DB_actions.getUserById(id);
+         return await DB_actions.getUserById(id);
     },
 
     getUserByEmail: async (email) => {
