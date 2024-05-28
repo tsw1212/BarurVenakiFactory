@@ -54,7 +54,6 @@ export default function ProductShort({ productData, showProducts, setShowProduct
         </Card>
 
       </div>
-      {deleteOn && <DeleteProduct setDeleteOn={setDeleteOn} showProducts={showProducts} setShowProducts={setShowProducts} token={token} productsName={productData.name} />}
 
     </>
   );

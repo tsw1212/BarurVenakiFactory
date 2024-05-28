@@ -8,7 +8,7 @@ function UserHeader({ logOut }) {
         <header>
             <nav className='nav'>
                 <div className='leftSide'>
-                    <NavLink className='navLink' to="usersDetails"><FontAwesomeIcon className='icon' icon="fas fa-user-alt" /></NavLink>
+                    <NavLink className='navLink' to="userDetails"><FontAwesomeIcon className='icon' icon="fas fa-user-alt" /></NavLink>
                     <NavLink className='navLink' to="shopping_cart"><FontAwesomeIcon className='icon' icon="fas fa-shopping-cart" /></NavLink>
                     <NavLink className='navLink' to="orders">הזמנות קודמות</NavLink>
                     <NavLink className='navLink' to="products">מוצרים</NavLink>
