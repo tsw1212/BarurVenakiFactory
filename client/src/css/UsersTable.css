@@ -1,0 +1,35 @@
+.users_table {
+    width: 95%;
+    border-collapse: collapse;
+    margin-left: 2.5%;
+    margin-top: 1rem;
+    margin-top: 200px;
+}
+
+.users_table th,
+.users_table td {
+    padding: 5px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.users_table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.users_table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.users_table tbody tr:hover {
+    background-color: #e5e5e5;
+}
+
+@media (max-width: 600px) {
+    .users_table {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

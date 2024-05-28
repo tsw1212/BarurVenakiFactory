@@ -1,6 +1,6 @@
 
- import { Slide } from "react-slideshow-image";
- import "react-slideshow-image/dist/styles.css";
+//  import { Slide } from "react-slideshow-image";
+//  import "react-slideshow-image/dist/styles.css";
 import '../../css/slide.css';
 import { useState } from "react";
 export default function Slider({ sliders }) {

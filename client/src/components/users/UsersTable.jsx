@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getRequest } from '../../modules/requests/server_requests';
+import '../../css/UsersTable.css'
 const UsersTable = ({token}) => {
     const [users, setUsers] = useState([]);
 
@@ -19,7 +20,7 @@ const UsersTable = ({token}) => {
     }, []);
 
     return (
-        <table>
+        <table className='users_table'>
             <thead>
                 <tr>
                     <th>ID</th>

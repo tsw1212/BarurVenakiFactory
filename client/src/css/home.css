@@ -4,7 +4,6 @@
   color: #2d5a02;
   margin-top: 10px;
 }
-<<<<<<< HEAD
 .home-container {
   font-family: Arial, sans-serif;
   padding: 20px;
@@ -25,8 +24,31 @@
 }
 
 .home-section {
-  margin-bottom: 20px;
+  /* position: absolute; */
+    flex-direction: column;
+    align-items: right;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    padding: 2rem 3rem ;
+    width: 30vw;
+    height: auto;
+    /* background-color: rgb(240, 232, 224);
+    border-radius: 7px; */
+    opacity: 0; /* Initially hidden */
+    transform: translateY(100px); /* Start position */
+    animation: floatIn 2s forwards; /* Apply the animation */
 }
+
+@keyframes floatIn {
+    from {
+        opacity: 0;
+        transform: translateY(100px); /* Start 100px below */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* End at its original position */
+    }
+}
+
 
 .section-title {
   margin-bottom: 10px;
@@ -54,6 +76,40 @@
 .order-now .section-content {
   font-weight: bold;
 }
+/* .about-us{
+  top:100px;
+  right: 0;
+}
+.products{
+left: 0;
+}
+.technology{
+  right: 100px;
+  top:430px;
+}
+.quality-control{
+  left:30px;
+  top:450px
+}
+.ordering{
+  right: 0;
+  top:780px
+}
+.why-choose-us{
+  left: 20px;
+  top:800px
+}
+.product-details{
+  left: 200px;
+  top:1400px
+}
+.order-now{
+  left: 400px;
+}
+.body{
+  height: auto;
+} */
+
 /* 
 a {
   color: #4CAF50;
@@ -63,9 +119,3 @@ a {
 a:hover {
   text-decoration: underline;
 } */
-=======
-.addProductButton{
-  color: #2d5a02;
-  margin-top: -100px;
-}
->>>>>>> 05034473e096ca446ede405bcd4ee5590ad75506

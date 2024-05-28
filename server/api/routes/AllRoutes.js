@@ -9,6 +9,8 @@ const loginRoute = require('./LoginRoute');
 const tokenActions = require('../../modules/token');
 const signupRoute=require('./singUpRoute');
 const guest_tokenRoute=require('./gueust_token');
+const managersRoute=require('./managerRoute');
+
 
 app.use('/guest_token', guest_tokenRoute);
 
@@ -26,7 +28,7 @@ app.use('/guest_token', guest_tokenRoute);
 //         res.status(500).json({'error': 'internal server error'});
 //     }
 // });
-
+app.use('/managers', managersRoute);
 app.use('/login', loginRoute);
 app.use('/signup',signupRoute );
 app.use('/passwords', passwordsRoutes);

@@ -5,10 +5,8 @@ import UserManagerForm from '../../components/users/UserManagerForm';
 const Users = ({token}) => {
     return (
         <div>
-            <h1>משתמשים</h1>
-            <UsersTable token={token}/>
-            <h2>קבע משתמש כמנהל</h2>
             <UserManagerForm token={token} />
+            <UsersTable token={token}/>
         </div>
     );
 };

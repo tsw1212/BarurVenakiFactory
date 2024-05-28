@@ -61,5 +61,5 @@ const request = async (url, method, body = null, token = null, content_type = nu
 
 export const getRequest = (url, token = null) => request(url, "GET", null, token);
 export const postRequest = (url, body, token = null) => request(url, "POST", body, token);
-export const putRequest = (url, body, token = null) => request(url, "PUT", body, token, content_type = null);
+export const putRequest = (url, body, token = null) => request(url, "PUT", body, token);
 export const deleteRequest = (url, body, token = null) => request(url, "DELETE", body = null, token);

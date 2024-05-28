@@ -4,9 +4,9 @@ const validation = require('../../modules/validation');
 
 const usersController = {
     getAllUsers: async (req, res) => {
-        if (req.securityLevel !== "manager")
-            res.status(401).json({ error: "unauthorized" });
-        else {
+        // if (req.securityLevel !== "manager")
+        //     res.status(401).json({ error: "unauthorized" });
+        // else {
             try {
                 let users = await UsersServices.getAllUsers();
                 res.status(200).json(users);
@@ -15,7 +15,7 @@ const usersController = {
                 res.status(500).json({ error: "server internal error" });
                 res.end();
             }
-        }
+        // }
     },
     getUserById: async (req, res) => {
         if (req.securityLevel !== "user" && req.securityLevel !== 'manager')

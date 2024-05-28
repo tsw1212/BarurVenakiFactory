@@ -26,14 +26,15 @@ function Home({ status, token, setToken }) {
 
 
     fatchData();
-  }, [worngRequest]);
+  }, []);
   return (
-    worngRequest ? <WorngRequest className='wrongRequest' setWorngRequest={setWorngRequest} /> :
+    <div className='body'>
+      {/* worngRequest ? <WorngRequest className='wrongRequest' setWorngRequest={setWorngRequest} /> : */}
       <div className="home-container">
         <section className="home-section about-us">
           <h2 className="section-title">אודותינו</h2>
           <p className="section-content">
-            במפעל קטניות ואורז פרימיום, אנו גאים לספק את הקטניות והאורז באיכות הגבוהה ביותר, אשר נארזים באריזת ואקום כדי לשמור על טריותם ולמנוע חדירת חרקים. המסירות שלנו לאיכות וחדשנות מבדילה אותנו בשוק.
+            במפעל קטניות ואורז פרימיום, אנו גאים לספק את הקטניות והאורז באיכות הגבוהה ביותר,<br></br> אשר נארזים באריזת ואקום כדי לשמור על טריותם ולמנוע חדירת חרקים.<br></br> המסירות שלנו לאיכות וחדשנות מבדילה אותנו בשוק.
           </p>
         </section>
         <section className="home-section products">
@@ -86,6 +87,7 @@ function Home({ status, token, setToken }) {
           </p>
         </section>
       </div>
+    </div>
   );
 };
 
