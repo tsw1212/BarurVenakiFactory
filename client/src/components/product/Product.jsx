@@ -49,6 +49,7 @@ const Product = ({ token, addToCart }) => {
   const [wrongRequest, setWrongRequest] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
   // const [currentImage, setCurrentImage] = useState('');
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedType, setSelectedType] = useState('בחר סוג אריזה');
   const [quantity, setQuantity] = useState(1);
 
@@ -70,9 +71,10 @@ const Product = ({ token, addToCart }) => {
 
   
 
-  const handleTypeChange = (valueType) => {
+  const handleTypeChange = async(valueType) => {
     const selectedProduct = products.find(product => product.package ===valueType );
-    setCurrentProduct(selectedProduct);
+    await setCurrentProduct(selectedProduct);
+   await setCurrentSlide(1);
     // setSelectedType(event.target.value);
   };
 
@@ -95,7 +97,7 @@ const Product = ({ token, addToCart }) => {
   return (
     <div className="product">
        <div className="product-images">
-       { products.length!==0&& <Slider sliders={products} />}
+       { products.length!==0&& <Slider sliders={products} currentSlide={currentSlide} />}
       </div> 
       <div className="product-details">
         <h3>{products.length!==0&& products[0].name}</h3>
