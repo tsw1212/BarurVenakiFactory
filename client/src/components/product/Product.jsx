@@ -41,6 +41,7 @@ import WorngRequest from '../../pages/WorngRequest';
 import { getRequest } from '../../modules/requests/server_requests';
 import '../../css/product.css';
 import Slider from '../product/Slider';
+import SelectType from './selectType'
 let prices={min:0, max:10};
 const Product = ({ token, addToCart }) => {
   const [products, setProducts] = useState([]);
@@ -69,10 +70,10 @@ const Product = ({ token, addToCart }) => {
 
   
 
-  const handleTypeChange = (event) => {
-    const selectedProduct = products.find(product => product.package === event.target.value);
+  const handleTypeChange = (valueType) => {
+    const selectedProduct = products.find(product => product.package ===valueType );
     setCurrentProduct(selectedProduct);
-    setSelectedType(event.target.value);
+    // setSelectedType(event.target.value);
   };
 
   const handleQuantityChange = (event) => {
@@ -101,14 +102,7 @@ const Product = ({ token, addToCart }) => {
        <p className="product-price">{currentProduct!=null?currentProduct.price:`${prices.min}-${prices.max}`}₪</p>
         <div className="product-options">
           <div className="product-type">
-            <label htmlFor="type">סוג</label>
-            <select id="type"  value={selectedType} onChange={handleTypeChange}>
-              {products.map((product, index) => (
-                <option key={index} value={product.package}>
-                  {product.package}
-                </option>
-              ))}
-            </select>
+            <SelectType handleTypeChange={handleTypeChange} products={products}/>
           </div>
           <div className="product-quantity">
             <label htmlFor="quantity">כמות</label>
