@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { postRequest } from '../../modules/requests/server_requests';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const AddProduct = ({ token, showProducts, setShowProducts,setAddProductOn }) => {
+const AddProduct = ({ token, showProducts, setShowProducts,setAddProduct }) => {
     const [formData, setFormData] = useState({
         name: '',
         weight: '',
@@ -34,7 +35,7 @@ const AddProduct = ({ token, showProducts, setShowProducts,setAddProductOn }) =>
             for (const key in formData) {
                 productData.append(key, formData[key]);
             }
-            const dataRequest = await postRequest('http://localhost:3000/products', productData, token, 'multipart/form-data');
+            const dataRequest = await postRequest('http://localhost:3000/products', productData, token);
 
             if (dataRequest.ok) {
                 alert('Product created successfully');
@@ -50,7 +51,7 @@ const AddProduct = ({ token, showProducts, setShowProducts,setAddProductOn }) =>
 
     return (
         <div className='createProduct_container'>
-            <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setAddProductOn(false)} />
+            <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setAddProduct(false)} />
             <form onSubmit={handleSubmit} className='createProduct_form'>
                 <label htmlFor="name">Name:</label>
                 <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />

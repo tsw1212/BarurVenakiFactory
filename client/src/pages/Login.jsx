@@ -17,7 +17,7 @@ function Login({ setToken, setStatus, token }) {
         ev.preventDefault();
         const dataRequest = await postRequest("http://localhost:3000/login", input, token)
         if (!dataRequest.ok) {
-            alert("ישנם נתונים שגויים. נסה שוב")
+            alert("ישנם נתונים שגויים. נסה שוב");
         }
         else if (dataRequest.body != 0) {
             localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));

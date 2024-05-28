@@ -1,9 +1,10 @@
 .users_table {
-    width: 95%;
+    width: 80%;
     border-collapse: collapse;
     margin-left: 2.5%;
     margin-top: 1rem;
     margin-top: 200px;
+    margin-left: 15%;
 }
 
 .users_table th,

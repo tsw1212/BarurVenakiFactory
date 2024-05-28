@@ -5,7 +5,7 @@ import HomeNavBar from './pages/HomeNavBar';
 import Home from './pages/Home';
 import Users from './pages/managerPages/Users';
 import AllOrders from './pages/managerPages/AllOrders';
-import UserDetails from './pages/userPages/UserDetails';
+import UserDetails from './pages/UserDetails';
 import ShoppingCart from './pages/userPages/ShoppingCart';
 import Confirmation from './pages/userPages/Confirmation';
 import Product from './components/product/Product';
@@ -24,13 +24,13 @@ function App() {
         <Route path='/' element={<Navigate to='/home' replace />} />
         <Route path='home' element={<HomeNavBar setToken={setToken} status={status}  setStatus={setStatus}/>}>
           <Route index element={<Home setToken={setToken} token={token}  />} />
+          <Route path='userDetails' element={<UserDetails token={token} />} />
           <Route path='users' element={<Users token={token} />} />
           <Route path='products'>
-            <Route index element={<Products token={token} />} />
+            <Route index element={<Products status={status} token={token} />} />
             <Route path=':nameProduct' element={<Product status={status} token={token} />} />
           </Route>
           <Route path='allOrders' element={<AllOrders token={token} />} />
-          <Route path='userDetails' element={<UserDetails token={token} />} />
           <Route path='orders' element={<Orders token={token} />} />
           <Route path='shopping_cart'>
             <Route index element={<ShoppingCart />} />

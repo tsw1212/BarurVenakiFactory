@@ -5,7 +5,7 @@ import '../../css/slide.css';
 import { useState } from "react";
 export default function Slider({ sliders }) {
   const [slides, setSlides] = useState(sliders);
-//   const [slidersTypes, setSliderTypes] = useState(type);
+  // const [slidersTypes, setSliderTypes] = useState(type);
   return (
     <div className="container">
       <Slide easing="ease">

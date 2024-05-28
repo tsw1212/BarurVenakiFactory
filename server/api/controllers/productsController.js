@@ -43,19 +43,30 @@ const productsController = {
         //     res.status(401).json({ error: "unauthorized" });
         // else {
         try {
+            const file = req.file;
             const product = req.body;
-            const imgName=await uploadProductImage(req, res);
-            if (imgName) {
-                const { imageFile, ...productDataWithoutImage } = product; 
-                const productDataWithImgUrl = { ...productDataWithoutImage, imgUrl: imgName }; // Add imgUrl field
-                
-                if (!validation.validateProductInput(productDataWithImgUrl)) {
-                    res.status(400).json({ error: 'invalid input' });
-                } else {
-                    const newProduct = await ProductsServices.createProduct(productDataWithImgUrl);
-                    res.status(200).json(newProduct);
-                }
+            if (!validation.validateProductInput(product)) {
+                res.status(400).json({ error: 'invalid input' });
             }
+            else {
+                const checkProduct=await ProductsServices.getProductByNameAndPackage(product.name, product.package);
+                if (checkProduct.length == 0) {
+                    const imgName = await uploadProductImage(file);
+                    if (imgName) {
+                        //const { imageFile, ...productDataWithoutImage } = product;
+                        const productDataWithImgUrl = { ...product, imgUrl: imgName };
+                        const newProduct = await ProductsServices.createProduct(productDataWithImgUrl);
+                        res.status(200).json(newProduct);
+
+                    }
+                }
+                else {
+                    res.status(400).json({ error: 'product already exists' });
+                }
+
+
+            }
+
         } catch (error) {
             res.status(500).json({ error: "server internal error" });
         }
@@ -98,21 +109,27 @@ const productsController = {
 
 
 }
-function uploadProductImage(req, res) {
-    if (!req.files || Object.keys(req.files).length === 0) {
-        return res.status(400).send('No files were uploaded.');
+
+async function uploadProductImage(file) {
+    try {
+        let id = await ProductsServices.getNextProductId();
+        const newFileName = `${id}.png`;
+        const uploadDir = path.join(__dirname, '../../images'); // Relative path to the images directory
+
+        // Read the file buffer from the file object
+        const fileBuffer = file.buffer;
+
+        // Construct the full path to save the file
+        const filePath = path.join(uploadDir, newFileName);
+
+        // Write the file buffer to the specified file path
+        await fs.promises.writeFile(filePath, fileBuffer);
+
+        return `../../images/${newFileName}`;
+    } catch (error) {
+        console.error('Error uploading product image:', error);
+        throw error; // Re-throw the error to handle it in the caller function
     }
-    const { id } = req.params;
-    const uploadedFile = req.files.imageFile;
-    const newFileName = `${id}.png`;
-
-    const uploadDir = 'C:/Users/tzivi/Desktop/BarurVenakiFactory/server/images';
-
-    uploadedFile.mv(path.join(uploadDir, newFileName), (err) => {
-        if (err) {
-            return res.status(500).send(err);
-        }
-        return newFileName;
-    });
 }
+
 module.exports = productsController;
