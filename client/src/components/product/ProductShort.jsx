@@ -31,7 +31,7 @@ export default function ProductShort({ productData, showProducts, setShowProduct
                 alt={productData.name}
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h5" component="div" sx={{  color: "#2d5a02"}}>
                   {productData.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

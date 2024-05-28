@@ -26,7 +26,7 @@ function getStyles(name, personName, theme) {
   };
 }
 
-const selectType = ({ products, handleTypeChange }) => {
+const SelectType = ({ products, handleTypeChange }) => {
   const theme = useTheme();
   const [personName, setPersonName] = useState('');
 
@@ -38,8 +38,8 @@ const selectType = ({ products, handleTypeChange }) => {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel style={{  direction: "rtl"}}id="demo-multiple-name-label">סוג</InputLabel>
+      <FormControl sx={{ m: 1, width: 300, borderBottomColor: 'green' }}>
+        <InputLabel style={{ direction: "rtl"}} id="demo-multiple-name-label">סוג</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
@@ -47,6 +47,7 @@ const selectType = ({ products, handleTypeChange }) => {
           onChange={handleChange}
           input={<OutlinedInput label="Name" />}
           MenuProps={MenuProps}
+          sx={{ color: 'green' }} // Change color of Select
         >
           {products.map((p, index) => (
             <MenuItem
@@ -63,4 +64,4 @@ const selectType = ({ products, handleTypeChange }) => {
   );
 };
 
-export default selectType;
+export default SelectType;

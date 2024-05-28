@@ -21,7 +21,7 @@ const createToken = (status) => {
 }
 
 const validateToken = (recievedToken) => {
-    return managersTokens.find(t => t == recievedToken)||usersTokens.find(t=>t==recievedToken)||recievedToken==guest_token ? true : false;
+      return managersTokens.find(t => t == recievedToken)||usersTokens.find(t=>t==recievedToken)||recievedToken==guest_token ? true : false;
 }
 const statusToken=(recievedToken)=>{
     if( managersTokens.find(t => t == recievedToken))
