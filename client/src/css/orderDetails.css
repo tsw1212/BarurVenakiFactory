@@ -1,0 +1,23 @@
+.orderDetailsContainer {
+    direction: rtl;
+    padding: 20px;
+  }
+  
+  .orderInfo,
+  .products,
+  .events {
+    margin-bottom: 20px;
+  }
+  
+  .orderInfo h2,
+  .products h2,
+  .events h2 {
+    margin-bottom: 10px;
+  }
+  
+  .loading,
+  .error {
+    font-size: 18px;
+    color: red;
+  }
+  

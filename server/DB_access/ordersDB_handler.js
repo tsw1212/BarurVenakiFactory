@@ -13,7 +13,7 @@ async function createOrder(orderData) {
                 status: orderData.status,
                 remarks: orderData.remarks
             });
-            
+
             for (const product of orderData.products) {
                 sql = 'INSERT INTO ProductOrder SET ?';
                 const productOrderData = {
@@ -23,7 +23,7 @@ async function createOrder(orderData) {
                 };
                 await query(connection, sql, productOrderData);
             }
-            
+
             await connection.commit();
             const newOrder = await getOrderById(orderResult.insertId);
             resolve(newOrder);
@@ -99,22 +99,25 @@ async function getOrderById(orderId) {
 
         try {
             let sql = `
-                SELECT O.id AS orderId, O.userId, O.date, O.status, O.remarks,
-                P.productId, P.amount,
-                E.id AS eventId, E.text AS eventText, E.date AS eventDate
-                FROM Orders O
-                LEFT JOIN ProductOrder P ON O.id = P.orderId
-                LEFT JOIN Events E ON O.id = E.orderId
-                WHERE O.id = ?
+            SELECT O.id AS orderId, O.userId, O.date, O.status, O.remarks,
+            P.id AS productId, P.name, P.weight, P.package, P.imgUrl, P.inventory, P.price,
+            PO.amount,  -- Include the amount field from ProductOrder
+            E.id AS eventId, E.text AS eventText, E.date AS eventDate
+            FROM Orders O
+            LEFT JOIN ProductOrder PO ON O.id = PO.orderId
+            LEFT JOIN Products P ON PO.productId = P.id
+            LEFT JOIN Events E ON O.id = E.orderId
+            WHERE O.id = ?
+
             `;
             const orderDetails = await query(connection, sql, orderId);
 
             const groupedOrderDetails = groupByOrderId(orderDetails);
 
             if (groupedOrderDetails.length === 0) {
-                resolve(null); 
+                resolve(null);
             } else {
-                resolve(groupedOrderDetails[0]); 
+                resolve(groupedOrderDetails[0]);
             }
         } catch (error) {
             reject(new Error('Error fetching order details: ' + error));
@@ -145,7 +148,12 @@ function groupByOrderId(orderDetails) {
         if (row.productId) {
             grouped[row.orderId].products.push({
                 productId: row.productId,
-                amount: row.amount
+                amount: row.amount,
+                name: row.name,
+                weight: row.weight,
+                package: row.package,
+                imgUrl: row.imgUrl,
+                inventory: row.inventory,
             });
         }
 
@@ -160,21 +168,21 @@ function groupByOrderId(orderDetails) {
     return Object.values(grouped);
 }
 //returning object in this format:{ 
-    //     orderInfo: { 
-    //         orderId: 1, 
-    //         userId: 123, 
-    //         date: '2024-05-14T08:30:00.000Z', 
-    //         status: 'Pending', 
-    //         remarks: 'Urgent delivery' 
-    //     },
-    //     products: [
-    //         { productId: 101, amount: 2 },
-    //         { productId: 102, amount: 1 }
-    //     ],
-    //     events: [
-    //         { eventId: 201, text: 'Order received', date: '2024-05-14T10:00:00.000Z' }
-    //     ]
-    // }
+//     orderInfo: { 
+//         orderId: 1, 
+//         userId: 123, 
+//         date: '2024-05-14T08:30:00.000Z', 
+//         status: 'Pending', 
+//         remarks: 'Urgent delivery' 
+//     },
+//     products: [
+//         { productId: 101, amount: 2 },
+//         { productId: 102, amount: 1 }
+//     ],
+//     events: [
+//         { eventId: 201, text: 'Order received', date: '2024-05-14T10:00:00.000Z' }
+//     ]
+// }
 
 
 function query(connection, sql, values) {
@@ -189,12 +197,12 @@ function query(connection, sql, values) {
     });
 }
 
-  
+
 
 module.exports = {
-   createOrder,
-   getAllOrders,
-   getOrderById,
-   deleteOrder,
-   updateOrder
+    createOrder,
+    getAllOrders,
+    getOrderById,
+    deleteOrder,
+    updateOrder
 };
