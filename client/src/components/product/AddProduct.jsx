@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { postRequest } from '../../modules/requests/server_requests';
+import { postRequest } from '../../modules/requests/server_requests_special';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '../../css/addProduct.css'
 
-const AddProduct = ({ token,setProductsHandler,setAddProduct }) => {
+const AddProduct = ({ token, setProductsHandler, setAddProduct }) => {
     const [formData, setFormData] = useState({
         name: '',
         weight: '',
@@ -37,7 +38,8 @@ const AddProduct = ({ token,setProductsHandler,setAddProduct }) => {
             }
             const dataRequest = await postRequest('http://localhost:3000/products', productData, token);
             if (dataRequest.ok) {
-                await  setProductsHandler("add",dataRequest.body.id,dataRequest.body)
+                await setProductsHandler("add", dataRequest.body.id, dataRequest.body);
+                setAddProduct(false);
             } else {
                 alert('Failed to create product. Please try again.');
             }
@@ -48,30 +50,33 @@ const AddProduct = ({ token,setProductsHandler,setAddProduct }) => {
     };
 
     return (
-        <div className='createProduct_container'>
-            <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setAddProduct(false)} />
-            <form onSubmit={handleSubmit} className='createProduct_form'>
-                <label htmlFor="name">Name:</label>
-                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+        <>
+            <div className='overlay' onClick={() => setAddProduct(false)} />
+            <div className='createProduct_container'>
+                {/* <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setAddProduct(false)} /> */}
+                <form onSubmit={handleSubmit} className='createProduct_form'>
+                    <label htmlFor="name">שם:</label>
+                    <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+{/* 
+                    <label htmlFor="weight">משקל:</label>
+                    <input type="text" id="weight" name="weight" value={formData.weight} onChange={handleChange} required /> */}
 
-                <label htmlFor="weight">Weight:</label>
-                <input type="text" id="weight" name="weight" value={formData.weight} onChange={handleChange} required />
+                    <label htmlFor="package">אריזה:</label>
+                    <input type="text" id="package" name="package" value={formData.package} onChange={handleChange} required />
 
-                <label htmlFor="package">Package:</label>
-                <input type="text" id="package" name="package" value={formData.package} onChange={handleChange} required />
+                    <label htmlFor="imageFile">קובץ תמונה:</label>
+                    <input type="file" id="imageFile" name="imageFile" onChange={handleFileChange} accept="image/*" required />
 
-                <label htmlFor="imageFile">Image File:</label>
-                <input type="file" id="imageFile" name="imageFile" onChange={handleFileChange} accept="image/*" required />
+                    <label htmlFor="price">מחיר:</label>
+                    <input type="text" id="price" name="price" value={formData.price} onChange={handleChange} required />
 
-                <label htmlFor="price">Price:</label>
-                <input type="text" id="price" name="price" value={formData.price} onChange={handleChange} required />
+                    <label htmlFor="inventory">מלאי:</label>
+                    <input type="text" id="inventory" name="inventory" value={formData.inventory} onChange={handleChange} required />
 
-                <label htmlFor="inventory">Inventory:</label>
-                <input type="text" id="inventory" name="inventory" value={formData.inventory} onChange={handleChange} required />
-
-                <input type="submit" value="Create Product" />
-            </form>
-        </div>
+                    <input type="submit" value="יצירת מוצר" />
+                </form>
+            </div>
+        </>
     );
 };
 

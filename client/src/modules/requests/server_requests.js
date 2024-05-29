@@ -4,14 +4,7 @@ const request = async (url, method, body = null, token = null) => {
     "Content-Type": "application/json",
   };
 
-  if (url == 'http://localhost:3000/products' && method == "POST") {
-    headers = {};
-  }
-  //לבינתיפ
-if (method == "PUT") {
-  headers = {};
 
-}
   if (token) {
     headers["XAuthentication-Token"] = token;
   }
@@ -22,13 +15,9 @@ if (method == "PUT") {
   };
 
   if (body) {
-    if (url == 'http://localhost:3000/products' && method == "POST") {
-      config.body = body;
-    }
-    else {
-      config.body = JSON.stringify(body);
+    config.body = JSON.stringify(body);
 
-    }
+
   }
 
 
