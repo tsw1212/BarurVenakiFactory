@@ -5,9 +5,10 @@ import FullProduct from '../../components/product/FullProduct';
 import AddProduct from '../../components/product/AddProduct';
 import Tooltip from '@mui/material/Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { updateProduct } from '../../../../server/services/productsServices';
 
-function ManagerProducts({ status, token }) {
-    const [products, setProducts] = useState([]);
+function ManagerProducts({ status, token,products, setProducts ,setProductsHandler}) {
+   
     const [wrongRequest, setWorngRequest] = useState(false);
     const [addProduct, setAddProduct] = useState(false);
 
@@ -27,24 +28,22 @@ function ManagerProducts({ status, token }) {
     return (
         <div>
             {wrongRequest ? <WorngRequest className='wrongRequest' setWorngRequest={setWorngRequest} /> :
-            <div>
+            <div >
                 <div className="allProducts">
                     {products.length > 0 && products.map((productData) => {
                         return <FullProduct className="fullProduct" 
                         status={status}  
                         productData={productData} 
                         key={productData.id} 
-                        products={products} 
-                        setProducts={setProducts}/>;
+                        setProductsHandler={setProductsHandler}
+                        />;
                     })}
 
                 </div>
                 <Tooltip onClick={() => setAddProduct(true)} describeChild title='הוסף מוצר'>
                     <FontAwesomeIcon icon="fas fa-plus-square" />
                 </Tooltip>
-                {addProduct &&
-                    <AddProduct setAddProduct={setAddProduct} products={products} setProducts={setProducts} />
-                }
+                {addProduct &&   <AddProduct setAddProduct={setAddProduct} setProductsHandler={setProductsHandler}  /> }
             </div>}
 
         </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { postRequest } from '../../modules/requests/server_requests';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const AddProduct = ({ token, showProducts, setShowProducts,setAddProduct }) => {
+const AddProduct = ({ token,setProductsHandler,setAddProduct }) => {
     const [formData, setFormData] = useState({
         name: '',
         weight: '',
@@ -36,10 +36,8 @@ const AddProduct = ({ token, showProducts, setShowProducts,setAddProduct }) => {
                 productData.append(key, formData[key]);
             }
             const dataRequest = await postRequest('http://localhost:3000/products', productData, token);
-
             if (dataRequest.ok) {
-                alert('Product created successfully');
-                window.location.reload();
+                await  setProductsHandler("add",dataRequest.body.id,dataRequest.body)
             } else {
                 alert('Failed to create product. Please try again.');
             }

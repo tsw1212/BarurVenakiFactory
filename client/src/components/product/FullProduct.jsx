@@ -14,16 +14,18 @@ import { useState } from 'react';
 import DeleteProduct from './DeleteProduct';
 import EditProduct from './EditProduct';
 
-export default function FullProduct({ productData, status, products, setProducts, token }) {
+export default function FullProduct({ productData, status, token, setProductsHandler }) {
   const [editOn, setEditOn] = useState(false);
+  const [deleteOn, setdeleteOn] = useState(false);
 
   function handleEdit(event) {
     event.stopPropagation()
-
+    setEditOn(true);
   }
-
-  async function handleDelete(event) {
+  function handleDelete(event) {
     event.stopPropagation()
+    setdeleteOn(true);
+
   }
 
   return (
@@ -31,42 +33,40 @@ export default function FullProduct({ productData, status, products, setProducts
       <div>
 
         <Card sx={{ maxWidth: 345 }} >
-          <NavLink to={`${productData.name}`}>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                height="140"
-                image={`data:'image/png';base64,${productData.img}`}
-                alt={productData.name}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {productData.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  <h4>מחיר: {productData.price}</h4>
-                  <h4>כמות במלאי: {productData.inventory}</h4>
-                  <h4>משקל: {productData.weight}</h4>
-                  <h4>סוג אריזה: {productData.package}</h4>
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </NavLink>
-          <CardActions>          
-              <div>
-                <Tooltip describeChild title='מחק'>
-                  <FontAwesomeIcon icon="fas fa-trash" onClick={(e) => handleDelete(e)} />
-                </Tooltip>
-                <Tooltip describeChild title='ערוך'>
-                  <FontAwesomeIcon icon="fas fa-pencil-alt" onClick={(e) => handleEdit(e)} />
-                </Tooltip>
-              </div>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="140"
+              image={`data:'image/png';base64,${productData.img}`}
+              alt={productData.name}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {productData.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                <h4>מחיר: {productData.price}</h4>
+                <h4>כמות במלאי: {productData.inventory}</h4>
+                <h4>משקל: {productData.weight}</h4>
+                <h4>סוג אריזה: {productData.package}</h4>
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions>
+            <div>
+              <Tooltip describeChild title='מחק'>
+                <FontAwesomeIcon icon="fas fa-trash" onClick={(e) => handleDelete(e)} />
+              </Tooltip>
+              <Tooltip describeChild title='ערוך'>
+                <FontAwesomeIcon icon="fas fa-pencil-alt" onClick={(e) => handleEdit(e)} />
+              </Tooltip>
+            </div>
           </CardActions>
         </Card>
 
       </div>
-      {editOn && <EditProduct setEditOn={setEditOn} products={products} setProducts={setProducts} token={token} productData={productData}/>}
-
+      {editOn && <EditProduct setProductsHandler={setProductsHandler} setEditOn={setEditOn} productData={productData}  token={token} />}
+      {deleteOn && <DeleteProduct setProductsHandler={setProductsHandler} setdeleteOn={setdeleteOn} productData={productData} token={token} />}
     </>
   );
 }

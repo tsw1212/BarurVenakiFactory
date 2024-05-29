@@ -49,7 +49,7 @@ const productsController = {
                 res.status(400).json({ error: 'invalid input' });
             }
             else {
-                const checkProduct=await ProductsServices.getProductByNameAndPackage(product.name, product.package);
+                const checkProduct = await ProductsServices.getProductByNameAndPackage(product.name, product.package);
                 if (checkProduct.length == 0) {
                     const imgName = await uploadProductImage(file);
                     if (imgName) {
@@ -77,15 +77,22 @@ const productsController = {
         //     res.status(401).json({ error: "unauthorized" });
         // else {
         try {
+            const file = req.file;
+            const product = req.body;
             const { id } = req.params;
-            let updatedProductData = req.body;
-            if (!validation.validateProductInput(updatedProductData, true)) {
+            if (!validation.validateProductInput(product)) {
                 res.status(400).json({ error: 'invalid input' });
-            } else if (await ProductsServices.getProductById(id) === null) {
+            } else 
+            if (await ProductsServices.getProductById(id)==undefined) {
                 res.status(404).json({ error: "product not found" });
             } else {
-                updatedProductData = await ProductsServices.updateProduct(updatedProductData);
-                res.status(200).json(updatedProductData);
+                const imgName = await uploadProductImage(file, id);
+                if (imgName) {
+                    const productDataWithImgUrl = { ...product, imgUrl: imgName };
+                    const newProduct = await ProductsServices.updateProduct(productDataWithImgUrl);
+                    res.status(200).json(newProduct);
+
+                }
             }
         } catch (error) {
             res.status(500).json({ error: "server internal error" });
@@ -110,19 +117,18 @@ const productsController = {
 
 }
 
-async function uploadProductImage(file) {
+async function uploadProductImage(file, id = null) {
     try {
-        let id = await ProductsServices.getNextProductId();
+        if (id == null) {
+            id = await ProductsServices.getNextProductId();
+        }
+        console.log(2);
         const newFileName = `${id}.png`;
         const uploadDir = path.join(__dirname, '../../images'); // Relative path to the images directory
-
-        // Read the file buffer from the file object
         const fileBuffer = file.buffer;
 
-        // Construct the full path to save the file
         const filePath = path.join(uploadDir, newFileName);
 
-        // Write the file buffer to the specified file path
         await fs.promises.writeFile(filePath, fileBuffer);
 
         return `../../images/${newFileName}`;

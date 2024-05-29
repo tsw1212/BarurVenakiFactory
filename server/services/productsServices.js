@@ -1,5 +1,4 @@
 const DB_actions = require('../DB_access/productsDB_handler');
-const { getProductByName } = require('../api/controllers/productsController');
 const converts = require('../modules/converts');
 
 const ProductsServices = {
@@ -25,7 +24,11 @@ const ProductsServices = {
         }));
         return updatedProducts;
     },
-
+    getProductById:async (id)=>{
+        const product = await DB_actions.getProductById(id);
+        return product; 
+    }
+,
     getProductByName: async (name) => {
         const products = await DB_actions.getProductByName(name);
         const updatedProducts = await Promise.all(products.map(async (product) => {
@@ -37,14 +40,18 @@ const ProductsServices = {
     },
 
     updateProduct: async (updatedProductData) => {
-        return await DB_actions.updateProduct(updatedProductData);
+        const product= await  DB_actions.updateProduct(updatedProductData);
+            const { imgUrl, ...productWithoutImg } = product;
+            const img = await converts.convertUrlToImageFile(product.imgUrl);
+            return { ...productWithoutImg, img: img };
+ 
     },
 
     deleteProduct: async (id) => {
         await DB_actions.deleteProduct(id);
     },
-    getProductByNameAndPackage: async (name, package) => {
-        const product = await DB_actions.getProductByNameAndPackage(name, package);
+    getProductByNameAndPackage: async (name, packageType) => {
+        const product = await DB_actions.getProductByNameAndPackage(name, packageType);
         return product;
     },
     getNextProductId: async()=>{

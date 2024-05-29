@@ -13,7 +13,7 @@ app.get('/:name', productsController.getProductByName);
 
 app.post('/', upload.single('imageFile'), productsController.createProduct);
 
-app.put('/:id', productsController.updateProduct);
+app.put('/:id', upload.single('img'),productsController.updateProduct);
 
 app.delete('/:id', productsController.deleteProduct);
 

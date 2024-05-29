@@ -44,7 +44,7 @@ import Slider from '../product/Slider';
 import SelectType from './SelectType'
 import QuantityInput from './QuantityInput';
 let prices={min:0, max:10};
-const Product = ({ token, addToCart }) => {
+const Product = ({ token, addToCart, }) => {
   const [products, setProducts] = useState([]);
   const { nameProduct } = useParams();
   const [wrongRequest, setWrongRequest] = useState(false);

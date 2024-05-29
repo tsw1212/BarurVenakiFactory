@@ -7,7 +7,11 @@ const request = async (url, method, body = null, token = null) => {
   if (url == 'http://localhost:3000/products' && method == "POST") {
     headers = {};
   }
+  //לבינתיפ
+if (method == "PUT") {
+  headers = {};
 
+}
   if (token) {
     headers["XAuthentication-Token"] = token;
   }
