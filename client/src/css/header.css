@@ -1,5 +1,5 @@
 .nav {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -12,9 +12,9 @@
     font-size: 1.4em;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.icon{
 
-}
+.icon {}
+
 .navLink {
     color: white;
     font-size: 22px;
@@ -32,6 +32,7 @@
     display: flex;
     gap: 50px;
 }
+
 .logoImg {
     width: 150px;
     height: 150px;
@@ -40,11 +41,13 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin-right: 20px;
 }
-.logoImg:hover{
+
+.logoImg:hover {
     box-shadow: rgba(176, 222, 70, 0.35) 5px 10px 20px;
     width: 160px;
     height: 160px;
 }
+
 .navLink img.logo {
     transition: transform 0.3s ease;
 }
@@ -54,8 +57,22 @@
 }
 
 @media (max-width: 768px) {
+    .nav{
+        width: 100%;
+    }
     .leftSide {
         margin-left: 0;
+    }
+
+    .navLink {
+        font-size: 18px;
+    }
+
+    .logoImg {
+        width: 120px;
+        height: 120px;
+        margin-top: 40px;
+        margin-right: 0px;
     }
 }
 

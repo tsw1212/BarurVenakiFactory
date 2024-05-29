@@ -35,7 +35,7 @@ app.use('/passwords', passwordsRoutes);
 app.use('/users', usersRoutes ); 
 app.use('/products', productsRoutes); 
 app.use('/orders', ordersRoutes );
- app.use('/events',eventsRoutes );
+app.use('/events',eventsRoutes );
 
 
 

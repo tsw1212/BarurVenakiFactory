@@ -41,7 +41,7 @@ import WorngRequest from '../../pages/WorngRequest';
 import { getRequest } from '../../modules/requests/server_requests';
 import '../../css/product.css';
 import Slider from '../product/Slider';
-import SelectType from './SelectType'
+import SelectType from './selectType'
 import QuantityInput from './QuantityInput';
 let prices={min:0, max:10};
 const Product = ({ token, addToCart, }) => {

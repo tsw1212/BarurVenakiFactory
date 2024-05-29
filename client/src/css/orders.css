@@ -1,0 +1,18 @@
+.ordersContainer{
+    direction: rtl;
+    margin-bottom: 0;
+    margin-top: 100px;
+}
+.row:hover{
+background-color: rgb(239, 248, 219);
+}
+.tableHead{
+    background-color: rgb(248, 250, 242);
+}
+@media (max-width: 768px) {
+    .ordersContainer {
+        font-size: 25px;
+        width: 100%;
+        margin-top: 200px;
+    }
+}

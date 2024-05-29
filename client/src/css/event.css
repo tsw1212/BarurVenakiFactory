@@ -1,0 +1,11 @@
+.event {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .event p {
+    margin: 5px 0;
+  }
+  
