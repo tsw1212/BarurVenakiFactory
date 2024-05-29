@@ -1,10 +1,10 @@
-import React from 'react'
+import * as React from 'react';
+import Orders from '../../components/orders/Orders';
 
-function AllOrders() {
+function AllOrders({ token }) {
+
   return (
-    <div>
-      
-    </div>
+    <Orders token={token} />
   )
 }
 

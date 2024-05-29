@@ -19,6 +19,7 @@
     color: #333;
 }
 
+
 .users_table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
