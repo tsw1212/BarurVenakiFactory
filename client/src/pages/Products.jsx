@@ -1,50 +1,39 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
-import '../css/products.css';
-import ProductShort from '../components/product/ProductShort'
-import WorngRequest from '../pages/WorngRequest';
-import { getRequest } from '../modules/requests/server_requests'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import AddProduct from '../components/product/AddProduct'
+import React, { useState } from 'react';
+import ManagerProducts from './managerPages/ManagerProducts';
+import ProductsUser from '../pages/userPages/ProductsUser'
+function Products({ status, token }) {
+    const [products, setProducts] = useState([]);
 
-
-import Tooltip from '@mui/material/Tooltip';
-
-let products;
-function Products({ token, status }) {
-  const [showProducts, setShowProducts] = useState([]);
-  const [worngRequest, setWorngRequest] = useState(false);
-
-
-  useEffect(() => {
-    async function fatchData() {
-
-      let dataRequest = await getRequest(`http://localhost:3000/products/shortList`, token);
-      if (dataRequest.ok) {
-        products = dataRequest.body;
-        setShowProducts(products);
-      }
-      else {
-        setWorngRequest(true);
-      }
+    function setProductsHandler( typeSettings,productId, productDataToSetting = null) {
+        let updateProducts;
+        if (typeSettings == "delete") {
+            let index = products.findIndex((p) => p.id == productId)
+            updateProducts = [...products];
+            updateProducts.splice(index, 1);
+            setProducts([...updateProducts]);
+        }
+        else if (typeSettings == "update") {
+            updateProducts = products.map((product) => {
+                if (product.id == productId) {
+                    return  productDataToSetting
+                }
+                else
+                    return  product
+            })
+            setProducts([...updateProducts])
+        }
+        else if (typeSettings == "add") {
+            setProducts([...products, productDataToSetting])
+        }
     }
-    fatchData();
-  }, [worngRequest]);
-  return (
+    return (
 
-    worngRequest ? <WorngRequest className='wrongRequest' setWorngRequest={setWorngRequest} /> :
-      <div>
-        <div className="allProducts">
-          {showProducts.length > 0 && showProducts.map((productData) => {
-            return <ProductShort status={status} className="productShort" productData={productData} key={productData.id} />;
-          })}
-
+        <div>
+            {status == "manager" ? <ManagerProducts status={status} token={token} setProducts={setProducts} products={products} setProductsHandler={setProductsHandler} /> :
+                <ProductsUser status={status} token={token} setProducts={setProducts} products={products} setProductsHandler={setProductsHandler} />
+            }
         </div>
-      </div>
-
-
-
-  )
+    );
 }
 
-export default Products
+export default Products;

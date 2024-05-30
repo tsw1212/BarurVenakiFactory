@@ -12,6 +12,7 @@ import Product from './components/product/Product';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Orders from './pages/userPages/Orders';
+// import Products from './pages/userPages/ProductsUser';
 import Products from './pages/Products';
 import ManagerProducts from './pages/managerPages/ManagerProducts';
 import Order from './pages/managerPages/Order';
@@ -28,7 +29,7 @@ function App() {
           <Route index element={<Home setToken={setToken} token={token} />} />
           <Route path='userDetails' element={<UserDetails token={token} />} />
           <Route path='users' element={<Users token={token} />} />
-          <Route path='managetProducts' element={<ManagerProducts token={token} status={status} />} />
+          {/* <Route path='managetProducts' element={<ManagerProducts token={token} status={status}/>} /> */}
           <Route path='products'>
             <Route index element={<Products status={status} token={token} />} />
             <Route path=':nameProduct' element={<Product status={status} token={token} />} />

@@ -11,7 +11,7 @@ function ManagerHeader({ logOut }) {
         <div className='leftSide'>
           <NavLink className='navLink' to="userDetails"><FontAwesomeIcon className='icon' icon="fas fa-user-alt" /></NavLink>
           <NavLink className='navLink' to="allOrders">הזמנות</NavLink>
-          <NavLink className='navLink' to="managetProducts">מוצרים</NavLink>
+          <NavLink className='navLink' to="products">מוצרים</NavLink>
           <NavLink className='navLink' to="users">משתמשים</NavLink>
           <NavLink className='navLink' to="." onClick={() => logOut()}><FontAwesomeIcon className='icon' icon="fas fa-sign-out-alt" /></NavLink >
         </div>
