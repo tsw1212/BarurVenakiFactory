@@ -61,7 +61,7 @@ async function updateOrder(updatedOrderData) {
                 reject(new Error('Error updating order:' + err));
             } else {
                 let updatedOrder = await getOrderById(updatedOrderData.id);
-                resolve(updateOrder);
+                resolve(updatedOrder);
             }
         });
     });

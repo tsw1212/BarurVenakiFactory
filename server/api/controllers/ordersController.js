@@ -7,12 +7,12 @@ const OrderController = {
         // if (req.securityLevel !== "manager")
         //     res.status(401).json({ error: "unauthorized" });
         // else {
-            try {
-                let orders = await OrdersServices.getAllOrders();
-                res.status(200).json(orders);
-            } catch (error) {
-                res.status(500).json({ error: "server internal error" });
-            }
+        try {
+            let orders = await OrdersServices.getAllOrders();
+            res.status(200).json(orders);
+        } catch (error) {
+            res.status(500).json({ error: "server internal error" });
+        }
         // }
     },
     getOrderById: async (req, res) => {
@@ -46,11 +46,14 @@ const OrderController = {
         }
     },
     updateOrder: async (req, res) => {
-        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
-            res.status(401).json({ error: "unauthorized" });
+        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        //     res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
             let updatedOrderData = req.body;
+            const datetime = new Date(updatedOrderData.date);
+            const formattedDatetime = datetime.toISOString().slice(0, 19).replace('T', ' ');
+            updatedOrderData.date = formattedDatetime;
             if (!validation.validateOrdersInput(updatedOrderData, true)) {
                 res.status(400).json({ error: 'invalid input' });
             } else if (await OrdersServices.getOrderById(id) === null) {

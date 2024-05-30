@@ -31,9 +31,9 @@ const eventsController = {
         }
     },
     createEvent: async (req, res) => {
-        if (req.securityLevel !== "manager")
-            res.status(401).json({ error: "unauthorized" });
-        else {
+        // if (req.securityLevel !== "manager")
+        //     res.status(401).json({ error: "unauthorized" });
+        // else {
             try {
                 const event = req.body;
                 if (!validation.validateEventsInput(event)) {
@@ -45,7 +45,7 @@ const eventsController = {
             } catch (error) {
                 res.status(500).json({ error: "server internal error" });
             }
-        }
+        // }
     },
     updateEvent: async (req, res) => {
         if (req.securityLevel !== "manager")
