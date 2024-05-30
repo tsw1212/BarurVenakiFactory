@@ -1,0 +1,27 @@
+.addEventContainer {
+    direction: rtl;
+    border: black solid 2px;
+    padding: 15px;
+}
+
+.input {
+    width: 70%;
+}
+
+.addEventB {
+    background-color: antiquewhite;
+    color: black;
+}
+
+.addEventB:hover {
+    background-color: rgb(225, 255, 127);
+}
+
+.exit {
+    width: 20px;
+    height: 20px;
+}
+
+.exit:hover {
+    background-color: antiquewhite;
+}

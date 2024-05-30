@@ -1,6 +1,14 @@
 .orderDetailsContainer {
     direction: rtl;
-    padding: 20px;
+    width: 50%;
+    align-items: center;
+    margin-left: 25%;
+    margin-top: 50px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+
   }
   
   .orderInfo,
@@ -19,5 +27,19 @@
   .error {
     font-size: 18px;
     color: red;
+  }
+  .editStatus{
+    direction: rtl;
+    width: 50%;
+  }
+  .saveStatus{
+    margin-top: 20px;
+  }
+  @media (max-width: 760px){
+    .orderDetailsContainer{
+      width: 90%;
+      margin-left: 5%;
+      margin-top: 100px;
+    }
   }
   
