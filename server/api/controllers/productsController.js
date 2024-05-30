@@ -4,6 +4,7 @@ const validation = require('../../modules/validation');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 const fs = require('fs');
+const { log } = require("console");
 
 
 const productsController = {
@@ -68,6 +69,7 @@ const productsController = {
             }
 
         } catch (error) {
+            console.log(error.message);
             res.status(500).json({ error: "server internal error" });
         }
         // }
@@ -119,11 +121,12 @@ const productsController = {
 
 async function uploadProductImage(file, id = null) {
     try {
-        if (id == null) {
-            id = await ProductsServices.getNextProductId();
+        let newId=id;
+        if (newId == null) {
+            newId = await ProductsServices.getNextProductId();
         }
         console.log(2);
-        const newFileName = `${id}.png`;
+        const newFileName = `${newId}.png`;
         const uploadDir = path.join(__dirname, '../../images'); // Relative path to the images directory
         const fileBuffer = file.buffer;
 

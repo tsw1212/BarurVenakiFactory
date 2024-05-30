@@ -57,9 +57,9 @@ const AddProduct = ({ token, setProductsHandler, setAddProduct }) => {
                 <form onSubmit={handleSubmit} className='createProduct_form'>
                     <label htmlFor="name">שם:</label>
                     <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-{/* 
+
                     <label htmlFor="weight">משקל:</label>
-                    <input type="text" id="weight" name="weight" value={formData.weight} onChange={handleChange} required /> */}
+                    <input type="text" id="weight" name="weight" value={formData.weight} onChange={handleChange} required />
 
                     <label htmlFor="package">אריזה:</label>
                     <input type="text" id="package" name="package" value={formData.package} onChange={handleChange} required />
