@@ -29,7 +29,6 @@ function App() {
           <Route index element={<Home setToken={setToken} token={token} />} />
           <Route path='userDetails' element={<UserDetails token={token} />} />
           <Route path='users' element={<Users token={token} />} />
-          {/* <Route path='managetProducts' element={<ManagerProducts token={token} status={status}/>} /> */}
           <Route path='products'>
             <Route index element={<Products status={status} token={token} />} />
             <Route path=':nameProduct' element={<Product status={status} token={token} />} />
