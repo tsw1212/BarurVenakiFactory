@@ -36,7 +36,7 @@ export default function ProductShort({ productData, showProducts, setShowProduct
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {productData.minPrice == productData.maxPrice ?
-                    <h5>מחיר {productData.minPrice}</h5> :
+                    <p>מחיר {productData.minPrice}</p> :
                     <p>טווח מחירים {productData.minPrice}-{productData.maxPrice}₪</p>
                   }
                 </Typography>
