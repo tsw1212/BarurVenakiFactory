@@ -76,12 +76,21 @@ function Home({ status, token, setToken }) {
       <section >
         <h2 className="section-title"> ? למה לבחור בנו</h2>
         <div className="container">
-          <div className="rightSideTxt">
-            <h3 className="section-item">איכות יוצאת דופן: המוצרים שלנו מגיעים מהחוות הטובות ביותר ועוברים תהליך עיבוד לשמירה על טריות מירבית</h3>
-            <h3 className="section-item">אריזה מתקדמת: הטכנולוגיה המתקדמת שלנו לאריזת ואקום מבטיחה איכות לאורך זמן והגנה מפני מזיקים</h3>
-            <h3 className="section-item">נוחות: עם מערכת ההזמנות המקוונת שלנו, תוכל
-              ו להירשם במהירות ולהתחיל לבצע הזמנות בקלות</h3>
-            <h3 className="section-item">בריאות ובטיחות: אנו מקפידים על הסטנדרטים הגבוהים ביותר של בקרת איכות כדי להבטיח שכל חבילה בטוחה ומזינה</h3>
+          <div className="lastDivManyItems">
+            <div className="section-item1">
+              <h2>בריאות ובטיחות</h2>   
+              אנו מקפידים על הסטנדרטים הגבוהים ביותר של בקרת איכות כדי להבטיח שכל חבילה בטוחה ומזינה           </div>
+            <div className="section-item2">
+              <h2>טכנולוגיה מתקדמת</h2>
+               הטכנולוגיה המתקדמת שלנו לאריזת ואקום מבטיחה איכות לאורך זמן והגנה מפני מזיקים</div>
+            <div className="section-item3">
+              <h2>נוחות</h2>
+               עם מערכת ההזמנות המקוונת שלנו, תוכלו
+               להירשם במהירות ולהתחיל לבצע הזמנות בקלות</div>
+            <div className="section-item4">
+              <h2>כשרות</h2>
+              <img style={{width:"75%"}} src="https://www.hamichlol.org.il/w/upload/michlol/b/b7/HCharedit.svg" alt='לוגו כשרות בד"ץ העדה החרדית'></img>
+            </div>
           </div>
         </div>
       </section>

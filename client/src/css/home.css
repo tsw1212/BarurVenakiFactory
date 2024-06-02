@@ -68,6 +68,21 @@ section {
   font-weight: bold;
   color: #333;
 }
+.lastDivManyItems{
+  display: flex;
+}
+.select-item1 {
+  flex: 1
+}
+.select-item2 {
+  flex: 3
+}
+.select-item3{
+  flex: 5
+}
+.select-item{
+  flex: 7
+}
 
 .section-content {
   font-size: 18px;
