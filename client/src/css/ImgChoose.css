@@ -1,0 +1,13 @@
+.custom-file-upload .p-button {
+    background-color: #4CAF50 !important; /* צבע רקע ירוק */
+    border: 2px solid #388E3C !important; /* מסגרת ירוקה כהה */
+    color: white !important; /* צבע טקסט לבן */
+    padding: 10px 20px !important; /* ריפוד פנימי */
+    font-size: 16px !important; /* גודל גופן */
+    border-radius: 5px !important; /* פינות מעוגלות */
+}
+
+.custom-file-upload .p-button:hover {
+    background-color: #45A049 !important; /* צבע רקע בהיר יותר בעת ריחוף */
+    border-color: #2E7D32 !important; /* צבע מסגרת כהה יותר בעת ריחוף */
+}
