@@ -15,7 +15,7 @@ const OrdersServices= {
 
     updateOrder: async (updatedOrderData) => {
         return await DB_actions.updateOrder(updatedOrderData);
-    },
+    }, 
 
     deleteOrder: async (id) => {
         await DB_actions.deleteOrder(id);

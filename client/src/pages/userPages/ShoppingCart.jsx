@@ -1,5 +1,5 @@
 import React from 'react'
-import CartProducts from '../../components/CartProducts'
+import CartProducts from '../../components/shoppingCart/CartProducts'
 
 function ShoppingCart({token}) {
   return (
