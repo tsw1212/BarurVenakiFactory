@@ -132,6 +132,29 @@ function validateLoginInput(body) {
   
   }
 
+  function validateCartInput(cartItem, isIdRequired = false) {
+    if (!cartItem || typeof cartItem !== "object") return false;
+
+    const requiredFields = ["userId", "productId", "amount"];
+    if (isIdRequired) {
+        requiredFields.push("id");
+    }
+
+    for (const field of requiredFields) {
+        if (!(field in cartItem)) return false;
+    }
+
+    if (typeof cartItem.userId !== "number" || cartItem.userId <= 0) return false;
+    if (typeof cartItem.productId !== "number" || cartItem.productId <= 0) return false;
+    if (typeof cartItem.amount !== "number" || cartItem.amount <= 0) return false;
+    if ('choose' in cartItem && typeof cartItem.choose !== "boolean") return false;
+
+    return true;
+}
+
+
+
+
 module.exports = {
     validateUserInput,
     validateOrdersInput,
@@ -139,5 +162,6 @@ module.exports = {
     validateProductOrderInput,
     validateEventsInput,
     validateLoginInput,
-    validatePasswordInput
+    validatePasswordInput,
+    validateCartInput
 };

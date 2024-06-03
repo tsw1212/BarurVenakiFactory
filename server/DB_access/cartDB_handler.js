@@ -57,7 +57,7 @@ async function updateCartItem(updatedCartData) {
 async function getCartById(id) {
     return new Promise((resolve, reject) => {
         const connection = Connect();
-        const sql = 'select * Cart WHERE id= ?';
+        const sql = 'SELECT * from Cart WHERE id= ?';
         connection.query(sql, [id], async (err, result) => {
             connection.end();
             if (err) {
@@ -76,16 +76,16 @@ async function getAllCarts() {
 
         try {
             let sql = `
-                SELECT C.userId, C.productId, C.amount, C.choose C.id,
+                SELECT C.userId, C.productId, C.amount, C.choose, C.id,
                 P.name, P.weight, P.package, P.imgUrl, P.inventory, P.price
                 FROM Cart C
                 LEFT JOIN Products P ON C.productId = P.id
             `;
             const cartDetails = await query(connection, sql);
 
-            const groupedCarts = groupByUserId(cartDetails);
+            //const groupedCarts = groupByUserId(cartDetails);
 
-            resolve(groupedCarts);
+            resolve(cartDetails);
         } catch (error) {
             reject(new Error('Error fetching all cart details: ' + error));
         } finally {
@@ -100,7 +100,7 @@ async function getCartByUserId(userId) {
 
         try {
             let sql = `
-                SELECT C.userId, C.productId, C.amount, C.choose C.id,
+                SELECT C.userId, C.productId, C.amount, C.choose, C.id,
                 P.name, P.weight, P.package, P.imgUrl, P.inventory, P.price
                 FROM Cart C
                 LEFT JOIN Products P ON C.productId = P.id
@@ -167,5 +167,6 @@ module.exports = {
     getAllCarts,
     getCartByUserId,
     deleteCartItem,
-    updateCartItem
+    updateCartItem,
+    getCartById
 };

@@ -3,10 +3,8 @@ const converts = require('../modules/converts');
 
 const CartServices = {
     createCartItem: async (cartData) => {
-        const cartItem = await DB_actions.createCartItem(cartData);
-        const { imgUrl, ...cartItemWithoutImg } = cartItem;
-        const img = await converts.convertUrlToImageFile(cartItem.imgUrl);
-        return { ...cartItemWithoutImg, img: img };
+        const cartItem = await DB_actions.createCartItem(cartData); 
+        return cartItem;
     },
 
     getAllCarts: async () => {
@@ -34,9 +32,7 @@ const CartServices = {
     },
     updateCartItem: async (updatedCartData) => {
         const cartItem = await DB_actions.updateCartItem(updatedCartData);
-        const { imgUrl, ...cartItemWithoutImg } = cartItem;
-        const img = await converts.convertUrlToImageFile(cartItem.imgUrl);
-        return { ...cartItemWithoutImg, img: img };
+        return cartItem;
     },
 
     deleteCartItem: async (id) => {
