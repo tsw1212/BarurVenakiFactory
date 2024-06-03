@@ -34,47 +34,51 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
 
     }, [worngRequest]);
 
-    const handleCheckboxChange = (rowData) => {
-        const updatedProducts = products.map(async (product) => {
+    const handleCheckboxChange =async (rowData) => {
+        const updatedProducts = await Promise.all(  products.map(async (product) => {
             if (product.id === rowData.id) {
-                product.choose = !product.choose;
-                const reqData = await putRequest(`http://localhost:3000/cart/${product.id}`, product, token);
+                const item = {
+                    amount: product.quantity,
+                    userId: user.id,
+                    productId: product.id,
+                    choose: !product.choose
+                  };
+                const reqData = await putRequest(`http://localhost:3000/cart/${item.id}`, item, token);
                 if (!reqData.ok) {
                     alert('משהו השתבש בבקשה נסה שוב')
                 }
+                else
+                return reqData.body;
+
             }
             return product;
         }
-        );
+        ));
+        console.log(updatedProducts);
         setProducts(updatedProducts);
 
     };
 
-    const handleQuantityChange = (value, rowData) => {
-        const updatedProducts = products.map(async (product) => {
+    const handleQuantityChange = async(value, rowData) => {
+        const updatedProducts =await Promise.all( products.map(async (product) => {
             if (product.id === rowData.id) {
-                product.quantity = value;
-                const reqData = await putRequest(`http://localhost:3000/cart/${product.id}`, product, token);
+                const item = {
+                    amount: value,
+                    userId: user.id,
+                    productId: product.id,
+                    choose: rowData.choose
+                  };
+                const reqData = await putRequest(`http://localhost:3000/cart/${item.id}`, item, token);
                 if (!reqData.ok) {
                     alert('משהו השתבש בבקשה נסה שוב')
                 }
+                else
+                return reqData.body;
             }
             return product;
         }
-        );
+        ));
         setProducts(updatedProducts);
-    };
-
-    const checkboxBodyTemplate = (rowData) => {
-        return (
-            <Checkbox checked={rowData.choose} onChange={() => handleCheckboxChange(rowData)} />
-        );
-    };
-
-    const quantityBodyTemplate = (rowData) => {
-        return (
-            <QuantityInput quantity={rowData.amount} handleQuantityChange={(value) => handleQuantityChange(value, rowData)} />
-        );
     };
 
     async function handleOpenDeleteForm(e) {
@@ -110,8 +114,8 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
                             <Column className='column_cart' header="Image" body={(rowData) => <img src={`data:image/png;base64,${rowData.img}`} alt={rowData.name} style={{ width: '50px' }} />}></Column>
                             <Column className='column_cart' field="price" header="מחיר"></Column>
                             <Column className='column_cart' field="package" header="סוג אריזה"></Column>
-                            <Column className='column_cart' header={<FontAwesomeIcon icon="fas fa-clipboard-check" />} body={checkboxBodyTemplate}></Column>
-                            <Column className='column_cart' header="כמות" body={quantityBodyTemplate}></Column>
+                            <Column className='column_cart' header={<FontAwesomeIcon icon="fas fa-clipboard-check" />} body={(rowData) => <Checkbox checked={rowData.choose} onChange={() => handleCheckboxChange(rowData)} />}></Column>
+                            <Column className='column_cart' header="כמות" body={(rowData) => <QuantityInput quantity={rowData.amount} handleQuantityChange={(value) => handleQuantityChange(value, rowData)} />}></Column>
                             <Column className='column_cart' header="מחק מהסל" body={(rowData) => <FontAwesomeIcon onClick={() => handleOpenDeleteForm(rowData)} icon="fas fa-trash-alt" />}></Column>
                         </DataTable>
                     </div>

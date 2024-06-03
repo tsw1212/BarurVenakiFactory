@@ -82,9 +82,6 @@ async function getAllCarts() {
                 LEFT JOIN Products P ON C.productId = P.id
             `;
             const cartDetails = await query(connection, sql);
-
-            //const groupedCarts = groupByUserId(cartDetails);
-
             resolve(cartDetails);
         } catch (error) {
             reject(new Error('Error fetching all cart details: ' + error));
@@ -107,18 +104,12 @@ async function getCartByUserId(userId) {
                 WHERE C.userId = ?
             `;
             const cartDetails = await query(connection, sql, [userId]);
-            if(typeof cartDetails[0]=='object') {
-                let cartArray=[];
-                cartArray[0]=cartDetails[0];
-                resolve(cartArray);
+
+            if (cartDetails.length === 0) {
+                resolve([]);
+            } else {
+                resolve(cartDetails);
             }
-            else if(cartDetails.length==0){
-                return resolve([]);
-            }
-            else{
-                resolve(cartDetails[0]);
-            }
-           
 
         } catch (error) {
             reject(new Error('Error fetching cart details: ' + error));
@@ -128,32 +119,8 @@ async function getCartByUserId(userId) {
     });
 }
 
-function groupByUserId(cartDetails) {
-    const grouped = {};
-    cartDetails.forEach(row => {
-        if (!grouped[row.userId]) {
-            grouped[row.userId] = {
-                userId: row.userId,
-                products: []
-            };
-        }
 
-        if (row.productId) {
-            grouped[row.userId].products.push({
-                productId: row.productId,
-                amount: row.amount,
-                choose: row.choose,
-                name: row.name,
-                weight: row.weight,
-                package: row.package,
-                imgUrl: row.imgUrl,
-                inventory: row.inventory,
-                price: row.price
-            });
-        }
-    });
-    return Object.values(grouped);
-}
+
 
 function query(connection, sql, values) {
     return new Promise((resolve, reject) => {
