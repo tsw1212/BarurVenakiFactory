@@ -3,17 +3,20 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Checkbox } from 'primereact/checkbox';
 import QuantityInput from '../product/QuantityInput';
-import { getRequest, putRequest } from '../../modules/requests/server_requests';
+import { getRequest, putRequest, deleteRequest } from '../../modules/requests/server_requests';
 import WorngRequest from '../../pages/WorngRequest';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/ShoppingCart.css';
 import DeleteCart from './DeleteCart';
+import { useNavigate } from 'react-router-dom';
 
-function CartProducts({ token }) {
+function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
     const [products, setProducts] = useState([]);
     const [worngRequest, setWorngRequest] = useState(false);
     const [deleteOn, setDeleteOn] = useState(false);
     const [currentProductToDelete, setCurrentProductToDelete] = useState({});
+    const navigate = useNavigate();
+
 
     let user = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -77,24 +80,42 @@ function CartProducts({ token }) {
     async function handleOpenDeleteForm(e) {
         await setCurrentProductToDelete(e)
         await setDeleteOn(true)
-    }
-    function deleteFunction(id) {
+    };
 
+    async function deleteFunction(id) {
+        const reqData = await deleteRequest(`http://localhost:3000/cart/${id}`, token);
+        if (reqData.ok) {
+            await setProducts(products.filter(product => product.id !== id));
+
+        }
+        else {
+            alert('משהו השתבש בבקשה נסה שוב');
+        }
+
+    };
+
+    async function handleContinueToOrder() {
+        const chosenProducts = products.filter(product => product.choose);
+        setChosenCartProducts(chosenProducts);
+        navigate('/home/shopping_cart/order');
     }
 
     return (
         <>
             {worngRequest ? <WorngRequest setWorngRequest={setWorngRequest} /> :
-                <div className='cartProducts'>
-                    <DataTable value={products} showGridlines stripedRows tableStyle={{ minWidth: '60rem' }}>
-                        <Column className='column_cart' field="name" header="שם"></Column>
-                        <Column className='column_cart' header="Image" body={(rowData) => <img src={`data:image/png;base64,${rowData.img}`} alt={rowData.name} style={{ width: '50px' }} />}></Column>
-                        <Column className='column_cart' field="price" header="מחיר"></Column>
-                        <Column className='column_cart' field="package" header="סוג אריזה"></Column>
-                        <Column className='column_cart' header={<FontAwesomeIcon icon="fas fa-clipboard-check" />} body={checkboxBodyTemplate}></Column>
-                        <Column className='column_cart' header="כמות" body={quantityBodyTemplate}></Column>
-                        <Column className='column_cart' header="מחק מהסל" body={(rowData) => <FontAwesomeIcon onClick={() => handleOpenDeleteForm(rowData)} icon="fas fa-trash-alt" />}></Column>
-                    </DataTable>
+                <div>
+                    <div className='cartProducts'>
+                        <DataTable value={products} showGridlines stripedRows tableStyle={{ minWidth: '60rem' }}>
+                            <Column className='column_cart' field="name" header="שם"></Column>
+                            <Column className='column_cart' header="Image" body={(rowData) => <img src={`data:image/png;base64,${rowData.img}`} alt={rowData.name} style={{ width: '50px' }} />}></Column>
+                            <Column className='column_cart' field="price" header="מחיר"></Column>
+                            <Column className='column_cart' field="package" header="סוג אריזה"></Column>
+                            <Column className='column_cart' header={<FontAwesomeIcon icon="fas fa-clipboard-check" />} body={checkboxBodyTemplate}></Column>
+                            <Column className='column_cart' header="כמות" body={quantityBodyTemplate}></Column>
+                            <Column className='column_cart' header="מחק מהסל" body={(rowData) => <FontAwesomeIcon onClick={() => handleOpenDeleteForm(rowData)} icon="fas fa-trash-alt" />}></Column>
+                        </DataTable>
+                    </div>
+                    <button onClick={handleContinueToOrder}>המשך להזמנה</button>
                 </div>
             }
             {deleteOn && <DeleteCart currentProductToDelete={currentProductToDelete} deleteFunction={deleteFunction} setdeleteOn={setDeleteOn} />}

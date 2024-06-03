@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../modules/FontAwesome';
 import { NavLink } from 'react-router-dom';
 import '../../css/header.css'
-function UserHeader({ logOut }) {
+function UserHeader({ logOut,countCartItems }) {
     return (
         <header>
             <nav className='nav'>
                 <div className='leftSide'>
                     <NavLink className='navLink' to="userDetails"><FontAwesomeIcon className='icon' icon="fas fa-user-alt" /></NavLink>
-                    <NavLink className='navLink' to="shopping_cart"><FontAwesomeIcon className='icon' icon="fas fa-shopping-cart" /></NavLink>
+                    <NavLink className='navLink' to="shopping_cart"><div><FontAwesomeIcon className='icon' icon="fas fa-shopping-cart" /><p>{countCartItems}</p></div></NavLink>
                     <NavLink className='navLink' to="orders">הזמנות קודמות</NavLink>
                     <NavLink className='navLink' to="products">מוצרים</NavLink>
                     <NavLink className='navLink' to="." onClick={() => logOut()}><FontAwesomeIcon className='icon' icon="fas fa-sign-out-alt" /></NavLink >

@@ -22,18 +22,20 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [status, setStatus] = useState(localStorage.getItem('status') || 'guest');
   const [chosenCartProducts, setChosenCartProducts] = useState([]);
+  const [countCartItems, setCountCartItems] = useState(0);
+
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Navigate to='/home' replace />} />
-        <Route path='home' element={<HomeNavBar setToken={setToken} status={status} setStatus={setStatus} />}>
+        <Route path='home' element={<HomeNavBar countCartItems={countCartItems} setToken={setToken} status={status} setStatus={setStatus} />}>
           <Route index element={<Home setToken={setToken} token={token} />} />
           <Route path='userDetails' element={<UserDetails token={token} />} />
           <Route path='users' element={<Users token={token} />} />
           <Route path='products'>
             <Route index element={<Products status={status} token={token} />} />
-            <Route path=':nameProduct' element={<Product status={status} token={token} />} />
+            <Route path=':nameProduct' element={<Product setCountCartItems={setCountCartItems} status={status} token={token} />} />
           </Route>
           <Route path='allOrders'>
             <Route index element={<AllOrders token={token} status={status}/>} />

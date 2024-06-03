@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import WorngRequest from '../../pages/WorngRequest';
-import { getRequest } from '../../modules/requests/server_requests';
+import { getRequest, postRequest } from '../../modules/requests/server_requests';
 import '../../css/product.css';
 import Slider from './Slider';
 import SelectType from './SelectType'
 import QuantityInput from './QuantityInput';
-let prices={min:0, max:10};
-const Product = ({ token, addToCart, }) => {
+let prices = { min: 0, max: 10 };
+const Product = ({ token, addToCart, setCountCartItems }) => {
   const [products, setProducts] = useState([]);
   const { nameProduct } = useParams();
   const [wrongRequest, setWrongRequest] = useState(false);
@@ -15,6 +15,8 @@ const Product = ({ token, addToCart, }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedType, setSelectedType] = useState('בחר סוג אריזה');
   const [quantity, setQuantity] = useState(1);
+
+  let user = JSON.parse(localStorage.getItem('currentUser'));
 
   useEffect(() => {
     async function fetchData() {
@@ -40,12 +42,23 @@ const Product = ({ token, addToCart, }) => {
     setQuantity(quantity);
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
+    if (currentProduct == null) {
+      alert('בחר סוג אריזה');
+      return;
+    }
     const item = {
-      ...currentProduct,
-      quantity,
+      amount: quantity,
+      userId: user.id,
+      productId: currentProduct.id,
+      choose: false
     };
-    addToCart(item);
+    let dataRequest = await postRequest(`http://localhost:3000/cart`, item, token);
+    if (dataRequest.ok) {
+      setCountCartItems(prev => prev + 1);
+    } else {
+      alert('משהו השתבש נסה שוב')
+    }
   };
 
   if (wrongRequest) {
@@ -60,7 +73,7 @@ const Product = ({ token, addToCart, }) => {
       <div className="product-details">
         <h3>{products.length !== 0 && products[0].name}</h3>
         <p className="product-price">
-          {currentProduct ? currentProduct.price :prices.min==prices.max? `${prices.min}`: `${prices.min}-${prices.max}`}₪
+          {currentProduct ? currentProduct.price : prices.min == prices.max ? `${prices.min}` : `${prices.min}-${prices.max}`}₪
         </p>
         <div className="product-options">
           <div className="product-type">
