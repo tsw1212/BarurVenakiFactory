@@ -47,7 +47,7 @@ async function insertIntoProducts() {
     const connection = connect();
     const sql = 'INSERT INTO Products (name, weight, package, imgUrl, inventory, price) VALUES ?';
     const values = [
-        ['Product 1', 1.00, 'Box', 'http://example.com/img1.jpg', 100,10.2],
+        ['Product 1', 1.00, 'Box', 'http://example.com/img1.jpg', 100, 10.2],
         ['Product 2', 2.00, 'Bag', 'http://example.com/img2.jpg', 200, 12.5]
     ];
     connection.query(sql, [values], (err, result) => {
@@ -92,7 +92,7 @@ async function insertIntoPasswords() {
     // Sample data
     const passwords = [
         { email: 'tzivish2141@gmail.com', password: '123' },
-     { email: 'jane.smith@example.com', password: 'password456' }
+        { email: 'jane.smith@example.com', password: 'password456' }
     ];
 
     // Hash passwords
@@ -108,20 +108,37 @@ async function insertIntoPasswords() {
     });
 }
 
-function insert(params) {
- 
-//      insertIntoUsers();
-// 
-
-//insertIntoOrders();
-//insertIntoEvents();
-// insertIntoProducts();
-// insertIntoProductOrder();
-//     insertIntoManagers();
-//     insertIntoPasswords()
-};
-
-module.exports ={
-  insert
+async function insertIntoCart() {
+    const connection = connect();
+    const sql = 'INSERT INTO Cart (userId, productId, amount, choose) VALUES ?';
+    const values = [
+        [1, 1, 2, true],
+        [2, 3, 1, false],
+        [3, 8, 4, true],
+        [4, 9, 1, false],
+        [5, 1, 3, true],
+        [6, 3, 2, true],
+        [7, 8, 1, false],
+        [8, 9, 5, true]
+    ];
+    connection.query(sql, [values], (err, result) => {
+        if (err) throw err;
+        console.log("Inserted cart items successfully");
+        connection.end();
+    });
 }
 
+function insert(params) {
+    // insertIntoUsers();
+    // insertIntoOrders();
+    // insertIntoEvents();
+    // insertIntoProducts();
+    // insertIntoProductOrder();
+    // insertIntoManagers();
+    // insertIntoPasswords();
+    insertIntoCart();
+}
+
+module.exports = {
+    insert
+};

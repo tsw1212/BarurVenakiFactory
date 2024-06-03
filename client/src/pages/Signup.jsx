@@ -12,9 +12,9 @@ function Signup({ setToken, setStatus, token }) {
     ev.preventDefault();
     const dataRequest = await postRequest("http://localhost:3000/signup", newUser, token);
     if (!dataRequest.ok) {
-      alert("ישנה תקלה בבקשה נסה שוב")
+      alert("ישנה תקלה בבקשה נסה שוב");
     }
-    if (dataRequest.body) {
+    else if (dataRequest.body) {
       localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
       localStorage.setItem("token", (dataRequest.token));
       localStorage.setItem("status", (dataRequest.status));

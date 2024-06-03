@@ -113,7 +113,7 @@ const productsController = {
             const imgPath = product.imgUrl;
             await ProductsServices.deleteProduct(id);
             if (imgPath) {
-                const fullPath = path.resolve(__dirname, '../../', imgPath); // בניית הנתיב המלא לתמונה
+                const fullPath = path.resolve(__dirname, '', imgPath); // בניית הנתיב המלא לתמונה
                 fs.unlink(fullPath, (err) => {
                     if (err) {
                         console.error("Failed to delete image:", err);

@@ -31,7 +31,7 @@ const request = async (url, method, body = null, token = null) => {
       throw new Error(responseBody.message || response.statusText);
     }
     const newtoken = response.headers.get('XAuthentication-Token');
-    if (url == "http://localhost:3000/login") {
+    if (url == "http://localhost:3000/login"||url == "http://localhost:3000/signup") {
       const status = response.headers.get('XSecurity-Level');
       return {
         ok: true,
@@ -61,4 +61,4 @@ const request = async (url, method, body = null, token = null) => {
 export const getRequest = (url, token = null) => request(url, "GET", null, token);
 export const postRequest = (url, body, token = null) => request(url, "POST", body, token);
 export const putRequest = (url, body, token = null) => request(url, "PUT", body, token);
-export const deleteRequest = (url, body, token = null) => request(url, "DELETE", body = null, token);
+export const deleteRequest = (url,  token = null) => request(url, "DELETE", null, token);

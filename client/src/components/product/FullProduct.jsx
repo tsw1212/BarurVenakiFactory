@@ -65,8 +65,8 @@ export default function FullProduct({ productData, status, token, setProductsHan
         </Card>
 
       </div>
-      {editOn && <EditProduct setProductsHandler={setProductsHandler} setEditOn={setEditOn} productData={productData}  token={token} />}
-      {deleteOn && <DeleteProduct setProductsHandler={setProductsHandler} setdeleteOn={setdeleteOn} productData={productData} token={token} />}
+      {editOn && <EditProduct token={token} setProductsHandler={setProductsHandler} setEditOn={setEditOn} productData={productData}  token={token} />}
+      {deleteOn && <DeleteProduct token={token} setProductsHandler={setProductsHandler} setdeleteOn={setdeleteOn} productData={productData} token={token} />}
     </>
   );
 }

@@ -31,7 +31,8 @@ function ManagerProducts({ status, token,products, setProducts ,setProductsHandl
             <div >
                 <div className="allProducts">
                     {products.length > 0 && products.map((productData) => {
-                        return <FullProduct className="fullProduct" 
+                        return <FullProduct className="fullProduct"
+                        token={token} 
                         status={status}  
                         productData={productData} 
                         key={productData.id} 
@@ -43,7 +44,7 @@ function ManagerProducts({ status, token,products, setProducts ,setProductsHandl
                 <Tooltip onClick={() => setAddProduct(true)} describeChild title='הוסף מוצר'>
                     <FontAwesomeIcon icon="fas fa-plus-square" />
                 </Tooltip>
-                {addProduct &&   <AddProduct setAddProduct={setAddProduct} setProductsHandler={setProductsHandler}  /> }
+                {addProduct &&   <AddProduct token={token} setAddProduct={setAddProduct} setProductsHandler={setProductsHandler}  /> }
             </div>}
 
         </div>

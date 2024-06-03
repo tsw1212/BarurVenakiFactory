@@ -7,37 +7,37 @@ const productsRoutes = require('./productsRoute');
 const eventsRoutes = require('./eventRoutes');
 const loginRoute = require('./LoginRoute');
 const tokenActions = require('../../modules/token');
-const signupRoute=require('./singUpRoute');
-const guest_tokenRoute=require('./gueust_token');
-const managersRoute=require('./managerRoute');
+const signupRoute = require('./singUpRoute');
+const guest_tokenRoute = require('./gueust_token');
+const managersRoute = require('./managerRoute');
 
 
 app.use('/guest_token', guest_tokenRoute);
 
 app.use((req, res, next) => {
     try {
-        if(tokenActions.validateToken(req.get('XAuthentication-Token')))
-            {
-            req.securityLevel=tokenActions.statusToken(req.get('XAuthentication-Token'));
+        if ( tokenActions.validateToken(req.get('XAuthentication-Token'))) {
+            req.securityLevel = tokenActions.statusToken(req.get('XAuthentication-Token'));
             next();
-            }
+        }
         else {
-            res.status(404).json({'error': 'invalid token'});
+            res.status(401).json({ 'error': 'invalid token' });
         }
     } catch {
-        res.status(500).json({'error': 'internal server error'});
+        res.status(500).json({ 'error': 'internal server error' });
     }
+
 });
 app.use('/managers', managersRoute);
 app.use('/login', loginRoute);
-app.use('/signup',signupRoute );
+app.use('/signup', signupRoute);
 app.use('/passwords', passwordsRoutes);
-app.use('/users', usersRoutes ); 
-app.use('/products', productsRoutes); 
-app.use('/orders', ordersRoutes );
-app.use('/events',eventsRoutes );
+app.use('/users', usersRoutes);
+app.use('/products', productsRoutes);
+app.use('/orders', ordersRoutes);
+app.use('/events', eventsRoutes);
 
 
 
-module.exports = app;  
+module.exports = app;
 

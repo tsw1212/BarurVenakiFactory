@@ -159,6 +159,28 @@ const createManagersTable = () => {
       connection.end();
     });
   };
+
+  const createCartTable = () => {
+    const connection = connect();
+    const createCartTableQuery = `
+      CREATE TABLE IF NOT EXISTS Cart (
+          userId INT NOT NULL,
+          productId INT NOT NULL,
+          amount INT NOT NULL,
+          choose BOOLEAN NOT NULL DEFAULT false,
+          FOREIGN KEY (userId) REFERENCES Users(id),
+          FOREIGN KEY (productId) REFERENCES Products(id),
+          PRIMARY KEY (userId, productId)
+      )
+    `;
+
+    connection.query(createCartTableQuery, (err, result) => {
+        if (err) throw err;
+        console.log("Cart table has been created successfully");
+        connection.end();
+    });
+};
+
   
 
 
@@ -171,5 +193,6 @@ module.exports = {
     createEventsTable,
     createManagersTable,
     createOrdersTable,
-    createPasswordsTable
+    createPasswordsTable,
+    createCartTable
 };

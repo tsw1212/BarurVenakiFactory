@@ -6,7 +6,7 @@ const cors = require('cors');
 const db_init = require('./DB_access/initDB');
 const insertData = require('./DB_access/insertDB');
 require('dotenv').config();
-//insertData.insert();
+insertData.insert();
 // db_init.createDB();
 // db_init.createUsersTable();
 //  db_init.createOrdersTable();
@@ -15,6 +15,7 @@ require('dotenv').config();
 // db_init.createProductOrderTable();
 // db_init.createManagersTable();
 // db_init.createPasswordsTable();
+//db_init.createCartTable();
 
 app.use(cors({
     origin: 'http://localhost:5173',

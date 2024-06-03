@@ -20,10 +20,10 @@ const createToken = (status) => {
         return token;
 }
 
-const validateToken = (recievedToken) => {
+ const validateToken =  (recievedToken) => {
       return managersTokens.find(t => t == recievedToken)||usersTokens.find(t=>t==recievedToken)||recievedToken==guest_token ? true : false;
 }
-const statusToken=(recievedToken)=>{
+const statusToken= (recievedToken)=>{
     if( managersTokens.find(t => t == recievedToken))
         return "manager";
     else if(usersTokens.find(t=>t==recievedToken))
