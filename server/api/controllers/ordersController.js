@@ -17,7 +17,7 @@ const OrderController = {
     },
     getOrderById: async (req, res) => {
         // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
-        //     res.status(401).json({ error: "unauthorized" });
+        //   return  res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
             let order = await OrdersServices.getOrderById(id);
@@ -32,7 +32,7 @@ const OrderController = {
     },
     createOrder: async (req, res) => {
         if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
-            res.status(401).json({ error: "unauthorized" });
+            return res.status(401).json({ error: "unauthorized" });
         try {
             const order = req.body;
             if (!validation.validateOrdersInput(order)) {
@@ -47,7 +47,7 @@ const OrderController = {
     },
     updateOrder: async (req, res) => {
         // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
-        //     res.status(401).json({ error: "unauthorized" });
+        //   return  res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
             let updatedOrderData = req.body;
@@ -68,7 +68,7 @@ const OrderController = {
     },
     deleteOrder: async (req, res) => {
         if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
-            res.status(401).json({ error: "unauthorized" });
+            return  res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
             if (await OrdersServices.getOrderById(id) === null) {
