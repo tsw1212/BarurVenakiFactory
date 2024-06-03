@@ -11,7 +11,7 @@ export default function Slider({ currentSlide, sliders }) {
   }, [currentSlide]);
 
   return (
-    <div className="container">
+    <div className="containerSlise">
       <Slide ref={slideRef} easing="ease" autoplay={false}>
         {sliders.map((slide, index) => (
           <div className="slide" key={index}>
