@@ -14,8 +14,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function Orders( {token}) {
+function Orders( {token,status}) {
   const [orders, setOrders] = useState([]);
+  let user={};
 
   const [wrongRequest, setWorngRequest] = useState(false);
   let navigate=useNavigate();
@@ -23,12 +24,25 @@ function Orders( {token}) {
 
   useEffect(() => {
     async function getOrders() {
-      const responseData = await getRequest('http://localhost:3000/orders', token);
-      if (responseData.ok) {
-        await setOrders(responseData.body);
-      } else {
-        await setWorngRequest(true);
+      user=JSON.parse(localStorage.getItem('currentUser'));
+      if(status ==='manager'){
+        const responseData = await getRequest('http://localhost:3000/orders', token);
+        if (responseData.ok) {
+          await setOrders(responseData.body);
+        } else {
+          await setWorngRequest(true);
+        }
       }
+      else {
+        const responseData = await getRequest(`http://localhost:3000/${user.id}/orders`, token);
+        if (responseData.ok) {
+          await setOrders(responseData.body);
+        } else {
+          await setWorngRequest(true);
+        }
+      }
+
+      
     }
     getOrders();
   }, [orders])

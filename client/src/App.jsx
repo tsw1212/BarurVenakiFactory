@@ -11,7 +11,8 @@ import Confirmation from './pages/userPages/Confirmation';
 import Product from './components/product/Product';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Orders from './pages/userPages/Orders';
+import PastOrders from './pages/userPages/PastOrders';
+import CurrentOrderDetails from './pages/userPages/CurrentOrderDetails';
 // import Products from './pages/userPages/ProductsUser';
 import Products from './pages/Products';
 import ManagerProducts from './pages/managerPages/ManagerProducts';
@@ -20,6 +21,7 @@ import Order from './pages/managerPages/Order';
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [status, setStatus] = useState(localStorage.getItem('status') || 'guest');
+  const [chosenCartProducts, setChosenCartProducts] = useState([]);
 
   return (
     <BrowserRouter>
@@ -34,12 +36,17 @@ function App() {
             <Route path=':nameProduct' element={<Product status={status} token={token} />} />
           </Route>
           <Route path='allOrders'>
-            <Route index element={<AllOrders token={token} />} />
-            <Route path=':OrderId' element={<Order token={token} />} />
+            <Route index element={<AllOrders token={token} status={status}/>} />
+            <Route path=':OrderId' element={<Order token={token} status={status} />} />
           </Route>
-          <Route path='orders' element={<Orders token={token} />} />
+          <Route path='orders'  >
+            <Route index element={<PastOrders token={token} status={status}/>} />
+            <Route path=':OrderId' element={<Order token={token} status={status} />} />
+          </Route>
+
           <Route path='shopping_cart'>
-            <Route index element={<ShoppingCart />} />
+            <Route index element={<ShoppingCart chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts}/>} />
+            <Route path='order' element={<CurrentOrderDetails chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts}/>} />
             <Route path='confirmation' element={<Confirmation />} />
           </Route>
         </Route>
