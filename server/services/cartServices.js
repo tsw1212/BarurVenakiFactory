@@ -28,7 +28,10 @@ const CartServices = {
         }));
         return updatedCarts;
     },
-
+    getCartById:async (itemId) => {
+        const cart = await DB_actions.getCartById(itemId);
+        return cart;;
+    },
     updateCartItem: async (updatedCartData) => {
         const cartItem = await DB_actions.updateCartItem(updatedCartData);
         const { imgUrl, ...cartItemWithoutImg } = cartItem;
@@ -36,8 +39,8 @@ const CartServices = {
         return { ...cartItemWithoutImg, img: img };
     },
 
-    deleteCartItem: async (userId, productId) => {
-        await DB_actions.deleteCartItem(userId, productId);
+    deleteCartItem: async (id) => {
+        await DB_actions.deleteCartItem(id);
     }
 };
 

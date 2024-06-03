@@ -12,9 +12,8 @@ async function createCartItem(cartData) {
                 amount: cartData.amount,
                 choose: cartData.choose
             });
-
             await connection.commit();
-            const newCartItem = await getCartByUserId(cartData.userId);
+            const newCartItem = await getCartById(cartResult.insertId);
             resolve(newCartItem);
         } catch (error) {
             await connection.rollback();
@@ -32,7 +31,7 @@ async function deleteCartItem(id) {
         connection.query(sql, [id], (err, result) => {
             connection.end();
             if (err) {
-                reject(new Error(`Error deleting cart item with userId:${userId} and productId:${productId} - ` + err));
+                reject(new Error(`Error deleting cart item with ${id} - ` + err));
             } else {
                 resolve();
             }
@@ -49,8 +48,23 @@ async function updateCartItem(updatedCartData) {
             if (err) {
                 reject(new Error('Error updating cart item: ' + err));
             } else {
-                let updatedCart = await getCartByUserId(updatedCartData.userId);
+                let updatedCart = await getCartById(updatedCartData.id);
                 resolve(updatedCart);
+            }
+        });
+    });
+}
+async function getCartById(id) {
+    return new Promise((resolve, reject) => {
+        const connection = Connect();
+        const sql = 'select * Cart WHERE id= ?';
+        connection.query(sql, [id], async (err, result) => {
+            connection.end();
+            if (err) {
+                reject(new Error('Error get cart item: ' + err));
+            } else {
+             
+                resolve(result[0]);
             }
         });
     });

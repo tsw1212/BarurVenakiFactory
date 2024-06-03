@@ -8,8 +8,8 @@ app.get('/:userId', cartController.getCartByUserId);
 
 app.post('/', cartController.createCartItem);
 
-app.put('/:userId/:productId', cartController.updateCartItem);
+app.put('/:id', cartController.updateCartItem);
 
-app.delete('/:userId/:productId', cartController.deleteCartItem);
+app.delete('/:id', cartController.deleteCartItem);
 
 module.exports = app;

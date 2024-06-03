@@ -47,15 +47,13 @@ const CartController = {
         if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
             res.status(401).json({ error: "unauthorized" });
         try {
-            const { userId, productId } = req.params;
+            const {id}=req.params;
             let updatedCartData = req.body;
             if (!validation.validateCartInput(updatedCartData, true)) {
                 res.status(400).json({ error: 'invalid input' });
-            } else if (await CartServices.getCartByUserId(userId) === null) {
+            } else if (await CartServices.getCartById(id) === null) {
                 res.status(404).json({ error: "cart not found" });
             } else {
-                updatedCartData.userId = userId;
-                updatedCartData.productId = productId;
                 updatedCartData = await CartServices.updateCartItem(updatedCartData);
                 res.status(200).json(updatedCartData);
             }
@@ -67,11 +65,11 @@ const CartController = {
         if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
             res.status(401).json({ error: "unauthorized" });
         try {
-            const { userId, productId } = req.params;
-            if (await CartServices.getCartByUserId(userId) === null) {
+            const { id } = req.params;
+            if (await CartServices.getCartById(id) === null) {
                 res.status(404).json({ error: "cart not found" });
             } else {
-                await CartServices.deleteCartItem(userId, productId);
+                await CartServices.deleteCartItem(id);
                 res.status(200).json({});
             }
         } catch (error) {
