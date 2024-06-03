@@ -34,7 +34,7 @@ function Orders( {token,status}) {
         }
       }
       else {
-        const responseData = await getRequest(`http://localhost:3000/${user.id}/orders`, token);
+        const responseData = await getRequest(`http://localhost:3000/users/${user.id}/orders`, token);
         if (responseData.ok) {
           await setOrders(responseData.body);
         } else {

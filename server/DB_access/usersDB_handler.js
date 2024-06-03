@@ -50,7 +50,7 @@ async function updateUser(updatedUserData) {
 }
 
 async function getAllUsers() {
-     return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         const connection = Connect();
         const sql = 'SELECT * FROM Users';
         connection.query(sql, (err, result) => {
@@ -77,7 +77,7 @@ async function getUserById(id) {
             }
         });
     });
-    
+
 }
 
 async function getUserByEmail(email) {
@@ -98,25 +98,9 @@ async function getUserByEmail(email) {
 async function getUserOrdersDetails(userId) {
     const connection = Connect();
     const query = `
-        SELECT 
-            o.id AS order_id,
-            o.date AS order_date,
-            o.status AS order_status,
-            o.remarks AS order_remarks,
-            p.id AS product_id,
-            p.name AS product_name,
-            p.weight AS product_weight,
-            p.package AS product_package,
-            p.imgUrl AS product_imgUrl,
-            po.amount AS product_amount
-        FROM 
-            Orders o
-        JOIN 
-            ProductOrder po ON o.id = po.orderId
-        JOIN 
-            Products p ON po.productId = p.id
-        WHERE 
-            o.userId = ?
+    SELECT O.id AS orderId, O.userId, O.date, O.status, O.remarks
+        FROM Orders O
+    WHERE O.userId = ?
     `;
     return new Promise((resolve, reject) => {
         connection.query(query, [userId], async (err, results) => {
@@ -131,14 +115,14 @@ async function getUserOrdersDetails(userId) {
     });
 }
 
-  
+
 
 module.exports = {
-   createUser,
-   getAllUsers,
-   getUserById,
-   deleteUser,
-   updateUser,
-   getUserOrdersDetails,
-   getUserByEmail
+    createUser,
+    getAllUsers,
+    getUserById,
+    deleteUser,
+    updateUser,
+    getUserOrdersDetails,
+    getUserByEmail
 };
