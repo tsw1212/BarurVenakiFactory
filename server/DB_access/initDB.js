@@ -48,15 +48,16 @@ const createUsersTable = () => {
 const createOrdersTable = () => {
     const connection = connect();
     const createOrdersTableQuery = `
-    CREATE TABLE IF NOT EXISTS Orders (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        userId INT,
-        date DATETIME,
-        status VARCHAR(255),
-        remarks TEXT,
-        FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE
-    )
-  `;
+        CREATE TABLE IF NOT EXISTS Orders (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            userId INT,
+            date DATETIME,
+            status VARCHAR(255),
+            deliveryDate DATE,
+            remarks TEXT,
+            FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE
+        )
+    `;
 
     connection.query(createOrdersTableQuery, (err, result) => {
         if (err) throw err;
@@ -64,6 +65,7 @@ const createOrdersTable = () => {
         connection.end();
     });
 };
+
 
 const createEventsTable = () => {
     const connection = connect();
