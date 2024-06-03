@@ -10,6 +10,7 @@ const tokenActions = require('../../modules/token');
 const signupRoute = require('./singUpRoute');
 const guest_tokenRoute = require('./gueust_token');
 const managersRoute = require('./managerRoute');
+const cartRoutes = require('./cartRoutes');
 
 
 app.use('/guest_token', guest_tokenRoute);
@@ -36,7 +37,7 @@ app.use('/users', usersRoutes);
 app.use('/products', productsRoutes);
 app.use('/orders', ordersRoutes);
 app.use('/events', eventsRoutes);
-
+app.use('/cart', cartRoutes);
 
 
 module.exports = app;
