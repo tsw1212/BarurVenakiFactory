@@ -19,7 +19,7 @@ function ManagerProducts({ status, token,products, setProducts ,setProductsHandl
             if (responseData.ok) {
                 await setProducts(responseData.body);
             } else {
-                setAlert('בעיה בטעינת הנתונים. נסה שוב');
+                alert('בעיה בטעינת הנתונים. נסה שוב');
             }
 
         }
