@@ -55,22 +55,22 @@ const AddProduct = ({ token, setProductsHandler, setAddProduct }) => {
             <div className='createProduct_container'>
                 {/* <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setAddProduct(false)} /> */}
                 <form onSubmit={handleSubmit} className='createProduct_form'>
-                    <label htmlFor="name">שם:</label>
+                    <label htmlFor="name">שם</label>
                     <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-{/* 
-                    <label htmlFor="weight">משקל:</label>
-                    <input type="text" id="weight" name="weight" value={formData.weight} onChange={handleChange} required /> */}
 
-                    <label htmlFor="package">אריזה:</label>
+                    <label htmlFor="weight">משקל</label>
+                    <input type="text" id="weight" name="weight" value={formData.weight} onChange={handleChange} required />
+
+                    <label htmlFor="package">אריזה</label>
                     <input type="text" id="package" name="package" value={formData.package} onChange={handleChange} required />
 
-                    <label htmlFor="imageFile">קובץ תמונה:</label>
+                    <label htmlFor="imageFile">קובץ תמונה</label>
                     <input type="file" id="imageFile" name="imageFile" onChange={handleFileChange} accept="image/*" required />
 
-                    <label htmlFor="price">מחיר:</label>
+                    <label htmlFor="price">מחיר</label>
                     <input type="text" id="price" name="price" value={formData.price} onChange={handleChange} required />
 
-                    <label htmlFor="inventory">מלאי:</label>
+                    <label htmlFor="inventory">מלאי</label>
                     <input type="text" id="inventory" name="inventory" value={formData.inventory} onChange={handleChange} required />
 
                     <input type="submit" value="יצירת מוצר" />

@@ -1,121 +1,126 @@
+עיצוב עיקרי
+.imgAboutuSRight {
+  flex: 1;
+  margin-right: 10px;
 
-.wrongRequest {
-  font-size: 16px;
-  color: #2d5a02;
-  margin-top: 10px;
 }
-.home-container {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  max-width: 800px;
+.imgAboutuSLeft{
+  flex: 2;
+  margin: auto;
+  margin-left: 10px;
+
+}
+.hero {
+  margin-top: 10vh;
+  background-color: #effadd;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.rightSideTxt{
+  margin-right: 10px;
+  padding: 50px 0;
+  text-align: right;
+  flex: 1;
+  margin-right: 10px;
+
+}
+.leftSideTxt{
+  margin-left: 10px;
+  padding: 50px 0;
+  text-align: right;
+  flex: 2;
+}
+
+section {
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
   margin: 0 auto;
 }
-
-.home-header {
-  /* background-color: #4CAF50;
-  color: white; */
-  text-align: center;
-  padding: 10px 0;
-  margin-bottom: 20px;
+.container{
+  overflow: hidden;
+  display: flex;
 }
 
-.home-title {
-  margin: 0;
+
+ 
+
+.section-image img {
+  max-width: 100%; /* Ensure image does not exceed container width */
 }
 
-.home-section {
-  /* position: absolute; */
-    flex-direction: column;
-    align-items: right;
-    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
-    padding: 2rem 3rem ;
-    width: 30vw;
-    height: auto;
-    /* background-color: rgb(240, 232, 224);
-    border-radius: 7px; */
-    opacity: 0; /* Initially hidden */
-    transform: translateY(100px); /* Start position */
-    animation: floatIn 2s forwards; /* Apply the animation */
-}
 
-@keyframes floatIn {
-    from {
-        opacity: 0;
-        transform: translateY(100px); /* Start 100px below */
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0); /* End at its original position */
-    }
-}
 
 
 .section-title {
-  margin-bottom: 10px;
-  font-size: 1.5em;
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+.section-subtitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: bold;
   color: #333;
+}
+.lastDivManyItems{
+  display: flex;
+  gap: 20px;
+
+}
+.select-item1 {
+  flex: 1
+}
+.select-item2 {
+  flex: 3
+}
+.select-item3{
+  flex: 5
+}
+.select-item{
+  flex: 7
+}
+
+.section-item1,
+.section-item2,
+.section-item3,
+.section-item4 {
+  background-color: #f9f9f9; /* צבע רקע לבן אפרפר */
+  padding: 20px;
+  border-radius: 5px; /* פינות עגולות */
+  border-left: 8px solid rgb(163, 147, 4); /* מסגרת חזקה בצד שמאל בצבע ירוק כהה */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* צל למראה כרטיס */
+  margin-bottom: 20px; /* רווח בין ה-div */
+}
+
+.section-item4 img {
+  width: 75%;
+  display: block;
+  margin: 10px 0;
 }
 
 .section-content {
-  margin-bottom: 10px;
-  font-size: 1.1em;
-  color: #555;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #666;
+  margin: 5vh;
 }
 
 .section-list {
   list-style-type: none;
   padding: 0;
+  direction: rtl;
 }
 
 .section-list-item {
-  margin-bottom: 5px;
-  font-size: 1.1em;
-  color: #555;
+  margin-bottom: 10px;
 }
 
-.order-now .section-content {
-  font-weight: bold;
-}
-/* .about-us{
-  top:100px;
-  right: 0;
-}
-.products{
-left: 0;
-}
-.technology{
-  right: 100px;
-  top:430px;
-}
-.quality-control{
-  left:30px;
-  top:450px
-}
-.ordering{
-  right: 0;
-  top:780px
-}
-.why-choose-us{
-  left: 20px;
-  top:800px
-}
-.product-details{
-  left: 200px;
-  top:1400px
-}
-.order-now{
-  left: 400px;
-}
-.body{
-  height: auto;
-} */
 
-/* 
-a {
-  color: #4CAF50;
-  text-decoration: none;
-}
 
-a:hover {
-  text-decoration: underline;
-} */
+

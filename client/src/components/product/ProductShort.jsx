@@ -36,7 +36,7 @@ export default function ProductShort({ productData, showProducts, setShowProduct
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {productData.minPrice == productData.maxPrice ?
-                    <h5>מחיר {productData.minPrice}</h5> :
+                    <p>מחיר {productData.minPrice}</p> :
                     <p>טווח מחירים {productData.minPrice}-{productData.maxPrice}₪</p>
                   }
                 </Typography>
@@ -46,7 +46,7 @@ export default function ProductShort({ productData, showProducts, setShowProduct
           <CardActions>
             <NavLink to={`${productData.name}`}>
               <Tooltip describeChild title='מידע נוסף'>
-                <FontAwesomeIcon icon="fas fa-shopping-cart" />
+                <FontAwesomeIcon style={{color:"#1d7822"}} icon="fas fa-shopping-cart" />
               </Tooltip>
             </NavLink>
 

@@ -3,10 +3,12 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 6vh;
+    height: 10vh;
     z-index: 100;
+    margin-bottom: 10vh;
     background-color: #b1e773;
     display: flex;
+    box-sizing: border-box;
     justify-content: space-around;
     padding: 1%;
     font-size: 1.4em;

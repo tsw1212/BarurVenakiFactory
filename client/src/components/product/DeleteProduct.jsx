@@ -22,7 +22,7 @@ const DeleteProduct = ({ productData, token, setdeleteOn, setProductsHandler }) 
             <div className='deleteForm_container'>
                 <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setdeleteOn(false)} />
                 <form onSubmit={handleSubmit} className='delete_form'>
-                    <p>האם אתה בטוח שברצונך למחוק את {productData.name} מסוג {productData.package}?</p>
+                    <p>האם אתה בטוח שברצונך למחוק את {productData.name} מסוג {productData.package}</p>
                     <input type="submit" value="כן" />
                 </form>
             </div>
