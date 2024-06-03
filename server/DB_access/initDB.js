@@ -164,13 +164,13 @@ const createManagersTable = () => {
     const connection = connect();
     const createCartTableQuery = `
       CREATE TABLE IF NOT EXISTS Cart (
+          id INT AUTO_INCREMENT PRIMARY KEY,
           userId INT NOT NULL,
           productId INT NOT NULL,
           amount INT NOT NULL,
           choose BOOLEAN NOT NULL DEFAULT false,
           FOREIGN KEY (userId) REFERENCES Users(id),
-          FOREIGN KEY (productId) REFERENCES Products(id),
-          PRIMARY KEY (userId, productId)
+          FOREIGN KEY (productId) REFERENCES Products(id)
       )
     `;
 

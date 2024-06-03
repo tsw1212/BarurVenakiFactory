@@ -112,14 +112,14 @@ async function insertIntoCart() {
     const connection = connect();
     const sql = 'INSERT INTO Cart (userId, productId, amount, choose) VALUES ?';
     const values = [
-        [1, 1, 2, true],
-        [2, 3, 1, false],
-        [3, 8, 4, true],
-        [4, 9, 1, false],
-        [5, 1, 3, true],
-        [6, 3, 2, true],
-        [7, 8, 1, false],
-        [8, 9, 5, true]
+        [1, 1, 2, true],    
+        [2, 9, 1, false],   
+        [3, 1, 4, true],    
+        [1, 5, 1, false],   
+        [2, 6, 3, true],   
+        [3, 9, 2, true],    
+        [1, 10, 1, false],  
+        [2, 5, 5, true]     
     ];
     connection.query(sql, [values], (err, result) => {
         if (err) throw err;
