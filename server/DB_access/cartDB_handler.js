@@ -63,7 +63,7 @@ async function getCartById(id) {
             if (err) {
                 reject(new Error('Error get cart item: ' + err));
             } else {
-             
+
                 resolve(result[0]);
             }
         });
@@ -107,14 +107,16 @@ async function getCartByUserId(userId) {
                 WHERE C.userId = ?
             `;
             const cartDetails = await query(connection, sql, [userId]);
-
-            const groupedCartDetails = groupByUserId(cartDetails);
-
-            if (groupedCartDetails.length === 0) {
-                resolve(null);
-            } else {
-                resolve(groupedCartDetails[0]);
+            if(typeof cartDetails=='object') {
+                let cartArray=[];
+                cartArray[0]=cartDetails[0];
+                resolve(cartArray);
             }
+            else{
+                resolve(cartDetails[0]);
+            }
+           
+
         } catch (error) {
             reject(new Error('Error fetching cart details: ' + error));
         } finally {
