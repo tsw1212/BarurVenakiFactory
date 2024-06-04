@@ -1,0 +1,13 @@
+.confirmationContainer{
+    margin-top: 80px;
+    margin-left: 35%;
+    margin-bottom: 500px;
+    background-color: rgb(245, 240, 233);
+    width: fit-content;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+}
+.navLink:hover{
+    color: rgb(109, 108, 108);
+}

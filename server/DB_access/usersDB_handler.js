@@ -98,7 +98,7 @@ async function getUserByEmail(email) {
 async function getUserOrdersDetails(userId) {
     const connection = Connect();
     const query = `
-    SELECT O.id AS orderId, O.userId, O.date, O.status, O.remarks
+    SELECT O.id AS orderId, O.userId, O.date, O.status, O.remarks, O.deliveryDate
         FROM Orders O
     WHERE O.userId = ?
     `;

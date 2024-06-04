@@ -11,7 +11,8 @@ async function createOrder(orderData) {
                 userId: orderData.userId,
                 date: orderData.date,
                 status: orderData.status,
-                remarks: orderData.remarks
+                remarks: orderData.remarks,
+                deliveryDate: orderData.deliveryDate
             });
 
             for (const product of orderData.products) {

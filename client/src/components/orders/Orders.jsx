@@ -14,18 +14,18 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function Orders( {token,status}) {
+function Orders({ token, status }) {
   const [orders, setOrders] = useState([]);
-  let user={};
+  let user = {};
 
   const [wrongRequest, setWorngRequest] = useState(false);
-  let navigate=useNavigate();
+  let navigate = useNavigate();
 
 
   useEffect(() => {
     async function getOrders() {
-      user=JSON.parse(localStorage.getItem('currentUser'));
-      if(status ==='manager'){
+      user = JSON.parse(localStorage.getItem('currentUser'));
+      if (status === 'manager') {
         const responseData = await getRequest('http://localhost:3000/orders', token);
         if (responseData.ok) {
           await setOrders(responseData.body);
@@ -42,7 +42,7 @@ function Orders( {token,status}) {
         }
       }
 
-      
+
     }
     getOrders();
   }, [orders])
@@ -58,28 +58,51 @@ function Orders( {token,status}) {
               <TableCell className='tableHead' align="right">תאריך הזמנה</TableCell>
               <TableCell className='tableHead' align="right">סטטוס הזמנה</TableCell>
               <TableCell className='tableHead' align="right">הערות</TableCell>
+              <TableCell className='tableHead' align="right">תאריך הספקה</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => (
-              <TableRow
-              className='row'
-                key={order.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                onClick={()=>navigate(`${order.orderInfo.orderId}`)}
-              >
-                <TableCell align="right">{order.orderInfo.orderId}</TableCell>
-                <TableCell align="right">{order.orderInfo.userId}</TableCell>
-                <TableCell align="right">{order.orderInfo.date}</TableCell>
-                <TableCell align="right">{order.orderInfo.status}</TableCell>
-                <TableCell align="right">{order.orderInfo.remarks}</TableCell>
-              </TableRow>
-            ))}
+            {orders.map((order) => {
+              if (status === 'manager') {
+                return (
+                  <TableRow
+                    className='row'
+                    key={order.id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    onClick={() => navigate(`${order.orderInfo.orderId}`)}
+                  >
+                    <TableCell align="right">{order.orderInfo.orderId}</TableCell>
+                    <TableCell align="right">{order.orderInfo.userId}</TableCell>
+                    <TableCell align="right">{order.orderInfo.date}</TableCell>
+                    <TableCell align="right">{order.orderInfo.status}</TableCell>
+                    <TableCell align="right">{order.orderInfo.remarks}</TableCell>
+                    <TableCell align="right">{order.orderInfo.deliveryDate}</TableCell>
+                  </TableRow>
+                );
+              } else {
+                return (
+                  <TableRow
+                    className='row'
+                    key={order.id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    onClick={() => navigate(`${order.orderId}`)}
+                  >
+                    <TableCell align="right">{order.orderId}</TableCell>
+                    <TableCell align="right">{order.userId}</TableCell>
+                    <TableCell align="right">{order.date}</TableCell>
+                    <TableCell align="right">{order.status}</TableCell>
+                    <TableCell align="right">{order.remarks}</TableCell>
+                    <TableCell align="right">{order.deliveryDate}</TableCell>
+                  </TableRow>
+                );
+              }
+            })}
           </TableBody>
         </Table>
       </TableContainer>
     </div>
-  )
+  );
+  
 }
 
 export default Orders;

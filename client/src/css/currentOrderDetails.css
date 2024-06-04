@@ -1,0 +1,32 @@
+.title{
+    margin-top: 80px;
+}
+.moreDetails{
+    text-align: right;
+}
+.order_container{
+    direction: rtl;
+}
+.order_input_date {
+    background-color: #efe8e8;
+    width: 20%;
+    margin: 1vw;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    height: 40px;
+    padding: 5px;
+  }
+  .order_input_remrks{
+    background-color: #f1e5e5;
+    width: 30%;
+    margin: 1vw;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    height: 100px;
+    padding: px;
+  }
+  .order_input_remrks:hover{
+    background-color: aliceblue;
+  }

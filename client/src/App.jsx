@@ -48,7 +48,7 @@ function App() {
 
           <Route path='shopping_cart'>
             <Route index element={<ShoppingCart token={token} chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts}/>} />
-            <Route path='order' element={<CurrentOrderDetails chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts}/>} />
+            <Route path='order' element={<CurrentOrderDetails token={token} chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts}/>} />
             <Route path='confirmation' element={<Confirmation />} />
           </Route>
         </Route>

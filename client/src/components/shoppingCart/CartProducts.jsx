@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/ShoppingCart.css';
 import DeleteCart from './DeleteCart';
 import { useNavigate } from 'react-router-dom';
+import { amber } from '@mui/material/colors';
 
 function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
     const [products, setProducts] = useState([]);
@@ -38,24 +39,25 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
         const updatedProducts = await Promise.all(  products.map(async (product) => {
             if (product.id === rowData.id) {
                 const item = {
-                    amount: product.quantity,
+                    amount: product.amount,
                     userId: user.id,
-                    productId: product.id,
-                    choose: !product.choose
+                    productId: product.productId,
+                    choose: !product.choose,
+                    id:product.id,
                   };
                 const reqData = await putRequest(`http://localhost:3000/cart/${item.id}`, item, token);
                 if (!reqData.ok) {
                     alert('משהו השתבש בבקשה נסה שוב')
                 }
-                else
-                return reqData.body;
+                else{
+                    return {...product,choose:item.choose};
+                }
 
             }
             return product;
         }
         ));
-        console.log(updatedProducts);
-        setProducts(updatedProducts);
+        await setProducts(updatedProducts);
 
     };
 
@@ -65,20 +67,23 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
                 const item = {
                     amount: value,
                     userId: user.id,
-                    productId: product.id,
-                    choose: rowData.choose
+                    productId: product.productId,
+                    choose: rowData.choose,
+                    id:product.id
                   };
                 const reqData = await putRequest(`http://localhost:3000/cart/${item.id}`, item, token);
                 if (!reqData.ok) {
                     alert('משהו השתבש בבקשה נסה שוב')
                 }
                 else
-                return reqData.body;
+                {
+                    return {...product,amount:item.amount};
+                }
             }
             return product;
         }
         ));
-        setProducts(updatedProducts);
+        await setProducts(updatedProducts);
     };
 
     async function handleOpenDeleteForm(e) {
