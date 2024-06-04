@@ -107,16 +107,17 @@ async function getCartByUserId(userId) {
                 WHERE C.userId = ?
             `;
             const cartDetails = await query(connection, sql, [userId]);
-            if(typeof cartDetails[0]=='object') {
-                let cartArray=[];
-                cartArray[0]=cartDetails[0];
-                resolve(cartArray);
-            }
-            else if(cartDetails.length==0){
+            // if(typeof cartDetails[0]=='object') {
+            //     let cartArray=[];
+            //     cartArray[0]=cartDetails[0];
+            //     resolve(cartArray);
+            // }
+            // else 
+            if(cartDetails.length==0){
                 return resolve([]);
             }
             else{
-                resolve(cartDetails[0]);
+                resolve(cartDetails);
             }
            
 

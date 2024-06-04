@@ -24,10 +24,10 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
         async function getCart() {
             const reqData = await getRequest(`http://localhost:3000/cart/${user.id}`, token);
             if (reqData.ok) {
-                await setProducts(reqData.body);
+                setProducts(reqData.body);
             }
             else {
-                await setWorngRequest(true);
+                setWorngRequest(true);
             }
         }
         getCart();
@@ -37,10 +37,13 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
     const handleCheckboxChange = (rowData) => {
         const updatedProducts = products.map(async (product) => {
             if (product.id === rowData.id) {
-                product.choose = !product.choose;
-                const reqData = await putRequest(`http://localhost:3000/cart/${product.id}`, product, token);
+                let newProduct={id: product.id, amount:product.amount,userId:product.userId,choose:(!product.choose),productId:product.productId}
+                const reqData = await putRequest(`http://localhost:3000/cart/${product.id}`, newProduct, token);
                 if (!reqData.ok) {
                     alert('משהו השתבש בבקשה נסה שוב')
+                }
+                else{
+                    setProducts(products.map(product => product.id === rowData.id ? {...product,choose:newProduct.choose}:product));
                 }
             }
             return product;
@@ -53,11 +56,12 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
     const handleQuantityChange = (value, rowData) => {
         const updatedProducts = products.map(async (product) => {
             if (product.id === rowData.id) {
-                product.quantity = value;
-                const reqData = await putRequest(`http://localhost:3000/cart/${product.id}`, product, token);
+                let newProduct={id: product.id, amount:value,userId:product.userId,choose:product.choose,productId:product.productId}
+                const reqData = await putRequest(`http://localhost:3000/cart/${product.id}`, newProduct, token);
                 if (!reqData.ok) {
                     alert('משהו השתבש בבקשה נסה שוב')
                 }
+               
             }
             return product;
         }
@@ -105,7 +109,7 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
             {worngRequest ? <WorngRequest setWorngRequest={setWorngRequest} /> :
                 <div>
                     <div className='cartProducts'>
-                        <DataTable value={products} showGridlines stripedRows tableStyle={{ minWidth: '60rem' }}>
+                        <DataTable value={products} rowKey="id" showGridlines stripedRows tableStyle={{ minWidth: '60rem' }}>
                             <Column className='column_cart' field="name" header="שם"></Column>
                             <Column className='column_cart' header="Image" body={(rowData) => <img src={`data:image/png;base64,${rowData.img}`} alt={rowData.name} style={{ width: '50px' }} />}></Column>
                             <Column className='column_cart' field="price" header="מחיר"></Column>

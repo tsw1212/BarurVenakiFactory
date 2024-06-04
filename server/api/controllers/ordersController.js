@@ -31,8 +31,8 @@ const OrderController = {
         }
     },
     createOrder: async (req, res) => {
-        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
-            return res.status(401).json({ error: "unauthorized" });
+        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        //     return res.status(401).json({ error: "unauthorized" });
         try {
             const order = req.body;
             if (!validation.validateOrdersInput(order)) {

@@ -147,7 +147,6 @@ function validateLoginInput(body) {
     if (typeof cartItem.userId !== "number" || cartItem.userId <= 0) return false;
     if (typeof cartItem.productId !== "number" || cartItem.productId <= 0) return false;
     if (typeof cartItem.amount !== "number" || cartItem.amount <= 0) return false;
-    if ('choose' in cartItem && typeof cartItem.choose !== "boolean") return false;
 
     return true;
 }
