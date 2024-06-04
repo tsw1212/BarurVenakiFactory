@@ -40,14 +40,14 @@
     height: 24px;
 }
 
-.navLink {
+.navLinkHeader {
     color: white;
     font-size: 22px;
     text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     position: relative;
 }
 
-.navLink:hover {
+.navLinkHeader:hover {
     color: rgb(226, 236, 187);
     font-size: 24px;
 }

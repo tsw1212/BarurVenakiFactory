@@ -10,18 +10,18 @@ function UserHeader({ logOut, countCartItems }) {
         <header>
             <nav className='nav'>
                 <div className='leftSide'>
-                    <NavLink className='navLink' to="userDetails">
+                    <NavLink className='navLinkHeader' to="userDetails">
                         <FontAwesomeIcon className='icon' icon="fas fa-user-alt" />
                     </NavLink>
-                    <NavLink className='navLink' to="shopping_cart">
+                    <NavLink className='navLinkHeader' to="shopping_cart">
                         <div className="cartContainer">
                             <FontAwesomeIcon className='icon' icon="fas fa-shopping-cart" />
                             <NumbersOfItem countCartItems={countCartItems} />
                         </div>
                     </NavLink>
-                    <NavLink className='navLink' to="orders">הזמנות קודמות</NavLink>
-                    <NavLink className='navLink' to="products">מוצרים</NavLink>
-                    <NavLink className='navLink' to="." onClick={() => logOut()}>
+                    <NavLink className='navLinkHeader' to="orders">הזמנות קודמות</NavLink>
+                    <NavLink className='navLinkHeader' to="products">מוצרים</NavLink>
+                    <NavLink className='navLinkHeader' to="." onClick={() => logOut()}>
                         <FontAwesomeIcon className='icon' icon="fas fa-sign-out-alt" />
                     </NavLink>
                 </div>

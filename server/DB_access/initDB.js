@@ -182,6 +182,26 @@ const createManagersTable = () => {
         connection.end();
     });
 };
+const createFactoryTable = () => {
+    const connection = connect();
+    const createFactoryTableQuery = `
+      CREATE TABLE IF NOT EXISTS Factory (
+          name VARCHAR(255)  PRIMARY KEY  NOT NULL,
+          phone VARCHAR(20),
+          email VARCHAR(255) ,
+          passwordEmail VARCHAR(255) NOT NULL,
+          street VARCHAR(255),
+          city VARCHAR(255),
+          houseNumber INT
+      )
+    `;
+  
+    connection.query(createFactoryTableQuery, (err, result) => {
+      if (err) throw err;
+      console.log("Factory table has been created successfully");
+      connection.end();
+    });
+  };
 
   
 
@@ -196,5 +216,6 @@ module.exports = {
     createManagersTable,
     createOrdersTable,
     createPasswordsTable,
-    createCartTable
+    createCartTable,
+    createFactoryTable
 };

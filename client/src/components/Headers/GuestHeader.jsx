@@ -5,9 +5,9 @@ function GuestHeader() {
     return (
         <div className='nav'>
             <div className='leftSide'>
-                <NavLink className='navLink' to="/login">כניסה</NavLink>
-                <NavLink className='navLink' to="/signup">הרשמה</NavLink>
-                <NavLink className='navLink' to="products">מוצרים</NavLink>
+                <NavLink className='navLinkHeader' to="/login">כניסה</NavLink>
+                <NavLink className='navLinkHeader' to="/signup">הרשמה</NavLink>
+                <NavLink className='navLinkHeader' to="products">מוצרים</NavLink>
             </div>
             <NavLink  to="."><img  className='logoImg'  src='../../../images/logo.png' alt='logo' /></NavLink>
         </div>

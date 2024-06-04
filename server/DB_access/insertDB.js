@@ -133,6 +133,21 @@ async function insertIntoCart() {
         connection.end();
     });
 }
+const insertIntoFactory = async () => {
+    const connection = connect();
+    const sql = 'INSERT INTO Factory (name, phone, email, passwordEmail, street, city, houseNumber) VALUES ?';
+    const values = [
+      ['ברור ונקי', '0586654543', 'tzivish2141@gmail.com', 'aive hpbo jmgv myhy', 'פרחי ההר', 'א"ת הר טוב', 3],
+    ];
+  
+    connection.query(sql, [values], (err, result) => {
+      if (err) throw err;
+      console.log("Inserted factories successfully");
+      connection.end();
+    });
+  };
+  
+  
 
 function insert(params) {
     // insertIntoUsers();
@@ -143,6 +158,7 @@ function insert(params) {
     // insertIntoManagers();
     // insertIntoPasswords();
     //insertIntoCart();
+    insertIntoFactory();
 }
 
 module.exports = {

@@ -16,6 +16,7 @@ require('dotenv').config();
 // db_init.createManagersTable();
 // db_init.createPasswordsTable();
 //db_init.createCartTable();
+//db_init.createFactoryTable();
 
 app.use(cors({
     origin: 'http://localhost:5173',

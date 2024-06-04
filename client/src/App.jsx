@@ -29,7 +29,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Navigate to='/home' replace />} />
-        <Route path='home' element={<HomeNavBar countCartItems={countCartItems} setToken={setToken} status={status} setStatus={setStatus} />}>
+        <Route path='home' element={<HomeNavBar token={token} countCartItems={countCartItems} setToken={setToken} status={status} setStatus={setStatus} />}>
           <Route index element={<Home setToken={setToken} token={token} />} />
           <Route path='userDetails' element={<UserDetails token={token} />} />
           <Route path='users' element={<Users token={token} />} />
