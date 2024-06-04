@@ -158,7 +158,7 @@ async function getProductById(id) {
             if (err) {
                 reject(err);
             } else {
-                resolve(result[0]);
+                 resolve(result[0]);
             }
         });
     });

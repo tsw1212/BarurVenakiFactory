@@ -82,9 +82,6 @@ async function getAllCarts() {
                 LEFT JOIN Products P ON C.productId = P.id
             `;
             const cartDetails = await query(connection, sql);
-
-            //const groupedCarts = groupByUserId(cartDetails);
-
             resolve(cartDetails);
         } catch (error) {
             reject(new Error('Error fetching all cart details: ' + error));
@@ -119,7 +116,6 @@ async function getCartByUserId(userId) {
             else{
                 resolve(cartDetails);
             }
-           
 
         } catch (error) {
             reject(new Error('Error fetching cart details: ' + error));
@@ -129,32 +125,8 @@ async function getCartByUserId(userId) {
     });
 }
 
-function groupByUserId(cartDetails) {
-    const grouped = {};
-    cartDetails.forEach(row => {
-        if (!grouped[row.userId]) {
-            grouped[row.userId] = {
-                userId: row.userId,
-                products: []
-            };
-        }
 
-        if (row.productId) {
-            grouped[row.userId].products.push({
-                productId: row.productId,
-                amount: row.amount,
-                choose: row.choose,
-                name: row.name,
-                weight: row.weight,
-                package: row.package,
-                imgUrl: row.imgUrl,
-                inventory: row.inventory,
-                price: row.price
-            });
-        }
-    });
-    return Object.values(grouped);
-}
+
 
 function query(connection, sql, values) {
     return new Promise((resolve, reject) => {
