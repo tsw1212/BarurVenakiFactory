@@ -12,6 +12,8 @@ const guest_tokenRoute = require('./gueust_token');
 const managersRoute = require('./managerRoute');
 const cartRoutes = require('./cartRoutes');
 const factoryRoutes= require('./factoryRoutes');
+const productOrderRoute= require('./productOrderRoute');
+
 
 app.use('/guest_token', guest_tokenRoute);
 
@@ -39,6 +41,8 @@ app.use('/orders', ordersRoutes);
 app.use('/events', eventsRoutes);
 app.use('/cart', cartRoutes);
 app.use('/factory', factoryRoutes);
+app.use('/productOrder', productOrderRoute);
+
 
 module.exports = app;
 

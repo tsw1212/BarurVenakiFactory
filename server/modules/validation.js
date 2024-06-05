@@ -76,9 +76,7 @@ function validateProductOrderInput(productOrder) {
         if (!(field in productOrder)) return false;
     }
 
-    if (typeof productOrder.orderId !== "number" || productOrder.orderId <= 0) return false;
-    if (typeof productOrder.productId !== "number" || productOrder.productId <= 0) return false;
-    if (typeof productOrder.amount !== "number" || productOrder.amount <= 0) return false;
+   
 
     return true;
 }
@@ -132,13 +130,10 @@ function validateLoginInput(body) {
   
   }
 
-  function validateCartInput(cartItem, isIdRequired = false) {
+  function validateCartInput(cartItem) {
     if (!cartItem || typeof cartItem !== "object") return false;
 
     const requiredFields = ["userId", "productId", "amount"];
-    if (isIdRequired) {
-        requiredFields.push("id");
-    }
 
     for (const field of requiredFields) {
         if (!(field in cartItem)) return false;
@@ -150,6 +145,8 @@ function validateLoginInput(body) {
 
     return true;
 }
+
+
 
 
 
