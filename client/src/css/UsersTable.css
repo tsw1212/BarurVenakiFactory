@@ -1,10 +1,9 @@
 .users_table {
+    direction: rtl;
     width: 80%;
     border-collapse: collapse;
-    margin-left: 2.5%;
-    margin-top: 1rem;
-    margin-top: 200px;
-    margin-left: 15%;
+    margin-top: 50px;
+    margin-left: 10%;
 }
 
 .users_table th,

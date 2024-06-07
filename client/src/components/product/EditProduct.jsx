@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { putRequest } from '../../modules/requests/server_requests_special';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '../../css/addProduct.css';
+import '../../css/editProduct.css';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import { Button } from 'primereact/button';
 import ImgChoose from './ImgChoose'
@@ -61,7 +61,7 @@ const EditProduct = ({ token, setProductsHandler, setEditOn, productData }) => {
     return (
         <>
             <div className='overlay' onClick={() => setEditOn(false)} />
-            <div className='createProduct_container'>
+            <div className='editProduct_container'>
                 <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setEditOn(false)} />
                 <form onSubmit={handleSubmit} className='createProduct_form'>
                     <label htmlFor="name">שם</label>
@@ -80,7 +80,7 @@ const EditProduct = ({ token, setProductsHandler, setEditOn, productData }) => {
                     {formData.img && !formData.img.name && <>
                         <Button type="button" icon="pi pi-image" label="תמונה נוכחית" onClick={(e) => op.current.toggle(e)} />
                         <OverlayPanel ref={op} >
-                            <img style={{ width: "30vw", height: "20vh", margin: "auto" }} src={`data:image/png;base64,${formData.img}`} alt={formData.name}></img>
+                            <img className='current_photo' style={{ width: "30vw", height: "20vh", margin: "auto" }} src={`data:image/png;base64,${formData.img}`} alt={formData.name}></img>
                         </OverlayPanel>
                     </>}
 

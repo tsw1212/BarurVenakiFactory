@@ -1,5 +1,6 @@
 .allProducts {
-    margin-top: 10vh;
+  direction: rtl;
+    margin-top: 5vh;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
@@ -8,5 +9,22 @@
   
   .productShort {
     box-sizing: "border-box";
+  }
+  .searchInput{
+    background-color: #ebf0da;
+    width: 15%;
+    padding: 10px;
+    margin: 1vw;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+  }
+  .searchInput:hover{
+    background-color: rgb(218, 212, 212);
+  }
+  .searchContainer{
+    margin-top: 5vw;
+    direction: rtl;
+    
   }
   
