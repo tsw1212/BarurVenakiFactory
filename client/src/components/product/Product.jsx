@@ -6,6 +6,8 @@ import '../../css/product.css';
 import Slider from './Slider';
 import SelectType from './SelectType'
 import QuantityInput from './QuantityInput';
+import Loading from '../Loading';
+
 let prices = { min: 0, max: 10 };
 const Product = ({ token, addToCart, setCountCartItems }) => {
   const [products, setProducts] = useState([]);
@@ -15,6 +17,7 @@ const Product = ({ token, addToCart, setCountCartItems }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedType, setSelectedType] = useState('בחר סוג אריזה');
   const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   let user = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -23,6 +26,7 @@ const Product = ({ token, addToCart, setCountCartItems }) => {
       let dataRequest = await getRequest(`http://localhost:3000/products/${nameProduct}`, token);
       if (dataRequest.ok) {
         setProducts(dataRequest.body);
+        setLoading(false);
         prices = getMinMaxPrices(dataRequest.body);
       } else {
         setWrongRequest(true);
@@ -67,6 +71,7 @@ const Product = ({ token, addToCart, setCountCartItems }) => {
 
   return (
     <div className="product">
+       {loading&& <Loading />}
       <div className="product-images">
         {products.length !== 0 && <Slider sliders={products} currentSlide={currentSlide} />}
       </div>

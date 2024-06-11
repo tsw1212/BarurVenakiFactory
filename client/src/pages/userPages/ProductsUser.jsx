@@ -6,16 +6,19 @@ import { getRequest } from '../../modules/requests/server_requests';
 import AddProduct from '../../components/product/AddProduct';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tooltip from '@mui/material/Tooltip';
+import Loading from '../../components/Loading';
 
 function Products({ token, status, products, setProducts }) {
   const [worngRequest, setWorngRequest] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fatchData() {
       let dataRequest = await getRequest(`http://localhost:3000/products/shortList`, token);
       if (dataRequest.ok) {
         setProducts(dataRequest.body);
+        setLoading(false);
       } else {
         setWorngRequest(true);
       }
@@ -44,6 +47,7 @@ function Products({ token, status, products, setProducts }) {
             className="searchInput"
           />
         </div>
+        {loading&& <Loading />}
         <div className="allProducts">
           {filteredProducts.length > 0 && filteredProducts.map((productData) => {
             return <ProductShort status={status} className="productShort" productData={productData} key={productData.id} />;

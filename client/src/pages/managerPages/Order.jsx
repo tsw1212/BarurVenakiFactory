@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddEvent from '../../components/events/AddEvent';
+import Loading from '../../components/Loading';
 
 const statusOptions = ['התקבלה', 'אושרה', 'בתהליך הכנה', 'נשלחה', 'הסתיימה'];
 
@@ -23,18 +24,20 @@ function Order({ token }) {
     const [editStatus, setEditStatus] = useState(false);
     const [status, setStatus] = useState('');
     const [addEvent, setAddEvent] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchOrder() {
             const responseData = await getRequest(`http://localhost:3000/orders/${OrderId}`, token);
             if (responseData.ok) {
                 await setOrder(responseData.body);
+                await setLoading(false);
             } else {
                 alert('בעיה בטעינת הנתונים אנא נסה שוב')
             }
         }
         fetchOrder();
-    }, [OrderId, token]);
+    }, [OrderId]);
 
     const handleSaveStatus = async (event) => {
         const updatedOrder = {
@@ -92,14 +95,11 @@ function Order({ token }) {
         }
     };
 
-    if (!order) {
-        return <div className="loading">Loading...</div>;
-    }
-
     return (
         <div className="orderDetailsContainer">
             <div>
                 <h2>פרטי הזמנה</h2>
+                {loading&& <Loading />}
                 <div className="orderInfo">
                     <p>מספר מזהה של ההזמנה: {order.orderInfo.orderId}</p>
                     <p>משתמש ID: {order.orderInfo.userId}</p>

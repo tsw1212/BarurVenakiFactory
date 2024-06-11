@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { getRequest, putRequest } from '../modules/requests/server_requests';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '../css/usersDetails.css'
+import '../css/usersDetails.css';
+import Loading from '../components/Loading';
+
 const UserDetails = ({ token }) => {
   const [current_user, setCurrent_user] = useState(JSON.parse(localStorage.getItem('currentUser')));
   const [user, setUser] = useState({});
   const [email, setEmail] = useState({});
   const [alert, setAlert] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [passwords, setPasswords] = useState({
     password: '',
     newPassword: '',
@@ -20,7 +23,8 @@ const UserDetails = ({ token }) => {
       let dataRequest = await getRequest(`http://localhost:3000/users/${current_user.id}`, token);
       if (dataRequest.ok) {
         await setUser(dataRequest.body);
-        await setEmail(dataRequest.body.email)
+        await setEmail(dataRequest.body.email);
+        setLoading(false);
       }
       else {
         setAlert('בעיה בטעינת הנתונים בבקשה נסה שוב');
@@ -74,6 +78,7 @@ const UserDetails = ({ token }) => {
 
   return (
     <div className='usersbody'>
+       {loading&& <Loading />}
       {alert && <h2>בעיה בטעינת הנתונים. אנא נסה שוב</h2>}
       {isEditing ? (
         <div className='editForm_container'>

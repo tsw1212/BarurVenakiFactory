@@ -7,17 +7,20 @@ import Tooltip from '@mui/material/Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import '../../css/managerProducts.css';
+import Loading from '../../components/Loading';
 
 function ManagerProducts({ status, token, products, setProducts, setProductsHandler }) {
   const [wrongRequest, setWorngRequest] = useState(false);
   const [addProduct, setAddProduct] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getProducts() {
       const responseData = await getRequest('http://localhost:3000/products', token);
       if (responseData.ok) {
         await setProducts(responseData.body);
+        setLoading(false);
       } else {
         alert('בעיה בטעינת הנתונים. נסה שוב');
       }
@@ -47,6 +50,7 @@ function ManagerProducts({ status, token, products, setProducts, setProductsHand
               className="searchInput"
             />
           </div>
+          {loading&& <Loading />}
           <div className="allProducts">
             {filteredProducts.length > 0 ? (
               filteredProducts.map((productData) => (
