@@ -9,7 +9,7 @@ async function createFactory(factoryData) {
             if (err) {
                 reject(new Error('Error inserting new factory:' + err));
             } else {
-                newFactory = await getFactoryById(result.insertId);
+                newFactory = await getFactoryByName(factoryData.name);
                 resolve(newFactory);
             }
         });
@@ -40,7 +40,7 @@ async function updateFactory(updatedFactoryData) {
             if (err) {
                 reject(new Error('Error updating factory:' + err));
             } else {
-                let updatedFactory = await getFactoryById(updatedFactoryData.id);
+                let updatedFactory = await getFactoryByName(updatedFactoryData.name);
                 resolve(updatedFactory);
             }
         });

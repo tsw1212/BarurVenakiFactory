@@ -13,6 +13,8 @@ function ManagerHeader({ logOut }) {
           <NavLink className='navLinkHeader' to="allOrders">הזמנות</NavLink>
           <NavLink className='navLinkHeader' to="products">מוצרים</NavLink>
           <NavLink className='navLinkHeader' to="users">משתמשים</NavLink>
+          <NavLink className='navLinkHeader' to="factoryDetails">פרטי מפעל</NavLink>
+
           <NavLink className='navLinkHeader' to="." onClick={() => logOut()}><FontAwesomeIcon className='icon' icon="fas fa-sign-out-alt" /></NavLink >
         </div>
         <NavLink to="."> <img className='logoImg' src='../../../images/logo.png' alt='logo' />

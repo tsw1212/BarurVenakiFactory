@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { getRequest, putRequest } from '../modules/requests/server_requests';
+import { getRequest, putRequest } from '../../modules/requests/server_requests';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '../css/usersDetails.css'
+import '../../css/usersDetails.css'
 const UserDetails = ({ token }) => {
   const [current_user, setCurrent_user] = useState(JSON.parse(localStorage.getItem('currentUser')));
   const [user, setUser] = useState({});

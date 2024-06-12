@@ -5,7 +5,7 @@ import HomeNavBar from './pages/HomeNavBar';
 import Home from './pages/Home';
 import Users from './pages/managerPages/Users';
 import AllOrders from './pages/managerPages/AllOrders';
-import UserDetails from './pages/UserDetails';
+import UserDetails from './pages/userPages/UserDetails';
 import ShoppingCart from './pages/userPages/ShoppingCart';
 import Confirmation from './pages/userPages/Confirmation';
 import Product from './components/product/Product';
@@ -13,10 +13,9 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import PastOrders from './pages/userPages/PastOrders';
 import CurrentOrderDetails from './pages/userPages/CurrentOrderDetails';
-// import Products from './pages/userPages/ProductsUser';
 import Products from './pages/Products';
-import ManagerProducts from './pages/managerPages/ManagerProducts';
 import Order from './pages/managerPages/Order';
+import FactoryDetails from './pages/managerPages/FactoryDetails';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
@@ -32,6 +31,8 @@ function App() {
         <Route path='home' element={<HomeNavBar token={token} countCartItems={countCartItems} setToken={setToken} status={status} setStatus={setStatus} />}>
           <Route index element={<Home setToken={setToken} token={token} />} />
           <Route path='userDetails' element={<UserDetails token={token} />} />
+          <Route path='factoryDetails' element={<FactoryDetails token={token} />} />
+
           <Route path='users' element={<Users token={token} />} />
           <Route path='products'>
             <Route index element={<Products status={status} token={token} />} />
