@@ -1,14 +1,49 @@
 import * as React from 'react';
 import '../../css/orderProduct.css';
 import { useState } from 'react';
+import TextField from '@mui/material/TextField';
 
-function OrderProduct({ product }) {
+
+function OrderProduct({ product, onAmountChange }) {
+  const [amount, setAmount] = useState(product.amount);
+  const [reason, setReason] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleSave = () => {
+    onAmountChange(product.productId, amount, reason);
+    setIsEditing(false);
+  };
+
   return (
     <div className="orderProduct">
+
       <p>מספר מזהה של המוצר: {product.productId}</p>
       <p>שם : {product.name}</p>
       <p>סוג אריזה : {product.package}</p>
-      <p>כמות : {product.amount}</p>
+
+      {!isEditing ?
+        <>
+          <p>כמות : {product.amount}</p>
+          <button className='button' onClick={() => setIsEditing(true)}>ערוך כמות</button>
+        </>
+        :
+         <>
+            <TextField
+              label="כמות"
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            <TextField
+              label="סיבה לשינוי"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+            />
+            <button className='button' onClick={handleSave}>שמור</button>
+            <button className='button' onClick={() => setIsEditing(false)}>ביטול</button>
+          
+            </>
+      }
     </div>
   );
 }

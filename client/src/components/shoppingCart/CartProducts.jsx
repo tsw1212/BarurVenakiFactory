@@ -10,12 +10,15 @@ import '../../css/ShoppingCart.css';
 import DeleteCart from './DeleteCart';
 import { useNavigate } from 'react-router-dom';
 import { amber } from '@mui/material/colors';
+import Loading from '../Loading'
 
 function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
     const [products, setProducts] = useState([]);
     const [worngRequest, setWorngRequest] = useState(false);
     const [deleteOn, setDeleteOn] = useState(false);
     const [currentProductToDelete, setCurrentProductToDelete] = useState({});
+    const [loading, setLoading] = useState(true);
+
     const navigate = useNavigate();
 
 
@@ -26,6 +29,7 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
             const reqData = await getRequest(`http://localhost:3000/cart/${user.id}`, token);
             if (reqData.ok) {
                 setProducts(reqData.body);
+                setLoading(false);
             }
             else {
                 setWorngRequest(true);
@@ -111,6 +115,7 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
 
     return (
         <>
+        {loading&& <Loading />}
             {worngRequest ? <WorngRequest setWorngRequest={setWorngRequest} /> :
                 <div>
                     <div className='cartProducts'>

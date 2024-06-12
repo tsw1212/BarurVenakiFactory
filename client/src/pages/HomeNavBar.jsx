@@ -13,6 +13,7 @@ function HomeNavBar({ status, setStatus,setToken,countCartItems ,token }) {
         setStatus("guest");
         localStorage.removeItem('currentUser');
         localStorage.removeItem('token');
+        localStorage.removeItem('status');
         navigate('/home')
 
     }

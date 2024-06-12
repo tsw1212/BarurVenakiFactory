@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getRequest } from '../../modules/requests/server_requests';
+import { getRequest, putRequest, postRequest } from '../../modules/requests/server_requests';
 import Event from '../../components/events/Event';
 import OrderProduct from '../../components/orders/OrderProduct';
 import '../../css/orderDetails.css';
@@ -12,8 +12,8 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { putRequest } from '../../modules/requests/server_requests';
 import AddEvent from '../../components/events/AddEvent';
+import Loading from '../../components/Loading';
 
 const statusOptions = ['התקבלה', 'אושרה', 'בתהליך הכנה', 'נשלחה', 'הסתיימה'];
 
@@ -24,21 +24,20 @@ function Order({ token }) {
     const [editStatus, setEditStatus] = useState(false);
     const [status, setStatus] = useState('');
     const [addEvent, setAddEvent] = useState(false);
-
-
-
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchOrder() {
             const responseData = await getRequest(`http://localhost:3000/orders/${OrderId}`, token);
             if (responseData.ok) {
                 await setOrder(responseData.body);
+                await setLoading(false);
             } else {
                 alert('בעיה בטעינת הנתונים אנא נסה שוב')
             }
         }
         fetchOrder();
-    }, [OrderId, token]);
+    }, [OrderId]);
 
     const handleSaveStatus = async (event) => {
         const updatedOrder = {
@@ -62,22 +61,45 @@ function Order({ token }) {
             events: [...prevOrder.events, newEvent],
         }));
     };
-    // function formatDate(dateString) {
-    //     const date = new Date(dateString);
-    //     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-    //     return date.toLocaleDateString(undefined, options) + ' ' + date.toLocaleTimeString(undefined, options);
-    // }
 
+    const handleProductAmountChange = async (productId, newAmount, reason) => {
+        const updatedProduct = {
+            orderId: order.orderInfo.orderId,
+            productId: productId,
+            amount: newAmount,
+        };
 
+        const response = await putRequest(`http://localhost:3000/productOrder`, updatedProduct, token);
+        if (response.ok) {
+            const updatedOrder = {
+                ...order,
+                products: order.products.map(product => 
+                    product.productId === productId ? { ...product, amount: newAmount } : product
+                )
+            };
+            setOrder(updatedOrder);
 
-    if (!order) {
-        return <div className="loading">Loading...</div>;
-    }
+            const newEvent = {
+                orderId: order.orderInfo.orderId,
+                text: `הכמות של מוצר מספר: ${productId} השתנתה ל: ${newAmount}. הסיבה: ${reason}`,
+                date: formatDateTime()
+            };
+            const eventResponse = await postRequest(`http://localhost:3000/events`, newEvent, token);
+            if (eventResponse.ok) {
+                handleEventAdded(newEvent);
+            } else {
+                console.error('Failed to create event');
+            }
+        } else {
+            console.error('Failed to update product amount');
+        }
+    };
 
     return (
         <div className="orderDetailsContainer">
             <div>
                 <h2>פרטי הזמנה</h2>
+                {loading&& <Loading />}
                 <div className="orderInfo">
                     <p>מספר מזהה של ההזמנה: {order.orderInfo.orderId}</p>
                     <p>משתמש ID: {order.orderInfo.userId}</p>
@@ -86,8 +108,8 @@ function Order({ token }) {
                     {!editStatus ?
                         <p>סטטוס: {order.orderInfo.status}</p> :
                         <>
-                            <FormControl  className='editStatus'>
-                                <InputLabel id="demo-simple-select-label" >סטטוס</InputLabel>
+                            <FormControl className='editStatus'>
+                                <InputLabel id="demo-simple-select-label">סטטוס</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -95,26 +117,21 @@ function Order({ token }) {
                                     label="status"
                                     onChange={(e) => setStatus(e.target.value)}
                                 >
-                                    <MenuItem value={statusOptions[0]}>{statusOptions[0]}</MenuItem>
-                                    <MenuItem value={statusOptions[1]}>{statusOptions[1]}</MenuItem>
-                                    <MenuItem value={statusOptions[2]}>{statusOptions[2]}</MenuItem>
-                                    <MenuItem value={statusOptions[3]}>{statusOptions[3]}</MenuItem>
-                                    <MenuItem value={statusOptions[4]}>{statusOptions[4]}</MenuItem>
+                                    {statusOptions.map(option => (
+                                        <MenuItem key={option} value={option}>{option}</MenuItem>
+                                    ))}
                                 </Select>
                             </FormControl>
                             <br></br>
                             {editStatus && <button className="saveStatus" onClick={handleSaveStatus}>שמור סטטוס</button>}
-
                         </>
                     }
                     {!editStatus && <button onClick={() => setEditStatus(true)}>ערוך סטטוס</button>}
                 </div>
-
-
                 <div className="products">
                     <h3>מוצרים</h3>
                     {order.products.map(product => (
-                        <OrderProduct key={product.id} product={product} />
+                        <OrderProduct key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
                     ))}
                 </div>
                 {order.events.length > 0 && <div className="events">
@@ -123,15 +140,22 @@ function Order({ token }) {
                         <Event key={event.id} event={event} />
                     ))}
                 </div>}
-                {!addEvent && <button onClick={() => { setAddEvent(true) }}>הוסף אירוע</button>}
+                {!addEvent && <button onClick={() => setAddEvent(true)}>הוסף אירוע</button>}
                 {addEvent && <AddEvent setAddEvent={setAddEvent} orderId={order.orderInfo.orderId} token={token} onEventAdded={handleEventAdded} />}
-
             </div>
-
-
-        </div >
-
+        </div>
     );
 }
+
+const formatDateTime = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+};
 
 export default Order;

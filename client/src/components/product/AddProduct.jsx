@@ -53,7 +53,7 @@ const AddProduct = ({ token, setProductsHandler, setAddProduct }) => {
         <>
             <div className='overlay' onClick={() => setAddProduct(false)} />
             <div className='createProduct_container'>
-                {/* <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setAddProduct(false)} /> */}
+                <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setAddProduct(false)} />
                 <form onSubmit={handleSubmit} className='createProduct_form'>
                     <label htmlFor="name">שם</label>
                     <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />

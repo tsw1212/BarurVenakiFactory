@@ -4,9 +4,9 @@ const DB_actionsUser = require('../DB_access/usersDB_handler');
 const DB_actionsManager = require('../DB_access/managerDB_handler');
 const tokenActions = require('../modules/token');
 const DB_actionsPasswords = require('../DB_access/passwordsDB_handler');
-const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
-const factoryServices = require('../services/factoryServices');
+const sendEmail = require('../modules/email');
+
 const authenticateUser = async (body) => {
     let passwordData = await DB_actionsPasswords.getPasswordByEmail(body.email);
     if (passwordData && await bcrypt.compare(body.password, passwordData.password)) {
@@ -25,29 +25,7 @@ const forgotPassword = async (email) => {
     const newPassword = crypto.randomBytes(8).toString('hex');
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     DB_actionsPasswords.updatePassword({ email: email, password: hashedPassword });
-    const factoryData =await factoryServices.getFactorieByName(process.env.FACTORY_NAME)
-    const transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: factoryData.email,
-            pass: factoryData.passwordEmail,
-        },
-    });
-
-    const mailOptions = {
-        from: factoryData.email,
-        to: email,
-        subject: `הסיסמא החדשה שלך -${process.env.FACTORY_NAME}`,
-        text: `Your new password is: ${newPassword}`,
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-         if (error) {
-            console.log(factoryData);
-            throw error;
-        }
-    }
-    )
+    sendEmail(`הסיסמא החדשה שלך -${process.env.FACTORY_NAME}`,`Your new password is: ${newPassword}`,email); 
 }
 
 module.exports = {

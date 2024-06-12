@@ -10,6 +10,7 @@
     z-index: 1001;
     width: 60vh;
     border-radius: 8px;
+    padding-right: 40px;
 }
 
 .createProduct_form {
@@ -41,6 +42,8 @@
     border-radius: 4px;
     cursor: pointer;
     box-sizing: border-box;
+    margin-left: 6.5vw;
+    width: 60%;
 }
 
 .createProduct_form input[type="submit"]:hover {
