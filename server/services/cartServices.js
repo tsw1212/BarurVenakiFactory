@@ -27,7 +27,7 @@ const CartServices = {
         return updatedCarts;
     },
     getCartById:async (itemId) => {
-        const cart = await DB_actions.getCartById(itemId);
+         const cart = await DB_actions.getCartById(itemId);
         return cart;;
     },
     updateCartItem: async (updatedCartData) => {

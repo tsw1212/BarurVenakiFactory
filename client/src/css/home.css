@@ -1,15 +1,15 @@
-עיצוב עיקרי
 .imgAboutuSRight {
   flex: 1;
   margin-right: 10px;
 
 }
-.imgAboutuSLeft{
-  flex: 2;
-  margin: auto;
-  margin-left: 10px;
 
+.imgPriceLeft {
+  flex: 2;
+  margin-left: 250px;
+  height: 50vh;
 }
+
 .hero {
   margin-top: 10vh;
   background-color: #effadd;
@@ -17,7 +17,7 @@
   text-align: center;
 }
 
-.rightSideTxt{
+.rightSideTxt {
   margin-right: 10px;
   padding: 50px 0;
   text-align: right;
@@ -25,7 +25,8 @@
   margin-right: 10px;
 
 }
-.leftSideTxt{
+
+.leftSideTxt {
   margin-left: 10px;
   padding: 50px 0;
   text-align: right;
@@ -38,19 +39,14 @@ section {
   max-width: 1200px;
   margin: 0 auto;
 }
-.container{
+
+.container {
   overflow: hidden;
+  width: 80vw;
   display: flex;
+  margin-bottom: 5vh;
+
 }
-
-
- 
-
-.section-image img {
-  max-width: 100%; /* Ensure image does not exceed container width */
-}
-
-
 
 
 .section-title {
@@ -68,21 +64,26 @@ section {
   font-weight: bold;
   color: #333;
 }
-.lastDivManyItems{
+
+.lastDivManyItems {
   display: flex;
   gap: 20px;
 
 }
+
 .select-item1 {
   flex: 1
 }
+
 .select-item2 {
   flex: 3
 }
-.select-item3{
+
+.select-item3 {
   flex: 5
 }
-.select-item{
+
+.select-item {
   flex: 7
 }
 
@@ -90,12 +91,17 @@ section {
 .section-item2,
 .section-item3,
 .section-item4 {
-  background-color: #f9f9f9; /* צבע רקע לבן אפרפר */
+  background-color: #f9f9f9;
+  /* צבע רקע לבן אפרפר */
   padding: 20px;
-  border-radius: 5px; /* פינות עגולות */
-  border-left: 8px solid rgb(163, 147, 4); /* מסגרת חזקה בצד שמאל בצבע ירוק כהה */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* צל למראה כרטיס */
-  margin-bottom: 20px; /* רווח בין ה-div */
+  border-radius: 5px;
+  /* פינות עגולות */
+  border-left: 8px solid rgb(163, 147, 4);
+  /* מסגרת חזקה בצד שמאל בצבע ירוק כהה */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* צל למראה כרטיס */
+  margin-bottom: 20px;
+  /* רווח בין ה-div */
 }
 
 .section-item4 img {
@@ -110,6 +116,12 @@ section {
   color: #666;
   margin: 5vh;
 }
+.section-contentPtice {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #666;
+  margin-right: -100px;
+}
 
 .section-list {
   list-style-type: none;
@@ -120,7 +132,3 @@ section {
 .section-list-item {
   margin-bottom: 10px;
 }
-
-
-
-
