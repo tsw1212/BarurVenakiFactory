@@ -36,7 +36,7 @@ function Login({ setToken, setStatus, token }) {
         ev.preventDefault();
         const dataRequest = await postRequest("http://localhost:3000/login/forgot-password", { email: sendPasswordEmail }, token);
         if (!dataRequest.ok) {
-            alert("ישנם נתונים שגויים נסה שוב")
+            alert("משהו השתבש בבקשה נסה שוב")
 
         }
         else {
