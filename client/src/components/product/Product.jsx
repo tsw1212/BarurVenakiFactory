@@ -7,9 +7,10 @@ import Slider from './Slider';
 import SelectType from './SelectType'
 import QuantityInput from './QuantityInput';
 import Loading from '../Loading';
+import NotAdd from './NotAdd';
 
 let prices = { min: 0, max: 10 };
-const Product = ({ token, addToCart, setCountCartItems }) => {
+const Product = ({ token, addToCart,status, setCountCartItems }) => {
   const [products, setProducts] = useState([]);
   const { nameProduct } = useParams();
   const [wrongRequest, setWrongRequest] = useState(false);
@@ -18,6 +19,7 @@ const Product = ({ token, addToCart, setCountCartItems }) => {
   const [selectedType, setSelectedType] = useState('בחר סוג אריזה');
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [notAddFlag, setNotAddFlag] = useState(false);
 
   let user = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -47,6 +49,10 @@ const Product = ({ token, addToCart, setCountCartItems }) => {
   };
 
   const handleAddToCart = async () => {
+    if(status=="guest") {
+      setNotAddFlag(true);
+      return;
+    }
     if (currentProduct == null) {
       alert('בחר סוג אריזה');
       return;
@@ -72,6 +78,7 @@ const Product = ({ token, addToCart, setCountCartItems }) => {
   return (
     <div className="product">
        {loading&& <Loading />}
+       {notAddFlag&&<NotAdd setNotAddFlag={setNotAddFlag}/>}
       <div className="product-images">
         {products.length !== 0 && <Slider sliders={products} currentSlide={currentSlide} />}
       </div>
