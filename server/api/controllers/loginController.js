@@ -37,7 +37,7 @@ const LogInController = {
             return res.status(404).send('User not found');
         }
         try {
-            LoginServices.forgotPassword(email);
+            await LoginServices.forgotPassword(email);
             res.status(200).json('New password has been sent to your email');
         }
         catch (err) {

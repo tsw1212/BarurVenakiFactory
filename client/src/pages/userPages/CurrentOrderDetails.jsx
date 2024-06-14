@@ -3,7 +3,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { postRequest } from '../../modules/requests/server_requests';
 import { useNavigate } from 'react-router-dom';
-import '../../css/currentOrderDetails.css'
+import '../../css/currentOrderDetails.css';
 
 function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token }) {
   const [deliveryDate, setDeliveryDate] = useState('');
@@ -29,7 +29,7 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
       return {
         productId: product.productId,
         amount: product.amount
-      }
+      };
     });
     let newOrder = {
       userId: user.id,
@@ -42,9 +42,8 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
 
     const reqData = await postRequest(`http://localhost:3000/orders`, newOrder, token);
     if (!reqData.ok) {
-      alert('משהו השתבש בבקשה נסה שוב')
-    }
-    else {
+      alert('משהו השתבש בבקשה נסה שוב');
+    } else {
       setChosenCartProducts([]);
       navigate('/home/shopping_cart/confirmation');
     }
@@ -61,6 +60,15 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
 
     // Format: YYYY-MM-DD HH:MM:SS
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+
+  const getMinDeliveryDate = () => {
+    const now = new Date();
+    now.setDate(now.getDate() + 7); 
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   return (
@@ -87,6 +95,7 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
             id="deliveryDate"
             value={deliveryDate}
             onChange={handleDateChange}
+            min={getMinDeliveryDate()} 
           />
         </div>
         <div className='remarks'>

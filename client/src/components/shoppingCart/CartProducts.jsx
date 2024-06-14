@@ -124,7 +124,7 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
                             <Column className='column_cart' header="Image" body={(rowData) => <img src={`data:image/png;base64,${rowData.img}`} alt={rowData.name} style={{ width: '50px' }} />}></Column>
                             <Column className='column_cart' field="price" header="מחיר"></Column>
                             <Column className='column_cart' field="package" header="סוג אריזה"></Column>
-                            <Column className='column_cart' header={<FontAwesomeIcon icon="fas fa-clipboard-check" />} body={(rowData) => <Checkbox checked={rowData.choose} onChange={() => handleCheckboxChange(rowData)} />}></Column>
+                            <Column className='column_cart' header={<FontAwesomeIcon icon="fas fa-clipboard-check" />} body={(rowData) => <Checkbox checked={Boolean(rowData.choose)} onChange={() => handleCheckboxChange(rowData)} />}></Column>
                             <Column className='column_cart' header="כמות" body={(rowData) => <QuantityInput quantity={rowData.amount} handleQuantityChange={(value) => handleQuantityChange(value, rowData)} />}></Column>
                             <Column className='column_cart' header="מחק מהסל" body={(rowData) => <FontAwesomeIcon onClick={() => handleOpenDeleteForm(rowData)} icon="fas fa-trash-alt" />}></Column>
                         </DataTable>

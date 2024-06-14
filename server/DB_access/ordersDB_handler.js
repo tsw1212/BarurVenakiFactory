@@ -74,12 +74,25 @@ async function getAllOrders() {
 
         try {
             let sql = `
-                SELECT O.id AS orderId, O.userId, O.date, O.status, O.remarks,
-                P.productId, P.amount,
-                E.id AS eventId, E.text AS eventText, E.date AS eventDate
-                FROM Orders O
-                LEFT JOIN ProductOrder P ON O.id = P.orderId
-                LEFT JOIN Events E ON O.id = E.orderId
+                SELECT 
+                    O.id AS orderId, 
+                    O.userId, 
+                    O.date, 
+                    O.status, 
+                    O.remarks, 
+                    O.deliveryDate, 
+                    P.productId, 
+                    P.amount, 
+                    E.id AS eventId, 
+                    E.text AS eventText, 
+                    E.date AS eventDate
+                FROM 
+                    Orders O
+                LEFT JOIN 
+                    ProductOrder P ON O.id = P.orderId
+                LEFT JOIN 
+                    Events E ON O.id = E.orderId;
+
             `;
             const orderDetails = await query(connection, sql);
 
@@ -100,7 +113,7 @@ async function getOrderById(orderId) {
 
         try {
             let sql = `
-            SELECT O.id AS orderId, O.userId, O.date, O.status, O.remarks,
+            SELECT O.id AS orderId, O.userId, O.date, O.status, O.remarks, O.deliveryDate
             P.id AS productId, P.name, P.weight, P.package, P.imgUrl, P.inventory, P.price,
             PO.amount,  -- Include the amount field from ProductOrder
             E.id AS eventId, E.text AS eventText, E.date AS eventDate
@@ -139,7 +152,8 @@ function groupByOrderId(orderDetails) {
                     userId: row.userId,
                     date: row.date,
                     status: row.status,
-                    remarks: row.remarks
+                    remarks: row.remarks,
+                    deliveryDate: row.deliveryDate
                 },
                 products: [],
                 events: []
