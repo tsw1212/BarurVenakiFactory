@@ -19,7 +19,7 @@ const statusOptions = ['התקבלה', 'אושרה', 'בתהליך הכנה', '�
 
 function Order({ token }) {
     const { OrderId } = useParams();
-    const [order, setOrder] = useState(null);
+    const [order, setOrder] = useState({});
     const [wrongRequest, setWrongRequest] = useState(false);
     const [editStatus, setEditStatus] = useState(false);
     const [status, setStatus] = useState('');
@@ -27,6 +27,9 @@ function Order({ token }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        console.log('useEffect triggered');
+        console.log('OrderId:', OrderId);
+        console.log('Token:', token);
         async function fetchOrder() {
             const responseData = await getRequest(`http://localhost:3000/orders/${OrderId}`, token);
             if (responseData.ok) {
@@ -73,7 +76,7 @@ function Order({ token }) {
         if (response.ok) {
             const updatedOrder = {
                 ...order,
-                products: order.products.map(product => 
+                products: order.products.map(product =>
                     product.productId === productId ? { ...product, amount: newAmount } : product
                 )
             };
@@ -99,49 +102,54 @@ function Order({ token }) {
         <div className="orderDetailsContainer">
             <div>
                 <h2>פרטי הזמנה</h2>
-                {loading&& <Loading />}
-                <div className="orderInfo">
-                    <p>מספר מזהה של ההזמנה: {order.orderInfo.orderId}</p>
-                    <p>משתמש ID: {order.orderInfo.userId}</p>
-                    <p>תאריך: {order.orderInfo.date}</p>
-                    <p>הערות: {order.orderInfo.remarks}</p>
-                    {!editStatus ?
-                        <p>סטטוס: {order.orderInfo.status}</p> :
-                        <>
-                            <FormControl className='editStatus'>
-                                <InputLabel id="demo-simple-select-label">סטטוס</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={status}
-                                    label="status"
-                                    onChange={(e) => setStatus(e.target.value)}
-                                >
-                                    {statusOptions.map(option => (
-                                        <MenuItem key={option} value={option}>{option}</MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                            <br></br>
-                            {editStatus && <button className="saveStatus" onClick={handleSaveStatus}>שמור סטטוס</button>}
-                        </>
-                    }
-                    {!editStatus && <button onClick={() => setEditStatus(true)}>ערוך סטטוס</button>}
-                </div>
-                <div className="products">
-                    <h3>מוצרים</h3>
-                    {order.products.map(product => (
-                        <OrderProduct key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
-                    ))}
-                </div>
-                {order.events.length > 0 && <div className="events">
-                    <h3>אירועים</h3>
-                    {order.events.map(event => (
-                        <Event key={event.id} event={event} />
-                    ))}
-                </div>}
-                {!addEvent && <button onClick={() => setAddEvent(true)}>הוסף אירוע</button>}
-                {addEvent && <AddEvent setAddEvent={setAddEvent} orderId={order.orderInfo.orderId} token={token} onEventAdded={handleEventAdded} />}
+                {loading ? <Loading /> :
+                    <>
+                        <div className="orderInfo">
+                            <p>מספר מזהה של ההזמנה: {order.orderInfo.orderId}</p>
+                            <p>משתמש ID: {order.orderInfo.userId}</p>
+                            <p>תאריך: {order.orderInfo.date}</p>
+                            <p>תאריך הספקה: {order.orderInfo.deliveryDate}</p>
+                            <p>הערות: {order.orderInfo.remarks}</p>
+                            {!editStatus ?
+                                <p>סטטוס: {order.orderInfo.status}</p> :
+                                <>
+                                    <FormControl className='editStatus'>
+                                        <InputLabel id="demo-simple-select-label">סטטוס</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={status}
+                                            label="status"
+                                            onChange={(e) => setStatus(e.target.value)}
+                                        >
+                                            {statusOptions.map(option => (
+                                                <MenuItem key={option} value={option}>{option}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                    <br></br>
+                                    {editStatus && <button className="saveStatus" onClick={handleSaveStatus}>שמור סטטוס</button>}
+                                </>
+                            }
+                            {!editStatus && <button onClick={() => setEditStatus(true)}>ערוך סטטוס</button>}
+                        </div>
+                        <div className="products">
+                            <h3>מוצרים</h3>
+                            {order.products.map(product => (
+                                <OrderProduct key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
+                            ))}
+                        </div>
+                        {order.events.length > 0 && <div className="events">
+                            <h3>אירועים</h3>
+                            {order.events.map(event => (
+                                <Event key={event.id} event={event} />
+                            ))}
+                        </div>}
+                        {!addEvent && <button onClick={() => setAddEvent(true)}>הוסף אירוע</button>}
+                        {addEvent && <AddEvent setAddEvent={setAddEvent} orderId={order.orderInfo.orderId} token={token} onEventAdded={handleEventAdded} />}
+                    </>
+                }
+
             </div>
         </div>
     );

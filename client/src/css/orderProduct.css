@@ -1,18 +1,18 @@
+/* orderProduct.css */
+
 .orderProduct {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap; /* Added to allow wrapping */
+  flex-direction: column; /* Change to column to stack items vertically */
   border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 10px;
   background-color: #f9f9f9;
 }
 
-.orderProduct img {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
+.productDetails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .orderProduct p {
@@ -21,8 +21,20 @@
 
 .button {
   background-color: #afa7a7;
+  margin: 5px; 
 }
 
 .button:hover {
   background-color: #f0eaea;
+}
+
+.editAmountContainer {
+  display: flex;
+  flex-direction: row; 
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.editAmountContainer .button {
+  align-self: flex-start; 
 }

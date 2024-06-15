@@ -3,7 +3,6 @@ import '../../css/orderProduct.css';
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
-
 function OrderProduct({ product, onAmountChange }) {
   const [amount, setAmount] = useState(product.amount);
   const [reason, setReason] = useState('');
@@ -16,34 +15,36 @@ function OrderProduct({ product, onAmountChange }) {
 
   return (
     <div className="orderProduct">
-
-      <p>מספר מזהה של המוצר: {product.productId}</p>
-      <p>שם : {product.name}</p>
-      <p>סוג אריזה : {product.package}</p>
-
-      {!isEditing ?
-        <>
-          <p>כמות : {product.amount}</p>
-          <button className='button' onClick={() => setIsEditing(true)}>ערוך כמות</button>
-        </>
-        :
-         <>
-            <TextField
-              label="כמות"
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
-            <TextField
-              label="סיבה לשינוי"
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-            />
-            <button className='button' onClick={handleSave}>שמור</button>
-            <button className='button' onClick={() => setIsEditing(false)}>ביטול</button>
-          
-            </>
-      }
+      <div className="productDetails">
+        <p>מספר מזהה של המוצר: {product.productId}</p>
+        <p>שם : {product.name}</p>
+        <p>סוג אריזה : {product.package}</p>
+        {!isEditing ?
+          <>
+            <p>כמות : {product.amount}</p>
+            <button className='button' onClick={() => setIsEditing(true)}>ערוך כמות</button>
+          </>
+          :
+          null
+        }
+      </div>
+      {isEditing && (
+        <div className="editAmountContainer">
+          <TextField
+            label="כמות"
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+          <TextField
+            label="סיבה לשינוי"
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+          />
+          <button className='button' onClick={handleSave}>שמור</button>
+          <button className='button' onClick={() => setIsEditing(false)}>ביטול</button>
+        </div>
+      )}
     </div>
   );
 }

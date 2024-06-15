@@ -113,10 +113,24 @@ async function getOrderById(orderId) {
 
         try {
             let sql = `
-            SELECT O.id AS orderId, O.userId, O.date, O.status, O.remarks, O.deliveryDate
-            P.id AS productId, P.name, P.weight, P.package, P.imgUrl, P.inventory, P.price,
-            PO.amount,  -- Include the amount field from ProductOrder
-            E.id AS eventId, E.text AS eventText, E.date AS eventDate
+            SELECT 
+                O.id AS orderId, 
+                O.userId, 
+                O.date, 
+                O.status, 
+                O.remarks, 
+                O.deliveryDate,
+                P.id AS productId, 
+                P.name, 
+                P.weight, 
+                P.package, 
+                P.imgUrl, 
+                P.inventory, 
+                P.price,
+                PO.amount,  -- Include the amount field from ProductOrder
+                E.id AS eventId, 
+                E.text AS eventText, 
+                E.date AS eventDate
             FROM Orders O
             LEFT JOIN ProductOrder PO ON O.id = PO.orderId
             LEFT JOIN Products P ON PO.productId = P.id
