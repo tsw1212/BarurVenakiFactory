@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { getRequest, putRequest } from '../../modules/requests/server_requests';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/dataDetails.css'
+import Loading from '../../components/Loading';
+
 const FactoryDetails = ({ token }) => {
     const [factory, setFactory] = useState({});
     const [alert, setAlert] = useState('');
     const [isEditing, setIsEditing] = useState(false);
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         async function fetch() {
@@ -13,6 +17,7 @@ const FactoryDetails = ({ token }) => {
             let dataRequest = await getRequest(`http://localhost:3000/factory/ברור ונקי`, token);
             if (dataRequest.ok) {
                 await setFactory(dataRequest.body);
+                setLoading(false);
             }
             else {
                 setAlert('בעיה בטעינת הנתונים בבקשה נסה שוב');
@@ -44,6 +49,8 @@ const FactoryDetails = ({ token }) => {
     return (
         <div className='databody'>
             {alert && <h2>בעיה בטעינת הנתונים. אנא נסה שוב</h2>}
+            {loading && <Loading />}
+
             {isEditing ? (
                 <div className='editForm_container'>
                     <div className='editForm_form'>

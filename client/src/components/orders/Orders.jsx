@@ -13,32 +13,36 @@ import Paper from '@mui/material/Paper';
 import '../../css/orders.css';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Orders({ token, status }) {
   const [orders, setOrders] = useState([]);
   const [wrongRequest, setWorngRequest] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredOrders, setFilteredOrders] = useState([]);
   let navigate = useNavigate();
 
   useEffect(() => {
     async function getOrders() {
       const user = JSON.parse(localStorage.getItem('currentUser'));
       let responseData;
-      let sortedOrders=[];
+      let sortedOrders = [];
       if (status === 'manager') {
         responseData = await getRequest('http://localhost:3000/orders', token);
-        if(responseData.ok){
+        if (responseData.ok) {
           sortedOrders = responseData.body.sort((a, b) => new Date(b.orderInfo.date) - new Date(a.orderInfo.date));
         }
       } else {
         responseData = await getRequest(`http://localhost:3000/users/${user.id}/orders`, token);
-        if(responseData.ok){
+        if (responseData.ok) {
           sortedOrders = responseData.body.sort((a, b) => new Date(b.date) - new Date(a.date));
         }
       }
 
       if (responseData.ok) {
         setOrders(sortedOrders);
+        setFilteredOrders(sortedOrders);
         setLoading(false);
       } else {
         setWorngRequest(true);
@@ -47,9 +51,31 @@ function Orders({ token, status }) {
     getOrders();
   }, [token, status]);
 
+  useEffect(() => {
+    const lowercasedQuery = searchQuery.toLowerCase();
+    const filtered = orders.filter(order => {
+      const searchableFields = status === 'manager' ? order.orderInfo : order;
+      return Object.entries(searchableFields).some(([key, value]) =>
+        !['date', 'deliveryDate'].includes(key) && value.toString().toLowerCase().includes(lowercasedQuery)
+      );
+    });
+    setFilteredOrders(filtered);
+  }, [searchQuery, orders, status]);
+
   return (
     <div className='ordersContainer'>
       {loading && <Loading />}
+      {wrongRequest && <WorngRequest />}
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="חפש..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="searchInput"
+        />
+        <FontAwesomeIcon icon="fas fa-search" />
+      </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -70,7 +96,7 @@ function Orders({ token, status }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => {
+            {filteredOrders.map((order) => {
               if (status === 'manager') {
                 return (
                   <TableRow

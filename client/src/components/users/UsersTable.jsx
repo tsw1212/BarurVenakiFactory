@@ -2,18 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { getRequest } from '../../modules/requests/server_requests';
 import '../../css/UsersTable.css';
 import Loading from '../Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const UsersTable = ({ token }) => {
+const UsersTable = ({ token,setFilteredUsers,filteredUsers }) => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
                 const responseData = await getRequest('http://localhost:3000/users', token);
                 if (responseData.ok) {
-                    await setUsers(responseData.body);
+                    setUsers(responseData.body);
+                    setFilteredUsers(responseData.body);
                     setLoading(false);
                 }
             } catch (error) {
@@ -22,11 +24,32 @@ const UsersTable = ({ token }) => {
         };
 
         fetchUsers();
-    }, []);
+    }, [token]);
+
+    useEffect(() => {
+        const lowercasedQuery = searchQuery.toLowerCase();
+        const filtered = users.filter(user =>
+            Object.values(user).some(value =>
+                value.toString().toLowerCase().includes(lowercasedQuery)
+            )
+        );
+        setFilteredUsers(filtered);
+    }, [searchQuery, users]);
 
     return (
         <>
             {loading && <Loading />}
+            <div className="search-container">
+                <input
+                    type="text"
+                    placeholder="חפש ..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="searchInput"
+                />
+                <FontAwesomeIcon icon="fas fa-search" />
+
+            </div>
             <table className='users_table'>
                 <thead>
                     <tr>
@@ -42,9 +65,9 @@ const UsersTable = ({ token }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map(user => (
+                    {filteredUsers.map(user => (
                         <tr key={user.id}>
-                            <td>{user.id}</td>
+                            <td>{`${user.id} ${user.manager ? "*" : ""}`}</td>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td>{user.city}</td>

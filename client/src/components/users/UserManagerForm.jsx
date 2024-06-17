@@ -3,7 +3,7 @@ import { postRequest } from '../../modules/requests/server_requests';
 import '../../css/usersManagersForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const UserManagerForm = ({ token, setNewMangerOn }) => {
+const UserManagerForm = ({ token, setNewMangerOn, setFilteredUsers }) => {
     const [userId, setUserId] = useState('');
 
     const handleSubmit = async (event) => {
@@ -12,6 +12,12 @@ const UserManagerForm = ({ token, setNewMangerOn }) => {
             const requestData = await postRequest('http://localhost:3000/managers', { id: userId }, token);
             if (requestData.ok) {
                 alert('מנהל נוסף בהצלחה');
+                await setFilteredUsers(prevUsers => prevUsers.map(user => {
+                    if (user.id === userId) {
+                        return { ...user, manager: 1 };
+                    }
+                    return user;
+                }));
             } else {
                 alert('תקלה בקביעת משתמש בתור מנהל בבקשה נסה שוב');
             }
@@ -24,9 +30,8 @@ const UserManagerForm = ({ token, setNewMangerOn }) => {
 
     return (
         <>
-            {/* <div className='overlay' onClick={() => setNewMangerOn(false)} /> */}
             <div className='createManager_container'>
-            <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setNewMangerOn(false)} />
+                <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setNewMangerOn(false)} />
                 <form onSubmit={handleSubmit} className='createManager_form'>
                     <div>
                         <label>
@@ -44,7 +49,7 @@ const UserManagerForm = ({ token, setNewMangerOn }) => {
                     <button type="submit">קבע כמנהל</button>
                 </form>
             </div>
-            <div className='overlay' onClick={() => setEditOn(false)} />
+            <div className='overlay' onClick={() => setNewMangerOn(false)} />
         </>
     );
 };

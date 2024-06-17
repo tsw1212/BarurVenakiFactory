@@ -49,20 +49,42 @@ async function updateUser(updatedUserData) {
     });
 }
 
-async function getAllUsers() {
+function getAllUsers() {
     return new Promise((resolve, reject) => {
-        const connection = Connect();
-        const sql = 'SELECT * FROM Users';
-        connection.query(sql, (err, result) => {
-            connection.end();
-            if (err) {
-                reject(err);
-            } else {
-                resolve(result);
-            }
-        });
+      const connection = Connect();
+      const sql = 'SELECT * FROM Users';
+  
+      connection.query(sql, async (err, users) => {
+        if (err) {
+          connection.end();
+          return reject(err);
+        }
+  
+        try {
+          const usersWithManagerStatus = await Promise.all(users.map(user => {
+            return new Promise((resolve, reject) => {
+              const managerSql = 'SELECT COUNT(*) AS isManager FROM Managers WHERE id = ?';
+              connection.query(managerSql, [user.id], (err, result) => {
+                if (err) {
+                  return reject(err);
+                }
+  
+                user.manager = result[0].isManager ? 1 : 0;
+                resolve(user);
+              });
+            });
+          }));
+  
+          connection.end();
+          resolve(usersWithManagerStatus);
+        } catch (err) {
+          connection.end();
+          reject(err);
+        }
+      });
     });
-}
+  }
+  
 
 async function getUserById(id) {
     return new Promise((resolve, reject) => {
