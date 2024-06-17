@@ -43,7 +43,7 @@ function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackag
                     valueLabelDisplay="auto"
                     aria-labelledby="range-slider"
                     getAriaValueText={valuetext}
-                    step={20}
+                    step={5}
                     marks
                     min={0}
                     max={300}

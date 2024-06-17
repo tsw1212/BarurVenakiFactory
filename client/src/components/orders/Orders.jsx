@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { getRequest } from '../../modules/requests/server_requests';
+import formatDates from '../../modules/formatDateTime';
 import WorngRequest from '../../pages/WorngRequest';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,62 +10,63 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import '../../css/orders.css'
+import '../../css/orders.css';
 import { useNavigate } from 'react-router-dom';
-import Loading from '../Loading'
-
-
+import Loading from '../Loading';
 
 function Orders({ token, status }) {
   const [orders, setOrders] = useState([]);
-  let user = {};
-
   const [wrongRequest, setWorngRequest] = useState(false);
   const [loading, setLoading] = useState(true);
   let navigate = useNavigate();
 
-
   useEffect(() => {
     async function getOrders() {
-      user = JSON.parse(localStorage.getItem('currentUser'));
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      let responseData;
+      let sortedOrders=[];
       if (status === 'manager') {
-        const responseData = await getRequest('http://localhost:3000/orders', token);
-        if (responseData.ok) {
-          await setOrders(responseData.body);
-          setLoading(false);
-          
-        } else {
-          await setWorngRequest(true);
+        responseData = await getRequest('http://localhost:3000/orders', token);
+        if(responseData.ok){
+          sortedOrders = responseData.body.sort((a, b) => new Date(b.orderInfo.date) - new Date(a.orderInfo.date));
         }
-      }
-      else {
-        const responseData = await getRequest(`http://localhost:3000/users/${user.id}/orders`, token);
-        if (responseData.ok) {
-          await setOrders(responseData.body);
-          setLoading(false);
-        } else {
-          await setWorngRequest(true);
+      } else {
+        responseData = await getRequest(`http://localhost:3000/users/${user.id}/orders`, token);
+        if(responseData.ok){
+          sortedOrders = responseData.body.sort((a, b) => new Date(b.date) - new Date(a.date));
         }
       }
 
-
+      if (responseData.ok) {
+        setOrders(sortedOrders);
+        setLoading(false);
+      } else {
+        setWorngRequest(true);
+      }
     }
     getOrders();
-  }, [orders])
+  }, [token, status]);
 
   return (
     <div className='ordersContainer'>
-       {loading&& <Loading />}
+      {loading && <Loading />}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell className='tableHead' align="right">מספר הזמנה</TableCell>
               <TableCell className='tableHead' align="right">מפר מזהה של משתמש</TableCell>
+              {status === "manager" && (
+                <>
+                  <TableCell className='tableHead' align="right">שם משתמש</TableCell>
+                  <TableCell className='tableHead' align="right">עיר</TableCell>
+                </>
+              )}
               <TableCell className='tableHead' align="right">תאריך הזמנה</TableCell>
               <TableCell className='tableHead' align="right">סטטוס הזמנה</TableCell>
               <TableCell className='tableHead' align="right">הערות</TableCell>
-              <TableCell className='tableHead' align="right">תאריך הספקה</TableCell>
+              <TableCell className='tableHead' align="right">תאריך אספקה</TableCell>
+              <TableCell className='tableHead' align="right">סכום</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -73,32 +75,36 @@ function Orders({ token, status }) {
                 return (
                   <TableRow
                     className='row'
-                    key={order.id}
+                    key={order.orderInfo.orderId}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     onClick={() => navigate(`${order.orderInfo.orderId}`)}
                   >
                     <TableCell align="right">{order.orderInfo.orderId}</TableCell>
                     <TableCell align="right">{order.orderInfo.userId}</TableCell>
-                    <TableCell align="right">{order.orderInfo.date}</TableCell>
+                    <TableCell align="right">{order.orderInfo.username}</TableCell>
+                    <TableCell align="right">{order.orderInfo.city}</TableCell>
+                    <TableCell align="right">{formatDates.formatDateTime(order.orderInfo.date)}</TableCell>
                     <TableCell align="right">{order.orderInfo.status}</TableCell>
                     <TableCell align="right">{order.orderInfo.remarks}</TableCell>
-                    <TableCell align="right">{order.orderInfo.deliveryDate}</TableCell>
+                    <TableCell align="right">{formatDates.formatDate(order.orderInfo.deliveryDate)}</TableCell>
+                    <TableCell align="right">{order.orderInfo.totalPrice}</TableCell>
                   </TableRow>
                 );
               } else {
                 return (
                   <TableRow
                     className='row'
-                    key={order.id}
+                    key={order.orderId}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     onClick={() => navigate(`${order.orderId}`)}
                   >
                     <TableCell align="right">{order.orderId}</TableCell>
                     <TableCell align="right">{order.userId}</TableCell>
-                    <TableCell align="right">{order.date}</TableCell>
+                    <TableCell align="right">{formatDates.formatDateTime(order.date)}</TableCell>
                     <TableCell align="right">{order.status}</TableCell>
                     <TableCell align="right">{order.remarks}</TableCell>
-                    <TableCell align="right">{order.deliveryDate}</TableCell>
+                    <TableCell align="right">{formatDates.formatDate(order.deliveryDate)}</TableCell>
+                    <TableCell align="right">{order.totalPrice}</TableCell>
                   </TableRow>
                 );
               }
@@ -108,7 +114,6 @@ function Orders({ token, status }) {
       </TableContainer>
     </div>
   );
-  
 }
 
 export default Orders;

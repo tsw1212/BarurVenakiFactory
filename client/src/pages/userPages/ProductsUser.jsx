@@ -11,7 +11,7 @@ function Products({ token, status, products, setProducts }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [selectedPackage, setSelectedPackage] = useState('');
-  const [priceRange, setPriceRange] = useState([0, 100]);
+  const [priceRange, setPriceRange] = useState([0, 300]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ function Products({ token, status, products, setProducts }) {
                 <ProductShort status={status} className="productShort" productData={productData} key={productData.id} />
               ))
             ) : (
-              <p>No products found.</p>
+              <p>לא נמצאו מוצרים התואמים את החיפוש שלך</p>
             )}
           </div>
         )}

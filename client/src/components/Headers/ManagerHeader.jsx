@@ -12,7 +12,7 @@ function ManagerHeader({ logOut }) {
           <NavLink className='navLinkHeader' to="userDetails"><FontAwesomeIcon className='icon' icon="fas fa-user-alt" /></NavLink>
           <NavLink className='navLinkHeader' to="allOrders">הזמנות</NavLink>
           <NavLink className='navLinkHeader' to="products">מוצרים</NavLink>
-          <NavLink className='navLinkHeader' to="users">משתמשים</NavLink>
+          <NavLink className='navLinkHeader' to="users"><FontAwesomeIcon icon="fas fa-users" /></NavLink>
           <NavLink className='navLinkHeader' to="factoryDetails">פרטי מפעל</NavLink>
 
           <NavLink className='navLinkHeader' to="." onClick={() => logOut()}><FontAwesomeIcon className='icon' icon="fas fa-sign-out-alt" /></NavLink >

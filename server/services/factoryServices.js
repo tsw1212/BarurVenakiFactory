@@ -10,7 +10,7 @@ const FactoryServices = {
         const factories = await DB_actions.getAllFactories();
         return factories;
     },
-    getFactorieByName: async (name) => {
+    getFactoryByName: async (name) => {
         const factories = await DB_actions.getFactoryByName(name);
         return factories;
     },

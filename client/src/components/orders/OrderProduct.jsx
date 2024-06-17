@@ -3,7 +3,7 @@ import '../../css/orderProduct.css';
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
-function OrderProduct({ product, onAmountChange }) {
+function OrderProduct({ product, onAmountChange, status, orderStatus }) {
   const [amount, setAmount] = useState(product.amount);
   const [reason, setReason] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -22,7 +22,7 @@ function OrderProduct({ product, onAmountChange }) {
         {!isEditing ?
           <>
             <p>כמות : {product.amount}</p>
-            <button className='button' onClick={() => setIsEditing(true)}>ערוך כמות</button>
+            {(status == "manager" || orderStatus == "התקבלה") && <button className='button' onClick={() => setIsEditing(true)}>ערוך כמות</button>}
           </>
           :
           null

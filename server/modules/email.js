@@ -3,8 +3,9 @@ const nodemailer = require('nodemailer');
 
 
 
+
 async function sendEmail(subject,text,email){
-    const factoryData =await factoryServices.getFactorieByName(process.env.FACTORY_NAME)
+    const factoryData =await factoryServices.getFactoryByName(process.env.FACTORY_NAME)
 
     const transporter = nodemailer.createTransport({
         service: 'Gmail',

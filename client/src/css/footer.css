@@ -5,11 +5,13 @@
 }
 
 footer {
+  width: 100%; /* Ensure the footer spans the entire width */
   background-color: #b1e773;
   color: rgb(248, 252, 228);
   text-align: center;
   padding: 20px 0;
-  margin-top: 30vh;
+  height: fit-content;
+  margin-top: 10vh;
 }
 
 .footer-content {
@@ -17,7 +19,6 @@ footer {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-
 }
 
 .footer-contact {
@@ -52,10 +53,10 @@ footer {
   .home-footer {
     display: block;
   }
-  footer{
+  footer {
     padding: 0;
   }
-  .footer-contact{
-    margin-left:70px;
+  .footer-contact {
+    margin-left: 70px;
   }
-} 
+}

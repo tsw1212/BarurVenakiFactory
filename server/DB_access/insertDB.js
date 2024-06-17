@@ -17,12 +17,11 @@ async function insertIntoUsers() {
 
 async function insertIntoOrders() {
     const connection = connect();
-    const sql = 'INSERT INTO Orders (userId, date, status, remarks) VALUES ?';
+    const sql = 'INSERT INTO Orders (userId, date, status, remarks, totalPrice) VALUES ?';
     const values = [
-        [1, new Date(), 'Pending', 'First order'],
-        [2, new Date(), 'Shipped', 'Second order'],
-        [1, new Date(), 'Shipped', 'Second order']
-
+        [1, new Date(), 'Pending', 'First order', 100.50],
+        [2, new Date(), 'Shipped', 'Second order', 150.75],
+        [1, new Date(), 'Shipped', 'Second order', 200.00]
     ];
     connection.query(sql, [values], (err, result) => {
         if (err) throw err;
@@ -30,6 +29,7 @@ async function insertIntoOrders() {
         connection.end();
     });
 }
+
 
 async function insertIntoEvents() {
     const connection = connect();
@@ -66,8 +66,8 @@ async function insertIntoProductOrder() {
     const sql = 'INSERT INTO ProductOrder (orderId, productId, amount) VALUES ?';
     const values = [
         [3, 1, 2],
-        [3, 5, 3],
-        [1, 2, 3],
+        [3, 3, 3],
+        [1, 8, 3],
         [2, 1, 3]
     ];
     connection.query(sql, [values], (err, result) => {
@@ -158,7 +158,7 @@ function insert(params) {
     // insertIntoManagers();
     // insertIntoPasswords();
     //insertIntoCart();
-    insertIntoFactory();
+  //  insertIntoFactory();
 }
 
 module.exports = {

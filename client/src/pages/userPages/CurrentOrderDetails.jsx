@@ -34,10 +34,11 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
     let newOrder = {
       userId: user.id,
       date: getCurrentDateTime(),
-      status: 'התקבלה',
+      status:null,
       deliveryDate: deliveryDate,
       remarks: remarks,
-      products: productsToSave
+      products: productsToSave,
+      totalPrice:calculateTotalPrice()
     };
 
     const reqData = await postRequest(`http://localhost:3000/orders`, newOrder, token);

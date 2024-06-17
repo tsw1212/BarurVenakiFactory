@@ -12,7 +12,8 @@ async function createOrder(orderData) {
                 date: orderData.date,
                 status: orderData.status,
                 remarks: orderData.remarks,
-                deliveryDate: orderData.deliveryDate
+                deliveryDate: orderData.deliveryDate,
+                totalPrice: orderData.totalPrice  // Include totalPrice
             });
 
             for (const product of orderData.products) {
@@ -70,7 +71,7 @@ async function updateOrder(updatedOrderData) {
 
 async function getAllOrders() {
     return new Promise(async (resolve, reject) => {
-        const connection = Connect();
+        const connection = await Connect();
 
         try {
             let sql = `
@@ -81,6 +82,9 @@ async function getAllOrders() {
                     O.status, 
                     O.remarks, 
                     O.deliveryDate, 
+                    O.totalPrice,  
+                    U.username,   
+                    U.city,       
                     P.productId, 
                     P.amount, 
                     E.id AS eventId, 
@@ -91,8 +95,9 @@ async function getAllOrders() {
                 LEFT JOIN 
                     ProductOrder P ON O.id = P.orderId
                 LEFT JOIN 
-                    Events E ON O.id = E.orderId;
-
+                    Events E ON O.id = E.orderId
+                LEFT JOIN 
+                    Users U ON O.userId = U.id  -- Join with Users table
             `;
             const orderDetails = await query(connection, sql);
 
@@ -109,36 +114,39 @@ async function getAllOrders() {
 
 async function getOrderById(orderId) {
     return new Promise(async (resolve, reject) => {
-        const connection = Connect();
+        const connection = await Connect();
 
         try {
             let sql = `
-            SELECT 
-                O.id AS orderId, 
-                O.userId, 
-                O.date, 
-                O.status, 
-                O.remarks, 
-                O.deliveryDate,
-                P.id AS productId, 
-                P.name, 
-                P.weight, 
-                P.package, 
-                P.imgUrl, 
-                P.inventory, 
-                P.price,
-                PO.amount,  -- Include the amount field from ProductOrder
-                E.id AS eventId, 
-                E.text AS eventText, 
-                E.date AS eventDate
-            FROM Orders O
-            LEFT JOIN ProductOrder PO ON O.id = PO.orderId
-            LEFT JOIN Products P ON PO.productId = P.id
-            LEFT JOIN Events E ON O.id = E.orderId
-            WHERE O.id = ?
-
+                SELECT 
+                    O.id AS orderId, 
+                    O.userId, 
+                    O.date, 
+                    O.status, 
+                    O.remarks, 
+                    O.deliveryDate,
+                    O.totalPrice,  
+                    U.username,    
+                    U.city,       
+                    P.id AS productId, 
+                    P.name, 
+                    P.weight, 
+                    P.package, 
+                    P.imgUrl, 
+                    P.inventory, 
+                    P.price,
+                    PO.amount,  -- Include the amount field from ProductOrder
+                    E.id AS eventId, 
+                    E.text AS eventText, 
+                    E.date AS eventDate
+                FROM Orders O
+                LEFT JOIN ProductOrder PO ON O.id = PO.orderId
+                LEFT JOIN Products P ON PO.productId = P.id
+                LEFT JOIN Events E ON O.id = E.orderId
+                LEFT JOIN Users U ON O.userId = U.id  -- Join with Users table
+                WHERE O.id = ?
             `;
-            const orderDetails = await query(connection, sql, orderId);
+            const orderDetails = await query(connection, sql, [orderId]);
 
             const groupedOrderDetails = groupByOrderId(orderDetails);
 
@@ -155,7 +163,6 @@ async function getOrderById(orderId) {
     });
 }
 
-
 function groupByOrderId(orderDetails) {
     const grouped = {};
     orderDetails.forEach(row => {
@@ -167,7 +174,10 @@ function groupByOrderId(orderDetails) {
                     date: row.date,
                     status: row.status,
                     remarks: row.remarks,
-                    deliveryDate: row.deliveryDate
+                    deliveryDate: row.deliveryDate,
+                    totalPrice: row.totalPrice,  
+                    username: row.username,      
+                    city: row.city               
                 },
                 products: [],
                 events: []
@@ -183,6 +193,7 @@ function groupByOrderId(orderDetails) {
                 package: row.package,
                 imgUrl: row.imgUrl,
                 inventory: row.inventory,
+                price: row.price   // Include price
             });
         }
 
@@ -196,23 +207,6 @@ function groupByOrderId(orderDetails) {
     });
     return Object.values(grouped);
 }
-//returning object in this format:{ 
-//     orderInfo: { 
-//         orderId: 1, 
-//         userId: 123, 
-//         date: '2024-05-14T08:30:00.000Z', 
-//         status: 'Pending', 
-//         remarks: 'Urgent delivery' 
-//     },
-//     products: [
-//         { productId: 101, amount: 2 },
-//         { productId: 102, amount: 1 }
-//     ],
-//     events: [
-//         { eventId: 201, text: 'Order received', date: '2024-05-14T10:00:00.000Z' }
-//     ]
-// }
-
 
 function query(connection, sql, values) {
     return new Promise((resolve, reject) => {
@@ -225,8 +219,6 @@ function query(connection, sql, values) {
         });
     });
 }
-
-
 
 module.exports = {
     createOrder,

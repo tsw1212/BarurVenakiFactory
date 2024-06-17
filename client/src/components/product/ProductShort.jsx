@@ -46,7 +46,7 @@ export default function ProductShort({ productData, showProducts, setShowProduct
           <CardActions>
             <NavLink to={`${productData.name}`}>
               <Tooltip describeChild title='מידע נוסף'>
-                <FontAwesomeIcon style={{color:"#1d7822"}} icon="fas fa-shopping-cart" />
+                <FontAwesomeIcon style={{color:"#1d7822"}}  icon="fas fa-ellipsis-v" />
               </Tooltip>
             </NavLink>
 

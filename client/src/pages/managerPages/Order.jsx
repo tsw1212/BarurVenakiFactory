@@ -14,15 +14,17 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddEvent from '../../components/events/AddEvent';
 import Loading from '../../components/Loading';
+import formatDates from '../../modules/formatDateTime';
+
 
 const statusOptions = ['התקבלה', 'אושרה', 'בתהליך הכנה', 'נשלחה', 'הסתיימה'];
 
-function Order({ token }) {
+function Order({ token,status }) {
     const { OrderId } = useParams();
     const [order, setOrder] = useState({});
     const [wrongRequest, setWrongRequest] = useState(false);
     const [editStatus, setEditStatus] = useState(false);
-    const [status, setStatus] = useState('');
+    const [orderStatus, setOrderStatus] = useState('');
     const [addEvent, setAddEvent] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -45,7 +47,7 @@ function Order({ token }) {
     const handleSaveStatus = async (event) => {
         const updatedOrder = {
             id: order.orderInfo.orderId, userId: order.orderInfo.userId,
-            date: order.orderInfo.date, status: status, remarks: order.orderInfo.remarks
+            date: order.orderInfo.date, status: orderStatus, remarks: order.orderInfo.remarks
         };
 
         const response = await putRequest(`http://localhost:3000/orders/${OrderId}`, updatedOrder, token);
@@ -106,9 +108,11 @@ function Order({ token }) {
                     <>
                         <div className="orderInfo">
                             <p>מספר מזהה של ההזמנה: {order.orderInfo.orderId}</p>
-                            <p>משתמש ID: {order.orderInfo.userId}</p>
-                            <p>תאריך: {order.orderInfo.date}</p>
-                            <p>תאריך הספקה: {order.orderInfo.deliveryDate}</p>
+                            <p>מספר משתמש: {order.orderInfo.userId}</p>
+                            <p>שם משתמש: {order.orderInfo.username}</p>
+                            <p>עיר: {order.orderInfo.city}</p>
+                            <p>תאריך: {formatDates.formatDateTime(order.orderInfo.date)}</p>
+                            <p>תאריך אספקה: {formatDates.formatDate(order.orderInfo.deliveryDate)}</p>
                             <p>הערות: {order.orderInfo.remarks}</p>
                             {!editStatus ?
                                 <p>סטטוס: {order.orderInfo.status}</p> :
@@ -118,9 +122,9 @@ function Order({ token }) {
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            value={status}
+                                            value={orderStatus}
                                             label="status"
-                                            onChange={(e) => setStatus(e.target.value)}
+                                            onChange={(e) => setOrderStatus(e.target.value)}
                                         >
                                             {statusOptions.map(option => (
                                                 <MenuItem key={option} value={option}>{option}</MenuItem>
@@ -131,12 +135,12 @@ function Order({ token }) {
                                     {editStatus && <button className="saveStatus" onClick={handleSaveStatus}>שמור סטטוס</button>}
                                 </>
                             }
-                            {!editStatus && <button onClick={() => setEditStatus(true)}>ערוך סטטוס</button>}
+                            {!editStatus&&status=='manager' && <button onClick={() => setEditStatus(true)}>ערוך סטטוס</button>}
                         </div>
                         <div className="products">
                             <h3>מוצרים</h3>
                             {order.products.map(product => (
-                                <OrderProduct key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
+                                <OrderProduct orderStatus={orderStatus==""?order.orderInfo.status:orderStatus}  status={status} key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
                             ))}
                         </div>
                         {order.events.length > 0 && <div className="events">
@@ -145,7 +149,7 @@ function Order({ token }) {
                                 <Event key={event.id} event={event} />
                             ))}
                         </div>}
-                        {!addEvent && <button onClick={() => setAddEvent(true)}>הוסף אירוע</button>}
+                        {!addEvent&&status=='manager' && <button onClick={() => setAddEvent(true)}>הוסף אירוע</button>}
                         {addEvent && <AddEvent setAddEvent={setAddEvent} orderId={order.orderInfo.orderId} token={token} onEventAdded={handleEventAdded} />}
                     </>
                 }
@@ -154,16 +158,5 @@ function Order({ token }) {
         </div>
     );
 }
-
-const formatDateTime = () => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-};
 
 export default Order;

@@ -98,9 +98,16 @@ async function getUserByEmail(email) {
 async function getUserOrdersDetails(userId) {
     const connection = Connect();
     const query = `
-    SELECT O.id AS orderId, O.userId, O.date, O.status, O.remarks, O.deliveryDate
+        SELECT 
+            O.id AS orderId, 
+            O.userId, 
+            O.date, 
+            O.status, 
+            O.remarks, 
+            O.deliveryDate,
+            O.totalPrice  -- Include totalPrice
         FROM Orders O
-    WHERE O.userId = ?
+        WHERE O.userId = ?
     `;
     return new Promise((resolve, reject) => {
         connection.query(query, [userId], async (err, results) => {
@@ -114,6 +121,8 @@ async function getUserOrdersDetails(userId) {
         });
     });
 }
+
+
 
 
 

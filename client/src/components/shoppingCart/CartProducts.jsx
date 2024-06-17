@@ -39,22 +39,22 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
 
     }, [worngRequest]);
 
-    const handleCheckboxChange =async (rowData) => {
-        const updatedProducts = await Promise.all(  products.map(async (product) => {
+    const handleCheckboxChange = async (rowData) => {
+        const updatedProducts = await Promise.all(products.map(async (product) => {
             if (product.id === rowData.id) {
                 const item = {
                     amount: product.amount,
                     userId: user.id,
                     productId: product.productId,
                     choose: !product.choose,
-                    id:product.id,
-                  };
+                    id: product.id,
+                };
                 const reqData = await putRequest(`http://localhost:3000/cart/${item.id}`, item, token);
                 if (!reqData.ok) {
                     alert('משהו השתבש בבקשה נסה שוב')
                 }
-                else{
-                    return {...product,choose:item.choose};
+                else {
+                    return { ...product, choose: item.choose };
                 }
 
             }
@@ -65,23 +65,22 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
 
     };
 
-    const handleQuantityChange = async(value, rowData) => {
-        const updatedProducts =await Promise.all( products.map(async (product) => {
+    const handleQuantityChange = async (value, rowData) => {
+        const updatedProducts = await Promise.all(products.map(async (product) => {
             if (product.id === rowData.id) {
                 const item = {
                     amount: value,
                     userId: user.id,
                     productId: product.productId,
                     choose: rowData.choose,
-                    id:product.id
-                  };
+                    id: product.id
+                };
                 const reqData = await putRequest(`http://localhost:3000/cart/${item.id}`, item, token);
                 if (!reqData.ok) {
                     alert('משהו השתבש בבקשה נסה שוב')
                 }
-                else
-                {
-                    return {...product,amount:item.amount};
+                else {
+                    return { ...product, amount: item.amount };
                 }
             }
             return product;
@@ -115,7 +114,7 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
 
     return (
         <>
-        {loading&& <Loading />}
+            {loading && <Loading />}
             {worngRequest ? <WorngRequest setWorngRequest={setWorngRequest} /> :
                 <div>
                     <div className='cartProducts'>
@@ -124,7 +123,12 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
                             <Column className='column_cart' header="Image" body={(rowData) => <img src={`data:image/png;base64,${rowData.img}`} alt={rowData.name} style={{ width: '50px' }} />}></Column>
                             <Column className='column_cart' field="price" header="מחיר"></Column>
                             <Column className='column_cart' field="package" header="סוג אריזה"></Column>
-                            <Column className='column_cart' header={<FontAwesomeIcon icon="fas fa-clipboard-check" />} body={(rowData) => <Checkbox checked={Boolean(rowData.choose)} onChange={() => handleCheckboxChange(rowData)} />}></Column>
+                            <Column className='column_cart' header={<FontAwesomeIcon icon="fas fa-clipboard-check" />} body={(rowData) => <input
+                                type="checkbox"
+                                checked={Boolean(rowData.choose)}
+                                onChange={() => handleCheckboxChange(rowData)}
+                            />
+                            }></Column>
                             <Column className='column_cart' header="כמות" body={(rowData) => <QuantityInput quantity={rowData.amount} handleQuantityChange={(value) => handleQuantityChange(value, rowData)} />}></Column>
                             <Column className='column_cart' header="מחק מהסל" body={(rowData) => <FontAwesomeIcon onClick={() => handleOpenDeleteForm(rowData)} icon="fas fa-trash-alt" />}></Column>
                         </DataTable>

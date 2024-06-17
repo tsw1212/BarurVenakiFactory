@@ -13,7 +13,7 @@ const factoryController = {
     getFactoryByName: async (req, res) => {
         const name = req.params.name;
         try {
-            const factory = await FactoryServices.getFactorieByName(name);
+            const factory = await FactoryServices.getFactoryByName(name);
             if (!factory) {
                 res.status(404).json({ error: "Factory not found" });
             } else {

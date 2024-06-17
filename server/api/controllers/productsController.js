@@ -57,7 +57,7 @@ const productsController = {
                             //const { imageFile, ...productDataWithoutImage } = product;
                             const productDataWithImgUrl = { ...product, imgUrl: imgName };
                             const newProduct = await ProductsServices.createProduct(productDataWithImgUrl);
-                            res.status(200).json(newProduct);
+                            res.status(200).json({newProduct});
 
                         }
                     }
@@ -75,9 +75,9 @@ const productsController = {
         }
     },
     updateProduct: async (req, res) => {
-        if (req.securityLevel !== "manager")
-            res.status(401).json({ error: "unauthorized" });
-        else {
+        // if (req.securityLevel !== "manager")
+        //   return  res.status(401).json({ error: "unauthorized" });
+        
             try {
                 const file = req.file;
                 const product = req.body;
@@ -92,14 +92,14 @@ const productsController = {
                         if (imgName) {
                             const productDataWithImgUrl = { ...product, imgUrl: imgName };
                             const newProduct = await ProductsServices.updateProduct(productDataWithImgUrl);
-                            res.status(200).json(newProduct);
+                            res.status(200).json({newProduct});
 
                         }
                     }
             } catch (error) {
                 res.status(500).json({ error: "server internal error" });
             }
-        }
+        
     },
     deleteProduct: async (req, res) => {
         if (req.securityLevel !== "manager")

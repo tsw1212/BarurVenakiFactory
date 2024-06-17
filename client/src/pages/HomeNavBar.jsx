@@ -6,7 +6,7 @@ import GuestHeader from '../components/Headers/GuestHeader'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 
-function HomeNavBar({ status, setStatus,setToken,countCartItems ,token }) {
+function HomeNavBar({ status, setStatus,setToken,countCartItems ,token ,setCountCartItems}) {
     const navigate = useNavigate();
     function logOut() {
         setToken('');
@@ -21,8 +21,8 @@ function HomeNavBar({ status, setStatus,setToken,countCartItems ,token }) {
     return (
 
         <div>
-            {status == 'manager' ? < ManagerHeader logOut={logOut}/> : status == "user" ? <UserHeader countCartItems={countCartItems} logOut={logOut}/> : <GuestHeader logOut={logOut}/>}
-            <main>
+            {status == 'manager' ? < ManagerHeader logOut={logOut}/> : status == "user" ? <UserHeader  setCountCartItems={setCountCartItems } token={token}countCartItems={countCartItems} logOut={logOut}/> : <GuestHeader logOut={logOut}/>}
+            <main >
                 <Outlet />
             </main>
             <Footer token={token} />

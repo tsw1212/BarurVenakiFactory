@@ -16,7 +16,7 @@ const managersController = {
                 res.status(404).json({ error: 'user not found' });
             } else {
                 const newManager = await mangerServices.createManager(data);
-                res.status(200).json(newManager);
+                res.status(200).json({newManager});
             }
         } catch (error) {
             res.status(500).json({ error: "server internal error" });
