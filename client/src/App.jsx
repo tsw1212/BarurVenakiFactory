@@ -16,6 +16,7 @@ import CurrentOrderDetails from './pages/userPages/CurrentOrderDetails';
 import Products from './pages/Products';
 import Order from './pages/managerPages/Order';
 import FactoryDetails from './pages/managerPages/FactoryDetails';
+import NotFound from './pages/NotFound';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
@@ -55,7 +56,11 @@ function App() {
         </Route>
         <Route path='login' element={<Login token={token} setToken={setToken} setStatus={setStatus} />} />
         <Route path='signup' element={<Signup token={token} setToken={setToken} setStatus={setStatus} />} />
+        <Route path='signup' element={<Signup token={token} setToken={setToken} setStatus={setStatus} />} />
+        <Route path='*' element={<NotFound />} /> 
+
       </Routes>
+     
     </BrowserRouter>
   );
 }

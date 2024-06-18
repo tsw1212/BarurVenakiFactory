@@ -15,11 +15,11 @@ import TextField from '@mui/material/TextField';
 import AddEvent from '../../components/events/AddEvent';
 import Loading from '../../components/Loading';
 import formatDates from '../../modules/formatDateTime';
-
+import OrderTimeline from '../../components/orders/OrderTimeLine';
 
 const statusOptions = ['התקבלה', 'אושרה', 'בתהליך הכנה', 'נשלחה', 'הסתיימה'];
 
-function Order({ token,status }) {
+function Order({ token, status }) {
     const { OrderId } = useParams();
     const [order, setOrder] = useState({});
     const [wrongRequest, setWrongRequest] = useState(false);
@@ -38,7 +38,7 @@ function Order({ token,status }) {
                 await setOrder(responseData.body);
                 await setLoading(false);
             } else {
-                alert('בעיה בטעינת הנתונים אנא נסה שוב')
+                alert('בעיה בטעינת הנתונים אנא נסה שוב');
             }
         }
         fetchOrder();
@@ -87,7 +87,7 @@ function Order({ token,status }) {
             const newEvent = {
                 orderId: order.orderInfo.orderId,
                 text: `הכמות של מוצר מספר: ${productId} השתנתה ל: ${newAmount}. הסיבה: ${reason}`,
-                date: formatDateTime()
+                date: formatDates.formatDateTime()
             };
             const eventResponse = await postRequest(`http://localhost:3000/events`, newEvent, token);
             if (eventResponse.ok) {
@@ -101,8 +101,11 @@ function Order({ token,status }) {
     };
 
     return (
-        <div className="orderDetailsContainer">
-            <div>
+        <div className="container">
+            <div className="timelineContainer">
+                {!loading && <OrderTimeline currentStatus={order.orderInfo.status} />}
+            </div>
+            <div className="orderDetailsContainer">
                 <h2>פרטי הזמנה</h2>
                 {loading ? <Loading /> :
                     <>
@@ -131,16 +134,16 @@ function Order({ token,status }) {
                                             ))}
                                         </Select>
                                     </FormControl>
-                                    <br></br>
+                                    <br />
                                     {editStatus && <button className="saveStatus" onClick={handleSaveStatus}>שמור סטטוס</button>}
                                 </>
                             }
-                            {!editStatus&&status=='manager' && <button onClick={() => setEditStatus(true)}>ערוך סטטוס</button>}
+                            {!editStatus && status === 'manager' && <button onClick={() => setEditStatus(true)}>ערוך סטטוס</button>}
                         </div>
                         <div className="products">
                             <h3>מוצרים</h3>
                             {order.products.map(product => (
-                                <OrderProduct orderStatus={orderStatus==""?order.orderInfo.status:orderStatus}  status={status} key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
+                                <OrderProduct orderStatus={orderStatus === "" ? order.orderInfo.status : orderStatus} status={status} key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
                             ))}
                         </div>
                         {order.events.length > 0 && <div className="events">
@@ -149,11 +152,10 @@ function Order({ token,status }) {
                                 <Event key={event.id} event={event} />
                             ))}
                         </div>}
-                        {!addEvent&&status=='manager' && <button onClick={() => setAddEvent(true)}>הוסף אירוע</button>}
+                        {!addEvent && status === 'manager' && <button onClick={() => setAddEvent(true)}>הוסף אירוע</button>}
                         {addEvent && <AddEvent setAddEvent={setAddEvent} orderId={order.orderInfo.orderId} token={token} onEventAdded={handleEventAdded} />}
                     </>
                 }
-
             </div>
         </div>
     );

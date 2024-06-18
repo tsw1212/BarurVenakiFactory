@@ -1,45 +1,63 @@
-.orderDetailsContainer {
-    direction: rtl;
-    width: 50%;
-    align-items: center;
-    margin-left: 25%;
-    margin-top: 50px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 10px;
-    padding-bottom: 20px;
-    padding-top: 20px;
+.container {
+  display: flex;
+  flex-direction: row-reverse; 
+  direction: rtl;
+  width: 80%; 
+  margin: 50px auto; 
+}
 
-  }
-  
-  .orderInfo,
-  .products,
-  .events {
-    margin-bottom: 20px;
-  }
-  
-  .orderInfo h2,
-  .products h2,
-  .events h2 {
-    margin-bottom: 10px;
-  }
-  
-  .loading,
-  .error {
-    font-size: 18px;
-    color: red;
-  }
-  .editStatus{
-    direction: rtl;
-    width: 50%;
-  }
-  .saveStatus{
-    margin-top: 20px;
-  }
-  @media (max-width: 760px){
-    .orderDetailsContainer{
+.timelineContainer {
+  flex: 1; 
+  margin-left: 20px; 
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.orderDetailsContainer {
+  flex: 2;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  padding: 20px;
+  height: fit-content;
+}
+
+.orderInfo,
+.products,
+.events {
+  margin-bottom: 20px;
+}
+
+.orderInfo h2,
+.products h2,
+.events h2 {
+  margin-bottom: 10px;
+}
+
+.loading,
+.error {
+  font-size: 18px;
+  color: red;
+}
+
+.editStatus {
+  direction: rtl;
+  width: 50%;
+}
+
+.saveStatus {
+  margin-top: 20px;
+}
+
+@media (max-width: 760px) {
+  .container {
+      flex-direction: column;
       width: 90%;
       margin-left: 5%;
       margin-top: 100px;
-    }
   }
-  
+
+  .timelineContainer {
+      margin-left: 0;
+      margin-bottom: 20px; /* Adds space between timeline and order details */
+  }
+}
