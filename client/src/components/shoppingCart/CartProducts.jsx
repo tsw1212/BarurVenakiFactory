@@ -58,6 +58,7 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
                 }
 
             }
+
             return product;
         }
         ));

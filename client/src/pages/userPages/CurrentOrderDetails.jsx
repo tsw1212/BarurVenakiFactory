@@ -13,8 +13,8 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
   let user = JSON.parse(localStorage.getItem('currentUser'));
 
   const calculateTotalPrice = () => {
-    return chosenCartProducts.reduce((total, product) => total + (product.price * product.amount), 0);
-  };
+    const total = chosenCartProducts.reduce((total, product) => total + (product.price * product.amount), 0);
+    return parseFloat(total.toFixed(2));  };
 
   const handleDateChange = (e) => {
     setDeliveryDate(e.target.value);
@@ -59,7 +59,6 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
 
-    // Format: YYYY-MM-DD HH:MM:SS
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
 
@@ -101,7 +100,7 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
         </div>
         <div className='remarks'>
           <textarea
-            className='order_input_remrks'
+            className='order_input_remarks'
             id="remarks"
             value={remarks}
             onChange={handleRemarksChange}
@@ -111,7 +110,7 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
           ></textarea>
         </div>
       </div>
-      <button onClick={handleFinishOrder}>סגור הזמנה</button>
+      <button className="finish_order_button" onClick={handleFinishOrder}>אישור הזמנה</button>
     </div>
   );
 }
