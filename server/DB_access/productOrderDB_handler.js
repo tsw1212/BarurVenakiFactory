@@ -5,7 +5,7 @@ const Connect = require('./ConnectDB');
 async function updateProductOrder(updatedData) {
     return new Promise((resolve, reject) => {
         const connection = Connect();
-        const sql = 'UPDATE productOrder SET ? WHERE productId = ? AND orderId = ?';
+         const sql = 'UPDATE productOrder SET ? WHERE productId = ? AND orderId = ?';
 
         connection.query(sql, [updatedData, updatedData.productId, updatedData.orderId], async (err, result) => {
             if (err) {

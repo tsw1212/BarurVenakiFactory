@@ -22,7 +22,7 @@ function OrderProduct({ product, onAmountChange, status, orderStatus }) {
         {!isEditing ?
           <>
             <p>כמות : {product.amount}</p>
-            {(status == "manager" || orderStatus == "התקבלה") && <button className='button' onClick={() => setIsEditing(true)}>ערוך כמות</button>}
+            {(status == "manager" && orderStatus == "התקבלה") && <button className='button' onClick={() => setIsEditing(true)}>ערוך כמות</button>}
           </>
           :
           null

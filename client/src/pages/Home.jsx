@@ -58,9 +58,9 @@ function Home({ status, token, setToken }) {
       </section>
 
       <section className="price">
-        <h2 className="section-title">תמחור</h2>
+        <h2 className="section-title">המחירים שלנו</h2>
         <div className="container">
-          <img className='imgPriceLeft' src="../../images/price.png" alt="תמונה של מחירים" />
+          <img className='imgPriceLeft' src="../../images/price2.jpeg" alt="תמונה של מחירים" />
           <div className="rightSideTxt">
             <p className="section-contentPtice">
               המחירים שלנו מותאמים ללקוחות פרטיים, ומציעים תמורה מעולה עבור כל מוצר. עם זאת, אנו מספקים הנחות מיוחדות עבור רכישות בכמויות גדולות, כך שהעסק שלכם יוכל ליהנות מחיסכון משמעותי

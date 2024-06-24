@@ -66,8 +66,8 @@ async function insertIntoProductOrder() {
     const sql = 'INSERT INTO ProductOrder (orderId, productId, amount) VALUES ?';
     const values = [
         [3, 1, 2],
-        [3, 3, 3],
-        [1, 8, 3],
+        [3, 5, 3],
+        [1, 6, 3],
         [2, 1, 3]
     ];
     connection.query(sql, [values], (err, result) => {
@@ -154,7 +154,7 @@ function insert(params) {
      //insertIntoOrders();
     // insertIntoEvents();
     // insertIntoProducts();
-    //insertIntoProductOrder();
+   // insertIntoProductOrder();
     // insertIntoManagers();
     // insertIntoPasswords();
     //insertIntoCart();

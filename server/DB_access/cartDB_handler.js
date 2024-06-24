@@ -3,7 +3,7 @@ const Connect = require('./ConnectDB');
 
 async function createCartItem(cartData) {
     return new Promise(async (resolve, reject) => {
-        const connection = await Connect();
+        const connection =  Connect();
         try {
             let sql = 'INSERT INTO Cart SET ?';
             const cartResult = await query(connection, sql, {

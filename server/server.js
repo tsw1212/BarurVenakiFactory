@@ -10,7 +10,7 @@ require('dotenv').config();
 // db_init.createDB();
 // db_init.createUsersTable();
 // db_init.createOrdersTable();
-// db_init.createEventsTable();
+//db_init.createEventsTable();
 //  db_init.createProductsTable();
 // db_init.createProductOrderTable();
 // db_init.createManagersTable();
