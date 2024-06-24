@@ -28,7 +28,8 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
         async function getCart() {
             const reqData = await getRequest(`http://localhost:3000/cart/${user.id}`, token);
             if (reqData.ok) {
-                setProducts(reqData.body);
+                const mergedProducts = mergeProducts(reqData.body);
+             await   setProducts(mergedProducts);
                 setLoading(false);
             }
             else {
@@ -39,6 +40,21 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
 
     }, [worngRequest]);
 
+    const mergeProducts = (products) => {
+        const productMap = new Map();
+        
+        products.forEach((product) => {
+            const key = `${product.name}-${product.package}`;
+            if (productMap.has(key)) {
+                const existingProduct = productMap.get(key);
+                existingProduct.amount += product.amount;
+            } else {
+                productMap.set(key, { ...product });
+            }
+        });
+        
+        return Array.from(productMap.values());
+    }
     const handleCheckboxChange = async (rowData) => {
         const updatedProducts = await Promise.all(products.map(async (product) => {
             if (product.id === rowData.id) {
@@ -49,6 +65,7 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
                     choose: !product.choose,
                     id: product.id,
                 };
+
                 const reqData = await putRequest(`http://localhost:3000/cart/${item.id}`, item, token);
                 if (!reqData.ok) {
                     alert('משהו השתבש בבקשה נסה שוב')
@@ -112,6 +129,10 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
         setChosenCartProducts(chosenProducts);
         navigate('/home/shopping_cart/order');
     }
+    const handleRowDoubleClick = (e) => {
+        const rowData = e.data;
+        navigate(`/home/products/${rowData.name}`);
+    };
 
     return (
         <>
@@ -119,7 +140,7 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
             {worngRequest ? <WorngRequest setWorngRequest={setWorngRequest} /> :
                 <div>
                     <div className='cartProducts'>
-                        <DataTable value={products} rowKey="id" showGridlines stripedRows tableStyle={{ minWidth: '60rem' }}>
+                        <DataTable value={products} rowKey="id" showGridlines stripedRows tableStyle={{ minWidth: '60rem' }} onRowDoubleClick={handleRowDoubleClick}>
                             <Column className='column_cart' field="name" header="שם"></Column>
                             <Column className='column_cart' header="Image" body={(rowData) => <img src={`data:image/png;base64,${rowData.img}`} alt={rowData.name} style={{ width: '50px' }} />}></Column>
                             <Column className='column_cart' field="price" header="מחיר"></Column>

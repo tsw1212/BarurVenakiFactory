@@ -33,7 +33,6 @@ function App() {
           <Route index element={<Home setToken={setToken} token={token} />} />
           <Route path='userDetails' element={<UserDetails token={token} />} />
           <Route path='factoryDetails' element={<FactoryDetails token={token} />} />
-
           <Route path='users' element={<Users token={token} />} />
           <Route path='products'>
             <Route index element={<Products status={status} token={token} />} />
