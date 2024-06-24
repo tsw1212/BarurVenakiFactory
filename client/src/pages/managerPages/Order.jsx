@@ -87,7 +87,7 @@ function Order({ token, status }) {
             const newEvent = {
                 orderId: order.orderInfo.orderId,
                 text: `הכמות של מוצר מספר: ${productId} השתנתה ל: ${newAmount}. הסיבה: ${reason}`,
-                date: formatDates.formatDateTime()
+                date: formatDates.formatDateTime(new Date())
             };
             const eventResponse = await postRequest(`http://localhost:3000/events`, newEvent, token);
             if (eventResponse.ok) {
