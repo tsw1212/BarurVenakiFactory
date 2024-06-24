@@ -35,7 +35,7 @@ function OrderProduct({ product, onAmountChange, status, orderStatus }) {
             label="כמות"
             type="number"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={(e) =>{if(e.target.value>=0){ setAmount(e.target.value)}}}
           />
           <TextField
             label="סיבה לשינוי"
