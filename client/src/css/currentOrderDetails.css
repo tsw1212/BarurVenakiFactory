@@ -1,11 +1,3 @@
-.title {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-}
-
 .order_container {
   direction: rtl;
   background-color: #f9f9f9;
@@ -17,46 +9,44 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.cartProducts {
-  margin-bottom: 20px;
-}
-
-.totalPrice {
-  text-align: right;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-}
-
 .moreDetails {
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 20px;
+  gap: 20px;
 }
 
 .deliveryDate,
 .remarks {
-  margin-bottom: 10px;
+  flex: 1;
 }
 
-.order_input_date,
+.order_input_date {
+  width: 50%; 
+  box-sizing: border-box;
+  padding: 10px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f3f8f0;
+
+}
+
 .order_input_remarks {
-  background-color: #efe8e8;
+  background-color: #f3f8f0;
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
   padding: 10px;
-  width: calc(100% - 22px); /* Adjust width for padding and border */
-}
-
-.order_input_remarks {
-  background-color: #f1e5e5;
+  width: 100%;
+  box-sizing: border-box;
   height: 100px;
 }
 
-.order_input_remarks:hover,
+/* .order_input_remarks:hover,
 .order_input_date:hover {
   background-color: #e0e0e0;
-}
+} */
 
 .finish_order_button {
   background-color: #b1e773;

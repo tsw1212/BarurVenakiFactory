@@ -28,8 +28,8 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
         async function getCart() {
             const reqData = await getRequest(`http://localhost:3000/cart/${user.id}`, token);
             if (reqData.ok) {
-                const mergedProducts = mergeProducts(reqData.body);
-             await   setProducts(mergedProducts);
+                const mergedProducts =await mergeProducts(reqData.body);
+                await   setProducts(mergedProducts);
                 setLoading(false);
             }
             else {
@@ -49,6 +49,7 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
                 const existingProduct = productMap.get(key);
                 existingProduct.amount += product.amount;
             } else {
+                
                 productMap.set(key, { ...product });
             }
         });

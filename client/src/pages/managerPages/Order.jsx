@@ -11,7 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+
 import AddEvent from '../../components/events/AddEvent';
 import Loading from '../../components/Loading';
 import formatDates from '../../modules/formatDateTime';

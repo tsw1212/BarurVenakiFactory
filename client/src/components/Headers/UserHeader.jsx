@@ -10,13 +10,15 @@ function UserHeader({ logOut, countCartItems, setCountCartItems, token }) {
     useEffect(() => {
         async function fetchData() {
             const user = JSON.parse(localStorage.getItem("currentUser"));
-            const reqData = await getRequest(`http://localhost:3000/cart/${user.id}`, token)
+            const reqData = await getRequest(`http://localhost:3000/cart/${user.id}`, token);
             if (reqData.ok) {
-                setCountCartItems(reqData.body.length)
+                const uniqueItems = new Set(reqData.body.map(item => `${item.name}-${item.package}`));
+                setCountCartItems(uniqueItems.size);
             }
         }
         fetchData();
-    }, [])
+    }, [setCountCartItems, token]);
+
     return (
         <header>
             <nav className='nav'>

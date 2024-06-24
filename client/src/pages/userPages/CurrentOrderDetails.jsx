@@ -4,9 +4,12 @@ import { Column } from 'primereact/column';
 import { postRequest } from '../../modules/requests/server_requests';
 import { useNavigate } from 'react-router-dom';
 import '../../css/currentOrderDetails.css';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token }) {
-  const [deliveryDate, setDeliveryDate] = useState('');
+  const [deliveryDate, setDeliveryDate] = useState(null);
   const [remarks, setRemarks] = useState('');
 
   let navigate = useNavigate();
@@ -14,10 +17,7 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
 
   const calculateTotalPrice = () => {
     const total = chosenCartProducts.reduce((total, product) => total + (product.price * product.amount), 0);
-    return parseFloat(total.toFixed(2));  };
-
-  const handleDateChange = (e) => {
-    setDeliveryDate(e.target.value);
+    return parseFloat(total.toFixed(2));
   };
 
   const handleRemarksChange = (e) => {
@@ -34,11 +34,11 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
     let newOrder = {
       userId: user.id,
       date: getCurrentDateTime(),
-      status:null,
-      deliveryDate: deliveryDate,
+      status: null,
+      deliveryDate: deliveryDate ? deliveryDate.toISOString().split('T')[0] : null,
       remarks: remarks,
       products: productsToSave,
-      totalPrice:calculateTotalPrice()
+      totalPrice: calculateTotalPrice()
     };
 
     const reqData = await postRequest(`http://localhost:3000/orders`, newOrder, token);
@@ -64,7 +64,7 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
 
   const getMinDeliveryDate = () => {
     const now = new Date();
-    now.setDate(now.getDate() + 7); 
+    now.setDate(now.getDate() + 7);
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
@@ -87,17 +87,17 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token 
         <h4>סכום כולל: {calculateTotalPrice()} ₪</h4>
       </div>
       <div className='moreDetails'>
-        <div className='deliveryDate'>
-          <label htmlFor="deliveryDate">תאריך משלוח:</label>
-          <input
-            className='order_input_date'
-            type="date"
-            id="deliveryDate"
-            value={deliveryDate}
-            onChange={handleDateChange}
-            min={getMinDeliveryDate()} 
-          />
-        </div>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <div className='deliveryDate'>
+            <DatePicker
+              label="תאריך רצוי למשלוח"
+              value={deliveryDate}
+              onChange={(newValue) => setDeliveryDate(newValue)}
+              minDate={new Date(getMinDeliveryDate())}
+              renderInput={(params) => <input {...params} className='order_input_date' />}
+            />
+          </div>
+        </LocalizationProvider>
         <div className='remarks'>
           <textarea
             className='order_input_remarks'
