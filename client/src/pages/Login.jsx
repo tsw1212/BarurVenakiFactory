@@ -29,7 +29,7 @@ function Login() {
             localStorage.setItem("currentUser", JSON.stringify({id:dataRequest.body.id}));
             localStorage.setItem("token", (dataRequest.token));
             localStorage.setItem("status", (dataRequest.status));
-            await  dispatch({ type: 'SET_TOKEN', payload: `${dataRequest.token}${dataRequest.body,id}` });
+            await  dispatch({ type: 'SET_TOKEN', payload: `${dataRequest.token}${dataRequest.body.id}` });
             await  dispatch({ type: 'SET_STATUS', payload: dataRequest.status  });
             await  dispatch({ type: 'SET_USER', payload: dataRequest.body });
             navigate(`/`);
@@ -72,7 +72,7 @@ function Login() {
                 localStorage.setItem("currentUser", JSON.stringify({id:dataRequest.body.id}));
                 localStorage.setItem("token", (dataRequest.token));
                 localStorage.setItem("status", (dataRequest.status));
-                await  dispatch({ type: 'SET_TOKEN', payload: `${dataRequest.token}${dataRequest.body,id}` });
+                await  dispatch({ type: 'SET_TOKEN', payload: `${dataRequest.token}${dataRequest.body.id}` });
                 await  dispatch({ type: 'SET_STATUS', payload: dataRequest.status  });
                 await  dispatch({ type: 'SET_USER', payload: dataRequest.body });
                 navigate(`/`);
