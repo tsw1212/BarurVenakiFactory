@@ -35,12 +35,12 @@ const OrderController = {
         //     return res.status(401).json({ error: "unauthorized" });
         try {
             const order = req.body;
-            order.status='התקבלה';
+            order.status="התקבלה";
             if (!validation.validateOrdersInput(order)) {
                 res.status(400).json({ error: 'invalid input' });
             } else {
                 const newOrder = await OrdersServices.createOrder(order);
-                res.status(200).json({newOrder});
+                res.status(200).json(newOrder);
             }
         } catch (error) {
             res.status(500).json({ error: "server internal error" });

@@ -13,7 +13,7 @@ const ProductsServices = {
         const products = await DB_actions.getAllProducts();
         const updatedProducts = await Promise.all(products.map(async (product) => {
             const { imgUrl, ...productWithoutImg } = product;
-            const img = await converts.convertUrlToImageFile(product.imgUrl);
+             const img = await converts.convertUrlToImageFile(product.imgUrl);
             return { ...productWithoutImg, img: img };
         }));
         return updatedProducts;

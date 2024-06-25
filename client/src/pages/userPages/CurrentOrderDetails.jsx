@@ -16,11 +16,8 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
   const user=useSelector(state => state.app.user);
 
   const calculateTotalPrice = () => {
-    return chosenCartProducts.reduce((total, product) => total + (product.price * product.amount), 0);
-  };
-
-  const handleDateChange = (e) => {
-    setDeliveryDate(e.target.value);
+    const total = chosenCartProducts.reduce((total, product) => total + (product.price * product.amount), 0);
+    return parseFloat(total.toFixed(2));
   };
 
   const handleRemarksChange = (e) => {
@@ -37,11 +34,11 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
     let newOrder = {
       userId: user.id,
       date: getCurrentDateTime(),
-      status:null,
-      deliveryDate: deliveryDate,
+      status: null,
+      deliveryDate: deliveryDate ? deliveryDate.toISOString().split('T')[0] : null,
       remarks: remarks,
       products: productsToSave,
-      totalPrice:calculateTotalPrice()
+      totalPrice: calculateTotalPrice()
     };
 
     const reqData = await postRequest(`http://localhost:3000/orders`, newOrder, token);
@@ -62,13 +59,12 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
 
-    // Format: YYYY-MM-DD HH:MM:SS
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
 
   const getMinDeliveryDate = () => {
     const now = new Date();
-    now.setDate(now.getDate() + 7); 
+    now.setDate(now.getDate() + 7);
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
@@ -91,20 +87,20 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
         <h4>סכום כולל: {calculateTotalPrice()} ₪</h4>
       </div>
       <div className='moreDetails'>
-        <div className='deliveryDate'>
-          <label htmlFor="deliveryDate">תאריך משלוח:</label>
-          <input
-            className='order_input_date'
-            type="date"
-            id="deliveryDate"
-            value={deliveryDate}
-            onChange={handleDateChange}
-            min={getMinDeliveryDate()} 
-          />
-        </div>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <div className='deliveryDate'>
+            <DatePicker
+              label="תאריך רצוי למשלוח"
+              value={deliveryDate}
+              onChange={(newValue) => setDeliveryDate(newValue)}
+              minDate={new Date(getMinDeliveryDate())}
+              renderInput={(params) => <input {...params} className='order_input_date' />}
+            />
+          </div>
+        </LocalizationProvider>
         <div className='remarks'>
           <textarea
-            className='order_input_remrks'
+            className='order_input_remarks'
             id="remarks"
             value={remarks}
             onChange={handleRemarksChange}
@@ -114,7 +110,7 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
           ></textarea>
         </div>
       </div>
-      <button onClick={handleFinishOrder}>סגור הזמנה</button>
+      <button className="finish_order_button" onClick={handleFinishOrder}>אישור הזמנה</button>
     </div>
   );
 }

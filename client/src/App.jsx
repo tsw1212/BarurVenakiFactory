@@ -33,7 +33,6 @@ function App() {
           <Route index element={<Home setToken={setToken} token={token} />} />
           <Route path='userDetails' element={<UserDetails token={token} />} />
           <Route path='factoryDetails' element={<FactoryDetails token={token} />} />
-
           <Route path='users' element={<Users token={token} />} />
           <Route path='products'>
             <Route index element={<Products status={status} token={token} />} />
@@ -49,7 +48,7 @@ function App() {
           </Route>
 
           <Route path='shopping_cart'>
-            <Route index element={<ShoppingCart token={token} chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts}/>} />
+            <Route index element={<ShoppingCart token={token}  chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts}/>} />
             <Route path='order' element={<CurrentOrderDetails token={token} chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts}/>} />
             <Route path='confirmation' element={<Confirmation />} />
           </Route>

@@ -11,7 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+
 import AddEvent from '../../components/events/AddEvent';
 import Loading from '../../components/Loading';
 import formatDates from '../../modules/formatDateTime';
@@ -144,6 +144,7 @@ function Order() {
                         <div className="products">
                             <h3>מוצרים</h3>
                             {order.products.map(product => (
+                                product.amount!==0&&
                                 <OrderProduct orderStatus={orderStatus === "" ? order.orderInfo.status : orderStatus} status={status} key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
                             ))}
                         </div>
