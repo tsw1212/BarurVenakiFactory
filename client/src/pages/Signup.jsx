@@ -43,7 +43,7 @@ function Signup() {
             <h3>הזן פרטי משתמש</h3>
             <input type="text" name='name' placeholder='*שם' value={newUser.name} onChange={(e) => setNewUser({ ...newUser, name: e.target.value })} required />
             <input type="text" name='username' placeholder='*שם עסק' value={newUser.username} onChange={(e) => setNewUser({ ...newUser, username: e.target.value })} required />
-            <input type="password" name='password' placeholder='*סיסמא' value={newUser.password} onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} required />
+            <input type="password" name='password' placeholder='*סיסמא' min={4} value={newUser.password} onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} required />
             <input type="email" name='email' placeholder='*אמייל' value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} required />
             <input type="text" name='city' placeholder='*עיר' value={newUser.city} onChange={(e) => setNewUser({ ...newUser, city: e.target.value })} required />
             <input type="text" name='street' placeholder='*רחוב' value={newUser.street} onChange={(e) => setNewUser({ ...newUser, street: e.target.value })} required />

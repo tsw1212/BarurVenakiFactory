@@ -4,7 +4,7 @@ import { Column } from 'primereact/column';
 import { postRequest } from '../../modules/requests/server_requests';
 import { useNavigate } from 'react-router-dom';
 import '../../css/currentOrderDetails.css';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
@@ -13,7 +13,7 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
   const [remarks, setRemarks] = useState('');
 
   let navigate = useNavigate();
-  const user=useSelector(state => state.app.user);
+  const user = useSelector(state => state.app.user);
 
   const calculateTotalPrice = () => {
     const total = chosenCartProducts.reduce((total, product) => total + (product.price * product.amount), 0);
@@ -35,7 +35,8 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
       userId: user.id,
       date: getCurrentDateTime(),
       status: null,
-      deliveryDate: deliveryDate ? deliveryDate.toISOString().split('T')[0] : null,
+      deliveryDate: deliveryDate , 
+      // deliveryDate.toISOString().split('T')[0] : null,
       remarks: remarks,
       products: productsToSave,
       totalPrice: calculateTotalPrice()
@@ -87,17 +88,17 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
         <h4>סכום כולל: {calculateTotalPrice()} ₪</h4>
       </div>
       <div className='moreDetails'>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <div className='deliveryDate'>
-            <DatePicker
-              label="תאריך רצוי למשלוח"
-              value={deliveryDate}
-              onChange={(newValue) => setDeliveryDate(newValue)}
-              minDate={new Date(getMinDeliveryDate())}
-              renderInput={(params) => <input {...params} className='order_input_date' />}
-            />
-          </div>
-        </LocalizationProvider>
+        <div className='deliveryDate'>
+          <label htmlFor="deliveryDate">תאריך משלוח:</label>
+          <input type='date'
+            className='order_input_date'
+            value={deliveryDate}
+            onChange={(e) => setDeliveryDate(e.target.value)}
+            minDate={new Date(getMinDeliveryDate())}
+            renderInput={(params) => <input {...params} />} 
+            required/>
+        </div>
+
         <div className='remarks'>
           <textarea
             className='order_input_remarks'

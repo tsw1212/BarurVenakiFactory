@@ -160,7 +160,7 @@ function CartProducts({  setChosenCartProducts }) {
                             <Column className='column_cart' header="מחק מהסל" body={(rowData) => <FontAwesomeIcon onClick={() => handleOpenDeleteForm(rowData)} icon="fas fa-trash-alt" />}></Column>
                         </DataTable>
                     </div>
-                    <button onClick={handleContinueToOrder}>המשך להזמנה</button>
+                    <button className='orderButton' onClick={handleContinueToOrder}>המשך להזמנה</button>
                 </div>
             }
             {deleteOn && <DeleteCart currentProductToDelete={currentProductToDelete} deleteFunction={deleteFunction} setdeleteOn={setDeleteOn} />}

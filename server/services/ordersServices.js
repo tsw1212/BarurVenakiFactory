@@ -20,6 +20,7 @@ const OrdersServices = {
         const emailTextUser = `הזמנתך התקבלה בהצלחה ותישלח אליך במועד המבוקש\n לצפייה בפרטי וסטטוס ההזמנה היכנס לאתר`;
         sendEmail(`נכנסה הזמנה חדשה!-${process.env.FACTORY_NAME}`, emailTextManager, factoryData.email);
         sendEmail(`הזמנתך התקבלה בהצלחה-${process.env.FACTORY_NAME}`, emailTextUser, userData.email);
+        return newOrder;
     },
 
     getAllOrders: async () => {

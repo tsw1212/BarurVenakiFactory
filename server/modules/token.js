@@ -37,7 +37,7 @@ const deleteToken = (token) => {
 
     const index1 = managersTokens.findIndex(t => t === token);
     if (index1 !== -1) {
-        managersTokens.splice(index1, 1);
+         managersTokens.splice(index1, 1);
         return true;
 
     }
