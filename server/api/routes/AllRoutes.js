@@ -21,7 +21,8 @@ app.use('/guest_token', guest_tokenRoute);
 
 app.use((req, res, next) => {
     try {
-        const status = tokenActions.statusToken(req.get('XAuthentication-Token'));
+        const token=req.get('XAuthentication-Token');
+        const status = tokenActions.statusToken(token);
         if (!status) {
             res.status(401).json({ 'error': 'invalid token' });
         }

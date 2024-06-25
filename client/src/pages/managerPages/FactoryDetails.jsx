@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/dataDetails.css'
 import Loading from '../../components/Loading';
 import {  useSelector } from 'react-redux';
+import {fatchDataOnRender} from '../../modules/fetch_data_when_render'
+
 
 
 const FactoryDetails = () => {
@@ -11,7 +13,8 @@ const FactoryDetails = () => {
     const [alert, setAlert] = useState('');
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
-    const token = useSelector((state) => state.token);
+    fatchDataOnRender();
+    let token = useSelector((state) => state.token);
 
 
     useEffect(() => {
@@ -28,7 +31,7 @@ const FactoryDetails = () => {
         }
         fetch();
 
-    }, []);
+    }, [token]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

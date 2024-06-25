@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import HomeNavBar from './pages/HomeNavBar';
@@ -17,49 +17,52 @@ import Products from './pages/Products';
 import Order from './pages/managerPages/Order';
 import FactoryDetails from './pages/managerPages/FactoryDetails';
 import NotFound from './pages/NotFound';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRequest } from './modules/requests/server_requests';
+
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem('token') || '');
-  const [status, setStatus] = useState(localStorage.getItem('status') || 'guest');
   const [chosenCartProducts, setChosenCartProducts] = useState([]);
-  const [countCartItems, setCountCartItems] = useState(0)
+  const [countCartItems, setCountCartItems] = useState(0);
+  const status = useSelector(state => state.app.status);
+  const token = useSelector((state) => state.app.token);
 
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Navigate to='/home' replace />} />
-        <Route path='home' element={<HomeNavBar setCountCartItems={setCountCartItems} token={token} countCartItems={countCartItems} setToken={setToken} status={status} setStatus={setStatus} />}>
-          <Route index element={<Home setToken={setToken} token={token} />} />
-          <Route path='userDetails' element={<UserDetails token={token} />} />
-          <Route path='factoryDetails' element={<FactoryDetails token={token} />} />
-          <Route path='users' element={<Users token={token} />} />
+        <Route path='home' element={<HomeNavBar setCountCartItems={setCountCartItems}  countCartItems={countCartItems}    />}>
+          <Route index element={<Home   />} />
+          <Route path='userDetails' element={<UserDetails  />} />
+          <Route path='factoryDetails' element={<FactoryDetails  />} />
+          <Route path='users' element={<Users  />} />
           <Route path='products'>
-            <Route index element={<Products status={status} token={token} />} />
-            <Route path=':nameProduct' element={<Product setCountCartItems={setCountCartItems} status={status} token={token} />} />
+            <Route index element={<Products   />} />
+            <Route path=':nameProduct' element={<Product setCountCartItems={setCountCartItems}   />} />
           </Route>
           <Route path='allOrders'>
-            <Route index element={<AllOrders token={token} status={status}/>} />
-            <Route path=':OrderId' element={<Order token={token} status={status} />} />
+            <Route index element={<AllOrders   />} />
+            <Route path=':OrderId' element={<Order   />} />
           </Route>
           <Route path='orders'  >
-            <Route index element={<PastOrders token={token} status={status}/>} />
-            <Route path=':OrderId' element={<Order token={token} status={status} />} />
+            <Route index element={<PastOrders   />} />
+            <Route path=':OrderId' element={<Order   />} />
           </Route>
 
           <Route path='shopping_cart'>
-            <Route index element={<ShoppingCart token={token}  chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts}/>} />
-            <Route path='order' element={<CurrentOrderDetails token={token} chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts}/>} />
+            <Route index element={<ShoppingCart  chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts} />} />
+            <Route path='order' element={<CurrentOrderDetails  chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts} />} />
             <Route path='confirmation' element={<Confirmation />} />
           </Route>
         </Route>
-        <Route path='login' element={<Login token={token} setToken={setToken} setStatus={setStatus} />} />
-        <Route path='signup' element={<Signup token={token} setToken={setToken} setStatus={setStatus} />} />
-        <Route path='signup' element={<Signup token={token} setToken={setToken} setStatus={setStatus} />} />
-        <Route path='*' element={<NotFound />} /> 
+        <Route path='login' element={<Login    />} />
+        <Route path='signup' element={<Signup    />} />
+        <Route path='signup' element={<Signup    />} />
+        <Route path='*' element={<NotFound />} />
 
       </Routes>
-     
+
     </BrowserRouter>
   );
 }
