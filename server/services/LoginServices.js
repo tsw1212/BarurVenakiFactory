@@ -13,9 +13,9 @@ const authenticateUser = async (body) => {
         const user = await DB_actionsUser.getUserByEmail(passwordData.email);
         const isManager=await DB_actionsManager.getManagerById(user.id)
         if (isManager!==undefined) 
-            return tokenActions.createToken("manager");
+            return tokenActions.createToken("manager",user.id);
         else
-            return tokenActions.createToken("user");
+            return tokenActions.createToken("user",user.id);
     }
     else {
         return false;

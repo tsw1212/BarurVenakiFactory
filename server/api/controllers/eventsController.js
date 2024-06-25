@@ -31,7 +31,7 @@ const eventsController = {
         }
     },
     createEvent: async (req, res) => {
-        // if (req.securityLevel !== "manager")
+        // if (req.securityLevel !== "manager" && req.securityLevel!=='user)
         //   return  res.status(401).json({ error: "unauthorized" });
         // else {
             try {

@@ -18,6 +18,9 @@ const CartController = {
         //   return  res.status(401).json({ error: "unauthorized" });
         try {
             const { userId } = req.params;
+            if(userId!==req.userId){
+                return res.status(401).json({ error: "unauthorized" });
+            }
             let cart = await CartServices.getCartByUserId(userId);
             if (!cart) {
                 res.status(404).json({ error: "cart not found" });
@@ -33,6 +36,9 @@ const CartController = {
         //   return  res.status(401).json({ error: "unauthorized" });
         try {
             const cartItem = req.body;
+            if(cartItem.userId!==req.userId){
+                return res.status(401).json({ error: "unauthorized" });
+            }
             if (!validation.validateCartInput(cartItem)) {
                 res.status(400).json({ error: 'invalid input' });
             } else {
@@ -49,6 +55,9 @@ const CartController = {
         try {
             const {id}=req.params;
             let updatedCartData = req.body;
+            if(updatedCartData.userId!==req.userId){
+                return res.status(401).json({ error: "unauthorized" });
+            }
             if (!validation.validateCartInput(updatedCartData, true)) {
                 res.status(400).json({ error: 'invalid input' });
             } else if (await CartServices.getCartById(id) === null) {

@@ -35,6 +35,9 @@ const OrderController = {
         //     return res.status(401).json({ error: "unauthorized" });
         try {
             const order = req.body;
+            if(order.userId!==req.userId){
+                return res.status(401).json({ error: "unauthorized" });
+            }
             order.status="התקבלה";
             if (!validation.validateOrdersInput(order)) {
                 res.status(400).json({ error: 'invalid input' });
@@ -52,6 +55,9 @@ const OrderController = {
         try {
             const { id } = req.params;
             let updatedOrderData = req.body;
+            if(updatedOrderData.userId!==req.userId){
+                return res.status(401).json({ error: "unauthorized" });
+            }
             const datetime = new Date(updatedOrderData.date);
             const formattedDatetime = datetime.toISOString().slice(0, 19).replace('T', ' ');
             updatedOrderData.date = formattedDatetime;

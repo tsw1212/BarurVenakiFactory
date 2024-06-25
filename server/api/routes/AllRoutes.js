@@ -11,28 +11,30 @@ const signupRoute = require('./singUpRoute');
 const guest_tokenRoute = require('./gueust_token');
 const managersRoute = require('./managerRoute');
 const cartRoutes = require('./cartRoutes');
-const factoryRoutes= require('./factoryRoutes');
-const productOrderRoute= require('./productOrderRoute');
-const LogOutRoute= require('./logOutRoute');
+const factoryRoutes = require('./factoryRoutes');
+const productOrderRoute = require('./productOrderRoute');
+const LogOutRoute = require('./logOutRoute');
 
 
 
 app.use('/guest_token', guest_tokenRoute);
 
-// app.use((req, res, next) => {
-//     try {
-//         if ( tokenActions.validateToken(req.get('XAuthentication-Token'))) {
-//             req.securityLevel = tokenActions.statusToken(req.get('XAuthentication-Token'));
-//             next();
-//         }
-//         else {
-//             res.status(401).json({ 'error': 'invalid token' });
-//         }
-//     } catch {
-//         res.status(500).json({ 'error': 'internal server error' });
-//     }
+app.use((req, res, next) => {
+    try {
+        const status = tokenActions.statusToken(req.get('XAuthentication-Token'));
+        if (!status) {
+            res.status(401).json({ 'error': 'invalid token' });
+        }
+        else{
+            req.securityLevel =status.status;
+            req.userId=status.id;
+            next();
+        }
+    } catch {
+        res.status(500).json({ 'error': 'internal server error' });
+    }
 
-// });
+});
 app.use('/managers', managersRoute);
 app.use('/login', loginRoute);
 app.use('/logOut', LogOutRoute);

@@ -14,15 +14,8 @@ const passwordsController = {
             } else if (await usersServices.getUserByEmail(updatedPasswordData.email) === null) {
                 res.status(404).json({ error: "user not found" });
             } else {
-                // let passwordData = await DB_actionsPasswords.getPasswordByEmail(updatedPasswordData.email);
-                // if (passwordData && await bcrypt.compare(updatedPasswordData.password, passwordData.password)){
-                    await passwordsServices.updatePassword(updatedPasswordData);
-                    res.status(200).json('password was updated successfully');
-                // }
-                // else{
-                //     res.status(400).json({ error: 'invalid input' });
-                // }
-                
+                await passwordsServices.updatePassword(updatedPasswordData);
+                res.status(200).json('password was updated successfully');
             }
         } catch (error) {
             res.status(500).json({ error: "server internal error" });

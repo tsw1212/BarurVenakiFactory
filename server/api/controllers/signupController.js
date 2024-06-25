@@ -18,8 +18,8 @@ const signupController={
             res.end();
           }
           else{
-            const token = await tokenActions.createToken("user");
             const newUser = await UsersServices.createUser(user);
+            const token = await tokenActions.createToken("user",newUser.id);
             sendEmail(`ברור ונקי- נרשמת בהצלחה`,'שמחים שהצטרפת למאגר הלקוחות של ברור ונקי',newUser.email)
             res.setHeader('XAuthentication-Token', token);
             res.setHeader('XSecurity-Level', 'user');

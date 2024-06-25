@@ -54,7 +54,6 @@ const productsController = {
                     if (checkProduct.length == 0) {
                         const imgName = await uploadProductImage(file);
                         if (imgName) {
-                            //const { imageFile, ...productDataWithoutImage } = product;
                             const productDataWithImgUrl = { ...product, imgUrl: imgName };
                             const newProduct = await ProductsServices.createProduct(productDataWithImgUrl);
                             res.status(200).json({newProduct});
@@ -113,7 +112,7 @@ const productsController = {
             const imgPath = product.imgUrl;
             await ProductsServices.deleteProduct(id);
             if (imgPath) {
-                const fullPath = path.resolve(__dirname, '', imgPath); // בניית הנתיב המלא לתמונה
+                const fullPath = path.resolve(__dirname, '', imgPath); 
                 fs.unlink(fullPath, (err) => {
                     if (err) {
                         console.error("Failed to delete image:", err);

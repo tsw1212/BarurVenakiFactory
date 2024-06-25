@@ -23,6 +23,9 @@ const usersController = {
         // else{
         try {
             const { id } = req.params;
+            if(id!==req.userId){
+                return res.status(401).json({ error: "unauthorized" });
+            }
             let user = await UsersServices.getUserById(id);
             if (!user) {
                 res.status(404).json({ error: "user not found" });
@@ -43,6 +46,9 @@ const usersController = {
         //     res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
+            if(id!==req.userId){
+                return res.status(401).json({ error: "unauthorized" });
+            }
             if (await UsersServices.getUserById(id) == null) {
                 res.status(404).json({ error: "user not found" });
                 res.end();
@@ -83,6 +89,9 @@ const usersController = {
         //   return  res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
+            if(id!==req.userId){
+                return res.status(401).json({ error: "unauthorized" });
+            }
             let updatedUserData = req.body;
             if (!validation.validateUserInput(updatedUserData, true)) {
                 res.status(400).json({ error: 'invalid input' });
@@ -103,7 +112,7 @@ const usersController = {
         }
     },
     deleteUser: async (req, res) => {
-        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        if ( req.securityLevel !== 'manager')
             return res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
