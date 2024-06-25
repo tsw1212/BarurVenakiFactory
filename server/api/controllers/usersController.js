@@ -46,6 +46,7 @@ const usersController = {
             if (await UsersServices.getUserById(id) == null) {
                 res.status(404).json({ error: "user not found" });
                 res.end();
+                return;
             }
             let orders = await UsersServices.getUserOrdersDetails(id);
             res.status(200).json(orders);

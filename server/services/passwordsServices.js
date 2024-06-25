@@ -9,7 +9,7 @@ const PasswordsServices = {
             const hashedPassword = await bcrypt.hash(updatedPasswordData.newPassword, 10);
              await DB_actions.updatePassword({ email: updatedPasswordData.email, password: hashedPassword });
         }
-        else {
+         else {
             throw new Error('סיסמא שגויה');
         }
     }
