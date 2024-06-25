@@ -19,7 +19,7 @@ const LogInController = {
             else {
                 const user = await UsersServices.getUserByEmail(req.body.email);
                 res.setHeader('XAuthentication-Token', token);
-                res.setHeader('XSecurity-Level', tokenActions.statusToken(token));
+                res.setHeader('XSecurity-Level', tokenActions.statusToken(token)?.status);
                 res.setHeader("Access-Control-Expose-Headers", "*");
                 res.status(200).json(user);
                 res.end();
