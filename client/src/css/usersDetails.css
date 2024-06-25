@@ -1,33 +1,36 @@
 .usersbody {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 50px;
     margin-top: 50px;
     direction: rtl;
 }
 
-.editForm_container, .user_information, .changePassword {
+.user_section {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 20px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
     background-color: #fff;
+    border-left: black dashed 5px;
+    width: 50%;
+    text-align: right; 
+    direction: rtl; 
+    height: fit-content;
+    padding-left: 20px;
+    margin-top: 40px;
+
 }
 
-.editForm_container, .user_information {
-    text-align: right;
-    direction: rtl;
-}
-
-.editForm_form, .changePassword {
+.user_section form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.editInput, .passwordInput {
+.input_field {
     background-color: #efe8e8;
-    width: 100%;
+    width: 80%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -35,7 +38,12 @@
     outline: none;
 }
 
-.editButton {
+.edit_user{
+margin-right: 50px;
+margin-top: 40px;
+}
+
+.button {
     margin: 10px 0;
     padding: 10px;
     background-color: #b1e773;
@@ -45,7 +53,7 @@
     cursor: pointer;
 }
 
-.editButton:hover {
+.button:hover {
     background-color: #7ba64a;
 }
 
@@ -59,7 +67,7 @@
         margin: 10px;
     }
 
-    .editForm_container, .user_information, .changePassword {
+    .user_section {
         width: 100%;
         margin-bottom: 20px;
     }
