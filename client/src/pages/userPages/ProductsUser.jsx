@@ -5,14 +5,19 @@ import WorngRequest from '../WorngRequest';
 import { getRequest } from '../../modules/requests/server_requests';
 import Loading from '../../components/Loading';
 import ProductFilters from '../../components/product/ProductFilters';
+import {  useSelector } from 'react-redux';
 
-function Products({ token, status, products, setProducts }) {
+
+function Products({  products, setProducts }) {
   const [worngRequest, setWorngRequest] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [selectedPackage, setSelectedPackage] = useState('');
   const [priceRange, setPriceRange] = useState([0, 300]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const token = useSelector((state) => state.token);
+  const status = useSelector((state) => state.status);
 
   useEffect(() => {
     async function fetchData() {

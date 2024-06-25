@@ -4,11 +4,14 @@ import Button from '@mui/material/Button';
 import { postRequest } from '../../modules/requests/server_requests';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/AddEvent.css'
+import {  useSelector } from 'react-redux';
 
 
-function AddEvent({ orderId, token, onEventAdded, setAddEvent }) {
+
+function AddEvent({ orderId, onEventAdded, setAddEvent }) {
     const [eventText, setEventText] = useState('');
     const [eventDate, setEventDate] = useState('');
+    const token = useSelector((state) => state.app.token);
 
     const handleAddEvent = async () => {
         const newEvent = {

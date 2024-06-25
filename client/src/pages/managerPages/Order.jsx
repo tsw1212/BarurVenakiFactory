@@ -16,10 +16,12 @@ import AddEvent from '../../components/events/AddEvent';
 import Loading from '../../components/Loading';
 import formatDates from '../../modules/formatDateTime';
 import OrderTimeline from '../../components/orders/OrderTimeLine';
+import {  useSelector } from 'react-redux';
+
 
 const statusOptions = ['התקבלה', 'אושרה', 'בתהליך הכנה', 'נשלחה', 'הסתיימה'];
 
-function Order({ token, status }) {
+function Order() {
     const { OrderId } = useParams();
     const [order, setOrder] = useState({});
     const [wrongRequest, setWrongRequest] = useState(false);
@@ -27,11 +29,10 @@ function Order({ token, status }) {
     const [orderStatus, setOrderStatus] = useState('');
     const [addEvent, setAddEvent] = useState(false);
     const [loading, setLoading] = useState(true);
+    const token = useSelector((state) => state.token);
+    const status = useSelector((state) => state.status);
 
     useEffect(() => {
-        console.log('useEffect triggered');
-        console.log('OrderId:', OrderId);
-        console.log('Token:', token);
         async function fetchOrder() {
             const responseData = await getRequest(`http://localhost:3000/orders/${OrderId}`, token);
             if (responseData.ok) {

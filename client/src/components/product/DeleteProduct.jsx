@@ -2,8 +2,10 @@ import React from 'react';
 import { deleteRequest } from '../../modules/requests/server_requests';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/DeleteProduct.css';
+import {  useSelector } from 'react-redux';
 
-const DeleteProduct = ({ productData, token, setdeleteOn, setProductsHandler }) => {
+
+const DeleteProduct = ({ productData,  setdeleteOn, setProductsHandler }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();

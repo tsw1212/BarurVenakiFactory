@@ -3,8 +3,12 @@ import { getRequest } from '../../modules/requests/server_requests';
 import '../../css/UsersTable.css';
 import Loading from '../Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {  useSelector } from 'react-redux';
 
-const UsersTable = ({ token,setFilteredUsers,filteredUsers }) => {
+
+const UsersTable = ({ setFilteredUsers,filteredUsers }) => {
+    const token = useSelector((state) => state.app.token);
+
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');

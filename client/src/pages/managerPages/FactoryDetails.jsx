@@ -3,12 +3,15 @@ import { getRequest, putRequest } from '../../modules/requests/server_requests';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/dataDetails.css'
 import Loading from '../../components/Loading';
+import {  useSelector } from 'react-redux';
 
-const FactoryDetails = ({ token }) => {
+
+const FactoryDetails = () => {
     const [factory, setFactory] = useState({});
     const [alert, setAlert] = useState('');
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
+    const token = useSelector((state) => state.token);
 
 
     useEffect(() => {

@@ -14,8 +14,14 @@ import '../../css/orders.css';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {  useSelector } from 'react-redux';
 
-function Orders({ token, status }) {
+
+function Orders() {
+  const token = useSelector(state => state.app.token);
+  const status = useSelector(state => state.app.status);
+  const user = useSelector(state => state.app.user);
+
   const [orders, setOrders] = useState([]);
   const [wrongRequest, setWorngRequest] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -25,7 +31,6 @@ function Orders({ token, status }) {
 
   useEffect(() => {
     async function getOrders() {
-      const user = JSON.parse(localStorage.getItem('currentUser'));
       let responseData;
       let sortedOrders = [];
       if (status === 'manager') {

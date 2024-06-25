@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { postRequest } from '../../modules/requests/server_requests_special';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/addProduct.css'
+import {  useSelector } from 'react-redux';
 
-const AddProduct = ({ token, setProductsHandler, setAddProduct }) => {
+
+const AddProduct = ({  setProductsHandler, setAddProduct }) => {
+    const token = useSelector((state) => state.app.token);
     const [formData, setFormData] = useState({
         name: '',
         weight: '',

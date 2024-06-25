@@ -11,8 +11,13 @@ import DeleteCart from './DeleteCart';
 import { useNavigate } from 'react-router-dom';
 import { amber } from '@mui/material/colors';
 import Loading from '../Loading'
+import {  useSelector } from 'react-redux';
 
-function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
+
+function CartProducts({  setChosenCartProducts }) {
+    const token = useSelector((state) => state.app.token);
+    const user = useSelector((state) => state.app.user);
+
     const [products, setProducts] = useState([]);
     const [worngRequest, setWorngRequest] = useState(false);
     const [deleteOn, setDeleteOn] = useState(false);
@@ -22,7 +27,6 @@ function CartProducts({ token, chosenCartProducts, setChosenCartProducts }) {
     const navigate = useNavigate();
 
 
-    let user = JSON.parse(localStorage.getItem('currentUser'));
 
     useEffect(() => {
         async function getCart() {

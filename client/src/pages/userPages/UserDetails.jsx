@@ -3,9 +3,10 @@ import { getRequest, putRequest } from '../../modules/requests/server_requests';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/usersDetails.css';
 import Loading from '../../components/Loading';
+import { useDispatch, useSelector } from 'react-redux';
 
-const UserDetails = ({ token }) => {
-  const [current_user, setCurrent_user] = useState(JSON.parse(localStorage.getItem('currentUser')));
+
+const UserDetails = () => {
   const [user, setUser] = useState({});
   const [email, setEmail] = useState({});
   const [alert, setAlert] = useState('');
@@ -16,6 +17,10 @@ const UserDetails = ({ token }) => {
     newPassword: '',
     confirmNewPassword: ''
   });
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.app.token);
+  const current_user = useSelector(state => state.app.user);
+
 
   useEffect(() => {
     async function getUsersDetails() {
@@ -46,9 +51,7 @@ const UserDetails = ({ token }) => {
     setAlert('');
     let dataRequest = await putRequest(`http://localhost:3000/users/${current_user.id}`, user, token);
     if (dataRequest.ok) {
-      setUser(dataRequest.body);
       setIsEditing(false);
-      localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
     } else {
       setAlert('בעיה בשמירת השינויים בבקשה נסה שוב');
     }

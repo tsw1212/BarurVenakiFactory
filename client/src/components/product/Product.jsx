@@ -8,9 +8,15 @@ import SelectType from './SelectType'
 import QuantityInput from './QuantityInput';
 import Loading from '../Loading';
 import NotAdd from './NotAdd';
+import {  useSelector } from 'react-redux';
+
 
 let prices = { min: 0, max: 10 };
-const Product = ({ token, addToCart,status, setCountCartItems }) => {
+
+const Product = ({  setCountCartItems }) => {
+  const token = useSelector((state) => state.app.token);
+  const status = useSelector((state) => state.app.status);
+
   const [products, setProducts] = useState([]);
   const { nameProduct } = useParams();
   const [wrongRequest, setWrongRequest] = useState(false);

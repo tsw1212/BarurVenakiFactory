@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import UsersTable from '../../components/users/UsersTable';
 import UserManagerForm from '../../components/users/UserManagerForm';
 import '../../css/users.css';
+import {  useSelector } from 'react-redux';
 
-const Users = ({ token }) => {
+
+const Users = () => {
     const [newManagerOn, setNewMangerOn] = useState(false);
     const [filteredUsers, setFilteredUsers] = useState([]);
+    const token = useSelector(state => state.app.token);
 
-    // Sort filteredUsers by name whenever it changes
     useEffect(() => {
         setFilteredUsers((users) => [...users].sort((a, b) => a.name.localeCompare(b.name)));
     }, [filteredUsers]);

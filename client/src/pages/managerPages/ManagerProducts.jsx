@@ -8,12 +8,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import '../../css/managerProducts.css';
 import Loading from '../../components/Loading';
+import { useSelector } from 'react-redux';
 
-function ManagerProducts({ status, token, products, setProducts, setProductsHandler }) {
+
+function ManagerProducts({  products, setProducts, setProductsHandler }) {
   const [wrongRequest, setWorngRequest] = useState(false);
   const [addProduct, setAddProduct] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  
+  const token = useSelector((state) => state.token);
+  const status = useSelector((state) => state.status);
+
 
   useEffect(() => {
     async function getProducts() {

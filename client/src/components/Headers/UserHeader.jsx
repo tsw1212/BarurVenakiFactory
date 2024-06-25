@@ -5,8 +5,11 @@ import { NavLink } from 'react-router-dom';
 import '../../css/header.css';
 import NumbersOfItem from './NumbersOfItem';
 import { getRequest } from '../../modules/requests/server_requests';
+import {  useSelector } from 'react-redux';
 
-function UserHeader({ logOut, countCartItems, setCountCartItems, token }) {
+
+function UserHeader({ logOut, countCartItems, setCountCartItems }) {
+    const token = useSelector(state => state.app.token);
     useEffect(() => {
         async function fetchData() {
             const user = JSON.parse(localStorage.getItem("currentUser"));

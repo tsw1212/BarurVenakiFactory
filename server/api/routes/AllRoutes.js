@@ -13,6 +13,8 @@ const managersRoute = require('./managerRoute');
 const cartRoutes = require('./cartRoutes');
 const factoryRoutes= require('./factoryRoutes');
 const productOrderRoute= require('./productOrderRoute');
+const LogOutRoute= require('./logOutRoute');
+
 
 
 app.use('/guest_token', guest_tokenRoute);
@@ -33,6 +35,7 @@ app.use('/guest_token', guest_tokenRoute);
 // });
 app.use('/managers', managersRoute);
 app.use('/login', loginRoute);
+app.use('/logOut', LogOutRoute);
 app.use('/signup', signupRoute);
 app.use('/passwords', passwordsRoutes);
 app.use('/users', usersRoutes);

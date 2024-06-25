@@ -4,10 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/editProduct.css';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import { Button } from 'primereact/button';
-import ImgChoose from './ImgChoose'
+import {  useSelector } from 'react-redux';
 
 
-const EditProduct = ({ token, setProductsHandler, setEditOn, productData }) => {
+const EditProduct = ({  setProductsHandler, setEditOn, productData }) => {
+    const token = useSelector((state) => state.app.token);
+
     const [formData, setFormData] = useState(productData);
     const op = useRef(null);
 

@@ -3,24 +3,35 @@ import { useState, useEffect } from 'react';
 import '../css/home.css';
 import WorngRequest from '../pages/WorngRequest';
 import { getRequest } from '../modules/requests/server_requests';
+import { useDispatch, useSelector } from 'react-redux';
 
-function Home({ status, token, setToken }) {
+
+function Home() {
   const [worngRequest, setWorngRequest] = useState(false);
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.app.token);
+
 
   useEffect(() => {
     async function fatchData() {
       let updateToken;
+      let updatedStatus;
+      let updatedUser;
       if (token == "") {
         updateToken = localStorage.getItem("token");
         if (!updateToken) {
           let dataRequest = await getRequest(`http://localhost:3000/guest_token`);
           if (dataRequest.ok) {
             localStorage.setItem('token', dataRequest.token);
-            await setToken(dataRequest.token);
+            await dispatch({ type: 'SET_TOKEN', payload: dataRequest.token });
           }
         }
         else {
-          await setToken(updateToken);
+          updatedStatus = localStorage.getItem("status");
+          updatedUser = localStorage.getItem("currentUser");
+          await  dispatch({ type: 'SET_TOKEN', payload: updateToken });
+          await  dispatch({ type: 'SET_STATUS', payload: updatedStatus  });
+          await  dispatch({ type: 'SET_USER', payload: updatedUser});
         }
       }
     }

@@ -4,13 +4,16 @@ import { Column } from 'primereact/column';
 import { postRequest } from '../../modules/requests/server_requests';
 import { useNavigate } from 'react-router-dom';
 import '../../css/currentOrderDetails.css';
+import {  useSelector } from 'react-redux';
 
-function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts, token }) {
+
+function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
+  const token = useSelector(state => state.token);
   const [deliveryDate, setDeliveryDate] = useState('');
   const [remarks, setRemarks] = useState('');
 
   let navigate = useNavigate();
-  let user = JSON.parse(localStorage.getItem('currentUser'));
+  const user=useSelector(state => state.app.user);
 
   const calculateTotalPrice = () => {
     return chosenCartProducts.reduce((total, product) => total + (product.price * product.amount), 0);

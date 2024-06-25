@@ -12,8 +12,11 @@ import '../../css/productShort.css'
 import { getRequest } from '../../modules/requests/server_requests';
 import { useState } from 'react';
 import DeleteProduct from './DeleteProduct';
+import {  useSelector } from 'react-redux';
 
-export default function ProductShort({ productData, showProducts, setShowProducts, token }) {
+
+export default function ProductShort({ productData}) {
+  const token = useSelector((state) => state.app.token);
 
   console.log(productData);
 

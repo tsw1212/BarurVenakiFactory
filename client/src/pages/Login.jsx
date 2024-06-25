@@ -3,8 +3,13 @@ import '../css/Login.css';
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { postRequest, putRequest } from '../modules/requests/server_requests.js';
+import { useDispatch, useSelector } from 'react-redux';
 
-function Login({ setToken, setStatus, token }) {
+
+function Login() {
+    const token = useSelector(state => state.app.token);
+    const dispatch = useDispatch();
+
     const navigate = useNavigate();
     const [isForgot, setIsForgot] = useState(false);
     const [input, setInput] = useState({ email: '', password: '' });
@@ -21,11 +26,12 @@ function Login({ setToken, setStatus, token }) {
             alert("ישנם נתונים שגויים. נסה שוב");
         }
         else if (dataRequest.body != 0) {
-            localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
+            localStorage.setItem("currentUser", JSON.stringify({id:dataRequest.body.id}));
             localStorage.setItem("token", (dataRequest.token));
             localStorage.setItem("status", (dataRequest.status));
-            await setToken(dataRequest.token);
-            await setStatus(dataRequest.status);
+            await  dispatch({ type: 'SET_TOKEN', payload: dataRequest.token });
+            await  dispatch({ type: 'SET_STATUS', payload: dataRequest.status  });
+            await  dispatch({ type: 'SET_USER', payload: dataRequest.body });
             navigate(`/`);
         }
         else {
@@ -63,11 +69,12 @@ function Login({ setToken, setStatus, token }) {
                 alert("ישנה תקלה בבקשה נסה שוב")
             }
             else if (dataRequest.body != 0) {
-                localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
+                localStorage.setItem("currentUser", JSON.stringify({id:dataRequest.body.id}));
                 localStorage.setItem("token", (dataRequest.token));
                 localStorage.setItem("status", (dataRequest.status));
-                await setToken(dataRequest.token);
-                await setStatus(dataRequest.status);
+                await  dispatch({ type: 'SET_TOKEN', payload: dataRequest.token });
+                await  dispatch({ type: 'SET_STATUS', payload: dataRequest.status  });
+                await  dispatch({ type: 'SET_USER', payload: dataRequest.body });
                 navigate(`/`);
             }
             else {

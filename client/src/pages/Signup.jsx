@@ -3,10 +3,15 @@ import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import '../css/signup.css';
 import { postRequest } from '../modules/requests/server_requests.js';
+import { useDispatch, useSelector } from 'react-redux';
 
-function Signup({ setToken, setStatus, token }) {
+
+function Signup() {
   const navigate = useNavigate();
   const [newUser, setNewUser] = useState({ name: '', email: '', city: '', street: '', houseNumber: '', username: '', phone1: '', phone2: '', password: '' });
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.token);
+
 
   async function signup(ev) {
     ev.preventDefault();
@@ -15,11 +20,12 @@ function Signup({ setToken, setStatus, token }) {
       alert("ישנה תקלה בבקשה נסה שוב");
     }
     else if (dataRequest.body) {
-      localStorage.setItem("currentUser", JSON.stringify(dataRequest.body));
+      localStorage.setItem("currentUser", JSON.stringify({id:dataRequest.body.id}));
       localStorage.setItem("token", (dataRequest.token));
       localStorage.setItem("status", (dataRequest.status));
-      await setToken(dataRequest.token);
-      await setStatus(dataRequest.status);
+      await  dispatch({ type: 'SET_TOKEN', payload: dataRequest.token });
+      await  dispatch({ type: 'SET_STATUS', payload: dataRequest.status  });
+      await  dispatch({ type: 'SET_USER', payload: dataRequest.body });
       navigate(`/`);
     }
     else {

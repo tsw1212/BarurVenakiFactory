@@ -2,8 +2,11 @@ import * as React from 'react';
 import '../../css/orderProduct.css';
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
+import {  useSelector } from 'react-redux';
 
-function OrderProduct({ product, onAmountChange, status, orderStatus }) {
+
+function OrderProduct({ product, onAmountChange, orderStatus }) {
+  const status = useSelector((state) => state.app.status);
   const [amount, setAmount] = useState(product.amount);
   const [reason, setReason] = useState('');
   const [isEditing, setIsEditing] = useState(false);

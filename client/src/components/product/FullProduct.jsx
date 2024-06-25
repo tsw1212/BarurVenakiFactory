@@ -13,8 +13,12 @@ import { getRequest } from '../../modules/requests/server_requests';
 import { useState } from 'react';
 import DeleteProduct from './DeleteProduct';
 import EditProduct from './EditProduct';
+import {  useSelector } from 'react-redux';
 
-export default function FullProduct({ productData, status, token, setProductsHandler }) {
+
+export default function FullProduct({ productData, setProductsHandler }) {
+  const token = useSelector((state) => state.app.token);
+
   const [editOn, setEditOn] = useState(false);
   const [deleteOn, setdeleteOn] = useState(false);
 

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import ManagerProducts from './managerPages/ManagerProducts';
 import ProductsUser from '../pages/userPages/ProductsUser'
-function Products({ status, token }) {
+import {  useSelector } from 'react-redux';
+
+function Products() {
     const [products, setProducts] = useState([]);
+    const token = useSelector(state=>state.app.token);
+    const status = useSelector(state=>state.app.status);
 
     function setProductsHandler( typeSettings,productId, productDataToSetting = null) {
         let updateProducts;
