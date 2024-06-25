@@ -29,8 +29,8 @@ function Order() {
     const [orderStatus, setOrderStatus] = useState('');
     const [addEvent, setAddEvent] = useState(false);
     const [loading, setLoading] = useState(true);
-    const token = useSelector((state) => state.token);
-    const status = useSelector((state) => state.status);
+    const token = useSelector((state) => state.app.token);
+    const status = useSelector((state) => state.app.status);
 
     useEffect(() => {
         async function fetchOrder() {
@@ -139,7 +139,7 @@ function Order() {
                                     {editStatus && <button className="saveStatus" onClick={handleSaveStatus}>שמור סטטוס</button>}
                                 </>
                             }
-                            {!editStatus && status === 'manager' && <button onClick={() => setEditStatus(true)}>ערוך סטטוס</button>}
+                            {(!editStatus && status === 'manager') && <button onClick={() => setEditStatus(true)}>ערוך סטטוס</button>}
                         </div>
                         <div className="products">
                             <h3>מוצרים</h3>
