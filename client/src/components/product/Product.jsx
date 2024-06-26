@@ -4,7 +4,7 @@ import WorngRequest from '../../pages/WorngRequest';
 import { getRequest, postRequest } from '../../modules/requests/server_requests';
 import '../../css/product.css';
 import Slider from './Slider';
-import SelectType from './SelectType'
+import SelectType from './selectType'
 import QuantityInput from './QuantityInput';
 import Loading from '../Loading';
 import NotAdd from './NotAdd';
@@ -14,8 +14,10 @@ import {  useSelector } from 'react-redux';
 let prices = { min: 0, max: 10 };
 
 const Product = ({  setCountCartItems }) => {
-  const token = useSelector((state) => state.app.token);
+  let token = useSelector((state) => state.app.token);
   const status = useSelector((state) => state.app.status);
+  const user = useSelector((state) => state.app.user);
+
 
   const [products, setProducts] = useState([]);
   const { nameProduct } = useParams();
@@ -27,10 +29,12 @@ const Product = ({  setCountCartItems }) => {
   const [loading, setLoading] = useState(true);
   const [notAddFlag, setNotAddFlag] = useState(false);
 
-  let user = JSON.parse(localStorage.getItem('currentUser'));
 
   useEffect(() => {
     async function fetchData() {
+      if (token === '') {
+        token = localStorage.getItem('token');
+    }
       let dataRequest = await getRequest(`http://localhost:3000/products/${nameProduct}`, token);
       if (dataRequest.ok) {
         setProducts(dataRequest.body);

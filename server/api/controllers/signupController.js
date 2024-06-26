@@ -13,7 +13,7 @@ const signupController={
             res.status(400).json({ error: "invalid input" });
             res.end();
           }
-          else if (await UsersServices.getUserByEmail(user.email) !== undefined) {
+          else if (await UsersServices.getUserByEmail(user.email) != undefined) {
             res.status(400).json({ error: "email already exists" });
             res.end();
           }

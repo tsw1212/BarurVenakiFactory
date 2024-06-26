@@ -2,7 +2,7 @@ const FactoryServices = require("../../services/factoryServices");
 
 const factoryController = {
     getAllFactories: async (req, res) => {
-        // if (req.securityLevel !== 'manager')
+        // if (req.securityLevel != 'manager')
         //  return   res.status(401).json({ error: "unauthorized" });
         try {
             const factories = await FactoryServices.getAllFactories();
@@ -13,7 +13,7 @@ const factoryController = {
     },
 
     getFactoryByName: async (req, res) => {
-        // if (req.securityLevel !== 'manager'&&req.securityLevel !=='user')
+        // if (req.securityLevel != 'manager'&&req.securityLevel !='user')
         //  return   res.status(401).json({ error: "unauthorized" });
         const name = req.params.name;
         try {
@@ -29,7 +29,7 @@ const factoryController = {
     },
 
     createFactory: async (req, res) => {
-        // if (req.securityLevel !== 'manager')
+        // if (req.securityLevel != 'manager')
         //  return   res.status(401).json({ error: "unauthorized" });
         const factoryData = req.body;
         try {
@@ -41,7 +41,7 @@ const factoryController = {
     },
 
     updateFactory: async (req, res) => {
-        // if (req.securityLevel !== 'manager')
+        // if (req.securityLevel != 'manager')
         //  return   res.status(401).json({ error: "unauthorized" });
         const updatedFactoryData = req.body;
         try {
@@ -53,7 +53,7 @@ const factoryController = {
     },
 
     deleteFactory: async (req, res) => {
-        // if (req.securityLevel !== 'manager')
+        // if (req.securityLevel != 'manager')
         //  return   res.status(401).json({ error: "unauthorized" });
         const name = req.params.name;
         try {

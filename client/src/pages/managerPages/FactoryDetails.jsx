@@ -3,21 +3,26 @@ import { getRequest, putRequest } from '../../modules/requests/server_requests';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/dataDetails.css';
 import Loading from '../../components/Loading';
+import { useSelector } from 'react-redux';
 
 const FactoryDetails = () => {
     const [factory, setFactory] = useState({});
     const [alert, setAlert] = useState('');
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
-    const token = localStorage.getItem('token');
+    let token = useSelector((state) => state.app.token);
 
     useEffect(() => {
         async function fetch() {
             setAlert('');
             try {
+                console.log('Token:', token);
+                if (token === '') {
+                    token = localStorage.getItem('token');
+                }
                 let dataRequest = await getRequest(`http://localhost:3000/factory/ברור ונקי`, token);
                 if (dataRequest.ok) {
-                    await setFactory(dataRequest.body);
+                    setFactory(dataRequest.body.factory);
                 } else {
                     setAlert('בעיה בטעינת הנתונים בבקשה נסה שוב');
                 }
@@ -39,9 +44,9 @@ const FactoryDetails = () => {
     const handleSave = async () => {
         setAlert('');
         try {
-            let dataRequest = await putRequest(`http://localhost:3000/factory/ברור ונקי}`, factory, token);
+            let dataRequest = await putRequest(`http://localhost:3000/factory/ברור ונקי`, factory, token);
             if (dataRequest.ok) {
-                setFactory(dataRequest.body);
+                setFactory(dataRequest.body.factory);
                 setIsEditing(false);
             } else {
                 setAlert('בעיה בשמירת השינויים בבקשה נסה שוב');
@@ -54,6 +59,10 @@ const FactoryDetails = () => {
 
     if (loading) {
         return <Loading />;
+    }
+
+    if (!factory) {
+        return <div>Loading data...</div>;
     }
 
     return (

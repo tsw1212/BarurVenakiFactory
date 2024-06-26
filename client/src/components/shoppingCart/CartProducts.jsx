@@ -15,8 +15,8 @@ import {  useSelector } from 'react-redux';
 
 
 function CartProducts({  setChosenCartProducts }) {
-    const token = useSelector((state) => state.app.token);
-    const user = useSelector((state) => state.app.user);
+    let token = useSelector((state) => state.app.token);
+    let user = useSelector((state) => state.app.user);
 
     const [products, setProducts] = useState([]);
     const [worngRequest, setWorngRequest] = useState(false);
@@ -30,6 +30,11 @@ function CartProducts({  setChosenCartProducts }) {
 
     useEffect(() => {
         async function getCart() {
+            if (token === ''||user=={}) {
+                token = localStorage.getItem('token');
+                user =JSON.parse( localStorage.getItem('currentUser'));
+
+            }
             const reqData = await getRequest(`http://localhost:3000/cart/${user.id}`, token);
             if (reqData.ok) {
                 const mergedProducts =await mergeProducts(reqData.body);

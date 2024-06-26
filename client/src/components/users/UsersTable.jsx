@@ -7,7 +7,7 @@ import {  useSelector } from 'react-redux';
 
 
 const UsersTable = ({ setFilteredUsers,filteredUsers }) => {
-    const token = useSelector((state) => state.app.token);
+    let token = useSelector((state) => state.app.token);
 
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,6 +16,9 @@ const UsersTable = ({ setFilteredUsers,filteredUsers }) => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
+                if (token === '') {
+                    token = localStorage.getItem('token');
+                }
                 const responseData = await getRequest('http://localhost:3000/users', token);
                 if (responseData.ok) {
                     setUsers(responseData.body);

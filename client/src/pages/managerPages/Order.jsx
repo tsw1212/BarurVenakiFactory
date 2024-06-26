@@ -29,11 +29,14 @@ function Order() {
     const [orderStatus, setOrderStatus] = useState('');
     const [addEvent, setAddEvent] = useState(false);
     const [loading, setLoading] = useState(true);
-    const token = useSelector((state) => state.app.token);
+    let token = useSelector((state) => state.app.token);
     const status = useSelector((state) => state.app.status);
 
     useEffect(() => {
         async function fetchOrder() {
+            if (token === '') {
+                token = localStorage.getItem('token');
+            }
             const responseData = await getRequest(`http://localhost:3000/orders/${OrderId}`, token);
             if (responseData.ok) {
                 await setOrder(responseData.body);

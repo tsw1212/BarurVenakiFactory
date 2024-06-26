@@ -9,12 +9,15 @@ import {  useSelector } from 'react-redux';
 const Footer = ({ }) => {
   const [factory, setFactory] = useState({});
   const [isBottom, setIsBottom] = useState(false);
-  const token = useSelector(state => state.app.token);
+  let token = useSelector(state => state.app.token);
 
   useEffect(() => {
     async function fetchData() {
+      if (token === '') {
+        token = localStorage.getItem('token');
+    }
       const reqData = await getRequest(`http://localhost:3000/factory/ברור ונקי`, token);
-      if (reqData.ok) setFactory(reqData.body);
+      if (reqData.ok) setFactory(reqData.body.factory);
     }
     fetchData();
   }, [token]);

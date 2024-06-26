@@ -8,7 +8,7 @@ import {  useSelector } from 'react-redux';
 const Users = () => {
     const [newManagerOn, setNewMangerOn] = useState(false);
     const [filteredUsers, setFilteredUsers] = useState([]);
-    const token = useSelector(state => state.app.token);
+    let  token = useSelector(state => state.app.token);
 
     useEffect(() => {
         setFilteredUsers((users) => [...users].sort((a, b) => a.name.localeCompare(b.name)));

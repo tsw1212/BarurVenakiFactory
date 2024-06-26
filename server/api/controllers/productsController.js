@@ -40,7 +40,7 @@ const productsController = {
         }
     },
     createProduct: async (req, res) => {
-        if (req.securityLevel !== "manager")
+        if (req.securityLevel != "manager")
             res.status(401).json({ error: "unauthorized" });
         else {
             try {
@@ -74,7 +74,7 @@ const productsController = {
         }
     },
     updateProduct: async (req, res) => {
-        // if (req.securityLevel !== "manager")
+        // if (req.securityLevel != "manager")
         //   return  res.status(401).json({ error: "unauthorized" });
         
             try {
@@ -101,7 +101,7 @@ const productsController = {
         
     },
     deleteProduct: async (req, res) => {
-        if (req.securityLevel !== "manager")
+        if (req.securityLevel != "manager")
                 return res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;

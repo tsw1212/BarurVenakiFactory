@@ -17,12 +17,16 @@ const UserDetails = () => {
     confirmNewPassword: ''
   });
   const dispatch = useDispatch();
-  const token = useSelector(state => state.app.token);
-  const current_user = useSelector(state => state.app.user);
+  let token = useSelector(state => state.app.token);
+  let current_user = useSelector(state => state.app.user);
 
   useEffect(() => {
     async function getUsersDetails() {
       setAlert('');
+      if (token === ''|| current_user=={}) {
+        current_user =JSON.parse( localStorage.getItem('currentUser'));
+        token = localStorage.getItem('token');
+    }
       let dataRequest = await getRequest(`http://localhost:3000/users/${current_user.id}`, token);
       if (dataRequest.ok) {
         setUser(dataRequest.body);

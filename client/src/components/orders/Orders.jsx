@@ -18,9 +18,9 @@ import {  useSelector } from 'react-redux';
 
 
 function Orders() {
-  const token = useSelector(state => state.app.token);
+  let token = useSelector(state => state.app.token);
   const status = useSelector(state => state.app.status);
-  const user = useSelector(state => state.app.user);
+  let user = useSelector(state => state.app.user);
 
   const [orders, setOrders] = useState([]);
   const [wrongRequest, setWorngRequest] = useState(false);
@@ -33,6 +33,11 @@ function Orders() {
     async function getOrders() {
       let responseData;
       let sortedOrders = [];
+      if (token === ''||user=={}) {
+        token = localStorage.getItem('token');
+        user =JSON.parse( localStorage.getItem('currentUser'));
+
+    }
       if (status === 'manager') {
         responseData = await getRequest('http://localhost:3000/orders', token);
         if (responseData.ok) {
@@ -54,7 +59,7 @@ function Orders() {
       }
     }
     getOrders();
-  }, [token, status]);
+  }, [token, status,wrongRequest]);
 
   useEffect(() => {
     const lowercasedQuery = searchQuery.toLowerCase();
@@ -70,7 +75,7 @@ function Orders() {
   return (
     <div className='ordersContainer'>
       {loading && <Loading />}
-      {wrongRequest && <WorngRequest />}
+      {wrongRequest && <WorngRequest setWorngRequest={setWorngRequest}/>}
       <div className="search-container">
         <input
           type="text"

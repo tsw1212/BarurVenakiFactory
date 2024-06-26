@@ -18,15 +18,49 @@ import Order from './pages/managerPages/Order';
 import FactoryDetails from './pages/managerPages/FactoryDetails';
 import NotFound from './pages/NotFound';
 import ContactUs from './pages/ContactUs';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 
 
 function App() {
   const [chosenCartProducts, setChosenCartProducts] = useState([]);
   const [countCartItems, setCountCartItems] = useState(0);
+  let token=useSelector((state) =>state.app.token);
 
 
-  // const dispatch = useDispatch();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchData = async () => {
+      let updateToken;
+      let updatedStatus;
+      let updatedUser;
+
+      if (token === "") {
+        updateToken = localStorage.getItem("token");
+        if (!updateToken) {
+          let dataRequest = await getRequest(`http://localhost:3000/guest_token`);
+          if (dataRequest.ok) {
+            localStorage.setItem('token', dataRequest.token);
+            dispatch({ type: 'SET_TOKEN', payload: dataRequest.token });
+          }
+        } else {
+          updatedStatus = localStorage.getItem("status");
+          updatedUser = localStorage.getItem("currentUser");
+          dispatch({ type: 'SET_TOKEN', payload: updateToken });
+          dispatch({ type: 'SET_STATUS', payload: updatedStatus });
+          dispatch({ type: 'SET_USER', payload:JSON.parse(updatedUser)  });
+        }
+      }
+    };
+
+    const executeFetchData = async () => {
+      await fetchData();
+    };
+
+    executeFetchData();
+  }, [token]);
 
 
   return (

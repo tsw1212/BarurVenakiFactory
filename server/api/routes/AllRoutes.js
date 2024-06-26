@@ -23,23 +23,23 @@ app.use('/guest_token', guest_tokenRoute);
 app.use('/sendMessege', messegeRoute);
 
 
-// app.use((req, res, next) => {
-//     try {
-//         const token=req.get('XAuthentication-Token');
-//         const status = tokenActions.statusToken(token);
-//         if (!status) {
-//             res.status(401).json({ 'error': 'invalid token' });
-//         }
-//         else{
-//             req.securityLevel =status.status;
-//             req.userId=status.id;
-//             next();
-//         }
-//     } catch {
-//         res.status(500).json({ 'error': 'internal server error' });
-//     }
+app.use((req, res, next) => {
+    try {
+        const token=req.get('XAuthentication-Token');
+        const status = tokenActions.statusToken(token);
+        if (!status) {
+            res.status(401).json({ 'error': 'invalid token' });
+        }
+        else{
+            req.securityLevel =status.status;
+            req.userId=status.id;
+            next();
+        }
+    } catch {
+        res.status(500).json({ 'error': 'internal server error' });
+    }
 
-// });
+});
 app.use('/managers', managersRoute);
 app.use('/login', loginRoute);
 app.use('/logOut', LogOutRoute);

@@ -4,7 +4,7 @@ const validation = require('../../modules/validation');
 
 const usersController = {
     getAllUsers: async (req, res) => {
-        // if (req.securityLevel !== "manager")
+        // if (req.securityLevel != "manager")
         //     res.status(401).json({ error: "unauthorized" });
         // else {
             try {
@@ -18,12 +18,12 @@ const usersController = {
         // }
     },
     getUserById: async (req, res) => {
-        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        // if (req.securityLevel != "user" && req.securityLevel != 'manager')
         //     res.status(401).json({ error: "unauthorized" });
         // else{
         try {
             const { id } = req.params;
-            if(id!==req.userId){
+            if(id!=req.userId){
                 return res.status(401).json({ error: "unauthorized" });
             }
             let user = await UsersServices.getUserById(id);
@@ -42,11 +42,11 @@ const usersController = {
     // }
     },
     getUsersOrders: async (req, res) => {
-        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        // if (req.securityLevel != "user" && req.securityLevel != 'manager')
         //     res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
-            if(id!==req.userId){
+            if(id!=req.userId){
                 return res.status(401).json({ error: "unauthorized" });
             }
             if (await UsersServices.getUserById(id) == null) {
@@ -85,11 +85,11 @@ const usersController = {
         }
     },
     updateUser: async (req, res) => {
-        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        // if (req.securityLevel != "user" && req.securityLevel != 'manager')
         //   return  res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
-            if(id!==req.userId){
+            if(id!=req.userId){
                 return res.status(401).json({ error: "unauthorized" });
             }
             let updatedUserData = req.body;
@@ -112,7 +112,7 @@ const usersController = {
         }
     },
     deleteUser: async (req, res) => {
-        if ( req.securityLevel !== 'manager')
+        if ( req.securityLevel != 'manager')
             return res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;

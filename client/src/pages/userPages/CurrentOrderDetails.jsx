@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 
 function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
-  const token = useSelector(state => state.token);
+  const token = useSelector(state => state.app.token);
   const [deliveryDate, setDeliveryDate] = useState('');
   const [remarks, setRemarks] = useState('');
 

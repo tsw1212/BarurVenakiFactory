@@ -41,7 +41,6 @@ const EditProduct = ({  setProductsHandler, setEditOn, productData }) => {
                 }
             }
 
-            // אם אין תמונה חדשה, שולחים את התמונה הקיימת בפורמט הנכון
             if (formData.img && !formData.img.name) {
                 const blob = new Blob([new Uint8Array(atob(formData.img).split('').map(char => char.charCodeAt(0)))], { type: 'image/png' });
                 productDataUpdate.append('img', blob, 'image.png');
@@ -49,7 +48,7 @@ const EditProduct = ({  setProductsHandler, setEditOn, productData }) => {
 
             const dataRequest = await putRequest(`http://localhost:3000/products/${productData.id}`, productDataUpdate, token);
             if (dataRequest.ok) {
-                await setProductsHandler("update", dataRequest.body.id, dataRequest.body);
+                await setProductsHandler("update", dataRequest.body.newProduct.id, dataRequest.body.newProduct);
                 setEditOn(false);
             } else {
                 alert('שגיאה בבקשה נסה שוב');

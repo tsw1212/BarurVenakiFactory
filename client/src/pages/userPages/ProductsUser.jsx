@@ -5,6 +5,8 @@ import WorngRequest from '../WorngRequest';
 import { getRequest } from '../../modules/requests/server_requests';
 import Loading from '../../components/Loading';
 import ProductFilters from '../../components/product/ProductFilters';
+import {  useSelector } from 'react-redux';
+
 
 function Products({ products, setProducts }) {
   const [worngRequest, setWorngRequest] = useState(false);
@@ -13,12 +15,16 @@ function Products({ products, setProducts }) {
   const [selectedPackage, setSelectedPackage] = useState('');
   const [priceRange, setPriceRange] = useState([0, 300]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  let token=useSelector((state) =>state.app.token);
+
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
 
     async function fetchData() {
       try {
+        if (token === '') {
+          token = localStorage.getItem('token');
+      }
         const response = await getRequest(`http://localhost:3000/products/shortList`, token);
         if (response.ok) {
           setProducts(response.body);

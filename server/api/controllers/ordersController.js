@@ -4,7 +4,7 @@ const validation = require('../../modules/validation');
 
 const OrderController = {
     getAllOrders: async (req, res) => {
-        // if (req.securityLevel !== "manager")
+        // if (req.securityLevel != "manager")
         //     res.status(401).json({ error: "unauthorized" });
         // else {
         try {
@@ -16,7 +16,7 @@ const OrderController = {
         // }
     },
     getOrderById: async (req, res) => {
-        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        // if (req.securityLevel != "user" && req.securityLevel != 'manager')
         //   return  res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
@@ -31,11 +31,11 @@ const OrderController = {
         }
     },
     createOrder: async (req, res) => {
-        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        // if (req.securityLevel != "user" && req.securityLevel != 'manager')
         //     return res.status(401).json({ error: "unauthorized" });
         try {
             const order = req.body;
-            if(order.userId!==req.userId){
+            if(order.userId!=req.userId){
                 return res.status(401).json({ error: "unauthorized" });
             }
             order.status="התקבלה";
@@ -50,12 +50,12 @@ const OrderController = {
         }
     },
     updateOrder: async (req, res) => {
-        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        // if (req.securityLevel != "user" && req.securityLevel != 'manager')
         //   return  res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
             let updatedOrderData = req.body;
-            if(updatedOrderData.userId!==req.userId){
+            if(updatedOrderData.userId!=req.userId){
                 return res.status(401).json({ error: "unauthorized" });
             }
             const datetime = new Date(updatedOrderData.date);
@@ -74,7 +74,7 @@ const OrderController = {
         }
     },
     deleteOrder: async (req, res) => {
-        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        if (req.securityLevel != "user" && req.securityLevel != 'manager')
             return  res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;

@@ -49,8 +49,8 @@ const AddProduct = ({  setProductsHandler, setAddProduct }) => {
             }
             const dataRequest = await postRequest('http://localhost:3000/products', productData, token);
             if (dataRequest.ok) {
-                await setProductsHandler("add", dataRequest.body.id, dataRequest.body);
-                setAddProduct(false);
+                await setProductsHandler("add", dataRequest.body.newProduct.id, dataRequest.body.newProduct);
+                await setAddProduct(false);
             } else {
                 alert('Failed to create product. Please try again.');
             }

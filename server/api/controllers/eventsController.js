@@ -4,7 +4,7 @@ const validation = require('../../modules/validation');
 
 const eventsController = {
     getAllEvents: async (req, res) => {
-        if (req.securityLevel !== "manager")
+        if (req.securityLevel != "manager")
            return res.status(401).json({ error: "unauthorized" });
         else {
             try {
@@ -16,7 +16,7 @@ const eventsController = {
         }
     },
     getEventByID: async (req, res) => {
-        if (req.securityLevel !== "manager")
+        if (req.securityLevel != "manager")
            return res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
@@ -31,7 +31,7 @@ const eventsController = {
         }
     },
     createEvent: async (req, res) => {
-        // if (req.securityLevel !== "manager" && req.securityLevel!=='user)
+        // if (req.securityLevel != "manager" && req.securityLevel!='user)
         //   return  res.status(401).json({ error: "unauthorized" });
         // else {
             try {
@@ -48,7 +48,7 @@ const eventsController = {
         // }
     },
     updateEvent: async (req, res) => {
-        if (req.securityLevel !== "manager")
+        if (req.securityLevel != "manager")
            return res.status(401).json({ error: "unauthorized" });
         else {
             try {
@@ -68,7 +68,7 @@ const eventsController = {
         }
     },
     deleteEvent: async (req, res) => {
-        if (req.securityLevel !== "manager")
+        if (req.securityLevel != "manager")
             res.status(401).json({ error: "unauthorized" });
         else {
             try {

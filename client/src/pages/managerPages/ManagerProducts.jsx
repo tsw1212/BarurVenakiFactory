@@ -17,12 +17,16 @@ function ManagerProducts({  products, setProducts, setProductsHandler }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   
-  const token = useSelector((state) => state.token);
-  const status = useSelector((state) => state.status);
+  let  token = useSelector((state) => state.app.token);
+  const status = useSelector((state) => state.app.status);
 
 
   useEffect(() => {
     async function getProducts() {
+      setLoading(false);
+      if (token === '') {
+        token = localStorage.getItem('token');
+    }
       const responseData = await getRequest('http://localhost:3000/products', token);
       if (responseData.ok) {
         await setProducts(responseData.body);
@@ -32,7 +36,7 @@ function ManagerProducts({  products, setProducts, setProductsHandler }) {
       }
     }
     getProducts();
-  }, [token, setProducts]);
+  }, [ setProducts]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);

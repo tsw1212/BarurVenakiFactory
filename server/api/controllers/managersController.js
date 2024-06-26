@@ -5,11 +5,11 @@ const mangerServices = require("../../services/managersServices");
 
 const managersController = {
     createManager: async (req, res) => {
-        // if ( req.securityLevel !== 'manager')
+        // if ( req.securityLevel != 'manager')
         //    return res.status(401).json({ error: "unauthorized" });
         try {
             const data = req.body;
-            if(typeof data.id !== 'string'){
+            if(typeof data.id != 'string'){
                 res.status(400).json({ error: 'invalid input' });
             }
             else if ( await usersServices.getUserById(data.id) === undefined) {
