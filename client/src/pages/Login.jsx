@@ -90,7 +90,7 @@ function Login() {
                 <div className='LoginDiv'>
                     <div className='login_container'>
                         {!resetPasswordForm && < form onSubmit={login} className='login_form'>
-                            <h3>הזן שם משתמש וסיסמא</h3>
+                            <h3>הזן אימייל וסיסמא</h3>
                             <input type="email" name='email' placeholder='אימייל' className='input' value={input.email} onChange={(e) => setInput({ ...input, email: e.target.value })} />
                             <input type="password" name='password' placeholder='סיסמא' className='input' value={input.password} onChange={(e) => setInput({ ...input, password: e.target.value })} />
                             <input type="submit" value="היכנס" />

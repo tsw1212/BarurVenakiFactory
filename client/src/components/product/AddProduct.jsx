@@ -3,6 +3,7 @@ import { postRequest } from '../../modules/requests/server_requests_special';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/addProduct.css'
 import {  useSelector } from 'react-redux';
+import SelectProductType from './SelectProductType';
 
 
 const AddProduct = ({  setProductsHandler, setAddProduct }) => {
@@ -31,6 +32,13 @@ const AddProduct = ({  setProductsHandler, setAddProduct }) => {
             [name]: value
         });
     };
+    const handleChangeType = (value) => {
+        setFormData({
+            ...formData,
+            package: value
+        });
+    };
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -64,8 +72,7 @@ const AddProduct = ({  setProductsHandler, setAddProduct }) => {
                     <label htmlFor="weight">משקל</label>
                     <input type="text" id="weight" name="weight" value={formData.weight} onChange={handleChange} required />
 
-                    <label htmlFor="package">אריזה</label>
-                    <input type="text" id="package" name="package" value={formData.package} onChange={handleChange} required />
+                   <SelectProductType handleChangeType={handleChangeType}/>
 
                     <label htmlFor="imageFile">קובץ תמונה</label>
                     <input type="file" id="imageFile" name="imageFile" onChange={handleFileChange} accept="image/*" required />
