@@ -19,6 +19,7 @@ import FactoryDetails from './pages/managerPages/FactoryDetails';
 import NotFound from './pages/NotFound';
 import ContactUs from './pages/ContactUs';
 import { useDispatch, useSelector } from 'react-redux';
+import { getRequest } from './modules/requests/server_requests';
 
 
 

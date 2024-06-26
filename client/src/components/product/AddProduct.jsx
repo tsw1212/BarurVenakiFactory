@@ -19,6 +19,10 @@ const AddProduct = ({  setProductsHandler, setAddProduct }) => {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
+        if (file.type !== 'image/jpeg' && file.type !== "image/png" && file.type !== "image/gif") {
+            alert('Please select a image file');
+
+        }      
         setFormData({
             ...formData,
             imageFile: file
@@ -75,7 +79,8 @@ const AddProduct = ({  setProductsHandler, setAddProduct }) => {
                    <SelectProductType handleChangeType={handleChangeType}/>
 
                     <label htmlFor="imageFile">קובץ תמונה</label>
-                    <input type="file" id="imageFile" name="imageFile" onChange={handleFileChange} accept="image/*" required />
+                    
+                    <input type="file" id="imageFile"  name="imageFile" onChange={handleFileChange} accept="image/*" required />
 
                     <label htmlFor="price">מחיר</label>
                     <input type="text" id="price" name="price" value={formData.price} onChange={handleChange} required />

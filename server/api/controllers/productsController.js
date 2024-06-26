@@ -1,10 +1,9 @@
 const express = require("express");
 const ProductsServices = require("../../services/productsServices");
 const validation = require('../../modules/validation');
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 const path = require('path');
 const fs = require('fs');
-const { log } = require("console");
 
 
 const productsController = {
@@ -150,7 +149,8 @@ async function uploadProductImage(file, id = null) {
 
         await fs.promises.writeFile(filePath, fileBuffer);
 
-        return `../../images/${newFileName}`;
+        // return `../../images/${newFileName}`;
+        return filePath;
     } catch (error) {
         console.error('Error uploading product image:', error);
         throw error; // Re-throw the error to handle it in the caller function

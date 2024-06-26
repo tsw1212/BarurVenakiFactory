@@ -4,7 +4,7 @@ import WorngRequest from '../../pages/WorngRequest';
 import { getRequest, postRequest } from '../../modules/requests/server_requests';
 import '../../css/product.css';
 import Slider from './Slider';
-import SelectType from './selectType'
+import SelectType from './SelectType'
 import QuantityInput from './QuantityInput';
 import Loading from '../Loading';
 import NotAdd from './NotAdd';

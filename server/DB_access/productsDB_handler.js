@@ -72,8 +72,6 @@ async function getNextProductId() {
             if (err) {
                 reject(err);
             } else {
-                // If the table is empty or the MAX(id) returns NULL,
-                // start with ID 1
                 const nextId = result[0].next_id || 1;
                 resolve(nextId);
             }
