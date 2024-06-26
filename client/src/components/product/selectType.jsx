@@ -47,7 +47,7 @@ const SelectType = ({ products, handleTypeChange }) => {
           onChange={handleChange}
           input={<OutlinedInput label="Name" />}
           MenuProps={MenuProps}
-          sx={{ color: 'green' }} // Change color of Select
+          sx={{ color: 'green' }} 
         >
           {products.map((p, index) => (
             <MenuItem

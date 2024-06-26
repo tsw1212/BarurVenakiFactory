@@ -1,0 +1,47 @@
+/* style.css */
+
+.pageContainer {
+    border: 2px solid #ccc; /* Gray border around the page */
+    padding: 16px;
+    margin-top: 12vh;
+    border-radius: 8px; /* Optional: Rounded corners */
+  }
+  /* contactUs.css */
+
+.MuiTypography-root {
+   
+    color: rgb(175 200 149);
+}
+.css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input{  
+      text-align: right;
+}
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+    text-align: right;
+
+}
+
+  .formContainer {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+  }
+  
+  .textField {
+    margin-top: 16px;
+    border-color: #4caf50; /* Green border color for input fields */
+    text-align: right; /* Right align text */
+  }
+  
+  .submitButton {
+    margin-top: 16px;
+    text-align: center; /* Right align button */
+    background-color: #b1e773;
+  }
+  
+  .submitButton:hover{
+    background-color: #9fe64e;
+
+  }
+  

@@ -17,15 +17,14 @@ import Products from './pages/Products';
 import Order from './pages/managerPages/Order';
 import FactoryDetails from './pages/managerPages/FactoryDetails';
 import NotFound from './pages/NotFound';
-import { useDispatch, useSelector } from 'react-redux';
-import { getRequest } from './modules/requests/server_requests';
+import ContactUs from './pages/ContactUs';
+
 
 
 function App() {
   const [chosenCartProducts, setChosenCartProducts] = useState([]);
   const [countCartItems, setCountCartItems] = useState(0);
-  const status = useSelector(state => state.app.status);
-  const token = useSelector((state) => state.app.token);
+
 
 
   return (
@@ -34,6 +33,7 @@ function App() {
         <Route path='/' element={<Navigate to='/home' replace />} />
         <Route path='home' element={<HomeNavBar setCountCartItems={setCountCartItems}  countCartItems={countCartItems}    />}>
           <Route index element={<Home   />} />
+          <Route path='contactUs' element={< ContactUs />} />
           <Route path='userDetails' element={<UserDetails  />} />
           <Route path='factoryDetails' element={<FactoryDetails  />} />
           <Route path='users' element={<Users  />} />
