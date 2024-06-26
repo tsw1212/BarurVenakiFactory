@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { postRequest, putRequest } from '../modules/requests/server_requests.js';
 import { useDispatch, useSelector } from 'react-redux';
-
+import GuestHeader from '../components/Headers/GuestHeader';
+import Footer from '../components/Footer';
 
 function Login() {
     const token = useSelector(state => state.app.token);
@@ -86,6 +87,7 @@ function Login() {
 
     return (
         <div>
+            <GuestHeader/>
             <NavLink to="/home"> <img className='logoImg' src='../../../images/logo.png' alt='logo' /></NavLink>
                 <div className='LoginDiv'>
                     <div className='login_container'>
@@ -113,6 +115,8 @@ function Login() {
 
                     </div>
                 </div>
+                <Footer/>
+
         </div>
     )
 }
