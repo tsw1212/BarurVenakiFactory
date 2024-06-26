@@ -27,6 +27,8 @@ function App() {
   const status = useSelector(state => state.app.status);
   const token = useSelector((state) => state.app.token);
 
+  const dispatch = useDispatch();
+
 
   return (
     <BrowserRouter>

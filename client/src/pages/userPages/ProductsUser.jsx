@@ -5,28 +5,23 @@ import WorngRequest from '../WorngRequest';
 import { getRequest } from '../../modules/requests/server_requests';
 import Loading from '../../components/Loading';
 import ProductFilters from '../../components/product/ProductFilters';
-import {  useSelector } from 'react-redux';
-import {fatchDataOnRender} from '../../modules/fetch_data_when_render'
-fatchDataOnRender();
 
-
-
- function Products({  products, setProducts }) {
+function Products({ products, setProducts }) {
   const [worngRequest, setWorngRequest] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [selectedPackage, setSelectedPackage] = useState('');
   const [priceRange, setPriceRange] = useState([0, 300]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  let token = useSelector((state) => state.app.token);
-  let status = useSelector((state) => state.app.status);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
     async function fetchData() {
       try {
         const response = await getRequest(`http://localhost:3000/products/shortList`, token);
         if (response.ok) {
-          await setProducts(response.body);
+          setProducts(response.body);
         } else {
           setWorngRequest(true);
         }
@@ -34,23 +29,22 @@ fatchDataOnRender();
         console.error('Failed to fetch products:', error);
         setWorngRequest(true);
       } finally {
-        await setLoading(false);
+        setLoading(false);
       }
     }
     fetchData();
-  }, [token, setProducts]);
+  }, [setProducts]);
 
   useEffect(() => {
-    async function filterProducts(){
-      const filtered =await products.filter(product => {
+    const filterProducts = () => {
+      const filtered = products.filter(product => {
         const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesPrice = product.minPrice >= priceRange[0] && product.maxPrice <= priceRange[1];
         return matchesSearch && matchesPrice;
       });
-      await setFilteredProducts(filtered);
+      setFilteredProducts(filtered);
     }
     filterProducts();
-   
   }, [products, searchQuery, priceRange]);
 
   const handleSearchChange = (e) => {
@@ -82,7 +76,7 @@ fatchDataOnRender();
           <div className="allProducts">
             {filteredProducts.length > 0 ? (
               filteredProducts.map((productData) => (
-                <ProductShort status={status} className="productShort" productData={productData} key={productData.id} />
+                <ProductShort status={localStorage.getItem('status')} className="productShort" productData={productData} key={productData.id} />
               ))
             ) : (
               <p>לא נמצאו מוצרים התואמים את החיפוש שלך</p>

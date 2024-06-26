@@ -21,7 +21,7 @@ const factoryController = {
             if (!factory) {
                 res.status(404).json({ error: "Factory not found" });
             } else {
-                res.status(200).json(factory);
+                res.status(200).json({factory});
             }
         } catch (error) {
             res.status(500).json({ error: "Internal server error" });
