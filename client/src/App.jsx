@@ -26,7 +26,7 @@ function App() {
   const [countCartItems, setCountCartItems] = useState(0);
 
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
 
   return (

@@ -1,7 +1,8 @@
 /* style.css */
 
 .pageContainer {
-    border: 2px solid #ccc; /* Gray border around the page */
+  direction: rtl;
+    /* border: 2px solid #ccc; Gray border around the page */
     padding: 16px;
     margin-top: 12vh;
     border-radius: 8px; /* Optional: Rounded corners */
@@ -21,6 +22,7 @@
 }
 
   .formContainer {
+    direction: rtl;
     margin-top: 32px;
     display: flex;
     flex-direction: column;

@@ -146,6 +146,20 @@ function validateLoginInput(body) {
     return true;
 }
 
+function validateMessageInput({ title, body }) {
+    const errors = [];
+    if (!title || typeof title !== 'string' || title.trim() === '') {
+        errors.push('Title is required and must be a non-empty string.');
+    }
+    if (!body || typeof body !== 'string' || body.trim() === '') {
+        errors.push('Body is required and must be a non-empty string.');
+    }
+    return {
+        isValid: errors.length === 0,
+        errors,
+    };
+}
+
 
 
 
@@ -159,5 +173,6 @@ module.exports = {
     validateEventsInput,
     validateLoginInput,
     validatePasswordInput,
-    validateCartInput
+    validateCartInput,
+    validateMessageInput
 };
