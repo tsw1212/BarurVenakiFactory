@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { postRequest, putRequest } from '../modules/requests/server_requests.js';
 import { useDispatch, useSelector } from 'react-redux';
-
+import GuestHeader from '../components/Headers/GuestHeader';
+import Footer from '../components/Footer';
 
 function Login() {
     const token = useSelector(state => state.app.token);
@@ -86,11 +87,12 @@ function Login() {
 
     return (
         <div>
+            <GuestHeader/>
             <NavLink to="/home"> <img className='logoImg' src='../../../images/logo.png' alt='logo' /></NavLink>
                 <div className='LoginDiv'>
                     <div className='login_container'>
                         {!resetPasswordForm && < form onSubmit={login} className='login_form'>
-                            <h3>הזן שם משתמש וסיסמא</h3>
+                            <h3>הזן אימייל וסיסמא</h3>
                             <input type="email" name='email' placeholder='אימייל' className='input' value={input.email} onChange={(e) => setInput({ ...input, email: e.target.value })} />
                             <input type="password" name='password' placeholder='סיסמא' className='input' value={input.password} onChange={(e) => setInput({ ...input, password: e.target.value })} />
                             <input type="submit" value="היכנס" />
@@ -113,6 +115,8 @@ function Login() {
 
                     </div>
                 </div>
+                <Footer/>
+
         </div>
     )
 }
