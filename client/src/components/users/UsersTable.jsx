@@ -3,12 +3,13 @@ import { getRequest } from '../../modules/requests/server_requests';
 import '../../css/UsersTable.css';
 import Loading from '../Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  useSelector } from 'react-redux';
+import {  useSelector,useDispatch } from 'react-redux';
 
 
 const UsersTable = ({ setFilteredUsers,filteredUsers }) => {
+    const dispatch = useDispatch();
     let token = useSelector((state) => state.app.token);
-
+const usersRedux=useSelector((state) =>state.details.users)
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
@@ -19,12 +20,18 @@ const UsersTable = ({ setFilteredUsers,filteredUsers }) => {
                 if (token === '') {
                     token = localStorage.getItem('token');
                 }
+                if (usersRedux.length == 0) {
+
                 const responseData = await getRequest('http://localhost:3000/users', token);
                 if (responseData.ok) {
-                    setUsers(responseData.body);
-                    setFilteredUsers(responseData.body);
+                    await dispatch({ type: 'SET_USERS', payload: responseData.body });
+                    await  setUsers(responseData.body);
                     setLoading(false);
                 }
+            }else{
+                setUsers(usersRedux);
+                setLoading(false);
+            }
             } catch (error) {
                 alert('ישנה בעיה, בבקשה נסה שוב');
             }

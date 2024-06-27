@@ -12,7 +12,7 @@ const Users = () => {
 
     useEffect(() => {
         setFilteredUsers((users) => [...users].sort((a, b) => a.name.localeCompare(b.name)));
-    }, [filteredUsers]);
+    }, []);
 
     return (
         <>

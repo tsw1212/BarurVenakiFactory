@@ -3,40 +3,50 @@ import { getRequest } from '../../modules/requests/server_requests';
 import WorngRequest from '../WorngRequest';
 import FullProduct from '../../components/product/FullProduct';
 import AddProduct from '../../components/product/AddProduct';
-import EditProduct from '../../components/product/EditProduct'; 
+import EditProduct from '../../components/product/EditProduct';
 import Tooltip from '@mui/material/Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import '../../css/managerProducts.css';
 import Loading from '../../components/Loading';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Alert from '@mui/material/Alert';
 
 function ManagerProducts({ products, setProducts, setProductsHandler }) {
   const [wrongRequest, setWorngRequest] = useState(false);
   const [addProduct, setAddProduct] = useState(false);
-  const [editProduct, setEditProduct] = useState(false); 
+  const [editProduct, setEditProduct] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
-  const [successMessage, setSuccessMessage] = useState(''); 
-
+  const [successMessage, setSuccessMessage] = useState('');
+  let productsRedux = useSelector((state) => state.details.products);
+  const dispatch = useDispatch();
   let token = useSelector((state) => state.app.token);
   const status = useSelector((state) => state.app.status);
 
   useEffect(() => {
     async function getProducts() {
       setLoading(false);
-      if (token === '') {
-        token = localStorage.getItem('token');
-      }
-      const responseData = await getRequest('http://localhost:3000/products', token);
-      if (responseData.ok) {
-        await setProducts(responseData.body);
-        setLoading(false);
+        if (token === '') {
+          token = localStorage.getItem('token');
+        }
+        if (productsRedux.length == 0) {
+
+        const responseData = await getRequest('http://localhost:3000/products', token);
+        if (responseData.ok) {
+          await dispatch({ type: 'SET_PRODUCTS', payload: responseData.body });
+          await setProducts(responseData.body);
+          setLoading(false);
+        } else {
+          alert('בעיה בטעינת הנתונים. נסה שוב');
+        }
       } else {
-        alert('בעיה בטעינת הנתונים. נסה שוב');
+        setProducts(productsRedux);
+        setLoading(false);
+
       }
     }
+
     getProducts();
   }, [setProducts]);
 
@@ -82,8 +92,8 @@ function ManagerProducts({ products, setProducts, setProductsHandler }) {
           <Tooltip className="add_product_button" onClick={() => setAddProduct(true)} describeChild title='הוסף מוצר'>
             <FontAwesomeIcon icon={faPlusSquare} className='addIcon' />
           </Tooltip>
-          {addProduct && <AddProduct  setAddProduct={setAddProduct} setProductsHandler={setProductsHandler} setSuccessMessage={setSuccessMessage} />}
-          {editProduct && <EditProduct setProductsHandler={setProductsHandler}   setEditOn={setEditProduct} setSuccessMessage={setSuccessMessage} productData={editProduct} />}
+          {addProduct && <AddProduct setAddProduct={setAddProduct} setProductsHandler={setProductsHandler} setSuccessMessage={setSuccessMessage} />}
+          {editProduct && <EditProduct setProductsHandler={setProductsHandler} setEditOn={setEditProduct} setSuccessMessage={setSuccessMessage} productData={editProduct} />}
         </div>}
     </div>
   );

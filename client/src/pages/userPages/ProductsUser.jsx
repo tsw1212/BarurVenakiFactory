@@ -5,7 +5,7 @@ import WorngRequest from '../WorngRequest';
 import { getRequest } from '../../modules/requests/server_requests';
 import Loading from '../../components/Loading';
 import ProductFilters from '../../components/product/ProductFilters';
-import {  useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 function Products({ products, setProducts }) {
@@ -15,21 +15,29 @@ function Products({ products, setProducts }) {
   const [selectedPackage, setSelectedPackage] = useState('');
   const [priceRange, setPriceRange] = useState([0, 300]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  let token=useSelector((state) =>state.app.token);
-
+  let token = useSelector((state) => state.app.token);
+  let productsRedux = useSelector((state) => state.details.products);
+  const dispatch = useDispatch();
 
   useEffect(() => {
 
     async function fetchData() {
       try {
-        if (token === '') {
-          token = localStorage.getItem('token');
-      }
-        const response = await getRequest(`http://localhost:3000/products/shortList`, token);
-        if (response.ok) {
-          setProducts(response.body);
-        } else {
-          setWorngRequest(true);
+       
+          if (token === '') {
+            token = localStorage.getItem('token');
+          }
+          if (productsRedux.length == 0) {
+          const response = await getRequest(`http://localhost:3000/products/shortList`, token);
+          if (response.ok) {
+            await dispatch({ type: 'SET_PRODUCTS', payload: response.body });
+            await setProducts(response.body);
+          } else {
+            setWorngRequest(true);
+          }
+        }
+        else {
+          await setProducts(productsRedux);
         }
       } catch (error) {
         console.error('Failed to fetch products:', error);

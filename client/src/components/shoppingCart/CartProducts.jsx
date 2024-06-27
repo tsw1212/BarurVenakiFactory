@@ -11,13 +11,15 @@ import DeleteCart from './DeleteCart';
 import { useNavigate } from 'react-router-dom';
 import { amber } from '@mui/material/colors';
 import Loading from '../Loading'
-import {  useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 
 
-function CartProducts({  setChosenCartProducts }) {
+
+function CartProducts({ setChosenCartProducts }) {
     let token = useSelector((state) => state.app.token);
     let user = useSelector((state) => state.app.user);
-
+    let cartProducts = useSelector((state) => state.details.carts);
+    const dispatch = useDispatch();
     const [products, setProducts] = useState([]);
     const [worngRequest, setWorngRequest] = useState(false);
     const [deleteOn, setDeleteOn] = useState(false);
@@ -30,19 +32,26 @@ function CartProducts({  setChosenCartProducts }) {
 
     useEffect(() => {
         async function getCart() {
-            if (token === ''||user=={}) {
-                token = localStorage.getItem('token');
-                user =JSON.parse( localStorage.getItem('currentUser'));
+            if (cartProducts.length == 0) {
+                if (token === '' || user == {}) {
+                    token = localStorage.getItem('token');
+                    user = JSON.parse(localStorage.getItem('currentUser'));
 
+                }
+                const reqData = await getRequest(`http://localhost:3000/cart/${user.id}`, token);
+                if (reqData.ok) {
+                    const mergedProducts = await mergeProducts(reqData.body);
+                    await  dispatch({ type: 'SET_CARTS', payload: mergedProducts  });
+                    await setProducts(mergedProducts);
+                    setLoading(false);
+                }
+                else {
+                    setWorngRequest(true);
+                }
             }
-            const reqData = await getRequest(`http://localhost:3000/cart/${user.id}`, token);
-            if (reqData.ok) {
-                const mergedProducts =await mergeProducts(reqData.body);
-                await   setProducts(mergedProducts);
+            else{
+              await  setProducts(cartProducts);
                 setLoading(false);
-            }
-            else {
-                setWorngRequest(true);
             }
         }
         getCart();
@@ -51,18 +60,18 @@ function CartProducts({  setChosenCartProducts }) {
 
     const mergeProducts = (products) => {
         const productMap = new Map();
-        
+
         products.forEach((product) => {
             const key = `${product.name}-${product.package}`;
             if (productMap.has(key)) {
                 const existingProduct = productMap.get(key);
                 existingProduct.amount += product.amount;
             } else {
-                
+
                 productMap.set(key, { ...product });
             }
         });
-        
+
         return Array.from(productMap.values());
     }
     const handleCheckboxChange = async (rowData) => {
@@ -90,6 +99,7 @@ function CartProducts({  setChosenCartProducts }) {
         }
         ));
         await setProducts(updatedProducts);
+        await  dispatch({ type: 'SET_CARTS', payload: updatedProducts  });
 
     };
 
@@ -115,6 +125,7 @@ function CartProducts({  setChosenCartProducts }) {
         }
         ));
         await setProducts(updatedProducts);
+        await  dispatch({ type: 'SET_CARTS', payload: updatedProducts  });
     };
 
     async function handleOpenDeleteForm(e) {
@@ -125,7 +136,9 @@ function CartProducts({  setChosenCartProducts }) {
     async function deleteFunction(id) {
         const reqData = await deleteRequest(`http://localhost:3000/cart/${id}`, token);
         if (reqData.ok) {
-            await setProducts(products.filter(product => product.id !== id));
+            let updatedProducts=products.filter(product => product.id !== id)
+            await setProducts(updatedProducts);
+            await  dispatch({ type: 'SET_CARTS', payload: updatedProducts});
 
         }
         else {

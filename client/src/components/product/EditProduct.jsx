@@ -59,7 +59,7 @@ const EditProduct = ({ setProductsHandler, setEditOn,setSuccessMessage, productD
                 await setProductsHandler("update", dataRequest.body.newProduct.id, dataRequest.body.newProduct);
                 setEditOn(false);
                 setSuccessMessage("Product edited successfully");
-                setTimeout(() => setSuccessMessage(''), 10000); // Hide success message after 10 seconds
+                setTimeout(() => setSuccessMessage(''), 10000);
             } else {
                 alert('שגיאה בבקשה נסה שוב');
             }
@@ -81,7 +81,7 @@ const EditProduct = ({ setProductsHandler, setEditOn,setSuccessMessage, productD
                     <label htmlFor="weight">משקל</label>
                     <input type="text" id="weight" name="weight" value={formData.weight} onChange={handleChange} required />
 
-                    <SelectProductType handleChangeType={handleChangeType} />
+                    <SelectProductType handleChangeType={handleChangeType} value={formData.package} />
 
 
                     <label htmlFor="imageFile">תמונת מוצר</label>

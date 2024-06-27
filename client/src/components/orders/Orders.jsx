@@ -14,14 +14,15 @@ import '../../css/orders.css';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  useSelector } from 'react-redux';
+import { useSelector ,useDispatch} from 'react-redux';
 
 
 function Orders() {
   let token = useSelector(state => state.app.token);
   const status = useSelector(state => state.app.status);
   let user = useSelector(state => state.app.user);
-
+  let sortedOrders = useSelector(state => state.details.orders);
+  const dispatch=useDispatch()
   const [orders, setOrders] = useState([]);
   const [wrongRequest, setWorngRequest] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -32,34 +33,42 @@ function Orders() {
   useEffect(() => {
     async function getOrders() {
       let responseData;
-      let sortedOrders = [];
-      if (token === ''||user=={}) {
+      if (token === '' || user == {}) {
         token = localStorage.getItem('token');
-        user =JSON.parse( localStorage.getItem('currentUser'));
-
-    }
-      if (status === 'manager') {
-        responseData = await getRequest('http://localhost:3000/orders', token);
-        if (responseData.ok) {
-          sortedOrders = responseData.body.sort((a, b) => new Date(b.orderInfo.date) - new Date(a.orderInfo.date));
+        user = JSON.parse(localStorage.getItem('currentUser'));
+      }
+      if (sortedOrders.length==0) {
+        console.log(sortedOrders);
+        if (status === 'manager') {
+          responseData = await getRequest('http://localhost:3000/orders', token);
+          if (responseData.ok) {
+            sortedOrders = responseData.body.sort((a, b) => new Date(b.orderInfo.date) - new Date(a.orderInfo.date));
+          }
+        } else {
+          responseData = await getRequest(`http://localhost:3000/users/${user.id}/orders`, token);
+          if (responseData.ok) {
+            sortedOrders = responseData.body.sort((a, b) => new Date(b.date) - new Date(a.date));
+          }
         }
-      } else {
-        responseData = await getRequest(`http://localhost:3000/users/${user.id}/orders`, token);
+
         if (responseData.ok) {
-          sortedOrders = responseData.body.sort((a, b) => new Date(b.date) - new Date(a.date));
+        await  dispatch({ type: 'SET_ORDERS', payload: sortedOrders  });
+          console.log(sortedOrders);
+         await setOrders(sortedOrders);
+          setFilteredOrders(sortedOrders);
+          setLoading(false);
+        } else {
+          setWorngRequest(true);
         }
       }
-
-      if (responseData.ok) {
-        setOrders(sortedOrders);
+      else{
+      await  setOrders(sortedOrders);
         setFilteredOrders(sortedOrders);
         setLoading(false);
-      } else {
-        setWorngRequest(true);
       }
     }
     getOrders();
-  }, [token, status,wrongRequest]);
+  }, [token, status, wrongRequest]);
 
   useEffect(() => {
     const lowercasedQuery = searchQuery.toLowerCase();
@@ -75,7 +84,7 @@ function Orders() {
   return (
     <div className='ordersContainer'>
       {loading && <Loading />}
-      {wrongRequest && <WorngRequest setWorngRequest={setWorngRequest}/>}
+      {wrongRequest && <WorngRequest setWorngRequest={setWorngRequest} />}
       <div className="search-container">
         <input
           type="text"

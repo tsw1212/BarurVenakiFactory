@@ -18,9 +18,10 @@ const Footer = ({ }) => {
     }
       const reqData = await getRequest(`http://localhost:3000/factory/ברור ונקי`, token);
       if (reqData.ok) setFactory(reqData.body.factory);
+      console.log("fotter");
     }
     fetchData();
-  }, [token]);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {

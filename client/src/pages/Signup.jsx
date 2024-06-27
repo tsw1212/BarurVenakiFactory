@@ -10,7 +10,7 @@ function Signup() {
   const navigate = useNavigate();
   const [newUser, setNewUser] = useState({ name: '', email: '', city: '', street: '', houseNumber: '', username: '', phone1: '', phone2: '', password: '' });
   const dispatch = useDispatch();
-  const token = useSelector(state => state.token);
+  const token = useSelector(state => state.app.token);
 
 
   async function signup(ev) {

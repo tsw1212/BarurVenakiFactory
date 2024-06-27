@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import ManagerProducts from './managerPages/ManagerProducts';
 import ProductsUser from '../pages/userPages/ProductsUser'
-import {  useSelector } from 'react-redux';
+import {  useSelector ,useDispatch} from 'react-redux';
 
 function Products() {
+    const dispatch = useDispatch();
     const [products, setProducts] = useState([]);
     const token = useSelector(state=>state.app.token);
     const status = useSelector(state=>state.app.status);
@@ -14,6 +15,7 @@ function Products() {
             let index = products.findIndex((p) => p.id == productId)
             updateProducts = [...products];
             updateProducts.splice(index, 1);
+            dispatch({ type: 'SET_PRODUCTS', payload: updateProducts  });
             setProducts([...updateProducts]);
         }
         else if (typeSettings == "update") {
@@ -24,9 +26,11 @@ function Products() {
                 else
                     return  product
             })
+            dispatch({ type: 'SET_PRODUCTS', payload: updateProducts  });
             setProducts([...updateProducts])
         }
         else if (typeSettings == "add") {
+            dispatch({ type: 'SET_PRODUCTS', payload: [...products, productDataToSetting] });
             setProducts([...products, productDataToSetting])
         }
     }
