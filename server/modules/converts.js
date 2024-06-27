@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 async function convertUrlToImageFile(url) {
     const imagePath = path.join(__dirname, 'IMAGES', url);
-            if (fs.existsSync(imagePath)) {
+            if (await fs.existsSync(imagePath)) {
                 const imageBuffer = fs.readFileSync(imagePath);
                 const imageBase64 = Buffer.from(imageBuffer).toString('base64');
                 return imageBase64;

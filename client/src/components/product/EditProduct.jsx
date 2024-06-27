@@ -4,16 +4,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/editProduct.css';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import { Button } from 'primereact/button';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import SelectProductType from './SelectProductType';
 
 
-const EditProduct = ({  setProductsHandler, setEditOn, productData }) => {
+const EditProduct = ({ setProductsHandler, setEditOn,setSuccessMessage, productData }) => {
     const token = useSelector((state) => state.app.token);
 
     const [formData, setFormData] = useState(productData);
     const op = useRef(null);
 
-    const handleFileChange =async (event) => {
+    const handleFileChange = async (event) => {
         const file = event.target.files[0];
         setFormData({
             ...formData,
@@ -26,6 +27,13 @@ const EditProduct = ({  setProductsHandler, setEditOn, productData }) => {
         setFormData({
             ...formData,
             [name]: value
+        });
+    };
+
+    const handleChangeType = (value) => {
+        setFormData({
+            ...formData,
+            package: value
         });
     };
 
@@ -50,6 +58,8 @@ const EditProduct = ({  setProductsHandler, setEditOn, productData }) => {
             if (dataRequest.ok) {
                 await setProductsHandler("update", dataRequest.body.newProduct.id, dataRequest.body.newProduct);
                 setEditOn(false);
+                setSuccessMessage("Product edited successfully");
+                setTimeout(() => setSuccessMessage(''), 10000); // Hide success message after 10 seconds
             } else {
                 alert('שגיאה בבקשה נסה שוב');
             }
@@ -71,13 +81,12 @@ const EditProduct = ({  setProductsHandler, setEditOn, productData }) => {
                     <label htmlFor="weight">משקל</label>
                     <input type="text" id="weight" name="weight" value={formData.weight} onChange={handleChange} required />
 
-                    <label htmlFor="package">אריזה</label>
-                    <input type="text" id="package" name="package" value={formData.package} onChange={handleChange} required />
+                    <SelectProductType handleChangeType={handleChangeType} />
+
 
                     <label htmlFor="imageFile">תמונת מוצר</label>
                     <input type="file" id="imageFile" name="imageFile" onChange={handleFileChange} accept="image/*" />
-                    
-                    {/* <ImgChoose handleFileChange={handleFileChange} /> */}
+
                     {formData.img && !formData.img.name && <>
                         <Button type="button" icon="pi pi-image" label="תמונה נוכחית" onClick={(e) => op.current.toggle(e)} />
                         <OverlayPanel ref={op} >

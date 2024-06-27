@@ -73,8 +73,8 @@ const productsController = {
         }
     },
     updateProduct: async (req, res) => {
-        // if (req.securityLevel != "manager")
-        //   return  res.status(401).json({ error: "unauthorized" });
+        if (req.securityLevel != "manager")
+          return  res.status(401).json({ error: "unauthorized" });
         
             try {
                 const file = req.file;
@@ -149,11 +149,11 @@ async function uploadProductImage(file, id = null) {
 
         await fs.promises.writeFile(filePath, fileBuffer);
 
-        // return `../../images/${newFileName}`;
-        return filePath;
+        return `../../images/${newFileName}`;
+        // return filePath;
     } catch (error) {
         console.error('Error uploading product image:', error);
-        throw error; // Re-throw the error to handle it in the caller function
+        throw error; 
     }
 }
 

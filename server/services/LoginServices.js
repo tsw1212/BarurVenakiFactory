@@ -25,8 +25,6 @@ const forgotPassword = async (email) => {
     const newPassword = crypto.randomBytes(8).toString('hex');
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     DB_actionsPasswords.updatePassword({ email: email, password: hashedPassword });
-         const factoryData =await factoryServices.getFactorieByName(process.env.FACTORY_NAME)
-
     sendEmail(`הסיסמא החדשה שלך -${process.env.FACTORY_NAME}`,`Your new password is: ${newPassword}`,email); 
 }
 

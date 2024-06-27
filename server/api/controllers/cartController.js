@@ -4,8 +4,8 @@ const validation = require('../../modules/validation');
 
 const CartController = {
     getAllCarts: async (req, res) => {
-        // if (req.securityLevel !== 'manager')
-        //  return   res.status(401).json({ error: "unauthorized" });
+        if (req.securityLevel !== 'manager')
+         return   res.status(401).json({ error: "unauthorized" });
         try {
             let carts = await CartServices.getAllCarts();
             res.status(200).json(carts);
@@ -14,8 +14,8 @@ const CartController = {
         }
     },
     getCartByUserId: async (req, res) => {
-        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
-        //   return  res.status(401).json({ error: "unauthorized" });
+        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+          return  res.status(401).json({ error: "unauthorized" });
         try {
             const { userId } = req.params;
             if(userId!==req.userId){
@@ -32,8 +32,8 @@ const CartController = {
         }
     },
     createCartItem: async (req, res) => {
-        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
-        //   return  res.status(401).json({ error: "unauthorized" });
+        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+          return  res.status(401).json({ error: "unauthorized" });
         try {
             const cartItem = req.body;
             if(cartItem.userId!=req.userId){
@@ -50,8 +50,8 @@ const CartController = {
         }
     },
     updateCartItem: async (req, res) => {
-        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
-        //    return res.status(401).json({ error: "unauthorized" });
+        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+           return res.status(401).json({ error: "unauthorized" });
         try {
             const {id}=req.params;
             let updatedCartData = req.body;
@@ -71,8 +71,8 @@ const CartController = {
         }
     },
     deleteCartItem: async (req, res) => {
-        // if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
-        //  return   res.status(401).json({ error: "unauthorized" });
+        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+         return   res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
             if (await CartServices.getCartById(id) === null) {

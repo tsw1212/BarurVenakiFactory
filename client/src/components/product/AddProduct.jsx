@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { postRequest } from '../../modules/requests/server_requests_special';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/addProduct.css'
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import SelectProductType from './SelectProductType';
 
-
-const AddProduct = ({  setProductsHandler, setAddProduct }) => {
+const AddProduct = ({ setProductsHandler, setAddProduct, setSuccessMessage }) => {
     const token = useSelector((state) => state.app.token);
     const [formData, setFormData] = useState({
         name: '',
@@ -21,7 +20,6 @@ const AddProduct = ({  setProductsHandler, setAddProduct }) => {
         const file = event.target.files[0];
         if (file.type !== 'image/jpeg' && file.type !== "image/png" && file.type !== "image/gif") {
             alert('Please select a image file');
-
         }      
         setFormData({
             ...formData,
@@ -36,13 +34,13 @@ const AddProduct = ({  setProductsHandler, setAddProduct }) => {
             [name]: value
         });
     };
+
     const handleChangeType = (value) => {
         setFormData({
             ...formData,
             package: value
         });
     };
-
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -55,6 +53,8 @@ const AddProduct = ({  setProductsHandler, setAddProduct }) => {
             if (dataRequest.ok) {
                 await setProductsHandler("add", dataRequest.body.newProduct.id, dataRequest.body.newProduct);
                 await setAddProduct(false);
+                setSuccessMessage("Product added successfully");
+                setTimeout(() => setSuccessMessage(''), 10000); // Hide success message after 10 seconds
             } else {
                 alert('Failed to create product. Please try again.');
             }
@@ -76,11 +76,10 @@ const AddProduct = ({  setProductsHandler, setAddProduct }) => {
                     <label htmlFor="weight">משקל</label>
                     <input type="text" id="weight" name="weight" value={formData.weight} onChange={handleChange} required />
 
-                   <SelectProductType handleChangeType={handleChangeType}/>
+                   <SelectProductType handleChangeType={handleChangeType} />
 
                     <label htmlFor="imageFile">קובץ תמונה</label>
-                    
-                    <input type="file" id="imageFile"  name="imageFile" onChange={handleFileChange} accept="image/*" required />
+                    <input type="file" id="imageFile" name="imageFile" onChange={handleFileChange} accept="image/*" required />
 
                     <label htmlFor="price">מחיר</label>
                     <input type="text" id="price" name="price" value={formData.price} onChange={handleChange} required />

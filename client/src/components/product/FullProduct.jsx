@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -8,13 +7,12 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '../../css/productShort.css'
+import '../../css/productShort.css';
 import { getRequest } from '../../modules/requests/server_requests';
 import { useState } from 'react';
 import DeleteProduct from './DeleteProduct';
 import EditProduct from './EditProduct';
-import {  useSelector } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 
 export default function FullProduct({ productData, setProductsHandler }) {
   const token = useSelector((state) => state.app.token);
@@ -23,20 +21,19 @@ export default function FullProduct({ productData, setProductsHandler }) {
   const [deleteOn, setdeleteOn] = useState(false);
 
   function handleEdit(event) {
-    event.stopPropagation()
+    event.stopPropagation();
     setEditOn(true);
   }
-  function handleDelete(event) {
-    event.stopPropagation()
-    setdeleteOn(true);
 
+  function handleDelete(event) {
+    event.stopPropagation();
+    setdeleteOn(true);
   }
 
   return (
     <>
       <div>
-
-        <Card sx={{ maxWidth: 345 }} >
+        <Card sx={{ maxWidth: 345 }}>
           <CardActionArea>
             <CardMedia
               component="img"
@@ -59,18 +56,21 @@ export default function FullProduct({ productData, setProductsHandler }) {
           <CardActions>
             <div>
               <Tooltip describeChild title='מחק'>
-                <FontAwesomeIcon icon="fas fa-trash" onClick={(e) => handleDelete(e)} />
+                <FontAwesomeIcon className="icon delete-icon" icon="fas fa-trash" onClick={handleDelete} />
               </Tooltip>
               <Tooltip describeChild title='ערוך'>
-                <FontAwesomeIcon icon="fas fa-pencil-alt" onClick={(e) => handleEdit(e)} />
+                <FontAwesomeIcon className="icon edit-icon" icon="fas fa-pencil-alt" onClick={handleEdit} />
               </Tooltip>
             </div>
           </CardActions>
         </Card>
-
       </div>
-      {editOn && <EditProduct token={token} setProductsHandler={setProductsHandler} setEditOn={setEditOn} productData={productData}   />}
-      {deleteOn && <DeleteProduct token={token} setProductsHandler={setProductsHandler} setdeleteOn={setdeleteOn} productData={productData} />}
+      {editOn && (
+        <EditProduct token={token} setProductsHandler={setProductsHandler} setEditOn={setEditOn} productData={productData} />
+      )}
+      {deleteOn && (
+        <DeleteProduct token={token} setProductsHandler={setProductsHandler} setdeleteOn={setdeleteOn} productData={productData} />
+      )}
     </>
   );
 }

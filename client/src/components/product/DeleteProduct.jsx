@@ -6,6 +6,7 @@ import {  useSelector } from 'react-redux';
 
 
 const DeleteProduct = ({ productData,  setdeleteOn, setProductsHandler }) => {
+    const token = useSelector((state) => state.app.token);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

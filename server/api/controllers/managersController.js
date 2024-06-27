@@ -5,8 +5,8 @@ const mangerServices = require("../../services/managersServices");
 
 const managersController = {
     createManager: async (req, res) => {
-        // if ( req.securityLevel != 'manager')
-        //    return res.status(401).json({ error: "unauthorized" });
+        if ( req.securityLevel != 'manager')
+           return res.status(401).json({ error: "unauthorized" });
         try {
             const data = req.body;
             if(typeof data.id != 'string'){
