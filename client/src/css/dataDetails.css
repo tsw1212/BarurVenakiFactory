@@ -5,6 +5,7 @@
     gap: 10px;
     margin-top: 100px;
     grid-template-rows: auto; 
+    margin-right: 30%;
 
 }
 
@@ -16,26 +17,29 @@
     text-align: center;
     width: 30%;
     border-radius: 5px;
-    margin-right: 150px;
     border-left: black dashed 5px;
     padding-left: 300px;
 }
 
 .editForm_form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1%;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-padding-bottom: 20px;
-
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+    background-color: #fff;
+    border-left: black dashed 5px;
+    width: 50%;
+    text-align: right; 
+    direction: rtl; 
+    height: fit-content;
+    padding-left: 20px;
+    margin-top: 40px;
 }
 .editInput {
     background-color: #efe8e8;
-    width: 250px;
-    padding: 3%;
-    margin: 1vw;
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
@@ -69,6 +73,10 @@ padding-bottom: 20px;
         display: block;
         margin-left: 4vw;
         margin-top: 10vw;
+    }
+    .user_section {
+        width: 100%;
+        margin-bottom: 20px;
     }
 
   

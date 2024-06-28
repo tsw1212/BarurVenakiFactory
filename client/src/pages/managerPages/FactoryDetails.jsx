@@ -70,19 +70,19 @@ const FactoryDetails = () => {
             {alert && <h2>{alert}</h2>}
 
             {isEditing ? (
-                <div className='editForm_container'>
+                
                     <div className='editForm_form'>
-                        <label>שם: <input className='editInput' type="text" name="name" value={factory.name || ''} readOnly /></label><br />
-                        <label>אמייל: <input className='editInput' type="email" name="email" value={factory.email || ''} onChange={handleChange} /></label><br />
-                        <label>עיר: <input className='editInput' type="text" name="city" value={factory.city || ''} onChange={handleChange} /></label><br />
-                        <label>רחוב: <input className='editInput' type="text" name="street" value={factory.street || ''} onChange={handleChange} /></label><br />
-                        <label>מספר בית: <input className='editInput' type="text" name="houseNumber" value={factory.houseNumber || ''} onChange={handleChange} /></label><br />
-                        <label>מספר טלפון: <input className='editInput' type="text" name="phone" value={factory.phone || ''} onChange={handleChange} /></label><br />
-                        <label>סיסמא של מייל לאפליקציה: <input className='editInput' type="text" name="passwordEmail" value={factory.passwordEmail || ''} onChange={handleChange} /></label><br />
+                        <label>שם: </label><br></br><input className='editInput' type="text" name="name" value={factory.name || ''} readOnly /><br />
+                        <label>אמייל: </label><br></br><input className='editInput' type="email" name="email" value={factory.email || ''} onChange={handleChange} /><br />
+                        <label>עיר: </label><br></br><input className='editInput' type="text" name="city" value={factory.city || ''} onChange={handleChange} /><br />
+                        <label>רחוב: </label><br></br><input className='editInput' type="text" name="street" value={factory.street || ''} onChange={handleChange} /><br />
+                        <label>מספר בית: </label><br></br><input className='editInput' type="text" name="houseNumber" value={factory.houseNumber || ''} onChange={handleChange} /><br />
+                        <label>מספר טלפון:</label> <br></br><input className='editInput' type="text" name="phone" value={factory.phone || ''} onChange={handleChange} /><br />
+                        <label>סיסמא של מייל לאפליקציה: </label><br></br><input className='editInput' type="text" name="passwordEmail" value={factory.passwordEmail || ''} onChange={handleChange} /><br />
                         <button className='editButton' onClick={handleSave}>שמירה</button>
                         <button className='editButton' onClick={() => setIsEditing(false)}>ביטול</button>
                     </div>
-                </div>
+              
             ) : (
                 <div className='data_information'>
                     <h2>פרטי משתמש</h2>
