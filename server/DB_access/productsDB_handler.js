@@ -176,6 +176,72 @@ async function getProductByNameAndPackage(name, package) {
     });
 }
 
+async function getProductsPaged(offset, limit) {
+    return new Promise((resolve, reject) => {
+        const connection = Connect();
+        const sql = `SELECT * FROM Products LIMIT ?, ?`;
+        connection.query(sql, [offset, limit], (err, result) => {
+            connection.end();
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+async function getProductsShortListPaged(offset, limit) {
+    return new Promise((resolve, reject) => {
+        const connection = Connect();
+        const sql = `
+        SELECT 
+            p.name, 
+            p.imgUrl, 
+            prices.minPrice, 
+            prices.maxPrice
+        FROM 
+            (SELECT 
+                name, 
+                imgUrl 
+            FROM 
+                (SELECT 
+                    name, 
+                    imgUrl, 
+                    ROW_NUMBER() OVER (PARTITION BY name ORDER BY id) AS row_num
+                FROM Products
+             ) AS subquery
+            WHERE row_num = 1
+            ) AS p
+        JOIN 
+            (SELECT 
+             name, 
+             MIN(price) AS minPrice, 
+             MAX(price) AS maxPrice
+        FROM Products
+        GROUP BY name
+        ) AS prices
+    ON p.name = prices.name
+    LIMIT ?, ?;
+        `;
+        connection.query(sql, [offset, limit], (err, result) => {
+            connection.end();
+            if (err) {
+                reject(err);
+            } else {
+                const groupedProducts = result.map(row => ({
+                    name: row.name,
+                    imgUrl: row.imgUrl,
+                    minPrice: row.minPrice,
+                    maxPrice: row.maxPrice
+                }));
+                resolve(groupedProducts);
+            }
+        });
+    });
+}
+
+
 module.exports = {
     getProductById,
     createProduct,
@@ -185,5 +251,7 @@ module.exports = {
     getAllShortListProducts,
     updateProduct,
     getProductByNameAndPackage,
-    getNextProductId
+    getNextProductId,
+    getProductsPaged,
+    getProductsShortListPaged
 };

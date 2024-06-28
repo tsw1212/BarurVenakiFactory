@@ -19,36 +19,43 @@ function ManagerProducts({ products, setProducts, setProductsHandler }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState('');
+  const [page, setPage] = useState(1);
+  const [hasMoreProducts, setHasMoreProducts] = useState(true);
   let productsRedux = useSelector((state) => state.details.products);
   const dispatch = useDispatch();
   let token = useSelector((state) => state.app.token);
   const status = useSelector((state) => state.app.status);
 
   useEffect(() => {
-    async function getProducts() {
-      setLoading(false);
-        if (token === '') {
-          token = localStorage.getItem('token');
+    async function fetchProducts(page) {
+      setLoading(true);
+      if (token === '') {
+        token = localStorage.getItem('token');
+      }
+      const responseData = await getRequest(`http://localhost:3000/products/paged/${page}`, token);
+      if (responseData.ok) {
+        const newProducts = responseData.body;
+        if (newProducts.length < 10) {
+          setHasMoreProducts(false);
         }
-        if (productsRedux.length == 0) {
+        if (page == 1) {
+          await dispatch({ type: 'SET_PRODUCTS', payload: newProducts });
+          await setProducts(newProducts);
 
-        const responseData = await getRequest('http://localhost:3000/products', token);
-        if (responseData.ok) {
-          await dispatch({ type: 'SET_PRODUCTS', payload: responseData.body });
-          await setProducts(responseData.body);
-          setLoading(false);
-        } else {
-          alert('בעיה בטעינת הנתונים. נסה שוב');
         }
-      } else {
-        setProducts(productsRedux);
+        else {
+          await setProducts([...productsRedux, ...newProducts]);
+          await dispatch({ type: 'SET_PRODUCTS', payload: [...productsRedux, ...newProducts] });
+
+        }
         setLoading(false);
-
+      } else {
+        alert('בעיה בטעינת הנתונים. נסה שוב');
       }
     }
 
-    getProducts();
-  }, [setProducts]);
+    fetchProducts(page);
+  }, [page]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -57,6 +64,10 @@ function ManagerProducts({ products, setProducts, setProductsHandler }) {
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const loadMoreProducts = () => {
+    setPage(prevPage => prevPage + 1);
+  };
 
   return (
     <div>
@@ -89,6 +100,11 @@ function ManagerProducts({ products, setProducts, setProductsHandler }) {
               <div className="noProductsMessage">לא נמצאו מוצרים תואמים</div>
             )}
           </div>
+          {hasMoreProducts && !loading && (
+            <button className="loadMoreButton" onClick={loadMoreProducts}>
+              טען עוד מוצרים
+            </button>
+          )}
           <Tooltip className="add_product_button" onClick={() => setAddProduct(true)} describeChild title='הוסף מוצר'>
             <FontAwesomeIcon icon={faPlusSquare} className='addIcon' />
           </Tooltip>

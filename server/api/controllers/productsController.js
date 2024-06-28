@@ -127,6 +127,34 @@ const productsController = {
             console.error("Error deleting product:", error);
             res.status(500).json({ error: "server internal error" });
         }
+    },
+    getProductsPaged: async (req, res) => {
+        try {
+            const { page } = req.params;
+            const pageNumber = parseInt(page);
+            const pageSize = 10; // Number of products per page
+
+            const offset = (pageNumber - 1) * pageSize;
+            const products = await ProductsServices.getProductsPaged(offset, pageSize);
+
+            res.status(200).json(products);
+        } catch (error) {
+            res.status(500).json({ error: "server internal error" });
+        }
+    },
+    getProductsShortListPaged: async (req, res) => {
+        try {
+            const { page } = req.params;
+            const pageNumber = parseInt(page);
+            const pageSize = 10;
+
+            const offset = (pageNumber - 1) * pageSize;
+            const products = await ProductsServices.getProductsShortListPaged(offset, pageSize);
+
+            res.status(200).json(products);
+        } catch (error) {
+            res.status(500).json({ error: "server internal error" });
+        }
     }
 }
 

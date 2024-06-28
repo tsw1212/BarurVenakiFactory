@@ -17,6 +17,10 @@ const UsersServices = {
         return await DB_actions.getAllUsers();
     },
 
+    getUsersPaged: async (offset, limit) => { 
+        return await DB_actions.getUsersPaged(offset, limit);;
+    },
+
     getUserById: async (id) => {
          return await DB_actions.getUserById(id);
     },

@@ -27,6 +27,11 @@ const OrdersServices = {
         return await DB_actions.getAllOrders();
     },
 
+    getOrdersByPage: async (page, pageSize) => {
+        const offset = (page - 1) * pageSize;
+        return await DB_actions.getOrdersByPage(offset, pageSize);
+    },
+
     getOrderById: async (id) => {
         return await DB_actions.getOrderById(id);
     },

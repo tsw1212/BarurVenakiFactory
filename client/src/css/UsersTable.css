@@ -18,6 +18,10 @@
     color: #333;
 }
 
+.loadMoreButton{
+    margin-top: 20px;
+}
+
 
 .users_table tbody tr:nth-child(even) {
     background-color: #f9f9f9;

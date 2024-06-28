@@ -17,5 +17,11 @@ app.put('/:id', upload.single('img'),productsController.updateProduct);
 
 app.delete('/:id', productsController.deleteProduct);
 
+app.get('/paged/:page', productsController.getProductsPaged);
+
+app.get('/shortListPaged/:page', productsController.getProductsShortListPaged);
+
+
+
 
 module.exports = app;

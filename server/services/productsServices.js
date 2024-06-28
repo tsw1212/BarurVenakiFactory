@@ -48,6 +48,25 @@ const ProductsServices = {
             return { ...productWithoutImg, img: img };
  
     },
+    getProductsPaged: async (offset, limit) => {
+        const products = await DB_actions.getProductsPaged(offset, limit);
+        const updatedProducts = await Promise.all(products.map(async (product) => {
+            const { imgUrl, ...productWithoutImg } = product;
+            const img = await converts.convertUrlToImageFile(product.imgUrl);
+            return { ...productWithoutImg, img: img };
+        }));
+        return updatedProducts;
+    },
+
+    getProductsShortListPaged: async (offset, limit) => {
+        const products = await DB_actions.getProductsShortListPaged(offset, limit);
+        const updatedProducts = await Promise.all(products.map(async (product) => {
+            const { imgUrl, ...productWithoutImg } = product;
+            const img = await converts.convertUrlToImageFile(product.imgUrl);
+            return { ...productWithoutImg, img: img };
+        }));
+        return updatedProducts;
+    },
 
     deleteProduct: async (id) => {
         await DB_actions.deleteProduct(id);

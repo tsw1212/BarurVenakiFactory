@@ -7,7 +7,6 @@ import Loading from '../../components/Loading';
 import ProductFilters from '../../components/product/ProductFilters';
 import { useSelector, useDispatch } from 'react-redux';
 
-
 function Products({ products, setProducts }) {
   const [worngRequest, setWorngRequest] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -15,29 +14,37 @@ function Products({ products, setProducts }) {
   const [selectedPackage, setSelectedPackage] = useState('');
   const [priceRange, setPriceRange] = useState([0, 300]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasMoreProducts, setHasMoreProducts] = useState(true);
   let token = useSelector((state) => state.app.token);
   let productsRedux = useSelector((state) => state.details.products);
   const dispatch = useDispatch();
 
   useEffect(() => {
-
     async function fetchData() {
       try {
-       
-          if (token === '') {
-            token = localStorage.getItem('token');
-          }
-          if (productsRedux.length == 0) {
-          const response = await getRequest(`http://localhost:3000/products/shortList`, token);
-          if (response.ok) {
-            await dispatch({ type: 'SET_PRODUCTS', payload: response.body });
-            await setProducts(response.body);
-          } else {
-            setWorngRequest(true);
-          }
+        setLoading(true);
+        if (token === '') {
+          token = localStorage.getItem('token');
         }
-        else {
-          await setProducts(productsRedux);
+        const response = await getRequest(`http://localhost:3000/products/shortListPaged/${page}`, token);
+        if (response.ok) {
+          const newProducts = response.body;
+          if (newProducts.length < 10) {
+            setHasMoreProducts(false);
+          }
+          if (page == 1) {
+            await dispatch({ type: 'SET_PRODUCTS', payload: newProducts });
+            await setProducts(newProducts);
+
+          }
+          else {
+            await setProducts([...productsRedux, ...newProducts]);
+            await dispatch({ type: 'SET_PRODUCTS', payload: [...productsRedux, ...newProducts] });
+
+          }
+        } else {
+          setWorngRequest(true);
         }
       } catch (error) {
         console.error('Failed to fetch products:', error);
@@ -47,7 +54,7 @@ function Products({ products, setProducts }) {
       }
     }
     fetchData();
-  }, [setProducts]);
+  }, [page]);
 
   useEffect(() => {
     const filterProducts = () => {
@@ -73,6 +80,10 @@ function Products({ products, setProducts }) {
     setPriceRange(newValue);
   };
 
+  const loadMoreProducts = () => {
+    setPage(prevPage => prevPage + 1);
+  };
+
   return (
     worngRequest ? <WorngRequest className='wrongRequest' setWorngRequest={setWorngRequest} /> :
       <div>
@@ -96,6 +107,11 @@ function Products({ products, setProducts }) {
               <p>לא נמצאו מוצרים התואמים את החיפוש שלך</p>
             )}
           </div>
+        )}
+        {hasMoreProducts && !loading && (
+          <button className="loadMoreButton" onClick={loadMoreProducts}>
+            טען עוד מוצרים
+          </button>
         )}
       </div>
   );

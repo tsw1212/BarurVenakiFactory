@@ -9,6 +9,9 @@ app.get('/:id',usersControllers.getUserById );
 
 app.get('/:id/orders',usersControllers.getUsersOrders);
 
+app.get('/paged/:page', usersControllers.getUsersPaged);
+
+
 app.post('/',usersControllers.createUser );
 
 app.put('/:id',usersControllers.updateUser );

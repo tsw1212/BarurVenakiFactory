@@ -15,6 +15,20 @@ const OrderController = {
             }
         }
     },
+    getOrdersByPage: async (req, res) => {
+        if (req.securityLevel != "manager") {
+            res.status(401).json({ error: "unauthorized" });
+        } else {
+            try {
+                const page = parseInt(req.params.page, 10) || 1;
+                const pageSize = 10;
+                let paginatedOrders = await OrdersServices.getOrdersByPage(page, pageSize);
+                res.status(200).json(paginatedOrders);
+            } catch (error) {
+                res.status(500).json({ error: "server internal error" });
+            }
+        }
+    },
     getOrderById: async (req, res) => {
         if (req.securityLevel != "user" && req.securityLevel != 'manager')
             return res.status(401).json({ error: "unauthorized" });

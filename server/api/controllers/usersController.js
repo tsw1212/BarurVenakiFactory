@@ -41,6 +41,22 @@ const usersController = {
         }
     }
     },
+
+    getUsersPaged: async (req, res) => {
+        try {
+            const { page } = req.params;
+            const pageNumber = parseInt(page);
+            const pageSize = 10; 
+
+            const offset = (pageNumber - 1) * pageSize;
+            const users = await UsersServices.getUsersPaged(offset, pageSize);
+
+            res.status(200).json(users);
+        } catch (error) {
+            res.status(500).json({ error: "server internal error" });
+        }
+    },
+    
     getUsersOrders: async (req, res) => {
         if (req.securityLevel != "user" && req.securityLevel != 'manager')
             res.status(401).json({ error: "unauthorized" });

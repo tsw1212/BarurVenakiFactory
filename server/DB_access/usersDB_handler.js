@@ -85,6 +85,21 @@ function getAllUsers() {
     });
   }
   
+  async function getUsersPaged(offset, limit) {
+    return new Promise((resolve, reject) => {
+        const connection = Connect();
+        const sql = `SELECT * FROM Users LIMIT ?, ?`;
+        connection.query(sql, [offset, limit], (err, result) => {
+            connection.end();
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
 
 async function getUserById(id) {
     return new Promise((resolve, reject) => {
@@ -155,5 +170,6 @@ module.exports = {
     deleteUser,
     updateUser,
     getUserOrdersDetails,
-    getUserByEmail
+    getUserByEmail,
+    getUsersPaged
 };

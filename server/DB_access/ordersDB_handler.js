@@ -112,6 +112,51 @@ async function getAllOrders() {
     });
 }
 
+async function getOrdersByPage(offset, limit) {
+    return new Promise(async (resolve, reject) => {
+        const connection = await Connect();
+        try {
+            let sql = `
+                SELECT 
+                    O.id AS orderId, 
+                    O.userId, 
+                    O.date, 
+                    O.status, 
+                    O.remarks, 
+                    O.deliveryDate, 
+                    O.totalPrice,  
+                    U.username,   
+                    U.city,       
+                    P.productId, 
+                    P.amount, 
+                    E.id AS eventId, 
+                    E.text AS eventText, 
+                    E.date AS eventDate
+                FROM 
+                    Orders O
+                LEFT JOIN 
+                    ProductOrder P ON O.id = P.orderId
+                LEFT JOIN 
+                    Events E ON O.id = E.orderId
+                LEFT JOIN 
+                    Users U ON O.userId = U.id;
+            `;
+            const orderDetails = await query(connection, sql);
+
+            const groupedOrders = groupByOrderId(orderDetails);
+
+            const paginatedOrders = Object.values(groupedOrders).slice(offset, offset + limit);
+
+            resolve(paginatedOrders);
+        } catch (error) {
+            reject(new Error('Error fetching paginated orders: ' + error));
+        } finally {
+            connection.end();
+        }
+    });
+}
+
+
 async function getOrderById(orderId) {
     return new Promise(async (resolve, reject) => {
         const connection = await Connect();
@@ -225,5 +270,6 @@ module.exports = {
     getAllOrders,
     getOrderById,
     deleteOrder,
-    updateOrder
+    updateOrder,
+    getOrdersByPage
 };
