@@ -87,8 +87,6 @@ function Login() {
 
     return (
         <div>
-            <GuestHeader/>
-            <NavLink to="/home"> <img className='logoImg' src='../../../images/logo.png' alt='logo' /></NavLink>
                 <div className='LoginDiv'>
                     <div className='login_container'>
                         {!resetPasswordForm && < form onSubmit={login} className='login_form'>
@@ -115,7 +113,6 @@ function Login() {
 
                     </div>
                 </div>
-                <Footer/>
 
         </div>
     )

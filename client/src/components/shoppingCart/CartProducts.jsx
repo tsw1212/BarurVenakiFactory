@@ -150,11 +150,11 @@ function CartProducts({ setChosenCartProducts }) {
     async function handleContinueToOrder() {
         const chosenProducts = products.filter(product => product.choose);
         setChosenCartProducts(chosenProducts);
-        navigate('/home/shopping_cart/order');
+        navigate('/shopping_cart/order');
     }
     const handleRowDoubleClick = (e) => {
         const rowData = e.data;
-        navigate(`/home/products/${rowData.name}`);
+        navigate(`/products/${rowData.name}`);
     };
 
     return (

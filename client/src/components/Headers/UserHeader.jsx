@@ -35,7 +35,7 @@ function UserHeader({ logOut, countCartItems, setCountCartItems }) {
                             <NumbersOfItem countCartItems={countCartItems} />
                         </div>
                     </NavLink>
-                    <NavLink className='navLinkHeader' to="/home/contactUs">צור קשר</NavLink>
+                    <NavLink className='navLinkHeader' to="contactUs">צור קשר</NavLink>
                     <NavLink className='navLinkHeader' to="orders">הזמנות קודמות</NavLink>
                     <NavLink className='navLinkHeader' to="products">מוצרים</NavLink>
                     <NavLink className='navLinkHeader' to="." onClick={() => logOut()}>

@@ -22,7 +22,7 @@ const UsersTable = ({ setFilteredUsers, filteredUsers }) => {
                 if (token === '') {
                     token = localStorage.getItem('token');
                 }
-                // if (usersRedux.length == 0) {
+                if (usersRedux.length == 0 || page != 1) {
 
                     const responseData = await getRequest(`http://localhost:3000/users/paged/${page}`, token);
                     if (responseData.ok) {
@@ -36,23 +36,25 @@ const UsersTable = ({ setFilteredUsers, filteredUsers }) => {
 
                         }
                         else {
-                            await dispatch({ type: 'SET_USERS', payload: [...usersRedux, ...responseData.body] });
-                            await setUsers([...usersRedux, ...responseData.body] );
+                            await setUsers([...usersRedux, ...responseData.body]);
                         }
 
                         setLoading(false);
                     }
-                // } else {
-                //     setUsers(usersRedux);
-                //     setLoading(false);
-                // }
+                } else {
+                    if(usersRedux.length <=10){
+                        setHasMoreUsers(false);
+                      }
+                    setUsers(usersRedux);
+                    setLoading(false);
+                }
             } catch (error) {
                 alert('ישנה בעיה, בבקשה נסה שוב');
             }
         };
 
         fetchUsers();
-    }, [token,page]);
+    }, [token, page]);
 
     useEffect(() => {
         const lowercasedQuery = searchQuery.toLowerCase();
@@ -66,8 +68,8 @@ const UsersTable = ({ setFilteredUsers, filteredUsers }) => {
 
     const loadMoreUsers = () => {
         setPage(prevPage => prevPage + 1);
-      };
-    
+    };
+
 
     return (
         <>

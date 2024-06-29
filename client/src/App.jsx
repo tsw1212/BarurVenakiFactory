@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import HomeNavBar from './pages/HomeNavBar';
@@ -27,7 +27,7 @@ import { getRequest } from './modules/requests/server_requests';
 function App() {
   const [chosenCartProducts, setChosenCartProducts] = useState([]);
   const [countCartItems, setCountCartItems] = useState(0);
-  let token=useSelector((state) =>state.app.token);
+  let token = useSelector((state) => state.app.token);
 
 
 
@@ -51,7 +51,7 @@ function App() {
           updatedUser = localStorage.getItem("currentUser");
           dispatch({ type: 'SET_TOKEN', payload: updateToken });
           dispatch({ type: 'SET_STATUS', payload: updatedStatus });
-          dispatch({ type: 'SET_USER', payload:JSON.parse(updatedUser)  });
+          dispatch({ type: 'SET_USER', payload: JSON.parse(updatedUser) });
         }
       }
     };
@@ -68,34 +68,34 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Navigate to='/home' replace />} />
-        <Route path='home' element={<HomeNavBar setCountCartItems={setCountCartItems}  countCartItems={countCartItems}    />}>
-          <Route index element={<Home   />} />
+        <Route path='/' element={<HomeNavBar setCountCartItems={setCountCartItems} countCartItems={countCartItems} />}>
+          <Route path='home' element={<Home />} />
           <Route path='contactUs' element={< ContactUs />} />
-          <Route path='userDetails' element={<UserDetails  />} />
-          <Route path='factoryDetails' element={<FactoryDetails  />} />
-          <Route path='users' element={<Users  />} />
+          <Route path='userDetails' element={<UserDetails />} />
+          <Route path='factoryDetails' element={<FactoryDetails />} />
+          <Route path='users' element={<Users />} />
           <Route path='products'>
-            <Route index element={<Products   />} />
-            <Route path=':nameProduct' element={<Product setCountCartItems={setCountCartItems}   />} />
+            <Route index element={<Products />} />
+            <Route path=':nameProduct' element={<Product setCountCartItems={setCountCartItems} />} />
           </Route>
           <Route path='allOrders'>
-            <Route index element={<AllOrders   />} />
-            <Route path=':OrderId' element={<Order   />} />
+            <Route index element={<AllOrders />} />
+            <Route path=':OrderId' element={<Order />} />
           </Route>
           <Route path='orders'  >
-            <Route index element={<PastOrders   />} />
-            <Route path=':OrderId' element={<Order   />} />
+            <Route index element={<PastOrders />} />
+            <Route path=':OrderId' element={<Order />} />
           </Route>
 
           <Route path='shopping_cart'>
-            <Route index element={<ShoppingCart  chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts} />} />
-            <Route path='order' element={<CurrentOrderDetails  chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts} />} />
+            <Route index element={<ShoppingCart chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts} />} />
+            <Route path='order' element={<CurrentOrderDetails chosenCartProducts={chosenCartProducts} setChosenCartProducts={setChosenCartProducts} />} />
             <Route path='confirmation' element={<Confirmation />} />
           </Route>
+          <Route path='login' element={<Login />} />
+          <Route path='signup' element={<Signup />} />
         </Route>
-        <Route path='login' element={<Login    />} />
-        <Route path='signup' element={<Signup    />} />
-        <Route path='signup' element={<Signup    />} />
+
         <Route path='*' element={<NotFound />} />
 
       </Routes>

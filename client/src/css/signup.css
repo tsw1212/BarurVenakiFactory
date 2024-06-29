@@ -8,9 +8,11 @@
     width: 30vw;
     margin-left: 25vw;
     height: auto;
+    margin-top: 15vh;
   }
   
   .signup_form {
+   
     direction: rtl;
     width: 100%;
     display: flex;

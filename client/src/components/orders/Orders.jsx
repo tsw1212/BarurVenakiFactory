@@ -21,7 +21,7 @@ function Orders() {
   let token = useSelector(state => state.app.token);
   let status = useSelector(state => state.app.status);
   let user = useSelector(state => state.app.user);
-  let sortedOrders = useSelector(state => state.details.orders);
+  let reduxSortedOrders = useSelector(state => state.details.orders);
   const dispatch = useDispatch()
   const [orders, setOrders] = useState([]);
   const [wrongRequest, setWorngRequest] = useState(false);
@@ -42,31 +42,61 @@ function Orders() {
 
       }
       if (status === 'manager') {
-        responseData = await getRequest(`http://localhost:3000/orders/paged/${page}`, token);
-        if (responseData.ok) {
-          if (responseData.body.length < 10) {
+        if (reduxSortedOrders.length == 0 || page != 1) {
+          responseData = await getRequest(`http://localhost:3000/orders/paged/${page}`, token);
+          if (responseData.ok) {
+            if (responseData.body.length < 10) {
+              setHasMoreOrders(false);
+            }
+
+            let newOrders = [...orders, ...responseData.body]
+            reduxSortedOrders = newOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
+            if(page==1){
+              await dispatch({ type: 'SET_ORDERS', payload: reduxSortedOrders });
+              await setOrders(reduxSortedOrders);
+              setFilteredOrders(reduxSortedOrders);
+              setLoading(false);
+            }
+            else{
+              await setOrders(reduxSortedOrders);
+              setFilteredOrders(reduxSortedOrders);
+              setLoading(false);
+            }
+          }
+          else{
+            setWorngRequest(true);
+
+          }
+        }
+        else {
+          if(reduxSortedOrders.length <=10){
             setHasMoreOrders(false);
           }
-
-          let newOrders = [...orders, ...responseData.body]
-          sortedOrders = newOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
+          setOrders(reduxSortedOrders);
+          setLoading(false);
+          setFilteredOrders(reduxSortedOrders);
         }
       } else {
-        responseData = await getRequest(`http://localhost:3000/users/${user.id}/orders`, token);
-        if (responseData.ok) {
-          sortedOrders = responseData.body.sort((a, b) => new Date(b.date) - new Date(a.date));
+        if (reduxSortedOrders.length == 0) {
+          responseData = await getRequest(`http://localhost:3000/users/${user.id}/orders`, token);
+          if (responseData.ok) {
+            reduxSortedOrders = responseData.body.sort((a, b) => new Date(b.date) - new Date(a.date));
+            await dispatch({ type: 'SET_ORDERS', payload: reduxSortedOrders });
+            await setOrders(reduxSortedOrders);
+            setFilteredOrders(reduxSortedOrders);
+            setLoading(false);
+          } else {
+            setWorngRequest(true);
+          }
+        }
+        else {
+          setOrders(reduxSortedOrders);
+          setLoading(false);
+          setFilteredOrders(reduxSortedOrders);
         }
       }
 
-      if (responseData.ok) {
-        await dispatch({ type: 'SET_ORDERS', payload: sortedOrders });
-        console.log(sortedOrders);
-        await setOrders(sortedOrders);
-        setFilteredOrders(sortedOrders);
-        setLoading(false);
-      } else {
-        setWorngRequest(true);
-      }
+
     }
     getOrders();
   }, [wrongRequest, page]);

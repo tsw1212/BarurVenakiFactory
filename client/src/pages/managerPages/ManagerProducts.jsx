@@ -20,7 +20,7 @@ function ManagerProducts({ products, setProducts, setProductsHandler }) {
   const [loading, setLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState('');
   const [page, setPage] = useState(1);
-  const [hasMoreProducts, setHasMoreProducts] = useState(true);
+  const [hasMoreProducts, setHasMoreProducts] = useState(false);
   let productsRedux = useSelector((state) => state.details.products);
   const dispatch = useDispatch();
   let token = useSelector((state) => state.app.token);
@@ -32,25 +32,34 @@ function ManagerProducts({ products, setProducts, setProductsHandler }) {
       if (token === '') {
         token = localStorage.getItem('token');
       }
-      const responseData = await getRequest(`http://localhost:3000/products/paged/${page}`, token);
-      if (responseData.ok) {
-        const newProducts = responseData.body;
-        if (newProducts.length < 10) {
+      if (productsRedux.length == 0 || page != 1) {
+        const responseData = await getRequest(`http://localhost:3000/products/paged/${page}`, token);
+        if (responseData.ok) {
+          const newProducts = responseData.body;
+          if (newProducts.length < 10) {
+            setHasMoreProducts(false);
+          }
+          if (page == 1) {
+            await dispatch({ type: 'SET_PRODUCTS', payload: newProducts });
+            await setProducts(newProducts);
+
+          }
+          else {
+            await setProducts([...productsRedux, ...newProducts]);
+
+          }
+          setLoading(false);
+
+        } else {
+          alert('בעיה בטעינת הנתונים. נסה שוב');
+        }
+      }
+      else{
+        if(productsRedux.length <=10){
           setHasMoreProducts(false);
         }
-        if (page == 1) {
-          await dispatch({ type: 'SET_PRODUCTS', payload: newProducts });
-          await setProducts(newProducts);
-
-        }
-        else {
-          await setProducts([...productsRedux, ...newProducts]);
-          await dispatch({ type: 'SET_PRODUCTS', payload: [...productsRedux, ...newProducts] });
-
-        }
+        setProducts(productsRedux);
         setLoading(false);
-      } else {
-        alert('בעיה בטעינת הנתונים. נסה שוב');
       }
     }
 

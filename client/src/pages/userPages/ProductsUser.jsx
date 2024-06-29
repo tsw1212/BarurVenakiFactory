@@ -27,6 +27,7 @@ function Products({ products, setProducts }) {
         if (token === '') {
           token = localStorage.getItem('token');
         }
+        if (productsRedux.length == 0 || page != 1) {
         const response = await getRequest(`http://localhost:3000/products/shortListPaged/${page}`, token);
         if (response.ok) {
           const newProducts = response.body;
@@ -40,12 +41,19 @@ function Products({ products, setProducts }) {
           }
           else {
             await setProducts([...productsRedux, ...newProducts]);
-            await dispatch({ type: 'SET_PRODUCTS', payload: [...productsRedux, ...newProducts] });
 
           }
         } else {
           setWorngRequest(true);
         }
+      }
+      else{
+        if(productsRedux.length <=10){
+          setHasMoreProducts(false);
+        }
+        setProducts(productsRedux);
+        setLoading(false);
+      }
       } catch (error) {
         console.error('Failed to fetch products:', error);
         setWorngRequest(true);
