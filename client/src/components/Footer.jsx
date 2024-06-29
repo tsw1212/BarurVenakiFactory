@@ -57,8 +57,8 @@ const Footer = ({ }) => {
           </iframe>
         </div>
       </div>
-      <p className="footer-thankyou">תודה שבחרתם במפעל קטניות ואורז פרימיום – המקום בו איכות פוגשת נוחות!</p>
-    </footer>
+      <p className="footer-thankyou">תודה שבחרתם במפעל קטניות ואורז פרימיום – המקום בו איכות פוגשת נוחות</p>
+      </footer>
   );
 };
 

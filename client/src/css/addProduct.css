@@ -12,6 +12,9 @@
     border-radius: 8px;
     padding-right: 40px;
 }
+.css-svzhua-MuiPaper-root-MuiAlert-root{
+    margin-top: 10vh;
+}
 
 .createProduct_form {
     display: flex;

@@ -119,13 +119,13 @@ async function insertIntoCart() {
     const sql = 'INSERT INTO Cart (userId, productId, amount, choose) VALUES ?';
     const values = [
         [1, 1, 2, true],
-        [2, 3, 1, false],
-        [3, 8, 4, true],
-        [4, 9, 1, false],
-        [5, 1, 3, true],
-        [6, 3, 2, true],
-        [7, 8, 1, false],
-        [8, 9, 5, true]
+        [2, 2, 1, false],
+        [3, 5, 4, true],
+        [1, 9, 1, false],
+        [1, 1, 3, true],
+        [3, 6, 2, true],
+        [3, 2, 1, false],
+        [3, 9, 5, true]
     ];
     connection.query(sql, [values], (err, result) => {
         if (err) throw err;
@@ -157,7 +157,7 @@ function insert(params) {
    // insertIntoProductOrder();
     // insertIntoManagers();
     // insertIntoPasswords();
-    //insertIntoCart();
+    insertIntoCart();
   //  insertIntoFactory();
 }
 

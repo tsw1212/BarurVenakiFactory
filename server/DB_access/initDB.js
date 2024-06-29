@@ -174,7 +174,7 @@ const createManagersTable = () => {
           amount INT NOT NULL,
           choose BOOLEAN NOT NULL DEFAULT false,
           FOREIGN KEY (userId) REFERENCES Users(id),
-          FOREIGN KEY (productId) REFERENCES Products(id)
+          FOREIGN KEY (productId) REFERENCES Products(id) ON DELETE CASCADE
       )
     `;
 

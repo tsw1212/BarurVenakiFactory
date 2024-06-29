@@ -13,8 +13,7 @@ const factoryController = {
     },
 
     getFactoryByName: async (req, res) => {
-        if (req.securityLevel != 'manager'&&req.securityLevel !='user')
-         return   res.status(401).json({ error: "unauthorized" });
+   
         const name = req.params.name;
         try {
             const factory = await FactoryServices.getFactoryByName(name);
