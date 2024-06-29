@@ -27,6 +27,10 @@ function HomeNavBar({ countCartItems, setCountCartItems }) {
             await dispatch({ type: 'SET_TOKEN', payload: dataRequest.token });
         }
         await dispatch({ type: 'SET_STATUS', payload: 'guest' });
+        await dispatch({ type: 'SET_USERS', payload: []});
+        await dispatch({ type: 'SET_PRODUCTS', payload: []});
+        await dispatch({ type: 'SET_ORDERS', payload: []});
+
         await dispatch({ type: 'SET_USER', payload: {} });
         await localStorage.removeItem('currentUser');
         await localStorage.removeItem('status');

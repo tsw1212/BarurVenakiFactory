@@ -42,7 +42,7 @@ const UsersTable = ({ setFilteredUsers, filteredUsers }) => {
                         setLoading(false);
                     }
                 } else {
-                    if(usersRedux.length <=10){
+                    if(usersRedux.length <10){
                         setHasMoreUsers(false);
                       }
                     setUsers(usersRedux);

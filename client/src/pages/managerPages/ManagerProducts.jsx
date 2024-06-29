@@ -20,7 +20,7 @@ function ManagerProducts({ products, setProducts, setProductsHandler }) {
   const [loading, setLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState('');
   const [page, setPage] = useState(1);
-  const [hasMoreProducts, setHasMoreProducts] = useState(false);
+  const [hasMoreProducts, setHasMoreProducts] = useState(true);
   let productsRedux = useSelector((state) => state.details.products);
   const dispatch = useDispatch();
   let token = useSelector((state) => state.app.token);
@@ -55,7 +55,7 @@ function ManagerProducts({ products, setProducts, setProductsHandler }) {
         }
       }
       else{
-        if(productsRedux.length <=10){
+        if(productsRedux.length <10){
           setHasMoreProducts(false);
         }
         setProducts(productsRedux);

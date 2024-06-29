@@ -69,13 +69,14 @@ function Orders() {
           }
         }
         else {
-          if(reduxSortedOrders.length <=10){
+          if(reduxSortedOrders.length <10){
             setHasMoreOrders(false);
           }
           setOrders(reduxSortedOrders);
           setLoading(false);
           setFilteredOrders(reduxSortedOrders);
         }
+       
       } else {
         if (reduxSortedOrders.length == 0) {
           responseData = await getRequest(`http://localhost:3000/users/${user.id}/orders`, token);

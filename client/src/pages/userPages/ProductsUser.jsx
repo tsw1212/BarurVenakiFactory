@@ -48,7 +48,7 @@ function Products({ products, setProducts }) {
         }
       }
       else{
-        if(productsRedux.length <=10){
+        if(productsRedux.length <10){
           setHasMoreProducts(false);
         }
         setProducts(productsRedux);

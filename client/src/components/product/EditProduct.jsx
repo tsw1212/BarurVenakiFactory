@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { putRequest } from '../../modules/requests/server_requests_special';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/editProduct.css';
@@ -6,13 +6,21 @@ import { OverlayPanel } from 'primereact/overlaypanel';
 import { Button } from 'primereact/button';
 import { useSelector } from 'react-redux';
 import SelectProductType from './SelectProductType';
+import { Alert } from '@mui/material';
 
-
-const EditProduct = ({ setProductsHandler, setEditOn,setSuccessMessage, productData }) => {
+const EditProduct = ({ setProductsHandler, setEditOn, productData }) => {
     const token = useSelector((state) => state.app.token);
 
     const [formData, setFormData] = useState(productData);
+    const [showAlert, setShowAlert] = useState(false);
     const op = useRef(null);
+
+    useEffect(() => {
+        if (showAlert) {
+            const timer = setTimeout(() => setShowAlert(false), 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [showAlert]);
 
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
@@ -58,13 +66,12 @@ const EditProduct = ({ setProductsHandler, setEditOn,setSuccessMessage, productD
             if (dataRequest.ok) {
                 await setProductsHandler("update", dataRequest.body.newProduct.id, dataRequest.body.newProduct);
                 setEditOn(false);
-                setSuccessMessage("Product edited successfully");
-                setTimeout(() => setSuccessMessage(''), 10000);
+                setShowAlert(true);
             } else {
                 alert('שגיאה בבקשה נסה שוב');
             }
         } catch (error) {
-            console.error('Error creating product:', error);
+            console.error('Error updating product:', error);
             alert('שגיאה.');
         }
     };
@@ -75,6 +82,7 @@ const EditProduct = ({ setProductsHandler, setEditOn,setSuccessMessage, productD
             <div className='editProduct_container'>
                 <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setEditOn(false)} />
                 <form onSubmit={handleSubmit} className='createProduct_form'>
+                    {showAlert && <Alert severity="success" style={{ marginTop: '15vh' }}>המוצר עודכן בהצלחה</Alert>}
                     <label htmlFor="name">שם</label>
                     <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
 
@@ -82,7 +90,6 @@ const EditProduct = ({ setProductsHandler, setEditOn,setSuccessMessage, productD
                     <input type="text" id="weight" name="weight" value={formData.weight} onChange={handleChange} required />
 
                     <SelectProductType handleChangeType={handleChangeType} value={formData.package} />
-
 
                     <label htmlFor="imageFile">תמונת מוצר</label>
                     <input type="file" id="imageFile" name="imageFile" onChange={handleFileChange} accept="image/*" />
