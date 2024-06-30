@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import {  CardActionArea, CardActions } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/productShort.css'
+
 import {  useSelector } from 'react-redux';
 
 

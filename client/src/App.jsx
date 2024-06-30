@@ -14,7 +14,7 @@ import Signup from './pages/Signup';
 import PastOrders from './pages/userPages/PastOrders';
 import CurrentOrderDetails from './pages/userPages/CurrentOrderDetails';
 import Products from './pages/Products';
-import Order from './pages/managerPages/Order';
+import Order from './pages/Order';
 import FactoryDetails from './pages/managerPages/FactoryDetails';
 import NotFound from './pages/NotFound';
 import ContactUs from './pages/ContactUs';

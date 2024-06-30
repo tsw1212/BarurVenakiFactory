@@ -18,7 +18,6 @@ const CartController = {
           return  res.status(401).json({ error: "unauthorized" });
         try {
             const { userId } = req.params;
-            console.log(`userId=${userId} id=${req.userId}`);
             if(userId!=req.userId){
                 return res.status(401).json({ error: "unauthorized" });
             }

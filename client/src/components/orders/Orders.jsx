@@ -16,13 +16,12 @@ import Loading from '../Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
 
-
 function Orders() {
   let token = useSelector(state => state.app.token);
   let status = useSelector(state => state.app.status);
   let user = useSelector(state => state.app.user);
   let reduxSortedOrders = useSelector(state => state.details.orders);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [orders, setOrders] = useState([]);
   const [wrongRequest, setWorngRequest] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -39,7 +38,6 @@ function Orders() {
         token = localStorage.getItem('token');
         user = JSON.parse(localStorage.getItem('currentUser'));
         status = localStorage.getItem('status');
-
       }
       if (status === 'manager') {
         if (reduxSortedOrders.length == 0 || page != 1) {
@@ -48,35 +46,29 @@ function Orders() {
             if (responseData.body.length < 10) {
               setHasMoreOrders(false);
             }
-
-            let newOrders = [...orders, ...responseData.body]
+            let newOrders = [...orders, ...responseData.body];
             reduxSortedOrders = newOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
-            if(page==1){
+            if (page == 1) {
               await dispatch({ type: 'SET_ORDERS', payload: reduxSortedOrders });
               await setOrders(reduxSortedOrders);
               setFilteredOrders(reduxSortedOrders);
               setLoading(false);
-            }
-            else{
+            } else {
               await setOrders(reduxSortedOrders);
               setFilteredOrders(reduxSortedOrders);
               setLoading(false);
             }
-          }
-          else{
+          } else {
             setWorngRequest(true);
-
           }
-        }
-        else {
-          if(reduxSortedOrders.length <10){
+        } else {
+          if (reduxSortedOrders.length < 10) {
             setHasMoreOrders(false);
           }
           setOrders(reduxSortedOrders);
           setLoading(false);
           setFilteredOrders(reduxSortedOrders);
         }
-       
       } else {
         if (reduxSortedOrders.length == 0) {
           responseData = await getRequest(`http://localhost:3000/users/${user.id}/orders`, token);
@@ -85,19 +77,18 @@ function Orders() {
             await dispatch({ type: 'SET_ORDERS', payload: reduxSortedOrders });
             await setOrders(reduxSortedOrders);
             setFilteredOrders(reduxSortedOrders);
+            setHasMoreOrders(false);
             setLoading(false);
           } else {
             setWorngRequest(true);
           }
-        }
-        else {
+        } else {
           setOrders(reduxSortedOrders);
           setLoading(false);
+          setHasMoreOrders(false);
           setFilteredOrders(reduxSortedOrders);
         }
       }
-
-
     }
     getOrders();
   }, [wrongRequest, page]);
@@ -116,7 +107,6 @@ function Orders() {
   const loadMoreOrders = () => {
     setPage(prevPage => prevPage + 1);
   };
-
 
   return (
     <div className='ordersContainer'>
@@ -137,7 +127,7 @@ function Orders() {
           <TableHead>
             <TableRow>
               <TableCell className='tableHead' align="right">מספר הזמנה</TableCell>
-              <TableCell className='tableHead' align="right">מפר מזהה של משתמש</TableCell>
+              <TableCell className='tableHead' align="right">מספר מזהה של משתמש</TableCell>
               {status === "manager" && (
                 <>
                   <TableCell className='tableHead' align="right">שם משתמש</TableCell>

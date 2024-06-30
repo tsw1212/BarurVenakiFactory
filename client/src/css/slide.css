@@ -36,3 +36,14 @@
     width: 90%;
     margin-left: 10vw;
   }
+  @media (max-width: 600px) {
+    .containerSlise{
+      width: 70vw;
+      margin: auto;
+    }
+    .imageSlider{
+      width: 58vw;
+      margin-left: 6vw;
+    }
+    
+  }

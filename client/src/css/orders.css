@@ -1,18 +1,38 @@
-.ordersContainer{
+.ordersContainer {
     direction: rtl;
     margin-bottom: 0;
     margin-top: 100px;
 }
-.row:hover{
-background-color: rgb(239, 248, 219);
+
+.row:hover {
+    background-color: rgb(239, 248, 219);
 }
-.tableHead{
+
+.tableHead {
     background-color: rgb(248, 250, 242);
 }
-@media (max-width: 768px) {
+
+@media (max-width: 600px) {
     .ordersContainer {
-        font-size: 25px;
+        font-size: 12px; /* גודל הכתב קטן יותר */
         width: 100%;
-        margin-top: 200px;
+        margin-top: 100px;
+    }
+    
+    .MuiTableCell-root {
+        padding: 4px; /* מרווח קטן יותר בין תאי הטבלה */
+        width: 80px; /* רוחב כל עמודה */
+    }
+
+    .MuiTableRow-root {
+        margin: 0;
+    }
+
+    .MuiTableCell-head {
+        font-size: 14px; /* גודל הכתב בכותרת קטן יותר */
+    }
+    
+    .MuiTableCell-body {
+        font-size: 12px; /* גודל הכתב בתאים קטן יותר */
     }
 }
