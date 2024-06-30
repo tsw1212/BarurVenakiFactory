@@ -28,15 +28,25 @@ const statusToken = (receivedToken) => {
         return { status: "guest", id: null };
     }
 
+    const extractId = (token, receivedTokenLength) => {
+        let id = '';
+        let index = receivedTokenLength;
+        while (index < token.length && !isNaN(token.charAt(index))) {
+            id += token.charAt(index);
+            index++;
+        }
+        return id;
+    };
+
     const managerToken = managersTokens.find(t => t.startsWith(receivedToken));
     if (managerToken) {
-        const id = managerToken.substring(receivedToken.length-1);
+        const id = extractId(managerToken, receivedToken.length);
         return { status: "manager", id: id };
     }
 
     const userToken = usersTokens.find(t => t.startsWith(receivedToken));
     if (userToken) {
-        const id = userToken.substring(receivedToken.length-1);
+        const id = extractId(userToken, receivedToken.length);
         return { status: "user", id: id };
     }
 
