@@ -20,7 +20,7 @@ function UserHeader({ logOut, countCartItems, setCountCartItems }) {
             }
         }
         fetchData();
-    }, [setCountCartItems, token]);
+    }, [countCartItems, token]);
 
     return (
         <header>

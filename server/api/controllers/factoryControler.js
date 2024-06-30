@@ -13,7 +13,6 @@ const factoryController = {
     },
 
     getFactoryByName: async (req, res) => {
-   
         const name = req.params.name;
         try {
             const factory = await FactoryServices.getFactoryByName(name);

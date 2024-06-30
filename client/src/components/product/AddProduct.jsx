@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/addProduct.css';
 import { useSelector } from 'react-redux';
 import SelectProductType from './SelectProductType';
-import { Alert } from '@mui/material';
 
 const AddProduct = ({ setProductsHandler, setAddProduct, setSuccessMessage }) => {
   const token = useSelector((state) => state.app.token);
@@ -16,14 +15,7 @@ const AddProduct = ({ setProductsHandler, setAddProduct, setSuccessMessage }) =>
     inventory: '',
     imageFile: null
   });
-  const [showAlert, setShowAlert] = useState(false);
-
-  useEffect(() => {
-    if (showAlert) {
-      const timer = setTimeout(() => setShowAlert(false), 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [showAlert]);
+ 
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -79,7 +71,6 @@ const AddProduct = ({ setProductsHandler, setAddProduct, setSuccessMessage }) =>
       <div className='createProduct_container'>
         <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setAddProduct(false)} />
         <form onSubmit={handleSubmit} className='createProduct_form'>
-          {showAlert && <Alert severity="success" style={{ marginTop: '15vh' }}>המוצר נוסף בהצלחה</Alert>}
           <label htmlFor="name">שם</label>
           <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required style={{ textAlign: 'right', direction: 'rtl' }} />
 

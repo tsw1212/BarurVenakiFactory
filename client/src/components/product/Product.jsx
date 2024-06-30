@@ -4,20 +4,19 @@ import WorngRequest from '../../pages/WorngRequest';
 import { getRequest, postRequest } from '../../modules/requests/server_requests';
 import '../../css/product.css';
 import Slider from './Slider';
-import SelectType from './SelectType'
+import SelectType from './SelectType';
 import QuantityInput from './QuantityInput';
 import Loading from '../Loading';
 import NotAdd from './NotAdd';
-import {  useSelector } from 'react-redux';
-
+import { useSelector } from 'react-redux';
+import Alert from '@mui/material/Alert';
 
 let prices = { min: 0, max: 10 };
 
-const Product = ({  setCountCartItems }) => {
+const Product = ({ setCountCartItems }) => {
   let token = useSelector((state) => state.app.token);
   const status = useSelector((state) => state.app.status);
   const user = useSelector((state) => state.app.user);
-
 
   const [products, setProducts] = useState([]);
   const { nameProduct } = useParams();
@@ -28,13 +27,14 @@ const Product = ({  setCountCartItems }) => {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [notAddFlag, setNotAddFlag] = useState(false);
-
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   useEffect(() => {
     async function fetchData() {
       if (token === '') {
         token = localStorage.getItem('token');
-    }
+      }
       let dataRequest = await getRequest(`http://localhost:3000/products/${nameProduct}`, token);
       if (dataRequest.ok) {
         setProducts(dataRequest.body);
@@ -59,12 +59,12 @@ const Product = ({  setCountCartItems }) => {
   };
 
   const handleAddToCart = async () => {
-    if(status=="guest") {
+    if (status === "guest") {
       setNotAddFlag(true);
       return;
     }
     if (currentProduct == null) {
-      alert('בחר סוג אריזה');
+      showAlertMessage('בחר סוג אריזה');
       return;
     }
     const item = {
@@ -76,9 +76,18 @@ const Product = ({  setCountCartItems }) => {
     let dataRequest = await postRequest(`http://localhost:3000/cart`, item, token);
     if (dataRequest.ok) {
       setCountCartItems(prev => prev + 1);
+      showAlertMessage('המוצר נוסף בהצלחה לעגלת הקניות');
     } else {
-      alert('משהו השתבש נסה שוב')
+      alert('משהו השתבש נסה שוב');
     }
+  };
+
+  const showAlertMessage = (message) => {
+    setAlertMessage(message);
+    setShowAlert(true);
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 5000);
   };
 
   if (wrongRequest) {
@@ -86,31 +95,47 @@ const Product = ({  setCountCartItems }) => {
   }
 
   return (
-    <div className="product">
-       {loading&& <Loading />}
-       {notAddFlag&&<NotAdd setNotAddFlag={setNotAddFlag}/>}
-      <div className="product-images">
-        {products.length !== 0 && <Slider sliders={products} currentSlide={currentSlide} />}
-      </div>
-      <div className="product-details">
-        <h3>{products.length !== 0 && products[0].name}</h3>
-        <p className="product-price">
-          {currentProduct ? currentProduct.price : prices.min == prices.max ? `${prices.min}` : `${prices.min}-${prices.max}`}₪
-        </p>
-        <div className="product-options">
-          <div className="product-type">
-            <SelectType handleTypeChange={handleTypeChange} products={products} />
-          </div>
-          <div className="product-quantity">
-            <label htmlFor="quantity">כמות</label>
-            <QuantityInput quantity={quantity} handleQuantityChange={handleQuantityChange} />
-          </div>
+    <>
+      {showAlert && (
+        <Alert 
+          severity="success" 
+          style={{ 
+            position: 'absolute', 
+            top: '15vh', 
+            left: '50%', 
+            transform: 'translateX(-50%)', 
+            zIndex: 1000 
+          }}
+        >
+          {alertMessage}
+        </Alert>
+      )}
+      <div className="product">
+        {loading && <Loading />}
+        {notAddFlag && <NotAdd setNotAddFlag={setNotAddFlag} />}
+        <div className="product-images">
+          {products.length !== 0 && <Slider sliders={products} currentSlide={currentSlide} />}
         </div>
-        <button className="add-to-cart" onClick={handleAddToCart}>
-          הוסף לעגלה
-        </button>
+        <div className="product-details">
+          <h3>{products.length !== 0 && products[0].name}</h3>
+          <p className="product-price">
+            {currentProduct ? currentProduct.price : prices.min === prices.max ? `${prices.min}` : `${prices.min}-${prices.max}`}₪
+          </p>
+          <div className="product-options">
+            <div className="product-type">
+              <SelectType handleTypeChange={handleTypeChange} products={products} />
+            </div>
+            <div className="product-quantity">
+              <label htmlFor="quantity">כמות</label>
+              <QuantityInput quantity={quantity} handleQuantityChange={handleQuantityChange} />
+            </div>
+          </div>
+          <button className="add-to-cart" onClick={handleAddToCart}>
+            הוסף לעגלה
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -6,21 +6,13 @@ import { OverlayPanel } from 'primereact/overlaypanel';
 import { Button } from 'primereact/button';
 import { useSelector } from 'react-redux';
 import SelectProductType from './SelectProductType';
-import { Alert } from '@mui/material';
 
 const EditProduct = ({ setProductsHandler, setEditOn, productData }) => {
     const token = useSelector((state) => state.app.token);
 
     const [formData, setFormData] = useState(productData);
-    const [showAlert, setShowAlert] = useState(false);
     const op = useRef(null);
 
-    useEffect(() => {
-        if (showAlert) {
-            const timer = setTimeout(() => setShowAlert(false), 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [showAlert]);
 
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
@@ -66,7 +58,6 @@ const EditProduct = ({ setProductsHandler, setEditOn, productData }) => {
             if (dataRequest.ok) {
                 await setProductsHandler("update", dataRequest.body.newProduct.id, dataRequest.body.newProduct);
                 setEditOn(false);
-                setShowAlert(true);
             } else {
                 alert('שגיאה בבקשה נסה שוב');
             }
@@ -82,7 +73,6 @@ const EditProduct = ({ setProductsHandler, setEditOn, productData }) => {
             <div className='editProduct_container'>
                 <FontAwesomeIcon className='exit' icon="fas fa-times" onClick={() => setEditOn(false)} />
                 <form onSubmit={handleSubmit} className='createProduct_form'>
-                    {showAlert && <Alert severity="success" style={{ marginTop: '15vh' }}>המוצר עודכן בהצלחה</Alert>}
                     <label htmlFor="name">שם</label>
                     <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
 

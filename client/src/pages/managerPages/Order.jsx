@@ -16,8 +16,7 @@ import AddEvent from '../../components/events/AddEvent';
 import Loading from '../../components/Loading';
 import formatDates from '../../modules/formatDateTime';
 import OrderTimeline from '../../components/orders/OrderTimeLine';
-import {  useSelector } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 
 const statusOptions = ['התקבלה', 'אושרה', 'בתהליך הכנה', 'נשלחה', 'הסתיימה'];
 
@@ -32,6 +31,10 @@ function Order() {
     let token = useSelector((state) => state.app.token);
     const status = useSelector((state) => state.app.status);
 
+    const sortEventsByDate = (events) => {
+        return events.sort((a, b) => new Date(b.date) - new Date(a.date));
+    };
+
     useEffect(() => {
         async function fetchOrder() {
             if (token === '') {
@@ -39,7 +42,9 @@ function Order() {
             }
             const responseData = await getRequest(`http://localhost:3000/orders/${OrderId}`, token);
             if (responseData.ok) {
-                await setOrder(responseData.body);
+                const orderData = responseData.body;
+                orderData.events = sortEventsByDate(orderData.events);
+                await setOrder(orderData);
                 await setLoading(false);
             } else {
                 alert('בעיה בטעינת הנתונים אנא נסה שוב');
@@ -65,10 +70,13 @@ function Order() {
     };
 
     const handleEventAdded = (newEvent) => {
-        setOrder((prevOrder) => ({
-            ...prevOrder,
-            events: [...prevOrder.events, newEvent],
-        }));
+        setOrder((prevOrder) => {
+            const updatedEvents = sortEventsByDate([...prevOrder.events, newEvent]);
+            return {
+                ...prevOrder,
+                events: updatedEvents,
+            };
+        });
     };
 
     const handleProductAmountChange = async (productId, newAmount, reason) => {
@@ -147,7 +155,7 @@ function Order() {
                         <div className="products">
                             <h3>מוצרים</h3>
                             {order.products.map(product => (
-                                product.amount!==0&&
+                                product.amount !== 0 &&
                                 <OrderProduct orderStatus={orderStatus === "" ? order.orderInfo.status : orderStatus} status={status} key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
                             ))}
                         </div>

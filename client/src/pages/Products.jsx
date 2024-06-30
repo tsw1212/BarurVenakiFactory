@@ -1,45 +1,85 @@
 import React, { useState } from 'react';
 import ManagerProducts from './managerPages/ManagerProducts';
-import ProductsUser from '../pages/userPages/ProductsUser'
-import {  useSelector ,useDispatch} from 'react-redux';
+import ProductsUser from '../pages/userPages/ProductsUser';
+import { useSelector, useDispatch } from 'react-redux';
+import Alert from '@mui/material/Alert';
 
 function Products() {
     const dispatch = useDispatch();
     const [products, setProducts] = useState([]);
-    const token = useSelector(state=>state.app.token);
-    const status = useSelector(state=>state.app.status);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const token = useSelector(state => state.app.token);
+    const status = useSelector(state => state.app.status);
 
-    function setProductsHandler( typeSettings,productId, productDataToSetting = null) {
+    function showAlertMessage(message) {
+        setAlertMessage(message);
+        setShowAlert(true);
+        setTimeout(() => {
+            setShowAlert(false);
+        }, 5000);
+    }
+
+    function setProductsHandler(typeSettings, productId, productDataToSetting = null) {
         let updateProducts;
-        if (typeSettings == "delete") {
-            let index = products.findIndex((p) => p.id == productId)
+        if (typeSettings === "delete") {
+            let index = products.findIndex((p) => p.id === productId);
             updateProducts = [...products];
             updateProducts.splice(index, 1);
-            dispatch({ type: 'SET_PRODUCTS', payload: updateProducts  });
+            dispatch({ type: 'SET_PRODUCTS', payload: updateProducts });
             setProducts([...updateProducts]);
-        }
-        else if (typeSettings == "update") {
+            showAlertMessage('המוצר נמחק בהצלחה');
+        } else if (typeSettings === "update") {
             updateProducts = products.map((product) => {
-                if (product.id == productId) {
-                    return  productDataToSetting
+                if (product.id === productId) {
+                    return productDataToSetting;
+                } else {
+                    return product;
                 }
-                else
-                    return  product
-            })
-            dispatch({ type: 'SET_PRODUCTS', payload: updateProducts  });
-            setProducts([...updateProducts])
-        }
-        else if (typeSettings == "add") {
+            });
+            dispatch({ type: 'SET_PRODUCTS', payload: updateProducts });
+            setProducts([...updateProducts]);
+            showAlertMessage('המוצר עודכן בהצלחה');
+        } else if (typeSettings === "add") {
             dispatch({ type: 'SET_PRODUCTS', payload: [...products, productDataToSetting] });
-            setProducts([...products, productDataToSetting])
+            setProducts([...products, productDataToSetting]);
+            showAlertMessage('המוצר נוסף בהצלחה');
         }
     }
-    return (
 
+    return (
         <div>
-            {status == "manager" ? <ManagerProducts status={status} token={token} setProducts={setProducts} products={products} setProductsHandler={setProductsHandler} /> :
-                <ProductsUser status={status} token={token} setProducts={setProducts} products={products} setProductsHandler={setProductsHandler} />
-            }
+            {showAlert && (
+                <Alert 
+                    severity="success" 
+                    style={{ 
+                        position: 'absolute', 
+                        top: '5vh', 
+                        left: '50%', 
+                        transform: 'translateX(-50%)', 
+                        zIndex: 1000 
+                    }}
+                >
+                    {alertMessage}
+                </Alert>
+            )}
+            {status === "manager" ? (
+                <ManagerProducts
+                    status={status}
+                    token={token}
+                    setProducts={setProducts}
+                    products={products}
+                    setProductsHandler={setProductsHandler}
+                />
+            ) : (
+                <ProductsUser
+                    status={status}
+                    token={token}
+                    setProducts={setProducts}
+                    products={products}
+                    setProductsHandler={setProductsHandler}
+                />
+            )}
         </div>
     );
 }

@@ -21,7 +21,7 @@ const Footer = ({ }) => {
       console.log("fotter");
     }
     fetchData();
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     const handleScroll = () => {

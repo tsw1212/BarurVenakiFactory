@@ -15,7 +15,7 @@ import { useSelector,useDispatch } from 'react-redux';
 
 
 
-function CartProducts({ setChosenCartProducts }) {
+function CartProducts({ setChosenCartProducts,setCountCartItems }) {
     let token = useSelector((state) => state.app.token);
     let user = useSelector((state) => state.app.user);
     let cartProducts = useSelector((state) => state.details.carts);
@@ -43,6 +43,7 @@ function CartProducts({ setChosenCartProducts }) {
                     const mergedProducts = await mergeProducts(reqData.body);
                     await  dispatch({ type: 'SET_CARTS', payload: mergedProducts  });
                     await setProducts(mergedProducts);
+                    setCountCartItems(mergedProducts.length)
                     setLoading(false);
                 }
                 else {
