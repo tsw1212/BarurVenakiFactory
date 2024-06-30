@@ -75,7 +75,7 @@ const FactoryDetails = () => {
 
                     {isEditing ? (
 
-                        <div className='editForm_form'>
+                        <div className='editForm_form user_section'>
                             <label>שם: </label><br></br><input className='editInput' type="text" name="name" value={factory.name || ''} readOnly /><br />
                             <label>אמייל: </label><br></br><input className='editInput' type="email" name="email" value={factory.email || ''} onChange={handleChange} /><br />
                             <label>עיר: </label><br></br><input className='editInput' type="text" name="city" value={factory.city || ''} onChange={handleChange} /><br />
@@ -88,15 +88,15 @@ const FactoryDetails = () => {
                         </div>
 
                     ) : (
-                        <div className='data_information'>
+                        <div className='data_information user_section'>
                             <h2>פרטי משתמש</h2>
-                            <p><strong>שם: <FontAwesomeIcon icon="fas fa-factory" /></strong> {factory.name}</p>
+                            <p><strong>שם: <FontAwesomeIcon icon="fa-solid fa-city" /></strong> {factory.name}</p>
                             <p><strong>אמייל: <FontAwesomeIcon icon="fas fa-envelope" /></strong> {factory.email}</p>
                             <p><strong>עיר: <FontAwesomeIcon icon="fas fa-city" /></strong> {factory.city}</p>
                             <p><strong>רחוב: <FontAwesomeIcon icon="fas fa-road" /></strong> {factory.street}</p>
-                            <p><strong>מספר בית: <FontAwesomeIcon icon="fas fa-house-factory" /></strong> {factory.houseNumber}</p>
+                            <p><strong>מספר בית: <FontAwesomeIcon icon="fa-solid fa-house-chimney-user" /></strong> {factory.houseNumber}</p>
                             <p><strong>מספר טלפון : <FontAwesomeIcon icon="fas fa-phone" /></strong> {factory.phone}</p>
-                            <p><strong>סיסמא של מייל לאפליקציה <FontAwesomeIcon icon="fas fa-phone" /></strong> {factory.passwordEmail}</p>
+                            <p><strong>סיסמא של מייל לאפליקציה <FontAwesomeIcon icon="fa-solid fa-key" /></strong> {factory.passwordEmail}</p>
                             <button className='editButton' onClick={() => setIsEditing(true)}>עריכה</button>
                         </div>
                     )}

@@ -27,11 +27,11 @@ function UserHeader({ logOut, countCartItems, setCountCartItems }) {
             <nav className='nav'>
                 <div className='leftSide'>
                     <NavLink className='navLinkHeader' to="userDetails">
-                        <FontAwesomeIcon className='icon' icon="fas fa-user-alt" />
+                        <FontAwesomeIcon className='Headericon firstIcon' icon="fas fa-user-alt" />
                     </NavLink>
                     <NavLink className='navLinkHeader' to="shopping_cart">
                         <div className="cartContainer">
-                            <FontAwesomeIcon className='icon' icon="fas fa-shopping-cart" />
+                            <FontAwesomeIcon className='Headericon' icon="fas fa-shopping-cart" />
                             <NumbersOfItem countCartItems={countCartItems} />
                         </div>
                     </NavLink>
@@ -39,7 +39,7 @@ function UserHeader({ logOut, countCartItems, setCountCartItems }) {
                     <NavLink className='navLinkHeader' to="orders">הזמנות קודמות</NavLink>
                     <NavLink className='navLinkHeader' to="products">מוצרים</NavLink>
                     <NavLink className='navLinkHeader' to="." onClick={() => logOut()}>
-                        <FontAwesomeIcon className='icon' icon="fas fa-sign-out-alt" />
+                        <FontAwesomeIcon className='Headericon' icon="fas fa-sign-out-alt" />
                     </NavLink>
                 </div>
                 <NavLink to=".">

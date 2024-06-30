@@ -54,7 +54,7 @@ export default function OrderTimeline({ currentStatus }) {
             <Typography variant="h6" component="span">
               {status}
             </Typography>
-            <Typography>Details about {status}</Typography> 
+            <Typography>       </Typography> 
           </TimelineContent>
         </TimelineItem>
       ))}

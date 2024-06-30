@@ -102,8 +102,9 @@
   @media (max-width: 768px){
     .login_container{
       width: 60vw;
-      margin-left: 4vw;
-      margin-top: 10vw;
+      margin-left: 7vw;
+      margin-top: -50vw;
+      margin-bottom: 0;
     }
   }
   

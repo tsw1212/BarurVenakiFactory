@@ -5,7 +5,7 @@ function GuestHeader() {
     return (
         <div className='nav'>
             <div className='leftSide'>
-                <NavLink className='navLinkHeader' to="/login">כניסה</NavLink>
+                <NavLink className='navLinkHeader firstIcon' to="/login">כניסה</NavLink>
                 <NavLink className='navLinkHeader' to="/signup">הרשמה</NavLink>
                 <NavLink className='navLinkHeader' to="/contactUs">צור קשר</NavLink>
                 <NavLink className='navLinkHeader' to="/products">מוצרים</NavLink>

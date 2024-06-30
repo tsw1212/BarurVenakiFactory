@@ -61,14 +61,18 @@ margin-top: 40px;
     margin-top: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
     .usersbody {
+        margin-top: 60px;
         display: block;
         margin: 10px;
     }
 
     .user_section {
-        width: 100%;
+        width: 80%;
         margin-bottom: 20px;
+    }
+    .edit_user{
+        margin-right: 0;
     }
 }
