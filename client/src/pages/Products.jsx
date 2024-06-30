@@ -65,16 +65,12 @@ function Products() {
             )}
             {status === "manager" ? (
                 <ManagerProducts
-                    status={status}
-                    token={token}
                     setProducts={setProducts}
                     products={products}
                     setProductsHandler={setProductsHandler}
                 />
             ) : (
                 <ProductsUser
-                    status={status}
-                    token={token}
                     setProducts={setProducts}
                     products={products}
                     setProductsHandler={setProductsHandler}

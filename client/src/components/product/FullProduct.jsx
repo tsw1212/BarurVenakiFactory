@@ -5,10 +5,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import {  CardActionArea, CardActions } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/productShort.css';
-import { getRequest } from '../../modules/requests/server_requests';
 import { useState } from 'react';
 import DeleteProduct from './DeleteProduct';
 import EditProduct from './EditProduct';
@@ -66,10 +65,10 @@ export default function FullProduct({ productData, setProductsHandler }) {
         </Card>
       </div>
       {editOn && (
-        <EditProduct token={token} setProductsHandler={setProductsHandler} setEditOn={setEditOn} productData={productData} />
+        <EditProduct setProductsHandler={setProductsHandler} setEditOn={setEditOn} productData={productData} />
       )}
       {deleteOn && (
-        <DeleteProduct token={token} setProductsHandler={setProductsHandler} setdeleteOn={setdeleteOn} productData={productData} />
+        <DeleteProduct  setProductsHandler={setProductsHandler} setdeleteOn={setdeleteOn} productData={productData} />
       )}
     </>
   );

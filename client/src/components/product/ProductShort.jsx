@@ -9,9 +9,6 @@ import Typography from '@mui/material/Typography';
 import {  CardActionArea, CardActions } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/productShort.css'
-import { getRequest } from '../../modules/requests/server_requests';
-import { useState } from 'react';
-import DeleteProduct from './DeleteProduct';
 import {  useSelector } from 'react-redux';
 
 

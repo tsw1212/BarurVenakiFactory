@@ -156,7 +156,7 @@ function Order() {
                             <h3>מוצרים</h3>
                             {order.products.map(product => (
                                 product.amount !== 0 &&
-                                <OrderProduct orderStatus={orderStatus === "" ? order.orderInfo.status : orderStatus} status={status} key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
+                                <OrderProduct orderStatus={orderStatus === "" ? order.orderInfo.status : orderStatus}  key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
                             ))}
                         </div>
                         {order.events.length > 0 && <div className="events">
@@ -166,7 +166,7 @@ function Order() {
                             ))}
                         </div>}
                         {!addEvent && status === 'manager' && <button onClick={() => setAddEvent(true)}>הוסף אירוע</button>}
-                        {addEvent && <AddEvent setAddEvent={setAddEvent} orderId={order.orderInfo.orderId} token={token} onEventAdded={handleEventAdded} />}
+                        {addEvent && <AddEvent setAddEvent={setAddEvent} orderId={order.orderInfo.orderId}  onEventAdded={handleEventAdded} />}
                     </>
                 }
             </div>

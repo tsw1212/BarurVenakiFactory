@@ -22,9 +22,9 @@ const Users = () => {
                 <>
                     <div className={`usersPage ${newManagerOn ? 'blur' : ''}`}>
                         <button className='add_manager_button' onClick={() => setNewMangerOn(true)}>הגדר מנהל חדש</button>
-                        <UsersTable token={token} filteredUsers={filteredUsers} setFilteredUsers={setFilteredUsers} />
+                        <UsersTable  filteredUsers={filteredUsers} setFilteredUsers={setFilteredUsers} />
                     </div>
-                    {newManagerOn && <UserManagerForm setFilteredUsers={setFilteredUsers} token={token} setNewMangerOn={setNewMangerOn} />}
+                    {newManagerOn && <UserManagerForm setFilteredUsers={setFilteredUsers}  setNewMangerOn={setNewMangerOn} />}
                 </>
             }
         </>

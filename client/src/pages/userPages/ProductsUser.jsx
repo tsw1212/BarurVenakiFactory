@@ -108,8 +108,8 @@ function Products({ products, setProducts }) {
         ) : (
           <div className="allProducts">
             {filteredProducts.length > 0 ? (
-              filteredProducts.map((productData) => (
-                <ProductShort status={localStorage.getItem('status')} className="productShort" productData={productData} key={productData.id} />
+              filteredProducts.map((productData,index) => (
+                <ProductShort  className="productShort" productData={productData} key={productData.id} />
               ))
             ) : (
               <p>לא נמצאו מוצרים התואמים את החיפוש שלך</p>

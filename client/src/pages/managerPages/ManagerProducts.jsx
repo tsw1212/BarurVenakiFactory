@@ -98,8 +98,6 @@ function ManagerProducts({ products, setProducts, setProductsHandler }) {
             {filteredProducts.length > 0 ? (
               filteredProducts.map((productData) => (
                 <FullProduct className="fullProduct"
-                  token={token}
-                  status={status}
                   productData={productData}
                   key={productData.id}
                   setProductsHandler={setProductsHandler}
