@@ -47,7 +47,7 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
       alert('משהו השתבש בבקשה נסה שוב');
     } else {
       setChosenCartProducts([]);
-      navigate('/home/shopping_cart/confirmation');
+      navigate('/shopping_cart/confirmation');
     }
   }
 

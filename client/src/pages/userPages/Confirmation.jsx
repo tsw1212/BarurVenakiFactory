@@ -7,7 +7,7 @@ function Confirmation() {
     <div className='confirmationContainer'>
       <h2 className='h2'>ההזמנה שלך התקבלה בהצלחה </h2>
       <h3 className='h3'>ההזמנה תסופק  עד תאריך האספקה המבוקש</h3>
-      <NavLink className='navLink' to="/home/orders">לצפייה בהזמנות שלך</NavLink>
+      <NavLink className='navLink' to="/orders">לצפייה בהזמנות שלך</NavLink>
     </div>
   )
 }
