@@ -4,7 +4,7 @@ const validation = require('../../modules/validation');
 
 const CartController = {
     getAllCarts: async (req, res) => {
-        if (req.securityLevel !== 'manager')
+        if (req.securityLevel != 'manager')
          return   res.status(401).json({ error: "unauthorized" });
         try {
             let carts = await CartServices.getAllCarts();
@@ -14,11 +14,12 @@ const CartController = {
         }
     },
     getCartByUserId: async (req, res) => {
-        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        if (req.securityLevel != "user" && req.securityLevel != 'manager')
           return  res.status(401).json({ error: "unauthorized" });
         try {
             const { userId } = req.params;
-            if(userId!==req.userId){
+            console.log(`userId=${userId} id=${req.userId}`);
+            if(userId!=req.userId){
                 return res.status(401).json({ error: "unauthorized" });
             }
             let cart = await CartServices.getCartByUserId(userId);
@@ -32,7 +33,7 @@ const CartController = {
         }
     },
     createCartItem: async (req, res) => {
-        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        if (req.securityLevel != "user" && req.securityLevel != 'manager')
           return  res.status(401).json({ error: "unauthorized" });
         try {
             const cartItem = req.body;
@@ -50,7 +51,7 @@ const CartController = {
         }
     },
     updateCartItem: async (req, res) => {
-        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        if (req.securityLevel != "user" && req.securityLevel != 'manager')
            return res.status(401).json({ error: "unauthorized" });
         try {
             const {id}=req.params;
@@ -71,7 +72,7 @@ const CartController = {
         }
     },
     deleteCartItem: async (req, res) => {
-        if (req.securityLevel !== "user" && req.securityLevel !== 'manager')
+        if (req.securityLevel != "user" && req.securityLevel != 'manager')
          return   res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;

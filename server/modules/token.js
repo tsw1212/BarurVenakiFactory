@@ -40,13 +40,13 @@ const statusToken = (receivedToken) => {
 
     const managerToken = managersTokens.find(t => t.startsWith(receivedToken));
     if (managerToken) {
-        const id = extractId(managerToken, receivedToken.length);
+        const id = extractId(managerToken, managerToken.length-1);
         return { status: "manager", id: id };
     }
 
     const userToken = usersTokens.find(t => t.startsWith(receivedToken));
     if (userToken) {
-        const id = extractId(userToken, receivedToken.length);
+        const id = extractId(userToken,userToken.length-1 );
         return { status: "user", id: id };
     }
 
