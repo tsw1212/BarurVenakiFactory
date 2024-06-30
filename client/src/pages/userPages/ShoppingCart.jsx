@@ -1,10 +1,10 @@
 import React from 'react'
 import CartProducts from '../../components/shoppingCart/CartProducts'
 
-function ShoppingCart({chosenCartProducts,setChosenCartProducts}) {
+function ShoppingCart({chosenCartProducts,setChosenCartProducts,setCountCartItems}) {
   return (
     <div>
-      <CartProducts  setChosenCartProducts={setChosenCartProducts} chosenCartProducts={chosenCartProducts}/>
+      <CartProducts setCountCartItems={setCountCartItems} setChosenCartProducts={setChosenCartProducts} chosenCartProducts={chosenCartProducts}/>
     </div>
   )
 }

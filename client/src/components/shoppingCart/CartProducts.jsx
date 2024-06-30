@@ -182,7 +182,7 @@ function CartProducts({ setChosenCartProducts,setCountCartItems }) {
                     <button className='orderButton' onClick={handleContinueToOrder}>המשך להזמנה</button>
                 </div>
             }
-            {deleteOn && <DeleteCart currentProductToDelete={currentProductToDelete} deleteFunction={deleteFunction} setdeleteOn={setDeleteOn} />}
+            {deleteOn && <DeleteCart setCountCartItems={setCountCartItems} currentProductToDelete={currentProductToDelete} deleteFunction={deleteFunction} setdeleteOn={setDeleteOn} />}
 
         </>
 

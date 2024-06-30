@@ -1,9 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-function DeleteCart({setdeleteOn, deleteFunction,currentProductToDelete}) {
+function DeleteCart({setdeleteOn, deleteFunction,currentProductToDelete,setCountCartItems}) {
      function handleSubmit(e){
         e.preventDefault();
         deleteFunction(currentProductToDelete.id)
+        setCountCartItems(pre=>pre-1);
         setdeleteOn(false);
 
      }
