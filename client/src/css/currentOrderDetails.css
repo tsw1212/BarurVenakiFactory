@@ -9,6 +9,10 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.tableWithoutImg {
+  display: none;
+}
+
 .moreDetails {
   display: flex;
   justify-content: space-between;
@@ -22,14 +26,13 @@
 }
 
 .order_input_date {
-  width: 50%; 
+  width: 50%;
   box-sizing: border-box;
   padding: 10px;
   height: 40px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f3f8f0;
-
 }
 
 .order_input_remarks {
@@ -42,11 +45,6 @@
   box-sizing: border-box;
   height: 100px;
 }
-
-/* .order_input_remarks:hover,
-.order_input_date:hover {
-  background-color: #e0e0e0;
-} */
 
 .finish_order_button {
   background-color: #b1e773;
@@ -65,4 +63,45 @@
 
 .finish_order_button:hover {
   background-color: #45a049;
+}
+
+@media (max-width: 600px) {
+  .order_container {
+    padding: 5px;
+    margin: 5px auto;
+    margin-top: 5vh;
+    width: 100%;
+  }
+
+  .cartProducts {
+    font-size: 12px;
+  }
+
+  .tableWithoutImg {
+    display: block;
+  }
+
+  .tableWithImg {
+    display: none;
+  }
+
+  .order_input_date,
+  .order_input_remarks {
+    padding: 5px;
+    height: 30px;
+  }
+
+  .moreDetails {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .finish_order_button {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+}
+
+.cartProducts .p-datatable-tbody > tr {
+  height: 60px;
 }

@@ -1,36 +1,68 @@
 .cartProducts {
-    font-family: Arial, sans-serif;
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 12vh;
-    direction: rtl;
-    text-align: center;    
+  font-family: Arial, sans-serif;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12vh;
+  direction: rtl;
+  text-align: center;
+}
+
+.cartProducts th,
+.cartProducts td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.cartProducts th {
+  background-color: #f2f2f2;
+  text-align: right;
+}
+
+.cartProducts tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.tableWithoutImg{
+  display: none;
+}
+
+.cartProducts tr:hover {
+  background-color: #e2e2e2;
+}
+
+.orderButton {
+  margin-top: 3vw;
+}
+
+/* רספונסיבי למסכים קטנים יותר מ-600px */
+@media (max-width: 600px) {
+  .cartProducts {
+      margin-top: 10vh;
+  }
+  .tableWithoutImg{
+    display: block;
+    margin-top: 15vh;
 
   }
-  
+  .tableWithImg{
+    display: none;
+  }
   .cartProducts th,
   .cartProducts td {
-    border: 1px solid #dddddd;
-    padding: 8px;
-    text-align: center;    
-
+      font-size: 12px;
+       
   }
-  
+
   .cartProducts th {
-    background-color: #f2f2f2;
-    text-align: right;
-    text-align: center;    
+      font-size: 14px; 
+      text-align:center
+  }
 
+  .orderButton {
+      font-size: 14px; 
+      padding: 6px 12px; 
+      margin-top: 2vw; 
   }
-  
-  .cartProducts tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .cartProducts tr:hover {
-    background-color: #e2e2e2;
-  }
-  .orderButton{
-    margin-top: 3vw;
-  }
-  
+
+ 
+}

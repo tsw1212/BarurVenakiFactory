@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import '../../css/currentOrderDetails.css';
 import { useSelector } from 'react-redux';
 
-
 function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
   const token = useSelector(state => state.app.token);
   const [deliveryDate, setDeliveryDate] = useState('');
@@ -36,7 +35,6 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
       date: getCurrentDateTime(),
       status: null,
       deliveryDate: deliveryDate , 
-      // deliveryDate.toISOString().split('T')[0] : null,
       remarks: remarks,
       products: productsToSave,
       totalPrice: calculateTotalPrice()
@@ -76,7 +74,13 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
     <div className='order_container'>
       <h3 className='title'>פרטי הזמנה</h3>
       <div className='cartProducts'>
-        <DataTable value={chosenCartProducts} rowKey="id" showGridlines stripedRows tableStyle={{ minWidth: '60rem' }}>
+        <DataTable value={chosenCartProducts} rowKey="id" className='tableWithoutImg' showGridlines stripedRows tableStyle={{ minWidth: '410px' }}>
+          <Column className='column_cart' style={{width:"55px"}}field="name" header="שם" />
+          <Column className='column_cart' style={{width:"55px"}} field="price" header="מחיר" />
+          <Column className='column_cart'style={{width:"55px"}} field="package" header="סוג אריזה" />
+          <Column className='column_cart'style={{width:"55px"}} field="amount" header="כמות" />
+        </DataTable>
+        <DataTable value={chosenCartProducts} className='tableWithImg' rowKey="id" showGridlines stripedRows tableStyle={{ minWidth: '600px' }}>
           <Column className='column_cart' field="name" header="שם" />
           <Column className='column_cart' header="Image" body={(rowData) => <img src={`data:image/png;base64,${rowData.img}`} alt={rowData.name} style={{ width: '50px' }} />} />
           <Column className='column_cart' field="price" header="מחיר" />

@@ -123,7 +123,7 @@ function Orders() {
         <FontAwesomeIcon icon="fas fa-search" />
       </div>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 420 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell className='tableHead' align="right">מספר הזמנה</TableCell>
