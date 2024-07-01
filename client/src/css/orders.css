@@ -13,6 +13,16 @@
 }
 
 @media (max-width: 600px) {
+    .css-1azl6jz-MuiTableCell-root {
+        padding: 2px;
+        /* width: 80px; */
+        line-break: 80px;
+        font-size: 10px; /* אפשר לשנות גודל גופן */
+    }
+    .css-177gid-MuiTableCell-root{
+        padding: 1px;
+    }
+   
     .ordersContainer {
         font-size: 12px; /* גודל הכתב קטן יותר */
         width: 100%;
@@ -20,8 +30,8 @@
     }
     
     .MuiTableCell-root {
-        padding: 4px; /* מרווח קטן יותר בין תאי הטבלה */
-        width: 80px; /* רוחב כל עמודה */
+        padding: 2px; /* מרווח קטן יותר בין תאי הטבלה */
+        width: 30px;
     }
 
     .MuiTableRow-root {
@@ -30,9 +40,13 @@
 
     .MuiTableCell-head {
         font-size: 14px; /* גודל הכתב בכותרת קטן יותר */
+        /* width: 30px; */
+
     }
     
     .MuiTableCell-body {
         font-size: 12px; /* גודל הכתב בתאים קטן יותר */
+        /* width: 30px; */
+
     }
 }
