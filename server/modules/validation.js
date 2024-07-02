@@ -8,7 +8,7 @@ function validateUserInput(user, isIdRequired = false) {
 
     for (const field of requiredFields) {
         if (!(field in user)) return false;
-    }
+    } 
 
     if (typeof user.name !== "string" || user.name.trim() === "") return false;
     if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.[a-zA-Z]{2,}$/.test(user.email)) return false;
