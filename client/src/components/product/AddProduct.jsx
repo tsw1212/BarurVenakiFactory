@@ -15,7 +15,7 @@ const AddProduct = ({ setProductsHandler, setAddProduct, setSuccessMessage }) =>
     inventory: '',
     imageFile: null
   });
- 
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];

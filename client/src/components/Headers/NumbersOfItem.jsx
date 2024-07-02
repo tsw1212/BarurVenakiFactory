@@ -9,7 +9,7 @@ function NumbersOfItem({ countCartItems }) {
             setIsAnimating(true);
             setTimeout(() => {
                 setIsAnimating(false);
-            }, 300); 
+            }, 300);
         }
     }, [countCartItems]);
 

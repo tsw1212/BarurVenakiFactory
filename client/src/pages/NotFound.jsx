@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import '../css/NotFound.css'; 
 import GuestHeader from '../components/Headers/GuestHeader';
 import Footer from '../components/Footer';

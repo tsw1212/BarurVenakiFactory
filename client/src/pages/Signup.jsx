@@ -20,12 +20,12 @@ function Signup() {
       alert("ישנה תקלה בבקשה נסה שוב");
     }
     else if (dataRequest.body) {
-      localStorage.setItem("currentUser", JSON.stringify({id:dataRequest.body.id}));
+      localStorage.setItem("currentUser", JSON.stringify({ id: dataRequest.body.id }));
       localStorage.setItem("token", `${dataRequest.token}${dataRequest.body.id}`);
       localStorage.setItem("status", (dataRequest.status));
-      await  dispatch({ type: 'SET_TOKEN', payload: `${dataRequest.token}${dataRequest.body.id}` });
-      await  dispatch({ type: 'SET_STATUS', payload: dataRequest.status  });
-      await  dispatch({ type: 'SET_USER', payload: dataRequest.body });
+      await dispatch({ type: 'SET_TOKEN', payload: `${dataRequest.token}${dataRequest.body.id}` });
+      await dispatch({ type: 'SET_STATUS', payload: dataRequest.status });
+      await dispatch({ type: 'SET_USER', payload: dataRequest.body });
       navigate(`/`);
     }
     else {

@@ -18,12 +18,12 @@ const statusOptions = ['התקבלה', 'אושרה', 'בתהליך הכנה', '�
 
 
 const statusIcons = {
-    התקבלה: <InboxIcon />,
-    אושרה: <CheckCircleIcon />,
-    'בתהליך הכנה': <BuildIcon />,
-    נשלחה: <LocalShippingIcon />,
-    הסתיימה: <DoneAllIcon />
-  };
+  התקבלה: <InboxIcon />,
+  אושרה: <CheckCircleIcon />,
+  'בתהליך הכנה': <BuildIcon />,
+  נשלחה: <LocalShippingIcon />,
+  הסתיימה: <DoneAllIcon />
+};
 
 export default function OrderTimeline({ currentStatus }) {
 
@@ -54,7 +54,7 @@ export default function OrderTimeline({ currentStatus }) {
             <Typography variant="h6" component="span">
               {status}
             </Typography>
-            <Typography>       </Typography> 
+            <Typography>       </Typography>
           </TimelineContent>
         </TimelineItem>
       ))}

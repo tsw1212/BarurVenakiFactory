@@ -110,7 +110,7 @@ function CartProducts({ setChosenCartProducts, setCountCartItems }) {
     };
 
     async function handleOpenDeleteForm(e) {
-        
+
         await setCurrentProductToDelete(e);
         await setDeleteOn(true);
     }

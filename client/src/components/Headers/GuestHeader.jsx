@@ -10,7 +10,7 @@ function GuestHeader() {
                 <NavLink className='navLinkHeader' to="/contactUs">צור קשר</NavLink>
                 <NavLink className='navLinkHeader' to="/products">מוצרים</NavLink>
             </div>
-            <NavLink  to="/home"><img  className='logoImg'  src='../../../images/logo.png' alt='logo' /></NavLink>
+            <NavLink to="/home"><img className='logoImg' src='../../../images/logo.png' alt='logo' /></NavLink>
         </div>
     )
 }

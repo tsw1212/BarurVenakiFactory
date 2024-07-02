@@ -3,7 +3,7 @@ import '../css/footer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '.././modules/FontAwesome';
 import { getRequest } from '../modules/requests/server_requests';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 const Footer = ({ }) => {
@@ -15,7 +15,7 @@ const Footer = ({ }) => {
     async function fetchData() {
       if (token === '') {
         token = localStorage.getItem('token');
-    }
+      }
       const reqData = await getRequest(`http://localhost:3000/factory/ברור ונקי`, token);
       if (reqData.ok) setFactory(reqData.body.factory);
       console.log("fotter");
@@ -58,7 +58,7 @@ const Footer = ({ }) => {
         </div>
       </div>
       <p className="footer-thankyou">תודה שבחרתם במפעל קטניות ואורז פרימיום – המקום בו איכות פוגשת נוחות</p>
-      </footer>
+    </footer>
   );
 };
 

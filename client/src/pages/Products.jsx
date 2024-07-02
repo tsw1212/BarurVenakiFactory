@@ -50,14 +50,14 @@ function Products() {
     return (
         <div>
             {showAlert && (
-                <Alert 
-                    severity="success" 
-                    style={{ 
-                        position: 'absolute', 
-                        top: '5vh', 
-                        left: '50%', 
-                        transform: 'translateX(-50%)', 
-                        zIndex: 1000 
+                <Alert
+                    severity="success"
+                    style={{
+                        position: 'absolute',
+                        top: '5vh',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 1000
                     }}
                 >
                     {alertMessage}

@@ -54,8 +54,8 @@ function ManagerProducts({ products, setProducts, setProductsHandler }) {
           alert('בעיה בטעינת הנתונים. נסה שוב');
         }
       }
-      else{
-        if(productsRedux.length <10){
+      else {
+        if (productsRedux.length < 10) {
           setHasMoreProducts(false);
         }
         setProducts(productsRedux);

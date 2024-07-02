@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { postRequest } from '../../modules/requests/server_requests';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/AddEvent.css'
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 

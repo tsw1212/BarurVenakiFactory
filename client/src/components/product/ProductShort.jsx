@@ -6,14 +6,14 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import {  CardActionArea, CardActions } from '@mui/material';
+import { CardActionArea, CardActions } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/productShort.css'
 
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
-export default function ProductShort({ productData}) {
+export default function ProductShort({ productData }) {
   const token = useSelector((state) => state.app.token);
 
   console.log(productData);
@@ -32,7 +32,7 @@ export default function ProductShort({ productData}) {
                 alt={productData.name}
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div" sx={{  color: "#2d5a02"}}>
+                <Typography gutterBottom variant="h5" component="div" sx={{ color: "#2d5a02" }}>
                   {productData.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -47,7 +47,7 @@ export default function ProductShort({ productData}) {
           <CardActions>
             <NavLink to={`${productData.name}`}>
               <Tooltip describeChild title='מידע נוסף'>
-                <FontAwesomeIcon style={{color:"#1d7822"}}  icon="fas fa-ellipsis-v" />
+                <FontAwesomeIcon style={{ color: "#1d7822" }} icon="fas fa-ellipsis-v" />
               </Tooltip>
             </NavLink>
 

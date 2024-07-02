@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import '../../css/header.css';
 import NumbersOfItem from './NumbersOfItem';
 import { getRequest } from '../../modules/requests/server_requests';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 function UserHeader({ logOut, countCartItems, setCountCartItems }) {

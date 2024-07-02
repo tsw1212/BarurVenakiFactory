@@ -1,9 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 import '../css/home.css';
-import WorngRequest from '../pages/WorngRequest';
-import { getRequest } from '../modules/requests/server_requests';
-import { useDispatch, useSelector } from 'react-redux';
+;
 
 
 function Home() {
@@ -29,7 +26,7 @@ function Home() {
 
       <section className="">
         <h2 className="section-title">המוצרים שלנו</h2>
-        <div className="container">
+        <div className="container ">
           <div className="leftSideTxt">
             <p className="section-content">
               המגוון שלנו כולל סוגים שונים של קטניות ואורז, אשר כולם מגיעים מגידולי השדה הטובים ביותר ועוברים תהליך קפדני של ניקוי, ברירה ואריזה בואקום כדי לשמור על נקיות המוצר מחרקים ולהאריך את חיי המדף.
@@ -41,7 +38,7 @@ function Home() {
 
       <section className="price">
         <h2 className="section-title">המחירים שלנו</h2>
-        <div className="container">
+        <div className="container ">
           <img className='imgPriceLeft' src="../../images/price2.jpeg" alt="תמונה של מחירים" />
           <div className="rightSideTxt">
             <p className="section-contentPtice">
@@ -52,7 +49,7 @@ function Home() {
       </section>
       <section >
         <h2 className="section-title"> ? למה לבחור בנו</h2>
-        <div className="container">
+        <div className="container ">
           <div className="lastDivManyItems">
             <div className="section-item1">
               <h2>בריאות ובטיחות</h2>

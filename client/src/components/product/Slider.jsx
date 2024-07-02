@@ -1,7 +1,7 @@
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import '../../css/slide.css';
-import { useState, useRef, useEffect } from "react";
+import {  useRef, useEffect } from "react";
 
 export default function Slider({ currentSlide, sliders }) {
   const slideRef = useRef();
@@ -23,7 +23,7 @@ export default function Slider({ currentSlide, sliders }) {
           </div>
         ))}
       </Slide>
-     
+
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Typography, TextField, Button, Container, Box, Alert } from '@mui/material';
-import '../css/contactUs.css'; // Ensure correct path to your CSS file
-import { postRequest } from '../modules/requests/server_requests'; // Import the postRequest function
+import '../css/contactUs.css'; 
+import { postRequest } from '../modules/requests/server_requests';
 
 export default function ContactUsPage() {
   const [title, setTitle] = React.useState('');

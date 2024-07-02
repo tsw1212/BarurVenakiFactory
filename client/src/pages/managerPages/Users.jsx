@@ -10,7 +10,6 @@ const Users = () => {
     const [newManagerOn, setNewMangerOn] = useState(false);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const status = useSelector(state => state.app.status);
-    let token = useSelector(state => state.app.token);
 
     useEffect(() => {
         setFilteredUsers((users) => [...users].sort((a, b) => a.name.localeCompare(b.name)));
@@ -22,9 +21,9 @@ const Users = () => {
                 <>
                     <div className={`usersPage ${newManagerOn ? 'blur' : ''}`}>
                         <button className='add_manager_button' onClick={() => setNewMangerOn(true)}>הגדר מנהל חדש</button>
-                        <UsersTable  filteredUsers={filteredUsers} setFilteredUsers={setFilteredUsers} />
+                        <UsersTable filteredUsers={filteredUsers} setFilteredUsers={setFilteredUsers} />
                     </div>
-                    {newManagerOn && <UserManagerForm setFilteredUsers={setFilteredUsers}  setNewMangerOn={setNewMangerOn} />}
+                    {newManagerOn && <UserManagerForm setFilteredUsers={setFilteredUsers} setNewMangerOn={setNewMangerOn} />}
                 </>
             }
         </>

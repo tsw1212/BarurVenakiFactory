@@ -9,7 +9,6 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-
 import AddEvent from '../components/events/AddEvent';
 import Loading from '../components/Loading';
 import formatDates from '../modules/formatDateTime';
@@ -53,13 +52,6 @@ function Order() {
         fetchOrder();
     }, [OrderId]);
 
-    // const updateProductInventory = async (productId, amount) => {
-    //     const response = await putRequest(`http://localhost:3000/products/${productId}`, { inventory: amount }, token);
-    //     if (!response.ok) {
-    //         console.error(`Failed to update inventory for product ${productId}`);
-    //     }
-    // };
-
     const handleSaveStatus = async (event) => {
         const updatedOrder = {
             id: order.orderInfo.orderId,
@@ -80,14 +72,14 @@ function Order() {
                         ...o,
                         orderInfo: {
                             ...o.orderInfo,
-                            status: updatedOrder.status  
+                            status: updatedOrder.status
                         }
                     };
                 }
-                return o;  
-            });            
-            
-          await  dispatch({ type: 'SET_ORDERS', payload: updatOrders });
+                return o;
+            });
+
+            await dispatch({ type: 'SET_ORDERS', payload: updatOrders });
             if (status === 'manager' && orderStatus === 'הסתיימה') {
                 for (const product of order.products) {
                     const response = await putRequest(`http://localhost:3000/products/inventory/${product.productId}`, { amount: product.amount }, token);
@@ -110,7 +102,7 @@ function Order() {
             };
         });
     };
-    
+
 
     const handleProductAmountChange = async (productId, newAmount, reason) => {
         const updatedProduct = {

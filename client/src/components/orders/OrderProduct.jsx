@@ -2,7 +2,7 @@ import * as React from 'react';
 import '../../css/orderProduct.css';
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 function OrderProduct({ product, onAmountChange, orderStatus }) {
@@ -17,7 +17,7 @@ function OrderProduct({ product, onAmountChange, orderStatus }) {
   };
 
   return (
-    
+
     <div className="orderProduct">
       <div className="productDetails">
         <p>מספר מזהה של המוצר: {product.productId}</p>
@@ -26,7 +26,7 @@ function OrderProduct({ product, onAmountChange, orderStatus }) {
         {!isEditing ?
           <>
             <p>כמות : {product.amount}</p>
-            {(status == "manager" && (orderStatus!=="הסתיימה")||orderStatus == "התקבלה") && <button className='button' onClick={() => setIsEditing(true)}>ערוך כמות</button>}
+            {(status == "manager" && (orderStatus !== "הסתיימה") || orderStatus == "התקבלה") && <button className='button' onClick={() => setIsEditing(true)}>ערוך כמות</button>}
           </>
           :
           null
@@ -38,7 +38,7 @@ function OrderProduct({ product, onAmountChange, orderStatus }) {
             label="כמות"
             type="number"
             value={amount}
-            onChange={(e) =>{if(e.target.value>=0){ setAmount(e.target.value)}}}
+            onChange={(e) => { if (e.target.value >= 0) { setAmount(e.target.value) } }}
           />
           <TextField
             label="סיבה לשינוי"

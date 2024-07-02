@@ -39,7 +39,7 @@ const SelectType = ({ products, handleTypeChange }) => {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300, borderBottomColor: 'green' }}>
-        <InputLabel style={{ direction: "rtl"}} id="demo-multiple-name-label">סוג</InputLabel>
+        <InputLabel style={{ direction: "rtl" }} id="demo-multiple-name-label">סוג</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
@@ -47,7 +47,7 @@ const SelectType = ({ products, handleTypeChange }) => {
           onChange={handleChange}
           input={<OutlinedInput label="Name" />}
           MenuProps={MenuProps}
-          sx={{ color: 'green' }} 
+          sx={{ color: 'green' }}
         >
           {products.map((p, index) => (
             <MenuItem

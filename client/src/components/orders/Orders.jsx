@@ -122,68 +122,130 @@ function Orders() {
         />
         <FontAwesomeIcon icon="fas fa-search" />
       </div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 420 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell className='tableHead' align="right">מספר הזמנה</TableCell>
-              <TableCell className='tableHead' align="right">מספר מזהה של משתמש</TableCell>
-              {status === "manager" && (
-                <>
-                  <TableCell className='tableHead' align="right">שם משתמש</TableCell>
-                  <TableCell className='tableHead' align="right">עיר</TableCell>
-                </>
-              )}
-              <TableCell className='tableHead' align="right">תאריך הזמנה</TableCell>
-              <TableCell className='tableHead' align="right">סטטוס הזמנה</TableCell>
-              <TableCell className='tableHead' align="right">הערות</TableCell>
-              <TableCell className='tableHead' align="right">תאריך אספקה</TableCell>
-              <TableCell className='tableHead' align="right">סכום</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filteredOrders.map((order) => {
-              if (status === 'manager') {
-                return (
-                  <TableRow
-                    className='row'
-                    key={order.orderInfo.orderId}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    onClick={() => navigate(`${order.orderInfo.orderId}`)}
-                  >
-                    <TableCell align="right">{order.orderInfo.orderId}</TableCell>
-                    <TableCell align="right">{order.orderInfo.userId}</TableCell>
-                    <TableCell align="right">{order.orderInfo.username}</TableCell>
-                    <TableCell align="right">{order.orderInfo.city}</TableCell>
-                    <TableCell align="right">{formatDates.formatDateTime(order.orderInfo.date)}</TableCell>
-                    <TableCell align="right">{order.orderInfo.status}</TableCell>
-                    <TableCell align="right">{order.orderInfo.remarks}</TableCell>
-                    <TableCell align="right">{formatDates.formatDate(order.orderInfo.deliveryDate)}</TableCell>
-                    <TableCell align="right">{order.orderInfo.totalPrice}</TableCell>
-                  </TableRow>
-                );
-              } else {
-                return (
-                  <TableRow
-                    className='row'
-                    key={order.orderId}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    onClick={() => navigate(`${order.orderId}`)}
-                  >
-                    <TableCell align="right">{order.orderId}</TableCell>
-                    <TableCell align="right">{order.userId}</TableCell>
-                    <TableCell align="right">{formatDates.formatDateTime(order.date)}</TableCell>
-                    <TableCell align="right">{order.status}</TableCell>
-                    <TableCell align="right">{order.remarks}</TableCell>
-                    <TableCell align="right">{formatDates.formatDate(order.deliveryDate)}</TableCell>
-                    <TableCell align="right">{order.totalPrice}</TableCell>
-                  </TableRow>
-                );
-              }
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div className="tablesContainer">
+        <TableContainer component={Paper} className="tableLarge">
+          <Table sx={{ minWidth: 420 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell className='tableHead' align="right">מספר הזמנה</TableCell>
+                <TableCell className='tableHead' align="right">מספר מזהה של משתמש</TableCell>
+                {status === "manager" && (
+                  <>
+                    <TableCell className='tableHead' align="right">שם משתמש</TableCell>
+                    <TableCell className='tableHead' align="right">עיר</TableCell>
+                  </>
+                )}
+                <TableCell className='tableHead' align="right">תאריך הזמנה</TableCell>
+                <TableCell className='tableHead' align="right">סטטוס הזמנה</TableCell>
+                <TableCell className='tableHead' align="right">הערות</TableCell>
+                <TableCell className='tableHead' align="right">תאריך אספקה</TableCell>
+                <TableCell className='tableHead' align="right">סכום</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredOrders.map((order) => {
+                if (status === 'manager') {
+                  return (
+                    <TableRow
+                      className='row'
+                      key={order.orderInfo.orderId}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      onClick={() => navigate(`${order.orderInfo.orderId}`)}
+                    >
+                      <TableCell align="right">{order.orderInfo.orderId}</TableCell>
+                      <TableCell align="right">{order.orderInfo.userId}</TableCell>
+                      <TableCell align="right">{order.orderInfo.username}</TableCell>
+                      <TableCell align="right">{order.orderInfo.city}</TableCell>
+                      <TableCell align="right">{formatDates.formatDateTime(order.orderInfo.date)}</TableCell>
+                      <TableCell align="right">{order.orderInfo.status}</TableCell>
+                      <TableCell align="right">{order.orderInfo.remarks}</TableCell>
+                      <TableCell align="right">{formatDates.formatDate(order.orderInfo.deliveryDate)}</TableCell>
+                      <TableCell align="right">{order.orderInfo.totalPrice}</TableCell>
+                    </TableRow>
+                  );
+                } else {
+                  return (
+                    <TableRow
+                      className='row'
+                      key={order.orderId}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      onClick={() => navigate(`${order.orderId}`)}
+                    >
+                      <TableCell align="right">{order.orderId}</TableCell>
+                      <TableCell align="right">{order.userId}</TableCell>
+                      <TableCell align="right">{formatDates.formatDateTime(order.date)}</TableCell>
+                      <TableCell align="right">{order.status}</TableCell>
+                      <TableCell align="right">{order.remarks}</TableCell>
+                      <TableCell align="right">{formatDates.formatDate(order.deliveryDate)}</TableCell>
+                      <TableCell align="right">{order.totalPrice}</TableCell>
+                    </TableRow>
+                  );
+                }
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <TableContainer component={Paper} className="tableSmall">
+          <Table sx={{ minWidth: 420 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell className='tableHead' align="right">מספר הזמנה</TableCell>
+                {status === "manager" && (
+                  <>
+                    <TableCell className='tableHead' align="right">שם משתמש</TableCell>
+                    <TableCell className='tableHead' align="right">עיר</TableCell>
+                  </>
+                )}
+                <TableCell className='tableHead' align="right">תאריך הזמנה</TableCell>
+                <TableCell className='tableHead' align="right">סטטוס הזמנה</TableCell>
+                <TableCell className='tableHead' align="right">הערות</TableCell>
+                <TableCell className='tableHead' align="right">תאריך אספקה</TableCell>
+                <TableCell className='tableHead' align="right">סכום</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredOrders.map((order) => {
+                if (status === 'manager') {
+                  return (
+                    <TableRow
+                      className='row'
+                      key={order.orderInfo.orderId}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      onClick={() => navigate(`${order.orderInfo.orderId}`)}
+                    >
+                      <TableCell align="right">{order.orderInfo.orderId}</TableCell>
+                      <TableCell align="right">{order.orderInfo.username}</TableCell>
+                      <TableCell align="right">{order.orderInfo.city}</TableCell>
+                      <TableCell align="right">{formatDates.formatDateTime(order.orderInfo.date)}</TableCell>
+                      <TableCell align="right">{order.orderInfo.status}</TableCell>
+                      <TableCell align="right">{order.orderInfo.remarks}</TableCell>
+                      <TableCell align="right">{formatDates.formatDate(order.orderInfo.deliveryDate)}</TableCell>
+                      <TableCell align="right">{order.orderInfo.totalPrice}</TableCell>
+                    </TableRow>
+                  );
+                } else {
+                  return (
+                    <TableRow
+                      className='row'
+                      key={order.orderId}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      onClick={() => navigate(`${order.orderId}`)}
+                    >
+                      <TableCell align="right">{order.orderId}</TableCell>
+                      <TableCell align="right">{formatDates.formatDateTime(order.date)}</TableCell>
+                      <TableCell align="right">{order.status}</TableCell>
+                      <TableCell align="right">{order.remarks}</TableCell>
+                      <TableCell align="right">{formatDates.formatDate(order.deliveryDate)}</TableCell>
+                      <TableCell align="right">{order.totalPrice}</TableCell>
+                    </TableRow>
+                  );
+                }
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
       {hasMoreOrders && !loading && (
         <button className="loadMoreButton" onClick={loadMoreOrders}>
           טען עוד הזמנות

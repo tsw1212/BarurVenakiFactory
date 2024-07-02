@@ -28,8 +28,8 @@ const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
   );
 });
 
-export default function QuantityInput({quantity,handleQuantityChange}) {
-  return <NumberInput value={quantity} aria-label="Quantity Input" onChange={(ev,val)=>handleQuantityChange(val)} min={1} />;
+export default function QuantityInput({ quantity, handleQuantityChange }) {
+  return <NumberInput value={quantity} aria-label="Quantity Input" onChange={(ev, val) => handleQuantityChange(val)} min={1} />;
 }
 
 const green = {
@@ -77,9 +77,8 @@ const StyledInput = styled('input')(
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
-  box-shadow: 0px 2px 4px ${
-    theme.palette.mode === 'dark' ? 'rgba(0,0,0, 0.5)' : 'rgba(0,0,0, 0.05)'
-  };
+  box-shadow: 0px 2px 4px ${theme.palette.mode === 'dark' ? 'rgba(0,0,0, 0.5)' : 'rgba(0,0,0, 0.05)'
+    };
   border-radius: 8px;
   margin: 0 8px;
   padding: 10px 12px;

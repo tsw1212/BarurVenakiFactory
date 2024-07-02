@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { postRequest } from '../../modules/requests/server_requests';
 import '../../css/usersManagersForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 const UserManagerForm = ({ setNewMangerOn, setFilteredUsers }) => {

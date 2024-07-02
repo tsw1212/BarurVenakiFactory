@@ -97,14 +97,14 @@ const Product = ({ setCountCartItems }) => {
   return (
     <>
       {showAlert && (
-        <Alert 
-          severity="success" 
-          style={{ 
-            position: 'absolute', 
-            top: '15vh', 
-            left: '50%', 
-            transform: 'translateX(-50%)', 
-            zIndex: 1000 
+        <Alert
+          severity="success"
+          style={{
+            position: 'absolute',
+            top: '15vh',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 1000
           }}
         >
           {alertMessage}

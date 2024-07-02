@@ -66,12 +66,12 @@ function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackag
                         min={0}
                         max={300}
                         sx={{
-                            color: '#388e3c', 
+                            color: '#388e3c',
                             '& .MuiSlider-thumb': {
                                 color: '#388e3c',
                             },
                             '& .MuiSlider-track': {
-                                color: '#388e3c', 
+                                color: '#388e3c',
                             },
                             '& .MuiSlider-rail': {
                                 color: '#bdbdbd',
@@ -81,7 +81,7 @@ function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackag
                 </Box>
             </div>
             <br ></br>
-            <FormControl className="sortFilter" style={{ width: '90%', marginTop: '20px',marginLeft:'20px' }}>
+            <FormControl className="sortFilter" style={{ width: '90%', marginTop: '20px', marginLeft: '20px' }}>
                 <FormLabel component="legend">מיין לפי מחיר</FormLabel>
                 <Select
                     value={sortOption}

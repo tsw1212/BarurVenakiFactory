@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 
-import { useEffect } from'react';
+import { useEffect } from 'react';
 
 const predefinedOptions = [
   { value: 'ואקוום 1 ק"ג', label: 'וואקום 1 ק"ג' },
