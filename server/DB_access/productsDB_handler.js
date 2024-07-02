@@ -241,6 +241,22 @@ async function getProductsShortListPaged(offset, limit) {
     });
 }
 
+async function updateProductInventory(id, newInventory) {
+    return new Promise((resolve, reject) => {
+        const connection = Connect();
+        const sql = 'UPDATE Products SET inventory = ? WHERE id = ?';
+        connection.query(sql, [newInventory, id], async (err, result) => {
+            connection.end();
+            if (err) {
+                reject(new Error('Error updating product inventory:' + err));
+            } else {
+                let updatedProduct = await getProductById(id);
+                resolve(updatedProduct);
+            }
+        });
+    });
+}
+
 
 module.exports = {
     getProductById,
@@ -253,5 +269,6 @@ module.exports = {
     getProductByNameAndPackage,
     getNextProductId,
     getProductsPaged,
-    getProductsShortListPaged
+    getProductsShortListPaged,
+    updateProductInventory
 };

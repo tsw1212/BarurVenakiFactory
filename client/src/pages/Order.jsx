@@ -73,11 +73,14 @@ function Order() {
             await setOrder({ ...order, status: order.status });
             await setEditStatus(false);
             
-            // if (status === 'manager' && orderStatus === 'הסתיימה') {
-            //     for (const product of order.products) {
-            //         await updateProductInventory(product.productId, product.amount);
-            //     }
-            // }
+            if (status === 'manager' && orderStatus === 'הסתיימה') {
+                for (const product of order.products) {
+                    const response=await putRequest(`http://localhost:3000/products/inventory/${product.productId}`,{amount:product.amount},token);
+                    if(!response.ok){
+                        alert('עדכון המלאי של המצור נכשך נסה שוב');
+                    }
+                }
+            }
         } else {
             setWrongRequest(true);
         }

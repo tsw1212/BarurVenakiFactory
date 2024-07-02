@@ -155,6 +155,30 @@ const productsController = {
         } catch (error) {
             res.status(500).json({ error: "server internal error" });
         }
+    },
+    updateProductInventory: async (req, res) => {
+        if (req.securityLevel != "manager") {
+            return res.status(401).json({ error: "unauthorized" });
+        }
+        try {
+            const { id } = req.params;
+            const { amount } = req.body;
+
+            if (!amount || isNaN(amount)) {
+                return res.status(400).json({ error: "invalid input" });
+            }
+
+            const product = await ProductsServices.getProductById(id);
+            if (!product) {
+                return res.status(404).json({ error: "product not found" });
+            }
+
+            const updatedProduct = await ProductsServices.updateProductInventory(id, amount,product.inventory);
+            res.status(200).json(updatedProduct);
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ error: "server internal error" });
+        }
     }
 }
 

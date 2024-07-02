@@ -78,6 +78,17 @@ const ProductsServices = {
     getNextProductId: async()=>{
         const id = await DB_actions.getNextProductId();
         return id;
+    },
+    updateProductInventory: async (id, amount,currentInventory) => {
+
+        const newInventory = currentInventory- amount;
+        if (newInventory < 0) {
+            throw new Error("insufficient inventory");
+        }
+        const updatedProduct = await DB_actions.updateProductInventory(id, newInventory);
+        const { imgUrl, ...productWithoutImg } = updatedProduct;
+        const img = await converts.convertUrlToImageFile(imgUrl);
+        return { ...productWithoutImg, img: img };
     }
 };
 

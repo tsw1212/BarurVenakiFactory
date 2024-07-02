@@ -58,6 +58,6 @@
 
   .timelineContainer {
       margin-left: 0;
-      margin-bottom: 20px; /* Adds space between timeline and order details */
+      margin-bottom: 20px; 
   }
 }

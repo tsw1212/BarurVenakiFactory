@@ -21,6 +21,7 @@ app.get('/paged/:page', productsController.getProductsPaged);
 
 app.get('/shortListPaged/:page', productsController.getProductsShortListPaged);
 
+app.put('/inventory/:id', productsController.updateProductInventory);
 
 
 
