@@ -6,6 +6,7 @@ import { getRequest } from '../../modules/requests/server_requests';
 import Loading from '../../components/Loading';
 import ProductFilters from '../../components/product/ProductFilters';
 import { useSelector, useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Products({ products, setProducts }) {
   const [worngRequest, setWorngRequest] = useState(false);
@@ -17,6 +18,7 @@ function Products({ products, setProducts }) {
   const [page, setPage] = useState(1);
   const [hasMoreProducts, setHasMoreProducts] = useState(true);
   const [sortOption, setSortOption] = useState('');
+  const [showFilters, setShowFilters] = useState(false); // הוספת מצב להצגת/הסתרת פילטרים
   let token = useSelector((state) => state.app.token);
   let productsRedux = useSelector((state) => state.details.products);
   const dispatch = useDispatch();
@@ -46,7 +48,7 @@ function Products({ products, setProducts }) {
           if (newProducts.length < 10) {
             setHasMoreProducts(false);
           }
-          if (page == 1) {
+          if (page === 1) {
             await dispatch({ type: 'SET_PRODUCTS', payload: newProducts });
             await setProducts(newProducts);
           } else {
@@ -73,7 +75,7 @@ function Products({ products, setProducts }) {
         return matchesSearch && matchesPrice;
       });
       setFilteredProducts(filtered);
-    }
+    };
     filterProducts();
   }, [products, searchQuery, priceRange]);
 
@@ -97,22 +99,31 @@ function Products({ products, setProducts }) {
     setPage(prevPage => prevPage + 1);
   };
 
+  const toggleFilters = () => {
+    setShowFilters(!showFilters);
+  };
+
   return (
     worngRequest ? <WorngRequest className='wrongRequest' setWorngRequest={setWorngRequest} /> :
-      <div>
-        <ProductFilters
-          searchQuery={searchQuery}
-          onSearchChange={handleSearchChange}
-          selectedPackage={selectedPackage}
-          onPackageChange={handlePackageChange}
-          priceRange={priceRange}
-          onPriceRangeChange={handlePriceRangeChange}
-          sortOption={sortOption}
-          onSortChange={handleSortChange}
-        />
+
+      <div className='containerProductsUsers'>
+        <FontAwesomeIcon icon="fa-solid fa-bars" onClick={toggleFilters} />
+        {showFilters && (
+          <ProductFilters className='productFilters'
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            selectedPackage={selectedPackage}
+            onPackageChange={handlePackageChange}
+            priceRange={priceRange}
+            onPriceRangeChange={handlePriceRangeChange}
+            sortOption={sortOption}
+            onSortChange={handleSortChange}
+          />
+        )}
         {loading ? (
           <Loading />
         ) : (
+
           <div className="allProducts">
             {filteredProducts.length > 0 ? (
               filteredProducts.map((productData, index) => (

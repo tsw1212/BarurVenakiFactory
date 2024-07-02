@@ -71,7 +71,7 @@ function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackag
                     />
                 </Box>
             </div>
-            <FormControl className="sortFilter">
+            <FormControl className="sortFilter" style={{ width: '80%' }}> {/* Set width to 80% */}
                 <FormLabel component="legend">מיין לפי מחיר</FormLabel>
                 <Select
                     value={sortOption}
