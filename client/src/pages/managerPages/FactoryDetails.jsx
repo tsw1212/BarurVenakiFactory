@@ -48,7 +48,7 @@ const FactoryDetails = () => {
         try {
             let dataRequest = await putRequest(`http://localhost:3000/factory/ברור ונקי`, factory, token);
             if (dataRequest.ok) {
-                setFactory(dataRequest.body.factory);
+                setFactory(dataRequest.body);
                 setIsEditing(false);
             } else {
                 setAlert('בעיה בשמירת השינויים בבקשה נסה שוב');

@@ -44,6 +44,9 @@
 .users_table tbody tr:hover {
     background-color: #e5e5e5;
 }
+.search-container{
+    direction: rtl;
+}
 
 @media (max-width: 600px) {
     .users_table {

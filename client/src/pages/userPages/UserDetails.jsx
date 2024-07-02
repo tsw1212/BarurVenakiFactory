@@ -72,6 +72,8 @@ const UserDetails = () => {
           newPassword: '',
           confirmNewPassword: ''
         });
+        setAlert('הסיסמא שונתה בהצלחה');
+        
       }
     } else {
       setAlert('הסיסמאות החדשות אינן תואמות');
@@ -81,7 +83,6 @@ const UserDetails = () => {
   return (
     <div className='usersbody'>
       {loading && <Loading />}
-      {alert && <h2>{alert}</h2>}
 
      
 
@@ -121,6 +122,7 @@ const UserDetails = () => {
       
   <div className='user_section'>
     <div className='changePassword'>
+    {alert && <h4>{alert}</h4>}
       <h3>שנה סיסמא</h3>
       <label>סיסמא נוכחית:</label><input className='input_field' type="password" name="password" value={passwords.password} onChange={handlePasswordChange} /><br></br>
       <label>סיסמא חדשה:</label><input className='input_field' type="password" name="newPassword" value={passwords.newPassword} onChange={handlePasswordChange} /><br></br>

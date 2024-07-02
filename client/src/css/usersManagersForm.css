@@ -1,65 +1,67 @@
 .createManager_container {
-    direction: rtl;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ccc;
-    align-items: center;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    margin-right: 10px;
-    width: 20vw;
-    height: auto;
-    padding: 40px;
-    z-index: 1001; /* Ensures the form is above the blurred background */
-  }
-  
-  .createManager_form {
-    display: flex;
-    direction: rtl;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .add_manager_input {
-    background-color: #efe8e8;
-    width: 75%;
-    padding: 3%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    margin-right: 0;
+  direction: rtl;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ccc;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-right: 10px;
+  width: 20vw;
+  height: auto;
+  padding: 40px;
+  z-index: 1001;
+  /* Ensures the form is above the blurred background */
+}
 
+.createManager_form {
+  display: flex;
+  direction: rtl;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.add_manager_input {
+  background-color: #efe8e8;
+  width: 75%;
+  padding: 3%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  margin-right: 0;
+
+}
+
+input[type="submit"] {
+  width: auto;
+  padding: 10px;
+  margin-top: 1vw;
+  border: none;
+  border-radius: 5px;
+  background-color: #dbcb50;
+  color: #fff;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #dbcb50;
+}
+
+@media (max-width: 768px) {
+  .createManager_container {
+    position: relative;
+    bottom: 170em;
+    left: 18em;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding: 4vw;
+    width: fit-content;
   }
-  
-  input[type="submit"] {
-    width: auto;
-    padding: 10px;
-    margin-top: 1vw;
-    border: none;
-    border-radius: 5px;
-    background-color: #dbcb50;
-    color: #fff;
-    cursor: pointer;
+
+  input {
+    width: 50%;
   }
-  
-  input[type="submit"]:hover {
-    background-color: #dbcb50;
-  }
-  
-  @media (max-width: 768px) {
-    .createManager_container {
-      position: relative;
-      margin-top: 40px;
-      margin-bottom: 20px;
-      padding: 4vw;
-      width: fit-content;
-    }
-  
-    input {
-      width: 50%;
-    }
-  }
-  
+}
