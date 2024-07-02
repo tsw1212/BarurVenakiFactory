@@ -1,45 +1,65 @@
 .allProducts {
   direction: rtl;
-    margin-top: 5vh;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
+  margin-top: 5vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  flex: 3;
+}
+
+.containerProductsUsers {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.productFilters {
+  flex: 1;
+  display: none;
+}
+
+.productFilters.show {
+  display: block;
+}
+
+.productShort {
+  box-sizing: border-box;
+}
+
+.searchInput {
+  background-color: #ebf0da;
+  width: 60%;
+  padding: 10px;
+  margin: 1vw;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.searchInput:hover {
+  background-color: rgb(218, 212, 212);
+}
+
+.searchContainer {
+  margin-top: 5vw;
+  direction: rtl;
+}
+
+.filtersContainer {
+  direction: rtl;
+}
+
+@media (max-width: 700px) {
+  .searchInput {
+    width: 40%;
   }
-  
-  .productShort {
-    box-sizing: "border-box";
+  .priceFilter {
+    margin-right: 30%;
   }
-  .searchInput{
-    background-color: #ebf0da;
-    width: 15%;
-    padding: 10px;
-    margin: 1vw;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
+  .allProducts {
+    margin-right: 50px;
   }
-  .searchInput:hover{
-    background-color: rgb(218, 212, 212);
+  .containerProductsUsers{
+    flex-direction:column;
   }
-  .searchContainer{
-    margin-top: 5vw;
-    direction: rtl;
-    
-  }
-  .filtersContainer{
-    direction: rtl;
-    
-  }
-  @media (max-width: 700px) {
-    .searchInput{
-      width: 40%;
-    }
-    .priceFilter{
-      margin-right: 30%;
-    }
-    .allProducts{
-      margin-right: 50px;
-    }
- 
-  }
+}
