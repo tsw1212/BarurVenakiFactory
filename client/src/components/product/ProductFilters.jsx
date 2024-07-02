@@ -1,12 +1,19 @@
 import React from 'react';
-import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Box, Slider, Typography } from '@mui/material';
+import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Box, Slider, Typography, Select, MenuItem } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/products.css';
 
-function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackageChange, priceRange, onPriceRangeChange }) {
+function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackageChange, priceRange, onPriceRangeChange, sortOption, onSortChange }) {
     const valuetext = (value) => {
         return `${value}`;
     };
+
+    const predefinedOptions = [
+        { value: 'ואקוום 1 ק"ג', label: 'וואקום 1 ק"ג' },
+        { value: 'תפזורת מנופה', label: 'תפזורת מנופה' },
+        { value: 'וואקום 6 ק"ג', label: 'וואקום 6 ק"ג' },
+        { value: 'תפזורת מנופה בקרור', label: 'תפזורת מנופה בקרור' },
+    ];
 
     return (
         <div className="filtersContainer">
@@ -20,19 +27,20 @@ function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackag
                     className="searchInput"
                 />
             </div>
-            {/* <FormControl component="fieldset">
-        <FormLabel component="legend">סוג אריזה</FormLabel>
-        <RadioGroup
-          aria-label="package"
-          name="package"
-          value={selectedPackage}
-          onChange={onPackageChange}
-        >
-          <FormControlLabel value="box" control={<Radio />} label="קופסה" />
-          <FormControlLabel value="bag" control={<Radio />} label="שקית" />
-          <FormControlLabel value="" control={<Radio />} label="הכל" />
-        </RadioGroup>
-      </FormControl> */}
+            <FormControl component="fieldset" className="packageFilter">
+                <FormLabel component="legend">סוג אריזה</FormLabel>
+                <RadioGroup
+                    aria-label="package"
+                    name="package"
+                    value={selectedPackage}
+                    onChange={onPackageChange}
+                >
+                    {predefinedOptions.map(option => (
+                        <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />
+                    ))}
+                    <FormControlLabel value="" control={<Radio />} label="הכל" />
+                </RadioGroup>
+            </FormControl>
             <div className='priceFilter'>
                 <Box sx={{ width: 200 }}>
                     <Typography id="range-slider" gutterBottom>
@@ -63,7 +71,17 @@ function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackag
                     />
                 </Box>
             </div>
-
+            <FormControl className="sortFilter">
+                <FormLabel component="legend">מיין לפי מחיר</FormLabel>
+                <Select
+                    value={sortOption}
+                    onChange={onSortChange}
+                >
+                    <MenuItem value="">בחר</MenuItem>
+                    <MenuItem value="asc">מהנמוך לגבוה</MenuItem>
+                    <MenuItem value="desc">מהגבוה לנמוך</MenuItem>
+                </Select>
+            </FormControl>
         </div>
     );
 }

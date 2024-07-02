@@ -257,6 +257,81 @@ async function updateProductInventory(id, newInventory) {
     });
 }
 
+async function getFilteredSortedAndPaginatedProducts(filters) {
+    return new Promise((resolve, reject) => {
+        const connection = Connect();
+        let sql = `
+            SELECT 
+                p.name, 
+                p.imgUrl, 
+                prices.minPrice, 
+                prices.maxPrice
+            FROM 
+                (SELECT 
+                    name, 
+                    imgUrl 
+                FROM 
+                    (SELECT 
+                        name, 
+                        imgUrl, 
+                        ROW_NUMBER() OVER (PARTITION BY name ORDER BY id) AS row_num
+                    FROM Products
+                 ) AS subquery
+                WHERE row_num = 1
+                ) AS p
+            JOIN 
+                (SELECT 
+                 name, 
+                 MIN(price) AS minPrice, 
+                 MAX(price) AS maxPrice
+            FROM Products
+            GROUP BY name
+            ) AS prices
+            ON p.name = prices.name
+            WHERE 1=1`;
+
+        const queryParams = [];
+
+        // Apply filters
+        for (const [key, value] of Object.entries(filters)) {
+            if (key !== 'sort' && key !== 'page') { // Exclude 'sort' and 'page' parameters from WHERE clause
+                if (key === 'package') {
+                    sql += ` AND p.name IN (SELECT name FROM Products WHERE package = ? GROUP BY name)`;
+                    queryParams.push(value);
+                } else {
+                    sql += ` AND ${key} = ?`;
+                    queryParams.push(value);
+                }
+            }
+        }
+
+        // Add sorting logic
+        if (filters.sort) {
+            const sortDirection = filters.sort.toLowerCase() === 'asc' ? 'ASC' : 'DESC';
+            sql += ` ORDER BY minPrice ${sortDirection}`; // Assuming sorting by minPrice
+        }
+
+        // Add pagination logic
+        const page = parseInt(filters.page, 10) || 1;
+        const pageSize = 10; // Fixed page size
+        const offset = (page - 1) * pageSize;
+
+        sql += ` LIMIT ?, ?`;
+        queryParams.push(offset, pageSize);
+
+        connection.query(sql, queryParams, (err, result) => {
+            connection.end();
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+
+
 
 module.exports = {
     getProductById,
@@ -270,5 +345,6 @@ module.exports = {
     getNextProductId,
     getProductsPaged,
     getProductsShortListPaged,
-    updateProductInventory
+    updateProductInventory,
+    getFilteredSortedAndPaginatedProducts
 };

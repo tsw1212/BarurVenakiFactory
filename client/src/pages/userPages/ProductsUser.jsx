@@ -16,9 +16,21 @@ function Products({ products, setProducts }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMoreProducts, setHasMoreProducts] = useState(true);
+  const [sortOption, setSortOption] = useState('');
   let token = useSelector((state) => state.app.token);
   let productsRedux = useSelector((state) => state.details.products);
   const dispatch = useDispatch();
+
+  const buildQueryString = () => {
+    let queryString = `?page=${page}`;
+    if (sortOption) {
+      queryString += `&sort=${sortOption}`;
+    }
+    if (selectedPackage) {
+      queryString += `&package=${selectedPackage}`;
+    }
+    return queryString;
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -27,8 +39,8 @@ function Products({ products, setProducts }) {
         if (token === '') {
           token = localStorage.getItem('token');
         }
-        if (productsRedux.length == 0 || page != 1) {
-        const response = await getRequest(`http://localhost:3000/products/shortListPaged/${page}`, token);
+        const queryString = buildQueryString();
+        const response = await getRequest(`http://localhost:3000/products/filter${queryString}`, token);
         if (response.ok) {
           const newProducts = response.body;
           if (newProducts.length < 10) {
@@ -37,23 +49,12 @@ function Products({ products, setProducts }) {
           if (page == 1) {
             await dispatch({ type: 'SET_PRODUCTS', payload: newProducts });
             await setProducts(newProducts);
-
-          }
-          else {
+          } else {
             await setProducts([...productsRedux, ...newProducts]);
-
           }
         } else {
           setWorngRequest(true);
         }
-      }
-      else{
-        if(productsRedux.length <10){
-          setHasMoreProducts(false);
-        }
-        setProducts(productsRedux);
-        setLoading(false);
-      }
       } catch (error) {
         console.error('Failed to fetch products:', error);
         setWorngRequest(true);
@@ -62,7 +63,7 @@ function Products({ products, setProducts }) {
       }
     }
     fetchData();
-  }, [page]);
+  }, [page, sortOption, selectedPackage]);
 
   useEffect(() => {
     const filterProducts = () => {
@@ -88,6 +89,10 @@ function Products({ products, setProducts }) {
     setPriceRange(newValue);
   };
 
+  const handleSortChange = (event) => {
+    setSortOption(event.target.value);
+  };
+
   const loadMoreProducts = () => {
     setPage(prevPage => prevPage + 1);
   };
@@ -102,14 +107,16 @@ function Products({ products, setProducts }) {
           onPackageChange={handlePackageChange}
           priceRange={priceRange}
           onPriceRangeChange={handlePriceRangeChange}
+          sortOption={sortOption}
+          onSortChange={handleSortChange}
         />
         {loading ? (
           <Loading />
         ) : (
           <div className="allProducts">
             {filteredProducts.length > 0 ? (
-              filteredProducts.map((productData,index) => (
-                <ProductShort  className="productShort" productData={productData} key={productData.id} />
+              filteredProducts.map((productData, index) => (
+                <ProductShort className="productShort" productData={productData} key={productData.id} />
               ))
             ) : (
               <p>לא נמצאו מוצרים התואמים את החיפוש שלך</p>

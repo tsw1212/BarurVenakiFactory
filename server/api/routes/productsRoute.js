@@ -9,6 +9,9 @@ app.get('/', productsController.getAllProducts);
 
 app.get('/shortList', productsController.getProductsShortList);
 
+app.get('/filter', productsController.getFilteredSortedAndPaginatedProducts);
+
+
 app.get('/:name', productsController.getProductByName);
 
 app.post('/', upload.single('imageFile'), productsController.createProduct);
@@ -20,6 +23,7 @@ app.delete('/:id', productsController.deleteProduct);
 app.get('/paged/:page', productsController.getProductsPaged);
 
 app.get('/shortListPaged/:page', productsController.getProductsShortListPaged);
+
 
 app.put('/inventory/:id', productsController.updateProductInventory);
 

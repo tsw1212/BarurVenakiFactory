@@ -142,6 +142,18 @@ const productsController = {
             res.status(500).json({ error: "server internal error" });
         }
     },
+
+    getFilteredSortedAndPaginatedProducts: async (req, res) => {
+        try {
+            const filters = req.query;
+            let products = await ProductsServices.getFilteredSortedAndPaginatedProducts(filters);
+            res.status(200).json(products);
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ error: "server internal error" });
+        }
+    },
+
     getProductsShortListPaged: async (req, res) => {
         try {
             const { page } = req.params;

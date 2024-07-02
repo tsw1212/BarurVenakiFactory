@@ -20,33 +20,33 @@ const usersController = {
     getUserById: async (req, res) => {
         if (req.securityLevel != "user" && req.securityLevel != 'manager')
             res.status(401).json({ error: "unauthorized" });
-        else{
-        try {
-            const { id } = req.params;
-            if(id!=req.userId){
-                return res.status(401).json({ error: "unauthorized" });
-            }
-            let user = await UsersServices.getUserById(id);
-            if (!user) {
-                res.status(404).json({ error: "user not found" });
+        else {
+            try {
+                const { id } = req.params;
+                if (id != req.userId) {
+                    return res.status(401).json({ error: "unauthorized" });
+                }
+                let user = await UsersServices.getUserById(id);
+                if (!user) {
+                    res.status(404).json({ error: "user not found" });
+                    res.end();
+                }
+                else {
+                    res.status(200).json(user);
+                    res.end();
+                }
+            } catch (error) {
+                res.status(500).json({ error: "server internal error" });
                 res.end();
             }
-            else {
-                res.status(200).json(user);
-                res.end();
-            }
-        } catch (error) {
-            res.status(500).json({ error: "server internal error" });
-            res.end();
         }
-    }
     },
 
     getUsersPaged: async (req, res) => {
         try {
             const { page } = req.params;
             const pageNumber = parseInt(page);
-            const pageSize = 10; 
+            const pageSize = 10;
 
             const offset = (pageNumber - 1) * pageSize;
             const users = await UsersServices.getUsersPaged(offset, pageSize);
@@ -56,13 +56,13 @@ const usersController = {
             res.status(500).json({ error: "server internal error" });
         }
     },
-    
+
     getUsersOrders: async (req, res) => {
         if (req.securityLevel != "user" && req.securityLevel != 'manager')
             res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
-            if(id!=req.userId){
+            if (id != req.userId) {
                 return res.status(401).json({ error: "unauthorized" });
             }
             if (await UsersServices.getUserById(id) == null) {
@@ -70,9 +70,12 @@ const usersController = {
                 res.end();
                 return;
             }
-            let orders = await UsersServices.getUserOrdersDetails(id);
-            res.status(200).json(orders);
-            res.end();
+            else {
+                let orders = await UsersServices.getUserOrdersDetails(id);
+                res.status(200).json(orders);
+                res.end();
+            }
+
         } catch (error) {
             res.status(500).json({ error: "server internal error" });
             res.end();
@@ -102,10 +105,10 @@ const usersController = {
     },
     updateUser: async (req, res) => {
         if (req.securityLevel != "user" && req.securityLevel != 'manager')
-          return  res.status(401).json({ error: "unauthorized" });
+            return res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
-            if(id!=req.userId){
+            if (id != req.userId) {
                 return res.status(401).json({ error: "unauthorized" });
             }
             let updatedUserData = req.body;
@@ -128,7 +131,7 @@ const usersController = {
         }
     },
     deleteUser: async (req, res) => {
-        if ( req.securityLevel != 'manager')
+        if (req.securityLevel != 'manager')
             return res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;

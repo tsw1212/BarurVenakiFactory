@@ -89,7 +89,18 @@ const ProductsServices = {
         const { imgUrl, ...productWithoutImg } = updatedProduct;
         const img = await converts.convertUrlToImageFile(imgUrl);
         return { ...productWithoutImg, img: img };
+    },
+
+    getFilteredSortedAndPaginatedProducts: async (filters) => {
+        const products = await DB_actions.getFilteredSortedAndPaginatedProducts(filters);
+        const updatedProducts = await Promise.all(products.map(async (product) => {
+            const { imgUrl, ...productWithoutImg } = product;
+            const img = await converts.convertUrlToImageFile(imgUrl);
+            return { ...productWithoutImg, img: img };
+        }));
+        return updatedProducts;
     }
+
 };
 
 module.exports = ProductsServices;
