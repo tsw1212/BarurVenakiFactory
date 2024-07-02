@@ -98,8 +98,7 @@ function CurrentOrderDetails({ chosenCartProducts, setChosenCartProducts }) {
             className='order_input_date'
             value={deliveryDate}
             onChange={(e) => setDeliveryDate(e.target.value)}
-            minDate={new Date(getMinDeliveryDate())}
-            renderInput={(params) => <input {...params} />} 
+            min={getMinDeliveryDate()}
             required/>
         </div>
 

@@ -33,34 +33,36 @@ function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackag
           <FormControlLabel value="" control={<Radio />} label="הכל" />
         </RadioGroup>
       </FormControl> */}
-            <Box sx={{ width: 200 }}>
-                <Typography id="range-slider" gutterBottom>
-                    טווח מחירים
-                </Typography>
-                <Slider
-                    value={priceRange}
-                    onChange={onPriceRangeChange}
-                    valueLabelDisplay="auto"
-                    aria-labelledby="range-slider"
-                    getAriaValueText={valuetext}
-                    step={5}
-                    marks
-                    min={0}
-                    max={300}
-                    sx={{
-                        color: '#4caf50', 
-                        '& .MuiSlider-thumb': {
-                            color: '#4caf50', 
-                        },
-                        '& .MuiSlider-track': {
-                            color: '#4caf50', 
-                        },
-                        '& .MuiSlider-rail': {
-                            color: '#bdbdbd', 
-                        },
-                    }}
-                />
-            </Box>
+            <div className='priceFilter'>
+                <Box sx={{ width: 200 }}>
+                    <Typography id="range-slider" gutterBottom>
+                        טווח מחירים
+                    </Typography>
+                    <Slider
+                        value={priceRange}
+                        onChange={onPriceRangeChange}
+                        valueLabelDisplay="auto"
+                        aria-labelledby="range-slider"
+                        getAriaValueText={valuetext}
+                        step={5}
+                        marks
+                        min={0}
+                        max={300}
+                        sx={{
+                            color: '#4caf50',
+                            '& .MuiSlider-thumb': {
+                                color: '#4caf50',
+                            },
+                            '& .MuiSlider-track': {
+                                color: '#4caf50',
+                            },
+                            '& .MuiSlider-rail': {
+                                color: '#bdbdbd',
+                            },
+                        }}
+                    />
+                </Box>
+            </div>
 
         </div>
     );

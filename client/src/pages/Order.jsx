@@ -51,10 +51,20 @@ function Order() {
         fetchOrder();
     }, [OrderId]);
 
+    // const updateProductInventory = async (productId, amount) => {
+    //     const response = await putRequest(`http://localhost:3000/products/${productId}`, { inventory: amount }, token);
+    //     if (!response.ok) {
+    //         console.error(`Failed to update inventory for product ${productId}`);
+    //     }
+    // };
+
     const handleSaveStatus = async (event) => {
         const updatedOrder = {
-            id: order.orderInfo.orderId, userId: order.orderInfo.userId,
-            date: order.orderInfo.date, status: orderStatus, remarks: order.orderInfo.remarks
+            id: order.orderInfo.orderId, 
+            userId: order.orderInfo.userId,
+            date: order.orderInfo.date, 
+            status: orderStatus, 
+            remarks: order.orderInfo.remarks
         };
 
         const response = await putRequest(`http://localhost:3000/orders/${OrderId}`, updatedOrder, token);
@@ -62,6 +72,12 @@ function Order() {
             const order = response.body;
             await setOrder({ ...order, status: order.status });
             await setEditStatus(false);
+            
+            // if (status === 'manager' && orderStatus === 'הסתיימה') {
+            //     for (const product of order.products) {
+            //         await updateProductInventory(product.productId, product.amount);
+            //     }
+            // }
         } else {
             setWrongRequest(true);
         }
@@ -154,7 +170,7 @@ function Order() {
                             <h3>מוצרים</h3>
                             {order.products.map(product => (
                                 product.amount !== 0 &&
-                                <OrderProduct orderStatus={orderStatus === "" ? order.orderInfo.status : orderStatus}  key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
+                                <OrderProduct orderStatus={orderStatus === "" ? order.orderInfo.status : orderStatus} key={product.productId} product={product} onAmountChange={handleProductAmountChange} />
                             ))}
                         </div>
                         {order.events.length > 0 && <div className="events">
@@ -164,7 +180,7 @@ function Order() {
                             ))}
                         </div>}
                         {!addEvent && status === 'manager' && <button onClick={() => setAddEvent(true)}>הוסף אירוע</button>}
-                        {addEvent && <AddEvent setAddEvent={setAddEvent} orderId={order.orderInfo.orderId}  onEventAdded={handleEventAdded} />}
+                        {addEvent && <AddEvent setAddEvent={setAddEvent} orderId={order.orderInfo.orderId} onEventAdded={handleEventAdded} />}
                     </>
                 }
             </div>

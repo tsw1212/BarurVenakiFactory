@@ -67,7 +67,7 @@ function Home() {
               להירשם במהירות ולהתחיל לבצע הזמנות בקלות</div>
             <div className="section-item4">
               <h2>כשרות</h2>
-              <img style={{ width: "75%" }} src="https://www.hamichlol.org.il/w/upload/michlol/b/b7/HCharedit.svg" alt='לוגו כשרות בד"ץ העדה החרדית'></img>
+              <img  src="https://www.hamichlol.org.il/w/upload/michlol/b/b7/HCharedit.svg" alt='לוגו כשרות בד"ץ העדה החרדית'></img>
             </div>
           </div>
         </div>

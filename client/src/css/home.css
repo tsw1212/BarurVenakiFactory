@@ -50,7 +50,7 @@ section {
   margin: 0 auto;
 }
 
-.container {
+.container{
   overflow: hidden;
   width: 80vw;
   display: flex;
@@ -143,4 +143,29 @@ section {
 
 .section-list-item {
   margin-bottom: 10px;
+}
+
+@media (max-width: 700px) {
+  .lastDivManyItems{
+    display: block;
+  }
+  .section-item4 img{
+    width: 50%;
+    margin: auto;
+  }
+  .imgPriceLeft{
+    display: none;
+  }
+  .section-item1,
+  .section-item2,
+  .section-item3,
+  .section-item4{
+    margin-bottom: 5px;
+  }
+  .section-contentPtice{
+    /* margin-right: -100px; */
+    margin-left: -200px;
+
+  }
+  
 }

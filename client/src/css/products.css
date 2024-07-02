@@ -31,4 +31,15 @@
     direction: rtl;
     
   }
-  
+  @media (max-width: 700px) {
+    .searchInput{
+      width: 40%;
+    }
+    .priceFilter{
+      margin-right: 30%;
+    }
+    .allProducts{
+      margin-right: 50px;
+    }
+ 
+  }

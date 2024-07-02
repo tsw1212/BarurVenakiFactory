@@ -1,0 +1,22 @@
+.high-contrast {
+    background-color: #000;
+    color: #fff;
+  }
+  
+  .large-text {
+    font-size: 1.5em;
+  }
+  
+  .accessibility-button {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000;
+  }
+  
+  .accessibility-button button {
+    margin: 5px;
+    padding: 10px;
+    font-size: 1em;
+  }
+  
