@@ -10,7 +10,7 @@
 .users_table td {
     padding: 5px;
     border: 1px solid #ddd;
-    text-align: center;
+    text-align: right; /* יישור לימין */
 }
 
 .users_table th {
@@ -18,10 +18,24 @@
     color: #333;
 }
 
-.loadMoreButton{
+.loadMoreButton {
     margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
+.cards_users {
+    display: none;
+}
+
+.loadMoreButton:hover {
+    background-color: #45a049;
+}
 
 .users_table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
@@ -33,8 +47,41 @@
 
 @media (max-width: 600px) {
     .users_table {
+        display: none;
+    }
+
+    .cards_users {
+        display: block;
         width: 100%;
-        margin-left: 0;
-        margin-right: 0;
+        margin-top: 20px;
+    }
+
+    .user-card {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+        text-align: right; /* יישור לימין */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-card p {
+        margin: 5px 0;
+        font-size: 14px;
+        direction:rtl
+    }
+
+    .loadMoreButton {
+        width: 100%;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    .searchInput {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
     }
 }
