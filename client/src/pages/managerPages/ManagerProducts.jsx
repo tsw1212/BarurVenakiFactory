@@ -71,7 +71,8 @@ function ManagerProducts({ products, setProducts, setProductsHandler }) {
   };
 
   const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.id.toString().includes(searchQuery)
   );
 
   const loadMoreProducts = () => {
@@ -87,7 +88,7 @@ function ManagerProducts({ products, setProducts, setProductsHandler }) {
             <FontAwesomeIcon icon={faSearch} className="searchIcon" />
             <input
               type="text"
-              placeholder="חפש מוצר..."
+              placeholder="חפש שם מוצר או מספר מזהה של מוצר..."
               value={searchQuery}
               onChange={handleSearchChange}
               className="searchInput"

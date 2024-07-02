@@ -28,12 +28,13 @@
 
 .searchInput {
   background-color: #ebf0da;
-  width: 60%;
+  width: 80%;
   padding: 10px;
   margin: 1vw;
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
+  margin-bottom: 20px;
 }
 
 .searchInput:hover {
@@ -52,6 +53,8 @@
    font-size: 30px; 
    margin-top: 20px;
 }
+
+
 
 @media (max-width: 700px) {
   .searchInput {

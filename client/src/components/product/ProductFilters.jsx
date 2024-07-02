@@ -1,7 +1,14 @@
 import React from 'react';
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Box, Slider, Typography, Select, MenuItem } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { styled } from '@mui/system';
 import '../../css/products.css';
+
+const GreenRadio = styled(Radio)({
+    '&.Mui-checked': {
+        color: '#4caf50',
+    },
+});
 
 function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackageChange, priceRange, onPriceRangeChange, sortOption, onSortChange }) {
     const valuetext = (value) => {
@@ -28,7 +35,6 @@ function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackag
                 />
             </div>
             <FormControl component="fieldset" className="packageFilter">
-                <FormLabel component="legend">סוג אריזה</FormLabel>
                 <RadioGroup
                     aria-label="package"
                     name="package"
@@ -36,11 +42,14 @@ function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackag
                     onChange={onPackageChange}
                 >
                     {predefinedOptions.map(option => (
-                        <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />
+                        <FormControlLabel key={option.value} value={option.value} control={<GreenRadio />} label={option.label} />
                     ))}
-                    <FormControlLabel value="" control={<Radio />} label="הכל" />
+                    <FormControlLabel value="" control={<GreenRadio />} label="הכל" />
                 </RadioGroup>
             </FormControl>
+            <br ></br>
+            <br ></br>
+
             <div className='priceFilter'>
                 <Box sx={{ width: 200 }}>
                     <Typography id="range-slider" gutterBottom>
@@ -57,12 +66,12 @@ function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackag
                         min={0}
                         max={300}
                         sx={{
-                            color: '#4caf50',
+                            color: '#388e3c', 
                             '& .MuiSlider-thumb': {
-                                color: '#4caf50',
+                                color: '#388e3c',
                             },
                             '& .MuiSlider-track': {
-                                color: '#4caf50',
+                                color: '#388e3c', 
                             },
                             '& .MuiSlider-rail': {
                                 color: '#bdbdbd',
@@ -71,7 +80,8 @@ function ProductFilters({ searchQuery, onSearchChange, selectedPackage, onPackag
                     />
                 </Box>
             </div>
-            <FormControl className="sortFilter" style={{ width: '80%' }}> {/* Set width to 80% */}
+            <br ></br>
+            <FormControl className="sortFilter" style={{ width: '90%', marginTop: '20px',marginLeft:'20px' }}>
                 <FormLabel component="legend">מיין לפי מחיר</FormLabel>
                 <Select
                     value={sortOption}

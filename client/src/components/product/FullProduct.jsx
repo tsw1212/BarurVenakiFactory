@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import {  CardActionArea, CardActions } from '@mui/material';
+import { CardActionArea, CardActions } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../css/productShort.css';
 import { useState } from 'react';
@@ -14,7 +14,6 @@ import EditProduct from './EditProduct';
 import { useSelector } from 'react-redux';
 
 export default function FullProduct({ productData, setProductsHandler }) {
-  const token = useSelector((state) => state.app.token);
 
   const [editOn, setEditOn] = useState(false);
   const [deleteOn, setdeleteOn] = useState(false);
@@ -45,6 +44,7 @@ export default function FullProduct({ productData, setProductsHandler }) {
                 {productData.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
+                <h4>מספר מזהה: {productData.id}</h4>
                 <h4>מחיר: {productData.price}</h4>
                 <h4>כמות במלאי: {productData.inventory}</h4>
                 <h4>משקל: {productData.weight}</h4>
@@ -68,7 +68,7 @@ export default function FullProduct({ productData, setProductsHandler }) {
         <EditProduct setProductsHandler={setProductsHandler} setEditOn={setEditOn} productData={productData} />
       )}
       {deleteOn && (
-        <DeleteProduct  setProductsHandler={setProductsHandler} setdeleteOn={setdeleteOn} productData={productData} />
+        <DeleteProduct setProductsHandler={setProductsHandler} setdeleteOn={setdeleteOn} productData={productData} />
       )}
     </>
   );
