@@ -14,7 +14,7 @@ import AddEvent from '../components/events/AddEvent';
 import Loading from '../components/Loading';
 import formatDates from '../modules/formatDateTime';
 import OrderTimeline from '../components/orders/OrderTimeLine';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const statusOptions = ['התקבלה', 'אושרה', 'בתהליך הכנה', 'נשלחה', 'הסתיימה'];
 
@@ -26,6 +26,8 @@ function Order() {
     const [orderStatus, setOrderStatus] = useState('');
     const [addEvent, setAddEvent] = useState(false);
     const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    let ordersRedux = useSelector((state) => state.details.orders);
     let token = useSelector((state) => state.app.token);
     const status = useSelector((state) => state.app.status);
 
@@ -60,10 +62,10 @@ function Order() {
 
     const handleSaveStatus = async (event) => {
         const updatedOrder = {
-            id: order.orderInfo.orderId, 
+            id: order.orderInfo.orderId,
             userId: order.orderInfo.userId,
-            date: order.orderInfo.date, 
-            status: orderStatus, 
+            date: order.orderInfo.date,
+            status: orderStatus,
             remarks: order.orderInfo.remarks
         };
 
@@ -72,11 +74,24 @@ function Order() {
             const order = response.body;
             await setOrder({ ...order, status: order.status });
             await setEditStatus(false);
+            let updatOrders = await ordersRedux.map(o => {
+                if (o.orderInfo.orderId === updatedOrder.id) {
+                    return {
+                        ...o,
+                        orderInfo: {
+                            ...o.orderInfo,
+                            status: updatedOrder.status  
+                        }
+                    };
+                }
+                return o;  
+            });            
             
+          await  dispatch({ type: 'SET_ORDERS', payload: updatOrders });
             if (status === 'manager' && orderStatus === 'הסתיימה') {
                 for (const product of order.products) {
-                    const response=await putRequest(`http://localhost:3000/products/inventory/${product.productId}`,{amount:product.amount},token);
-                    if(!response.ok){
+                    const response = await putRequest(`http://localhost:3000/products/inventory/${product.productId}`, { amount: product.amount }, token);
+                    if (!response.ok) {
                         alert('עדכון המלאי של המצור נכשך נסה שוב');
                     }
                 }
@@ -95,6 +110,7 @@ function Order() {
             };
         });
     };
+    
 
     const handleProductAmountChange = async (productId, newAmount, reason) => {
         const updatedProduct = {
@@ -112,7 +128,6 @@ function Order() {
                 )
             };
             setOrder(updatedOrder);
-
             const newEvent = {
                 orderId: order.orderInfo.orderId,
                 text: `הכמות של מוצר מספר: ${productId} השתנתה ל: ${newAmount}. הסיבה: ${reason}`,

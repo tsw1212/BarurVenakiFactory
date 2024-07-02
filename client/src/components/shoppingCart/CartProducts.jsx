@@ -110,6 +110,7 @@ function CartProducts({ setChosenCartProducts, setCountCartItems }) {
     };
 
     async function handleOpenDeleteForm(e) {
+        
         await setCurrentProductToDelete(e);
         await setDeleteOn(true);
     }
@@ -127,6 +128,7 @@ function CartProducts({ setChosenCartProducts, setCountCartItems }) {
 
     async function handleContinueToOrder() {
         const chosenProducts = products.filter(product => product.choose);
+
         setChosenCartProducts(chosenProducts);
         navigate('/shopping_cart/order');
     }
