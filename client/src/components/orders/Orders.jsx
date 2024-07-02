@@ -47,7 +47,7 @@ function Orders() {
               setHasMoreOrders(false);
             }
             let newOrders = [...orders, ...responseData.body];
-            reduxSortedOrders = newOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
+            reduxSortedOrders = newOrders;
             if (page == 1) {
               await dispatch({ type: 'SET_ORDERS', payload: reduxSortedOrders });
               await setOrders(reduxSortedOrders);

@@ -103,8 +103,10 @@ async function getAllOrders() {
             const orderDetails = await query(connection, sql);
 
             const groupedOrders = groupByOrderId(orderDetails);
+            const sortedOrders=groupedOrders.sort((a, b) => {
+                return new Date(b.orderInfo.date) - new Date(a.orderInfo.date);})
 
-            resolve(groupedOrders);
+            resolve(sortedOrders);
         } catch (error) {
             reject(new Error('Error fetching all orders details: ' + error));
         } finally {
@@ -112,6 +114,7 @@ async function getAllOrders() {
         }
     });
 }
+
 
 
 async function getOrdersByPage(offset, limit) {
