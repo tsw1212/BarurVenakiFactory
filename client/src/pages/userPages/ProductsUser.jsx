@@ -107,7 +107,7 @@ function Products({ products, setProducts }) {
     worngRequest ? <WorngRequest className='wrongRequest' setWorngRequest={setWorngRequest} /> :
 
       <div className='containerProductsUsers'>
-        <FontAwesomeIcon icon="fa-solid fa-bars" onClick={toggleFilters} />
+        <FontAwesomeIcon className='iconOpenMenu' icon="fa-solid fa-bars" onClick={toggleFilters} />
         {showFilters && (
           <ProductFilters className='productFilters'
             searchQuery={searchQuery}

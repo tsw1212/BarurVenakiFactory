@@ -1,7 +1,6 @@
 const express = require("express");
 const ProductsServices = require("../../services/productsServices");
 const validation = require('../../modules/validation');
-// const fileUpload = require('express-fileupload');
 const path = require('path');
 const fs = require('fs');
 

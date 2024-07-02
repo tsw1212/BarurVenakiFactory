@@ -49,7 +49,7 @@ const OrderController = {
             return res.status(401).json({ error: "unauthorized" });
         try {
             const order = req.body;
-            if (order.userId != req.userId) {
+            if (req.securityLevel=='user'&&order.userId != req.userId) {
                 return res.status(401).json({ error: "unauthorized" });
             }
             order.status = "התקבלה";
@@ -65,11 +65,11 @@ const OrderController = {
     },
     updateOrder: async (req, res) => {
         if (req.securityLevel != "user" && req.securityLevel != 'manager')
-          return  res.status(401).json({ error: "unauthorized" });
+            return res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
             let updatedOrderData = req.body;
-            if (updatedOrderData.userId != req.userId) {
+            if (req.securityLevel == 'user' && updatedOrderData.userId != req.userId) {
                 return res.status(401).json({ error: "unauthorized" });
             }
             const datetime = new Date(updatedOrderData.date);

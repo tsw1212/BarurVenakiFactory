@@ -183,6 +183,7 @@ async function getOrderById(orderId) {
 
 function groupByOrderId(orderDetails) {
     const grouped = {};
+
     orderDetails.forEach(row => {
         if (!grouped[row.orderId]) {
             grouped[row.orderId] = {
@@ -203,28 +204,39 @@ function groupByOrderId(orderDetails) {
         }
 
         if (row.productId) {
-            grouped[row.orderId].products.push({
-                productId: row.productId,
-                amount: row.amount,
-                name: row.name,
-                weight: row.weight,
-                package: row.package,
-                imgUrl: row.imgUrl,
-                inventory: row.inventory,
-                price: row.price
-            });
+            // Check if the product already exists in the products array for the orderId
+            const existingProductIndex = grouped[row.orderId].products.findIndex(product => product.productId === row.productId);
+            if (existingProductIndex === -1) {
+                grouped[row.orderId].products.push({
+                    productId: row.productId,
+                    amount: row.amount,
+                    name: row.name,
+                    weight: row.weight,
+                    package: row.package,
+                    imgUrl: row.imgUrl,
+                    inventory: row.inventory,
+                    price: row.price
+                });
+            }
         }
 
         if (row.eventId) {
-            grouped[row.orderId].events.push({
-                eventId: row.eventId,
-                text: row.eventText,
-                date: row.eventDate
-            });
+            // Check if the event already exists in the events array for the orderId
+            const existingEvent = grouped[row.orderId].events.find(event => event.eventId === row.eventId);
+            if (!existingEvent) {
+                grouped[row.orderId].events.push({
+                    eventId: row.eventId,
+                    text: row.eventText,
+                    date: row.eventDate
+                });
+            }
         }
     });
+
     return Object.values(grouped);
 }
+
+
 
 function query(connection, sql, values) {
     return new Promise((resolve, reject) => {
