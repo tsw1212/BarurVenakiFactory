@@ -45,6 +45,7 @@ export default function FullProduct({ productData, setProductsHandler }) {
                 {productData.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
+              <h4>מספר מזהה : {productData.id}</h4>
                 <h4>מחיר: {productData.price}</h4>
                 <h4>כמות במלאי: {productData.inventory}</h4>
                 <h4>משקל: {productData.weight}</h4>
