@@ -81,8 +81,8 @@ async function getEventById(id) {
 
 module.exports = {
     createEvent,
-   getAllEvents,
-   getEventById,
-   deleteEvent,
-   updateEvent
+    getAllEvents,
+    getEventById,
+    deleteEvent,
+    updateEvent
 };

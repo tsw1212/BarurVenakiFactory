@@ -1,4 +1,3 @@
-const express = require("express");
 const usersServices = require("../../services/usersServices");
 const passwordsServices = require("../../services/passwordsServices");
 const validation = require('../../modules/validation');

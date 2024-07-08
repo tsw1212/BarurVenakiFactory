@@ -7,9 +7,9 @@ const PasswordsServices = {
         const passwordData = await DB_actions.getPasswordByEmail(updatedPasswordData.email);
         if (await bcrypt.compare(updatedPasswordData.password, passwordData.password)) {
             const hashedPassword = await bcrypt.hash(updatedPasswordData.newPassword, 10);
-             await DB_actions.updatePassword({ email: updatedPasswordData.email, password: hashedPassword });
+            await DB_actions.updatePassword({ email: updatedPasswordData.email, password: hashedPassword });
         }
-         else {
+        else {
             throw new Error('סיסמא שגויה');
         }
     }

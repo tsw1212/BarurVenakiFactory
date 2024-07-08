@@ -76,6 +76,7 @@ const Product = ({ setCountCartItems }) => {
     let dataRequest = await postRequest(`http://localhost:3000/cart`, item, token);
     if (dataRequest.ok) {
       setCountCartItems(prev => prev + 1);
+      
       showAlertMessage('המוצר נוסף בהצלחה לעגלת הקניות');
     } else {
       alert('משהו השתבש נסה שוב');

@@ -1,4 +1,3 @@
-const express = require("express");
 const OrdersServices = require("../../services/ordersServices");
 const validation = require('../../modules/validation');
 
@@ -49,7 +48,7 @@ const OrderController = {
             return res.status(401).json({ error: "unauthorized" });
         try {
             const order = req.body;
-            if (req.securityLevel=='user'&&order.userId != req.userId) {
+            if (req.securityLevel == 'user' && order.userId != req.userId) {
                 return res.status(401).json({ error: "unauthorized" });
             }
             order.status = "התקבלה";

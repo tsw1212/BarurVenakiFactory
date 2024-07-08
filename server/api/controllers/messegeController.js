@@ -1,4 +1,4 @@
-const  validation  = require('../../modules/validation');
+const validation = require('../../modules/validation');
 const sendEmail = require('../../modules/email');
 
 const MessegeController = {

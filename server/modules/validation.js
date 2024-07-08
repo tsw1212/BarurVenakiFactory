@@ -8,7 +8,7 @@ function validateUserInput(user, isIdRequired = false) {
 
     for (const field of requiredFields) {
         if (!(field in user)) return false;
-    } 
+    }
 
     if (typeof user.name !== "string" || user.name.trim() === "") return false;
     if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.[a-zA-Z]{2,}$/.test(user.email)) return false;
@@ -50,7 +50,7 @@ function validateOrdersInput(order, isIdRequired = false) {
 function validateProductInput(product, isIdRequired = false) {
     if (!product || typeof product !== "object") return false;
 
-    const requiredFields = ["name", "weight", "package",  "inventory",'price'];
+    const requiredFields = ["name", "weight", "package", "inventory", 'price'];
     if (isIdRequired) {
         requiredFields.push("id");
     }
@@ -61,7 +61,7 @@ function validateProductInput(product, isIdRequired = false) {
 
     if (typeof product.name !== "string" || product.name.trim() === "") return false;
     if (typeof product.package !== "string" || product.package.trim() === "") return false;
-    
+
 
 
     return true;
@@ -76,7 +76,7 @@ function validateProductOrderInput(productOrder) {
         if (!(field in productOrder)) return false;
     }
 
-   
+
 
     return true;
 }
@@ -103,34 +103,34 @@ function validateEventsInput(event, isIdRequired = false) {
 function validateLoginInput(body) {
 
     if (!body || typeof body !== "object") return false;
-  
+
     const requiredFields = ["email", "password"];
     requiredFields.forEach((field) => {
-      if (!(field in body)) return false;
+        if (!(field in body)) return false;
     });
-  
+
     if (typeof body.password !== "string" || body.password.trim() === "") return false;
-  
+
     return true;
-  
-  }
-  function validatePasswordInput(passwordData) {
+
+}
+function validatePasswordInput(passwordData) {
 
     if (!passwordData || typeof passwordData !== "object") return false;
-    const requiredFields = ["email", "password","newPassword"];
+    const requiredFields = ["email", "password", "newPassword"];
     requiredFields.forEach((field) => {
-      if (!(field in passwordData)) return false;
+        if (!(field in passwordData)) return false;
     });
-  
+
     if (typeof passwordData.password !== "string" || passwordData.password.trim() === "") return false;
     if (typeof passwordData.newPassword !== "string" || passwordData.newPassword.trim() === "") return false;
 
-  
-    return true;
-  
-  }
 
-  function validateCartInput(cartItem) {
+    return true;
+
+}
+
+function validateCartInput(cartItem) {
     if (!cartItem || typeof cartItem !== "object") return false;
 
     const requiredFields = ["userId", "productId", "amount"];

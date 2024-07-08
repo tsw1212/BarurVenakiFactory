@@ -4,9 +4,9 @@ const nodemailer = require('nodemailer');
 
 
 
-async function sendEmail(subject,text,email){
-    const factoryData =await factoryServices.getFactoryByName(process.env.FACTORY_NAME)
- 
+async function sendEmail(subject, text, email) {
+    const factoryData = await factoryServices.getFactoryByName(process.env.FACTORY_NAME)
+
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
@@ -18,18 +18,18 @@ async function sendEmail(subject,text,email){
     const mailOptions = {
         from: factoryData.email,
         to: email,
-        subject:subject ,
+        subject: subject,
         text: text
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
-         if (error) {
+        if (error) {
             console.log(factoryData);
-            throw error;
+            // throw error;
         }
     }
     )
 }
 
-module.exports =  sendEmail
-;
+module.exports = sendEmail
+    ;

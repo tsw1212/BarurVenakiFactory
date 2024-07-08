@@ -3,7 +3,7 @@ const converts = require('../modules/converts');
 
 const ProductsServices = {
     createProduct: async (productData) => {
-        const product= await  DB_actions.createProduct(productData);
+        const product = await DB_actions.createProduct(productData);
         const { imgUrl, ...productWithoutImg } = product;
         const img = await converts.convertUrlToImageFile(product.imgUrl);
         return { ...productWithoutImg, img: img };
@@ -13,7 +13,7 @@ const ProductsServices = {
         const products = await DB_actions.getAllProducts();
         const updatedProducts = await Promise.all(products.map(async (product) => {
             const { imgUrl, ...productWithoutImg } = product;
-             const img = await converts.convertUrlToImageFile(product.imgUrl);
+            const img = await converts.convertUrlToImageFile(product.imgUrl);
             return { ...productWithoutImg, img: img };
         }));
         return updatedProducts;
@@ -27,9 +27,9 @@ const ProductsServices = {
         }));
         return updatedProducts;
     },
-    getProductById:async (id)=>{
+    getProductById: async (id) => {
         const product = await DB_actions.getProductById(id);
-        return product; 
+        return product;
     },
     getProductByName: async (name) => {
         const products = await DB_actions.getProductByName(name);
@@ -41,12 +41,12 @@ const ProductsServices = {
         return updatedProducts;
     },
 
-     updateProduct: async (updatedProductData) => {
-        const product= await  DB_actions.updateProduct(updatedProductData);
-            const { imgUrl, ...productWithoutImg } = product;
-            const img = await converts.convertUrlToImageFile(product.imgUrl);
-            return { ...productWithoutImg, img: img };
- 
+    updateProduct: async (updatedProductData) => {
+        const product = await DB_actions.updateProduct(updatedProductData);
+        const { imgUrl, ...productWithoutImg } = product;
+        const img = await converts.convertUrlToImageFile(product.imgUrl);
+        return { ...productWithoutImg, img: img };
+
     },
     getProductsPaged: async (offset, limit) => {
         const products = await DB_actions.getProductsPaged(offset, limit);
@@ -75,13 +75,13 @@ const ProductsServices = {
         const product = await DB_actions.getProductByNameAndPackage(name, packageType);
         return product;
     },
-    getNextProductId: async()=>{
+    getNextProductId: async () => {
         const id = await DB_actions.getNextProductId();
         return id;
     },
-    updateProductInventory: async (id, amount,currentInventory) => {
+    updateProductInventory: async (id, amount, currentInventory) => {
 
-        const newInventory = currentInventory- amount;
+        const newInventory = currentInventory - amount;
         if (newInventory < 0) {
             throw new Error("insufficient inventory");
         }

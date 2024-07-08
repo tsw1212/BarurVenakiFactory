@@ -25,14 +25,14 @@ app.use('/sendMessege', messegeRoute);
 
 app.use((req, res, next) => {
     try {
-        const token=req.get('XAuthentication-Token');
+        const token = req.get('XAuthentication-Token');
         const status = tokenActions.statusToken(token);
         if (!status) {
             res.status(401).json({ 'error': 'invalid token' });
         }
-        else{
-            req.securityLevel =status.status;
-            req.userId=status.id;
+        else {
+            req.securityLevel = status.status;
+            req.userId = status.id;
             next();
         }
     } catch {

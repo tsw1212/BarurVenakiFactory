@@ -13,7 +13,7 @@ async function createOrder(orderData) {
                 status: orderData.status,
                 remarks: orderData.remarks,
                 deliveryDate: orderData.deliveryDate,
-                totalPrice: orderData.totalPrice  // Include totalPrice
+                totalPrice: orderData.totalPrice
             });
 
             for (const product of orderData.products) {
@@ -103,8 +103,9 @@ async function getAllOrders() {
             const orderDetails = await query(connection, sql);
 
             const groupedOrders = groupByOrderId(orderDetails);
-            const sortedOrders=groupedOrders.sort((a, b) => {
-                return new Date(b.orderInfo.date) - new Date(a.orderInfo.date);})
+            const sortedOrders = groupedOrders.sort((a, b) => {
+                return new Date(b.orderInfo.date) - new Date(a.orderInfo.date);
+            })
 
             resolve(sortedOrders);
         } catch (error) {
@@ -204,7 +205,6 @@ function groupByOrderId(orderDetails) {
         }
 
         if (row.productId) {
-            // Check if the product already exists in the products array for the orderId
             const existingProductIndex = grouped[row.orderId].products.findIndex(product => product.productId === row.productId);
             if (existingProductIndex === -1) {
                 grouped[row.orderId].products.push({
@@ -221,7 +221,6 @@ function groupByOrderId(orderDetails) {
         }
 
         if (row.eventId) {
-            // Check if the event already exists in the events array for the orderId
             const existingEvent = grouped[row.orderId].events.find(event => event.eventId === row.eventId);
             if (!existingEvent) {
                 grouped[row.orderId].events.push({

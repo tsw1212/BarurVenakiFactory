@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 const productOrderServices = {
     updateProductOrder: async (updatedData) => {
-        return await DB_actions.updateProductOrder(updatedData);   
+        return await DB_actions.updateProductOrder(updatedData);
     }
 };
 

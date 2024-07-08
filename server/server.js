@@ -21,7 +21,7 @@ require('dotenv').config();
 app.use(cors({
     origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization', "XAuthentication-Token","XAuthentication-Password", "Access-Control-Expose-Headers", "XSecurity-Level"],
+    allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization', "XAuthentication-Token", "XAuthentication-Password", "Access-Control-Expose-Headers", "XSecurity-Level"],
     credentials: true
 }))
 

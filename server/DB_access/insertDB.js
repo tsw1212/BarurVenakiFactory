@@ -95,13 +95,11 @@ async function insertIntoPasswords() {
     const connection = connect();
     const sql = 'INSERT INTO Passwords (email, password) VALUES ?';
 
-    // Sample data
     const passwords = [
         { email: 'tzivish2141@gmail.com', password: '123' },
         { email: 'jane.smith@example.com', password: 'password456' }
     ];
 
-    // Hash passwords
     const hashedPasswords = await Promise.all(passwords.map(async (user) => {
         const hashedPassword = await bcrypt.hash(user.password, 10);
         return [user.email, hashedPassword];
@@ -137,28 +135,28 @@ const insertIntoFactory = async () => {
     const connection = connect();
     const sql = 'INSERT INTO Factory (name, phone, email, passwordEmail, street, city, houseNumber) VALUES ?';
     const values = [
-      ['ברור ונקי', '0586654543', 'tzivish2141@gmail.com', 'aive hpbo jmgv myhy', 'פרחי ההר', 'א"ת הר טוב', 3],
+        ['ברור ונקי', '0586654543', 'tzivish2141@gmail.com', 'aive hpbo jmgv myhy', 'פרחי ההר', 'א"ת הר טוב', 3],
     ];
-  
+
     connection.query(sql, [values], (err, result) => {
-      if (err) throw err;
-      console.log("Inserted factories successfully");
-      connection.end();
+        if (err) throw err;
+        console.log("Inserted factories successfully");
+        connection.end();
     });
-  };
-  
-  
+};
+
+
 
 function insert(params) {
     // insertIntoUsers();
-     //insertIntoOrders();
+    //insertIntoOrders();
     // insertIntoEvents();
     // insertIntoProducts();
-   // insertIntoProductOrder();
+    // insertIntoProductOrder();
     // insertIntoManagers();
     // insertIntoPasswords();
     insertIntoCart();
-  //  insertIntoFactory();
+    //  insertIntoFactory();
 }
 
 module.exports = {

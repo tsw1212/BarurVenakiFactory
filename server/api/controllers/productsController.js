@@ -1,4 +1,3 @@
-const express = require("express");
 const ProductsServices = require("../../services/productsServices");
 const validation = require('../../modules/validation');
 const path = require('path');

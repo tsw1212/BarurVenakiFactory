@@ -1,4 +1,3 @@
-const express = require("express");
 const tokenActions = require("../../modules/token");
 const validation = require('../../modules/validation');
 const UsersServices = require("../../services/usersServices");

@@ -1,4 +1,3 @@
-const express = require("express");
 const UsersServices = require("../../services/usersServices");
 const validation = require('../../modules/validation');
 
@@ -23,7 +22,7 @@ const usersController = {
         else {
             try {
                 const { id } = req.params;
-                if (req.securityLevel=='user'&&id != req.userId) {
+                if (req.securityLevel == 'user' && id != req.userId) {
                     return res.status(401).json({ error: "unauthorized" });
                 }
                 let user = await UsersServices.getUserById(id);
@@ -62,7 +61,7 @@ const usersController = {
             res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
-            if (req.securityLevel=='user'&&id != req.userId) {
+            if (req.securityLevel == 'user' && id != req.userId) {
                 return res.status(401).json({ error: "unauthorized" });
             }
             if (await UsersServices.getUserById(id) == null) {
@@ -108,7 +107,7 @@ const usersController = {
             return res.status(401).json({ error: "unauthorized" });
         try {
             const { id } = req.params;
-            if (req.securityLevel=='user'&&id != req.userId) {
+            if (req.securityLevel == 'user' && id != req.userId) {
                 return res.status(401).json({ error: "unauthorized" });
             }
             let updatedUserData = req.body;

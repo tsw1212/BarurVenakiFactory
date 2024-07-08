@@ -3,28 +3,28 @@ const connect = require("./ConnectDB");
 require("dotenv").config();
 
 const createDB = () => {
-    const config = {
-        host: process.env.HOST,
-        user: process.env.USER,
-        password: process.env.PASSWORD,
-    };
+  const config = {
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+  };
 
-    const connection = mysql.createConnection(config);
+  const connection = mysql.createConnection(config);
 
-    connection.connect((err) => {
-        if (err) throw err;
-        console.log("Successfully connected to MySQL");
-        connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB}`, function (err) {
-            if (err) throw err;
-            console.log("Database created successfully");
-            connection.end();
-        });
+  connection.connect((err) => {
+    if (err) throw err;
+    console.log("Successfully connected to MySQL");
+    connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB}`, function (err) {
+      if (err) throw err;
+      console.log("Database created successfully");
+      connection.end();
     });
+  });
 }
 
 const createUsersTable = () => {
-    const connection = connect();
-    const createUsersTable = `
+  const connection = connect();
+  const createUsersTable = `
     CREATE TABLE IF NOT EXISTS Users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
@@ -38,16 +38,16 @@ const createUsersTable = () => {
     )
     `;
 
-    connection.query(createUsersTable, (err, result) => {
-        if (err) throw err;
-        console.log("Users table has been created successfully");
-        connection.end();
-    });
+  connection.query(createUsersTable, (err, result) => {
+    if (err) throw err;
+    console.log("Users table has been created successfully");
+    connection.end();
+  });
 };
 
 const createOrdersTable = () => {
-    const connection = connect();
-    const createOrdersTableQuery = `
+  const connection = connect();
+  const createOrdersTableQuery = `
        CREATE TABLE IF NOT EXISTS Orders (
         id INT AUTO_INCREMENT PRIMARY KEY,
         userId INT,
@@ -61,17 +61,17 @@ const createOrdersTable = () => {
 
     `;
 
-    connection.query(createOrdersTableQuery, (err, result) => {
-        if (err) throw err;
-        console.log("Orders table has been created successfully");
-        connection.end();
-    });
+  connection.query(createOrdersTableQuery, (err, result) => {
+    if (err) throw err;
+    console.log("Orders table has been created successfully");
+    connection.end();
+  });
 };
 
 
 const createEventsTable = () => {
-    const connection = connect();
-    const createEventsTableQuery = `
+  const connection = connect();
+  const createEventsTableQuery = `
       CREATE TABLE IF NOT EXISTS Events (
           id INT AUTO_INCREMENT PRIMARY KEY,
           orderId INT,
@@ -81,17 +81,17 @@ const createEventsTable = () => {
       )
     `;
 
-    connection.query(createEventsTableQuery, (err, result) => {
-        if (err) throw err;
-        console.log("Events table has been created successfully");
-        connection.end();
-    });
+  connection.query(createEventsTableQuery, (err, result) => {
+    if (err) throw err;
+    console.log("Events table has been created successfully");
+    connection.end();
+  });
 };
 
 
 const createProductsTable = () => {
-    const connection = connect();
-    const createProductsTableQuery = `
+  const connection = connect();
+  const createProductsTableQuery = `
       CREATE TABLE IF NOT EXISTS Products (
           id INT AUTO_INCREMENT PRIMARY KEY,
           name VARCHAR(255) NOT NULL,
@@ -103,17 +103,17 @@ const createProductsTable = () => {
       )
     `;
 
-    connection.query(createProductsTableQuery, (err, result) => {
-        if (err) throw err;
-        console.log("Products table has been created successfully");
-        connection.end();
-    });
+  connection.query(createProductsTableQuery, (err, result) => {
+    if (err) throw err;
+    console.log("Products table has been created successfully");
+    connection.end();
+  });
 };
 
 
 const createProductOrderTable = () => {
-    const connection = connect();
-    const createProductOrderTableQuery = `
+  const connection = connect();
+  const createProductOrderTableQuery = `
       CREATE TABLE IF NOT EXISTS ProductOrder (
           orderId INT,
           productId INT,
@@ -124,49 +124,49 @@ const createProductOrderTable = () => {
       )
     `;
 
-    connection.query(createProductOrderTableQuery, (err, result) => {
-        if (err) throw err;
-        console.log("ProductOrder table has been created successfully");
-        connection.end();
-    });
+  connection.query(createProductOrderTableQuery, (err, result) => {
+    if (err) throw err;
+    console.log("ProductOrder table has been created successfully");
+    connection.end();
+  });
 };
 
 const createManagersTable = () => {
-    const connection = connect();
-    const createManagersTableQuery = `
+  const connection = connect();
+  const createManagersTableQuery = `
       CREATE TABLE IF NOT EXISTS Managers (
           id INT PRIMARY KEY,
           FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE
       )
     `;
-  
-    connection.query(createManagersTableQuery, (err, result) => {
-      if (err) throw err;
-      console.log("Managers table has been created successfully");
-      connection.end();
-    });
-  };
 
-  const createPasswordsTable = () => {
-    const connection = connect();
-    const createPasswordsTableQuery = `
+  connection.query(createManagersTableQuery, (err, result) => {
+    if (err) throw err;
+    console.log("Managers table has been created successfully");
+    connection.end();
+  });
+};
+
+const createPasswordsTable = () => {
+  const connection = connect();
+  const createPasswordsTableQuery = `
       CREATE TABLE IF NOT EXISTS Passwords (
           email VARCHAR(255)  PRIMARY KEY,
           password VARCHAR(255) NOT NULL,
           FOREIGN KEY (email) REFERENCES Users(email) ON DELETE CASCADE
       )
     `;
-  
-    connection.query(createPasswordsTableQuery, (err, result) => {
-      if (err) throw err;
-      console.log("passwords table has been created successfully");
-      connection.end();
-    });
-  };
 
-  const createCartTable = () => {
-    const connection = connect();
-    const createCartTableQuery = `
+  connection.query(createPasswordsTableQuery, (err, result) => {
+    if (err) throw err;
+    console.log("passwords table has been created successfully");
+    connection.end();
+  });
+};
+
+const createCartTable = () => {
+  const connection = connect();
+  const createCartTableQuery = `
       CREATE TABLE IF NOT EXISTS Cart (
           id INT AUTO_INCREMENT PRIMARY KEY,
           userId INT NOT NULL,
@@ -178,15 +178,15 @@ const createManagersTable = () => {
       )
     `;
 
-    connection.query(createCartTableQuery, (err, result) => {
-        if (err) throw err;
-        console.log("Cart table has been created successfully");
-        connection.end();
-    });
+  connection.query(createCartTableQuery, (err, result) => {
+    if (err) throw err;
+    console.log("Cart table has been created successfully");
+    connection.end();
+  });
 };
 const createFactoryTable = () => {
-    const connection = connect();
-    const createFactoryTableQuery = `
+  const connection = connect();
+  const createFactoryTableQuery = `
       CREATE TABLE IF NOT EXISTS Factory (
           name VARCHAR(255)  PRIMARY KEY  NOT NULL,
           phone VARCHAR(20),
@@ -197,27 +197,27 @@ const createFactoryTable = () => {
           houseNumber INT
       )
     `;
-  
-    connection.query(createFactoryTableQuery, (err, result) => {
-      if (err) throw err;
-      console.log("Factory table has been created successfully");
-      connection.end();
-    });
-  };
 
-  
+  connection.query(createFactoryTableQuery, (err, result) => {
+    if (err) throw err;
+    console.log("Factory table has been created successfully");
+    connection.end();
+  });
+};
+
+
 
 
 
 module.exports = {
-    createUsersTable,
-    createDB,
-    createProductsTable,
-    createProductOrderTable,
-    createEventsTable,
-    createManagersTable,
-    createOrdersTable,
-    createPasswordsTable,
-    createCartTable,
-    createFactoryTable
+  createUsersTable,
+  createDB,
+  createProductsTable,
+  createProductOrderTable,
+  createEventsTable,
+  createManagersTable,
+  createOrdersTable,
+  createPasswordsTable,
+  createCartTable,
+  createFactoryTable
 };

@@ -4,4 +4,4 @@ const guestTokenController = require('../controllers/guest_token_controller');
 
 app.get('/', guestTokenController.getGuestToken);
 
-module.exports =app;
+module.exports = app;

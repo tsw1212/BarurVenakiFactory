@@ -3,18 +3,18 @@ const app = express.Router();
 const usersControllers = require('../controllers/usersController')
 
 
-app.get('/',usersControllers.getAllUsers );
+app.get('/', usersControllers.getAllUsers);
 
-app.get('/:id',usersControllers.getUserById );
+app.get('/:id', usersControllers.getUserById);
 
-app.get('/:id/orders',usersControllers.getUsersOrders);
+app.get('/:id/orders', usersControllers.getUsersOrders);
 
 app.get('/paged/:page', usersControllers.getUsersPaged);
 
 
-app.post('/',usersControllers.createUser );
+app.post('/', usersControllers.createUser);
 
-app.put('/:id',usersControllers.updateUser );
+app.put('/:id', usersControllers.updateUser);
 
 app.delete('/:id', usersControllers.deleteUser);
 

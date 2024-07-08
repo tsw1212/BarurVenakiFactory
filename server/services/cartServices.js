@@ -3,7 +3,7 @@ const converts = require('../modules/converts');
 
 const CartServices = {
     createCartItem: async (cartData) => {
-        const cartItem = await DB_actions.createCartItem(cartData); 
+        const cartItem = await DB_actions.createCartItem(cartData);
         return cartItem;
     },
 
@@ -26,8 +26,8 @@ const CartServices = {
         }));
         return updatedCarts;
     },
-    getCartById:async (itemId) => {
-         const cart = await DB_actions.getCartById(itemId);
+    getCartById: async (itemId) => {
+        const cart = await DB_actions.getCartById(itemId);
         return cart;;
     },
     updateCartItem: async (updatedCartData) => {

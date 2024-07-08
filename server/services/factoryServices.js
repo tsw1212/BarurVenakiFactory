@@ -14,9 +14,9 @@ const FactoryServices = {
         const factories = await DB_actions.getFactoryByName(name);
         return factories;
     },
-   
 
-  
+
+
     updateFactory: async (updatedFactoryData) => {
         const updatedFactory = await DB_actions.updateFactory(updatedFactoryData);
         return updatedFactory;
