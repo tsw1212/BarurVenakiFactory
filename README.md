@@ -49,6 +49,7 @@ Can update order statuses and manage customer interactions.
 Can add, delete, and update product details.
 Has the ability to send emails to customers for notifications and updates.
 
-Partners
+Contributors
 Tzivi Shacar https://github.com/tzivi21
-Tsipi Wajsberg
+
+Tsipi Wajsberg  https://github.com/tsw1212
