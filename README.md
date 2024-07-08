@@ -11,27 +11,38 @@ manager
 
 
 Guest: View products.
+
 Customer: View products, place orders, view previous orders, and check order status.
-Admin: Update orders, send emails to customers, add, delete, and update products.
+
+manager: Update orders, send emails to customers, add, delete, and update products.
+
 The website is built using a layered architecture and utilizes the following technologies:
 
+
 Database: MySQL
+
 Frontend: HTML, React,redux
+
 Backend: Node.js, JavaScript
-Project Structure
+
+**Project Structure
 The project follows a layered architecture pattern to separate concerns and ensure scalability and maintainability.
 
 Technologies Used
+
 Database: MySQL for storing product information, user details, orders, etc.
 Frontend: HTML and React for building a dynamic and responsive user interface.
 Backend: Node.js and JavaScript for server-side logic and API endpoints.
 User Modes
+
 Guest
 Can browse and view products available in the store.
 Customer
+
 Can view products and place new orders.
 Can view previous orders and check the status of current orders.
-Admin
+manager
+
 Can update order statuses and manage customer interactions.
 Can add, delete, and update product details.
 Has the ability to send emails to customers for notifications and updates.
