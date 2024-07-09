@@ -26,7 +26,24 @@ Frontend: HTML, React,redux
 Backend: Node.js, JavaScript
 
 Project Structure
-The project follows a layered architecture pattern to separate concerns and ensure scalability and maintainability.
+The project follows a layered architecture pattern to separate concerns and ensure scalability and maintainability. The server-side is organized into the following layers:
+
+Database Layer: Manages all database operations using MySQL.
+
+Routes Layer: Defines the API endpoints and routes.
+
+Controllers Layer: Handles the logic for each API endpoint, interacting with the services layer.
+
+Services Layer: Contains business logic and interacts with the database layer.
+
+
+Security Implementations
+
+Security measures have been integrated to ensure the safety and integrity of the data. These include:
+
+Authentication and authorization to control access to different parts of the application.
+Data validation and sanitization to prevent SQL injection and other common vulnerabilities.
+Secure communication protocols for data transmission.
 
 Technologies Used
 
