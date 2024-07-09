@@ -70,6 +70,8 @@ const UsersTable = ({ setFilteredUsers, filteredUsers }) => {
         <>
             {loading && <Loading />}
             <div className="search-container">
+            <FontAwesomeIcon icon="fas fa-search" />
+
                 <input
                     type="text"
                     placeholder="חפש ..."
@@ -77,7 +79,6 @@ const UsersTable = ({ setFilteredUsers, filteredUsers }) => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="searchInput"
                 />
-                <FontAwesomeIcon icon="fas fa-search" />
             </div>
             <div className="table-container">
                 <table className="users_table">
