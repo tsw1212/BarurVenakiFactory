@@ -45,7 +45,9 @@ Security Implementations
 Security measures have been integrated to ensure the safety and integrity of the data. These include:
 
 Authentication and authorization to control access to different parts of the application.
+
 Data validation and sanitization to prevent SQL injection and other common vulnerabilities.
+
 Secure communication protocols for data transmission.
 
 Technologies Used
@@ -70,6 +72,7 @@ Can add, delete, and update product details.
 Has the ability to send emails to customers for notifications and updates.
 
 Contributors
+
 Tzivi Shacar https://github.com/tzivi21
 
 Tsipi Wajsberg  https://github.com/tsw1212
