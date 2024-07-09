@@ -26,7 +26,9 @@ Frontend: HTML, React,redux
 Backend: Node.js, JavaScript
 
 Project Structure
-The project follows a layered architecture pattern to separate concerns and ensure scalability and maintainability. The server-side is organized into the following layers:
+
+The project follows a layered architecture pattern to separate concerns and ensure scalability and maintainability.
+The server-side is organized into the following layers:
 
 Database Layer: Manages all database operations using MySQL.
 
