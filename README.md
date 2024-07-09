@@ -1,6 +1,6 @@
 Barur VeNaki Factory Website
 
-The "Barur VeNaki" factory website is designed for a vacuum-packed legumes packaging company. The site is developed with three user modes:
+The "Barur VeNaki" factory website is designed for a vacuum-packed legumes packaging company. The site is developed with three user modes    :
 
 guest-products page
 ![image](https://github.com/tzivi21/BarurVenakiFactory/assets/148487391/6fc522a9-3343-4f8e-b163-04abe4c84970)
